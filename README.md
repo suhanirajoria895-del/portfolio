@@ -1,5 +1,11 @@
 # Portfolio
 
-Personal portfolio site by Suhani Rajoria. Plain HTML, CSS and JS, with no build step.
+Personal portfolio site by Suhani Rajoria, built with React and Vite.
 
-Open `index.html` in a browser to preview. Deploy the repo root as a static site (Vercel, Netlify, GitHub Pages).
+```bash
+npm install
+npm run dev      # local dev server
+npm run build    # production build to dist/
+```
+
+Edit projects in `src/data/projects.js`. Deploy on Vercel (framework preset: Vite).
