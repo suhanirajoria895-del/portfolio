@@ -1411,32 +1411,6 @@ const CONTROLS = [
   ["Checks before it asks", "Each suggestion shows which of her rules it was checked against.", "guardrails"],
 ];
 
-function LiveProto() {
-  const [on, setOn] = useState(false);
-  return (
-    <figure className="cs-live" data-reveal>
-      <figcaption>
-        <span className="cs-mono">Interactive prototype</span>
-        <span>Log in with any number, approve a price, undo it, switch to Hindi.</span>
-        <a href={DEMO} target="_blank" rel="noreferrer">
-          Full screen ↗
-        </a>
-      </figcaption>
-      <div className="cs-live__frame" ref={(el) => el && el.style.setProperty("--s", String(el.clientWidth / 1440))}>
-        {on ? (
-          <iframe src={DEMO} title="CoSell interactive prototype" />
-        ) : (
-          <button type="button" className="cs-live__start" onClick={() => setOn(true)}>
-            <img src={`${A}home.webp`} alt="" width="2880" height="1800" loading="lazy" />
-            <span>
-              <CoMark state="thinking" size={22} /> Start the prototype
-            </span>
-          </button>
-        )}
-      </div>
-    </figure>
-  );
-}
 
 function ScreenViewer() {
   const [i, setI] = useState(0);
@@ -1524,7 +1498,9 @@ function Screen({ s }) {
 function Solution() {
   return (
     <Sec id="solution" n="06" kicker="Solution" title="Final designs">
-      <LiveProto />
+      <a className="cs-protolink" href={DEMO} target="_blank" rel="noreferrer" data-reveal>
+        <span className="dot" /> Open the interactive prototype <span aria-hidden="true">↗</span>
+      </a>
 
       <ScreenViewer />
 

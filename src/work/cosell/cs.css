@@ -1484,3 +1484,7 @@ body {
 /* cursor-follow glow on dark panels */
 .aw, .pm, .cs-live, .cs-phones { position: relative; }
 .glow-follow::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; background: radial-gradient(400px circle at var(--mx, 50%) var(--my, 50%), rgba(201, 194, 255, 0.14), transparent 60%); }
+
+.cs-protolink { display: inline-flex; align-items: center; gap: 10px; width: fit-content; padding: 12px 20px; border-radius: 999px; background: var(--ink); color: #fff; font-size: 14.5px; font-weight: 600; text-decoration: none; transition: transform 200ms var(--ease); }
+.cs-protolink:hover { transform: translateY(-2px); }
+.cs-protolink .dot { width: 8px; height: 8px; border-radius: 50%; background: #2fb67c; box-shadow: 0 0 0 4px rgba(47, 182, 124, 0.25); }
