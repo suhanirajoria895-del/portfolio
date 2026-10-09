@@ -27,9 +27,9 @@ export const projects = [
     link: "/work/cosell/",
   },
   {
-    title: "Project Two",
-    description: "A short description of what this project is and what you built.",
-    image: "https://picsum.photos/seed/portfolio-project-two/900/600",
-    link: "#",
+    title: "SteadyTrack",
+    description: "A smart therapy glove and companion app that turn daily hand exercises for Parkinson's into guided, rhythmic practice at home.",
+    image: "/work/steadytrack/hero-glove-app.webp",
+    link: "/work/steadytrack/",
   },
 ];

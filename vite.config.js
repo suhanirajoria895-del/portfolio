@@ -10,6 +10,7 @@ export default defineConfig({
       input: {
         main: resolve(import.meta.dirname, "index.html"),
         cosell: resolve(import.meta.dirname, "work/cosell/index.html"),
+        steadytrack: resolve(import.meta.dirname, "work/steadytrack/index.html"),
       },
     },
   },

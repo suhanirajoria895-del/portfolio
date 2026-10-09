@@ -148,23 +148,17 @@ function Header() {
           CoSell watches all of a seller's marketplaces at once, catches errors that cost money, and leaves her a short
           list of decisions.
         </p>
-        <dl className="cs-meta">
-          <div>
-            <dt>Role</dt>
-            <dd>UX research, UI design</dd>
-          </div>
-          <div>
-            <dt>Type</dt>
-            <dd>Personal project</dd>
-          </div>
-          <div>
-            <dt>Platform</dt>
-            <dd>Web + mobile</dd>
-          </div>
-          <div>
-            <dt>Tools</dt>
-            <dd>Figma, Claude Code</dd>
-          </div>
+        <dl className="cs-facts">
+          {[
+            ["Role", "UX research, UI design"],
+            ["Team", "Solo"],
+            ["Type", "Personal project"],
+            ["Platform", "Web + mobile"],
+            ["Tools", "Figma, Claude Code"],
+            ["Achievement", "A working, clickable prototype of the web and phone app"],
+          ].map(([k, v]) => (
+            <div key={k} className={k === "Achievement" ? "wide" : ""}><dt>{k}</dt><dd>{v}</dd></div>
+          ))}
         </dl>
       </div>
 

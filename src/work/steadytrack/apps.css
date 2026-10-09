@@ -1,0 +1,95 @@
+/* ───────── SteadyTrack app screens ───────── */
+.session { grid-template-columns: 1fr; }
+.session__photo { min-height: 560px; }
+.apps__row { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(12px, 2vw, 24px); align-items: start; }
+.apps__row .ph:nth-child(even) { margin-top: 48px; }
+.ph { position: relative; aspect-ratio: 0.48; border-radius: 40px; padding: 9px; background: #1b1d22; box-shadow: 0 40px 60px -30px rgba(15, 27, 61, 0.55), inset 0 0 0 2px #3a3d44; transition: transform 500ms var(--ease); }
+.ph:hover { transform: translateY(-8px) rotate(-1deg); }
+.ph__notch { position: absolute; z-index: 3; top: 18px; left: 50%; translate: -50% 0; width: 32%; height: 22px; border-radius: 999px; background: #000; }
+.ph__bar { position: absolute; z-index: 2; top: 20px; left: 26px; right: 26px; display: flex; justify-content: space-between; font-size: 12px; }
+.ph__bar span { width: 22px; height: 10px; border-radius: 3px; border: 1.5px solid currentColor; opacity: 0.7; }
+.ph__screen { position: relative; height: 100%; border-radius: 32px; overflow: hidden; background: #f2f2f0; color: #17181c; padding: 52px 14px 14px; display: flex; flex-direction: column; gap: 10px; font-size: 12px; }
+.ph.dark .ph__screen { background: #121625; color: #fff; }
+.ph.dark .ph__bar { color: #fff; }
+.ap-head { display: flex; align-items: center; gap: 10px; }
+.ap-head p { font-size: 11px; color: #7b7e86; }
+.ap-head b { font-size: 15px; }
+.ap-head .ap-ic { margin-left: auto; }
+.ap-av { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--amber); color: var(--navy); font-weight: 800; flex: none; }
+.ap-ic { display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: #fff; color: #17181c; flex: none; }
+.ap-ic.sm { width: 28px; height: 28px; }
+.ph.dark .ap-ic { background: rgba(255, 255, 255, 0.1); color: #fff; }
+.ap-glove { position: relative; border-radius: 22px; overflow: hidden; aspect-ratio: 1.25; flex: none; }
+.ap-glove img { width: 100%; height: 100%; object-fit: cover; object-position: 40% 40%; transform: scale(1.25); }
+.ap-chip { position: absolute; left: 8px; top: 8px; display: inline-flex; align-items: center; gap: 4px; padding: 5px 9px; border-radius: 999px; background: rgba(255, 255, 255, 0.9); font-size: 10.5px; font-weight: 600; }
+.ap-chip.r { left: auto; right: 8px; }
+.ap-card { padding: 12px 14px; border-radius: 18px; background: #fff; }
+.ap-card b { font-size: 15px; display: block; }
+.ap-k { font-size: 10.5px; color: #7b7e86; margin-bottom: 3px; }
+.ap-sub { font-size: 11px; color: #7b7e86; }
+.amb { color: #f29a12; }
+.ap-cta { margin-top: 10px; width: 100%; min-height: 46px; border-radius: 999px; background: #17181c; color: #fff; font-weight: 700; font-size: 14px; }
+.ap-today .ap-cta { background: var(--amber); color: var(--navy); }
+.ap-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.ap-nav { margin-top: auto; align-self: center; display: flex; gap: 6px; padding: 6px; border-radius: 999px; background: #17181c; }
+.ap-nav span { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; color: #9a9ca3; }
+.ap-nav span.on { background: var(--amber); color: #17181c; }
+.ap-top { display: flex; align-items: center; justify-content: space-between; }
+.ap-top b { font-size: 14px; }
+.ap-beat { position: relative; display: grid; place-items: center; aspect-ratio: 1; margin: 6px 10%; }
+.ap-beat i { position: absolute; inset: 18%; border-radius: 50%; border: 2px solid var(--amber); animation: beat 2s var(--ease) infinite; }
+.ap-beat i:nth-child(2) { animation-delay: 0.66s; }
+.ap-beat i:nth-child(3) { animation-delay: 1.33s; }
+.ap-beat__core { position: relative; display: grid; place-items: center; align-content: center; width: 58%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ffd08a, #ff9a2e); color: #17181c; box-shadow: 0 0 40px rgba(255, 181, 71, 0.5); }
+.ap-beat__core b { font-size: 34px; line-height: 1; font-weight: 800; }
+.ap-beat__core span { font-size: 11px; }
+.ap-say { text-align: center; font-size: 15px; font-weight: 700; line-height: 1.3; }
+.ap-say span { font-weight: 400; color: rgba(255, 255, 255, 0.6); font-size: 12px; }
+.ap-fingers { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.ap-fingers div { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 8px 0; border-radius: 12px; background: rgba(255, 255, 255, 0.06); font-size: 10px; color: rgba(255, 255, 255, 0.5); transition: background 300ms; }
+.ap-fingers i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255, 255, 255, 0.2); transition: background 300ms, box-shadow 300ms; }
+.ap-fingers .on { background: rgba(255, 181, 71, 0.16); color: #fff; }
+.ap-fingers .on i { background: var(--amber); box-shadow: 0 0 10px var(--amber); }
+.ap-wave { display: flex; align-items: center; gap: 2px; height: 34px; }
+.ap-wave i { flex: 1; height: var(--h); border-radius: 2px; background: var(--amber); opacity: 0.8; animation: wave 1.2s ease-in-out var(--d) infinite alternate; }
+@keyframes wave { to { transform: scaleY(0.4); } }
+.ap-feedback { margin-top: auto; display: flex; align-items: center; gap: 6px; justify-content: center; padding: 12px; border-radius: 16px; background: rgba(111, 224, 184, 0.14); color: #8ff0c9; font-weight: 600; }
+.ap-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; border-radius: 999px; background: #fff; }
+.ap-tabs button { min-height: 36px; border-radius: 999px; font-size: 12px; color: #7b7e86; }
+.ap-tabs button.on { background: var(--amber); color: #17181c; font-weight: 700; }
+.ap-cardhead { display: flex; justify-content: space-between; align-items: center; }
+.ap-big { font-size: 26px !important; font-weight: 800; letter-spacing: -0.03em; }
+.ap-big small { font-size: 12px; font-weight: 500; color: #7b7e86; }
+.ap-chart { width: 100%; height: 70px; margin-top: 6px; }
+.ap-days { display: flex; justify-content: space-between; font-size: 10px; color: #9a9ca3; }
+.ap-heat { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; margin-top: 6px; }
+.ap-heat i { aspect-ratio: 1; border-radius: 6px; background: rgba(255, 166, 40, var(--o)); }
+.ap-done { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 14px 0 6px; text-align: center; }
+.ap-done b { font-size: 18px; }
+.ap-done__tick { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: var(--amber); color: #17181c; margin-bottom: 6px; box-shadow: 0 0 0 10px rgba(255, 181, 71, 0.2); }
+.ap-row .ap-card b { font-size: 20px; }
+.ap-physio { display: flex; align-items: center; gap: 10px; }
+.ap-physio b { font-size: 13px; }
+.ap-physio svg { margin-left: auto; }
+.ap-q { font-weight: 700; font-size: 13px; margin-top: 2px; }
+.ap-feel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.ap-feel button { min-height: 44px; border-radius: 14px; background: #fff; font-weight: 600; font-size: 12px; }
+.ap-feel button.on { background: #17181c; color: #fff; }
+.apps__notes { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(12px, 2vw, 24px); margin-top: 28px; }
+.apps__notes li { display: flex; flex-direction: column; gap: 4px; padding-top: 14px; border-top: 2px solid var(--amber); font-size: 14px; color: var(--ink-2); }
+.apps__notes b { color: var(--ink); font-size: 15px; }
+@media (max-width: 1080px) { .apps__row, .apps__notes { grid-template-columns: 1fr 1fr; } .apps__row .ph:nth-child(even) { margin-top: 0; } }
+@media (max-width: 560px) { .apps__row, .apps__notes { grid-template-columns: 1fr; } .ph { max-width: 300px; margin-inline: auto; } }
+
+/* fit content */
+.ph { aspect-ratio: 0.46; }
+.ph__screen { gap: 8px; padding: 48px 12px 12px; }
+.ap-glove { aspect-ratio: 1.7; }
+.ap-chart { height: 46px; }
+.ap-card { padding: 10px 12px; }
+.ap-beat { margin: 0 14%; }
+.ap-done { padding: 4px 0 0; }
+.ap-done__tick { width: 52px; height: 52px; }
+.ap-cta { min-height: 42px; margin-top: 6px; }
+.ap-nav span { width: 38px; height: 38px; }
+.ap-heat { grid-template-columns: repeat(7, 1fr); }
