@@ -36,7 +36,6 @@ export default function CaseStudy() {
           n="04"
           kicker="Synthesis"
           title="Defining what to build"
-          lede="The problem statement, design principles, core flow and the trade-offs behind them."
         >
           <Define />
           <Flows />
@@ -47,7 +46,6 @@ export default function CaseStudy() {
           n="05"
           kicker="Design"
           title="Wireframes and iterations"
-          lede="Low-fidelity layouts to settle the structure, then the changes I made once they became real screens."
         >
           <Wireframes />
           <Iterations />
@@ -120,7 +118,6 @@ function Part({ kicker, title, children, lede }) {
   return (
     <div className="cs-part">
       <header className="cs-part__head" data-reveal>
-        <p className="cs-mono">{kicker}</p>
         <h3>{title}</h3>
         {lede && <p className="cs-body">{lede}</p>}
       </header>
@@ -145,10 +142,11 @@ function Header() {
     <header className="cs-head" data-reveal>
       <div className="cs-head__copy">
         <p className="cs-mono">Case study 01 · Product design · Self-initiated</p>
-        <h1>CoSell: an AI copilot for sellers who sell on more than one marketplace</h1>
+        <h1>CoSell: one AI copilot for every marketplace you sell on</h1>
         <p className="cs-lede">
-          Small sellers often list on several marketplaces and check each dashboard by hand. CoSell's copilot, Co, watches
-          all of them at once, catches mistakes that cost money, and shows the seller only the decisions that need her.
+          Many small sellers run their business across several marketplaces, each with its own dashboard to check. CoSell
+          brings them into one place. Its copilot, Co, keeps track of every channel, flags errors that cost money, and
+          leaves the seller with a short list of decisions to make.
         </p>
         <ul className="cs-tags">
           {["AI agent UX", "Seller tools", "Desktop + mobile", "English + Hindi"].map((t) => (
@@ -186,21 +184,20 @@ function Header() {
         </div>
       </dl>
 
-      <div className="cs-head__board" aria-hidden="true">
-        <Sticky c="y" r={-4}>
-          <p className="hand">"Which of these 3 tabs is lying to me today?"</p>
-          <span className="hand small">the question I kept coming back to</span>
-        </Sticky>
-        <Sticky c="p" r={3}>
-          <p className="hand big">₹1,890</p>
-          <span className="hand small">lost on a single payout statement (see 01)</span>
-        </Sticky>
-        <Sticky c="b" r={-2}>
-          <p className="hand">3 dashboards
-            <br />3 rule books
-            <br />1 tired person</p>
-        </Sticky>
-      </div>
+      <ul className="cs-head__facts">
+        <li>
+          <b>3+</b>
+          <span>seller dashboards checked by hand every day</span>
+        </li>
+        <li>
+          <b>1–3%</b>
+          <span>of sales lost to fee and return errors</span>
+        </li>
+        <li>
+          <b>~30 days</b>
+          <span>to claim a wrong fee before it's gone</span>
+        </li>
+      </ul>
     </header>
   );
 }
@@ -423,45 +420,74 @@ function Journey() {
 const RIVALS = [
   {
     name: "Amazon Seller Assistant",
-    who: "Amazon, free for sellers in India",
-    does: "Answers questions, writes listings from a photo, and can make changes once the seller gives permission. Works in English and Hinglish.",
-    took: "Asking for permission before acting.",
-    gap: "Only sees the seller's Amazon shop.",
+    domain: "amazon.in",
+    took: "Asks permission before acting",
+    gap: "Only sees Amazon",
     src: ["aboutamazon.in", "https://www.aboutamazon.in/news/small-business/amazon-seller-assistant-ai-tool-india"],
   },
   {
     name: "Flipkart Saarthi",
-    who: "Flipkart Ads",
-    does: "A conversational ads dashboard that points out campaigns that aren't working and suggests fixes.",
-    took: "Pointing at the problem first, then suggesting what to do.",
-    gap: "Focused on ads, and only on Flipkart.",
+    domain: "flipkart.com",
+    took: "Flags the problem, then suggests a fix",
+    gap: "Ads only, Flipkart only",
     src: ["The Wire", "https://m.thewire.in/article/ptiprnews/flipkart-ads-launches-saarthi-to-help-sellers-grow-with-ai-powered-tools-and-expert-advertising-support"],
   },
   {
-    name: "Meesho seller AI",
-    who: "Meesho",
-    does: "Voice agents in local languages handle up to 3 lakh seller calls a day, plus AI help with catalogues and ads.",
-    took: "Local-language voice for sellers who don't want to type.",
-    gap: "Support and setup, not day-to-day decisions.",
+    name: "Meesho voice agents",
+    domain: "meesho.com",
+    took: "Local-language voice",
+    gap: "Support calls, not decisions",
     src: ["Inc42", "https://inc42.com/features/amazon-flipkart-meeshos-ai-focus-shifts-to-seller-side-stacks/"],
   },
   {
     name: "Shopify Sidekick",
-    who: "Shopify, for store owners",
-    does: "Builds reports, suggests campaigns and sets up automations, with the merchant approving each one.",
-    took: "Showing the automation before it runs.",
-    gap: "Lives inside one store, not across marketplaces.",
+    domain: "shopify.com",
+    took: "Shows the automation before it runs",
+    gap: "One store only",
     src: ["Retail Brew", "https://www.retailbrew.com/stories/2025/12/11/shopify-plugs-in-more-ai-power-to-merchant-assistant"],
   },
   {
-    name: "Unicommerce / EasyEcom",
-    who: "Multichannel software",
-    does: "Syncs stock across many channels and reconciles payouts and returns, through tools like UniReco and EasyReco.",
-    took: "Treating payout reconciliation as a feature, not a spreadsheet.",
-    gap: "Built for brands with warehouses and ops teams, and it flags issues rather than deciding anything.",
+    name: "Unicommerce",
+    domain: "unicommerce.com",
+    took: "Payout checks as a feature",
+    gap: "Built for brands with ops teams",
     src: ["The Week", "https://www.theweek.in/wire-updates/business/2025/06/19/dcm36-unicommerce.html"],
   },
 ];
+
+/* x: 0 = one marketplace, 100 = all of them. y: 0 = shows information, 100 = takes action. */
+const MAP = [
+  ["Amazon Seller Assistant", 12, 74],
+  ["Flipkart Saarthi", 18, 46],
+  ["Meesho voice agents", 9, 24],
+  ["Shopify Sidekick", 30, 66],
+  ["Unicommerce / EasyEcom", 80, 34],
+  ["Spreadsheets", 64, 10],
+];
+
+function Positioning() {
+  return (
+    <div className="cs-pos" role="img" aria-label="Positioning map: marketplace AI tools act but see one marketplace; multichannel tools see all marketplaces but only show information; CoSell sees all and acts with permission.">
+      <div className="cs-pos__plot">
+        <span className="gap">The empty corner</span>
+        {MAP.map(([n, x, y]) => (
+          <span key={n} className="dot" style={{ left: `${x}%`, bottom: `${y}%` }}>
+            <i />
+            {n}
+          </span>
+        ))}
+        <span className="dot us" style={{ left: "84%", bottom: "80%" }}>
+          <CoMark state="idle" size={26} />
+          CoSell
+        </span>
+      </div>
+      <span className="ax y1">Takes action ↑</span>
+      <span className="ax y0">Shows information</span>
+      <span className="ax x0">One marketplace</span>
+      <span className="ax x1">Every marketplace →</span>
+    </div>
+  );
+}
 
 const TOOLS = ["Marketplace AI", "Shopify Sidekick", "Multichannel tools", "CoSell"];
 const CAPS = [
@@ -522,70 +548,21 @@ function Analysis() {
       </article>
 
       <div className="cs-comp" data-reveal>
-        <p className="cs-mono">Competitive analysis</p>
-        <h3 className="cs-h3">Every marketplace now has its own AI. That's the problem.</h3>
-        <p className="cs-body">
-          When I started, I assumed sellers had no AI help. That's not true anymore. In 2025 and 2026 every big marketplace
-          shipped an assistant for its sellers. But each one only sees its own shop, and none of them is going to point out
-          a fee it overcharged. A seller on three marketplaces now has three separate assistants, and still nobody looking
-          across all of them.
-        </p>
+        <h3 className="cs-h3">Every marketplace now has its own AI. Each one only sees its own shop.</h3>
+        <Positioning />
         <div className="cs-rivals">
           {RIVALS.map((r) => (
-            <article key={r.name}>
-              <header>
-                <h4>{r.name}</h4>
-                <p>{r.who}</p>
-              </header>
-              <p className="does">{r.does}</p>
-              <dl>
-                <div>
-                  <dt>What I took from it</dt>
-                  <dd>{r.took}</dd>
-                </div>
-                <div>
-                  <dt>What it misses</dt>
-                  <dd>{r.gap}</dd>
-                </div>
-              </dl>
-              <a href={r.src[1]} target="_blank" rel="noreferrer">
-                Source: {r.src[0]} ↗
-              </a>
-            </article>
+            <a key={r.name} className="cs-rival" href={r.src[1]} target="_blank" rel="noreferrer">
+              <span className="logo">
+                <img src={`https://www.google.com/s2/favicons?domain=${r.domain}&sz=64`} alt="" width="28" height="28" loading="lazy" />
+              </span>
+              <span className="nm">{r.name}</span>
+              <span className="ok">✓ {r.took}</span>
+              <span className="miss">✕ {r.gap}</span>
+            </a>
           ))}
         </div>
-      </div>
-
-      <div className="cs-matrix-wrap" data-reveal>
-        <h3 className="cs-h3">Where CoSell fits</h3>
-        <div className="cs-scroll">
-          <table className="cs-matrix">
-            <thead>
-              <tr>
-                <th />
-                {TOOLS.map((t) => (
-                  <th key={t} className={t === "CoSell" ? "us" : ""}>{t}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {CAPS.map(([cap, vals]) => (
-                <tr key={cap}>
-                  <th scope="row">{cap}</th>
-                  {vals.map((v, i) => (
-                    <td key={i} className={TOOLS[i] === "CoSell" ? "us" : ""}>
-                      <span className={v === 1 ? "yes" : v ? "part" : "no"}>{v === 1 ? "✓" : v ? "Partly" : "✕"}</span>
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="cs-note">
-          "Marketplace AI" groups the Amazon, Flipkart and Meesho tools above. Based on public announcements and press
-          coverage, not hands-on testing, so "Partly" means it's announced or limited.
-        </p>
+        <p className="cs-note">Based on public announcements and press coverage. Each card links to its source.</p>
       </div>
     </Sec>
   );
@@ -626,7 +603,7 @@ function Ecosystem() {
 
 function Define() {
   return (
-    <Part kicker="The brief" title="Problem statement and principles">
+    <Part title="Problem statement and principles">
       <blockquote className="cs-hmw" data-reveal>
         <span className="cs-mono">How might we</span>
         let a solo seller hand the repetitive marketplace work to an AI, <em>and still feel like it's her shop?</em>
@@ -657,7 +634,7 @@ function Define() {
 
 function Flows() {
   return (
-    <Part kicker="Flows" title="What Co does and what the seller decides" lede="Before drawing a single screen, I wrote down who does what. Then I drew the one loop that every feature goes through.">
+    <Part title="Who does what">
       <div className="cs-roles" data-reveal>
         <div>
           <p className="who">
@@ -977,7 +954,7 @@ function WireToFinal() {
 
 function Wireframes() {
   return (
-    <Part kicker="Wireframes" title="Wireframes" lede="I drew two versions of the home screen and judged them on one thing: what does Meera do in her first ten seconds?">
+    <Part title="From wireframe to screen">
       <WireToFinal />
 
       <p className="cs-mono cs-wires__label" data-reveal>How I got to that home screen</p>
@@ -1115,7 +1092,7 @@ const TRADEOFFS = [
 
 function Tradeoffs() {
   return (
-    <Part kicker="Choices I had to make" title="What I picked, and what I gave up for it">
+    <Part title="What I picked, and what I gave up for it">
       <div className="cs-trade" data-reveal>
         <div className="cs-trade__row head" aria-hidden="true">
           <span>Decision</span>
@@ -1417,7 +1394,7 @@ const MARKS = [
 function DesignSystem() {
   const [mode, setMode] = useState("ask");
   return (
-    <Part kicker="Design system" title="Design system" lede="Flat colour, lots of room, one main button per card. Colour only ever means a status, never decoration. Every value lives in one file, so I could change the palette without touching a screen.">
+    <Part title="Design system" lede="Colour only means status. Every value lives in one token file.">
       <div className="ds-block" data-reveal>
         <h3 className="ds-h">Typefaces</h3>
         <div className="ds-type">
@@ -1593,11 +1570,7 @@ function DesignSystem() {
 function Iterations() {
   const [split, setSplit] = useState(50);
   return (
-    <Part
-      kicker="Iterations"
-      title="What changed between versions"
-      lede="Three decisions I revised after seeing the first version."
-    >
+    <Part title="Three things I changed after the first version">
       <article className="cs-iter" data-reveal>
         <div className="cs-iter__copy">
           <p className="cs-mono">Decision 01 · Mobile</p>
