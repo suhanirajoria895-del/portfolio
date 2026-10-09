@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { CoMark } from "./CoMark.jsx";
+import DesignSystem from "./DesignSystem.jsx";
 import { useActiveId, useRevealAll } from "./hooks.js";
 
 const A = "/work/cosell/"; // asset base
@@ -413,6 +414,28 @@ function Research() {
         <Journey />
       </figure>
 
+      <figure className="cs-fig" data-reveal>
+        <figcaption>
+          <span className="cs-mono">Swimlane</span> Who does what across a day, and where the hand-offs break
+        </figcaption>
+        <Swimlane />
+        <div className="cs-breaks">
+          {BREAKS.map(([t, items]) => (
+            <div key={t}>
+              <h4>{t}</h4>
+              <ul>
+                {items.map(([n, d]) => (
+                  <li key={n}>
+                    <b>{n}</b>
+                    {d}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </figure>
+
       <details className="cs-more" data-reveal>
         <summary>Where the numbers come from</summary>
         <table>
@@ -442,6 +465,84 @@ function Research() {
         </table>
       </details>
     </Sec>
+  );
+}
+
+const LANES = ["Seller", "Marketplace panels", "Buyers and couriers", "Spreadsheet"];
+const STAGES = ["Morning", "Stock", "Returns", "Pricing", "Payouts"];
+// [lane, stage, label, breakpoint number]
+const STEPS_SW = [
+  [1, 0, "New orders on 3 panels"],
+  [0, 0, "Logs in to each panel", 1],
+  [0, 1, "Types stock into each", 2],
+  [1, 1, "Counts drift apart"],
+  [2, 2, "Buyer raises a return"],
+  [1, 2, "Return case opens"],
+  [0, 2, "Replies, panel by panel", 3],
+  [1, 3, "Rival drops price"],
+  [0, 3, "Notices hours later", 4],
+  [1, 4, "Settlement statement"],
+  [3, 4, "Copied into Excel"],
+  [0, 4, "Checks fees by hand", 5],
+];
+const LINKS = [[0, 1], [1, 2], [2, 3], [4, 5], [5, 6], [7, 8], [9, 10], [10, 11]];
+const BREAKS = [
+  ["Stock and orders", [["1", "Three logins and no shared view, every morning."], ["2", "Stock typed in three places drifts, and items oversell."]]],
+  ["Buyers", [["3", "Each panel has its own return deadline. Miss one and the case is decided for her."]]],
+  ["Money", [["4", "A rival's price drop is seen hours late, after the Buy Box is lost."], ["5", "Fee errors hide in settlement files and go unclaimed."]]],
+];
+
+function Swimlane() {
+  const LW = 140;
+  const CW = 170;
+  const LH = 84;
+  const TOP = 34;
+  const pos = (lane, stage) => [LW + 20 + stage * CW, TOP + lane * LH + 22];
+  const BW = 140;
+  const BH = 40;
+  return (
+    <div className="cs-scroll">
+      <svg viewBox={`0 0 ${LW + 20 + STAGES.length * CW} ${TOP + LANES.length * LH + 10}`} className="cs-swim" role="img" aria-label="Swimlane of a seller's day across marketplaces, buyers and a spreadsheet, with five breakpoints">
+        <defs>
+          <marker id="sw-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#8a8fa8" />
+          </marker>
+        </defs>
+        {STAGES.map((st, i) => (
+          <text key={st} x={LW + 20 + i * CW + BW / 2} y={20} textAnchor="middle" className="stage">{st}</text>
+        ))}
+        {LANES.map((l, i) => (
+          <g key={l}>
+            <rect x="0" y={TOP + i * LH} width="100%" height={LH} className={i % 2 ? "lane alt" : "lane"} />
+            <text x="14" y={TOP + i * LH + LH / 2 + 4} className="lname">{l}</text>
+          </g>
+        ))}
+        {LINKS.map(([a, b]) => {
+          const [x1, y1] = pos(STEPS_SW[a][0], STEPS_SW[a][1]);
+          const [x2, y2] = pos(STEPS_SW[b][0], STEPS_SW[b][1]);
+          const sameCol = x1 === x2;
+          const d = sameCol
+            ? `M${x1 + BW / 2},${y1 + (y2 > y1 ? BH : 0)} V${y2 + (y2 > y1 ? 0 : BH)}`
+            : `M${x1 + BW},${y1 + BH / 2} H${(x1 + BW + x2) / 2} V${y2 + BH / 2} H${x2}`;
+          return <path key={`${a}-${b}`} d={d} className="ln" markerEnd="url(#sw-ar)" />;
+        })}
+        {STEPS_SW.map(([lane, stage, label, bp]) => {
+          const [x, y] = pos(lane, stage);
+          return (
+            <g key={label}>
+              <rect x={x} y={y} width={BW} height={BH} rx="10" className={lane === 0 ? "box me" : "box"} />
+              <text x={x + BW / 2} y={y + BH / 2 + 4} textAnchor="middle" className="t">{label}</text>
+              {bp && (
+                <g>
+                  <circle cx={x + BW - 2} cy={y + 2} r="10" className="bp" />
+                  <text x={x + BW - 2} y={y + 5.5} textAnchor="middle" className="bpt">{bp}</text>
+                </g>
+              )}
+            </g>
+          );
+        })}
+      </svg>
+    </div>
   );
 }
 
@@ -1483,202 +1584,6 @@ function Solution() {
 
       <DesignSystem />
     </Sec>
-  );
-}
-
-/* ───────────────────────── 09 design system ───────────────────────── */
-
-const RAMPS = [
-  ["Periwinkle", "brand and primary", ["#F4F3FF", "#EEECFF", "#C9C2FF", "#9B8FFF", "#6B5CFF", "#5543E8", "#3A2DB0"]],
-  ["Navy", "text and buttons", ["#F2F3F8", "#E2E4EE", "#A9ADBF", "#676C88", "#3B3F5C", "#23253F", "#14142B"]],
-  ["Pink", "Co's second circle", ["#FFF2F6", "#FFDCE7", "#FFB8CE", "#FF8FB1", "#F2668F", "#C94570", "#8F2A4C"]],
-];
-const STEPS = ["50", "100", "200", "400", "500", "600", "800"];
-const STATUS = [
-  ["Success", "#2FB67C", "High confidence"],
-  ["Warning", "#F5A524", "Medium, low stock"],
-  ["Danger", "#EF5B6B", "Low, mismatch"],
-  ["Needs you", "#F07A5A", "Co's alert dot"],
-];
-const MARKS = [
-  ["idle", "Watching"],
-  ["thinking", "Thinking"],
-  ["needsYou", "Needs you"],
-  ["done", "Done"],
-  ["paused", "Paused"],
-];
-
-function DesignSystem() {
-  const [mode, setMode] = useState("ask");
-  return (
-    <Part title="Design system" lede="Colour only means status. Every value lives in one token file.">
-      <div className="ds-block" data-reveal>
-        <h3 className="ds-h">Typefaces</h3>
-        <div className="ds-type">
-          <article>
-            <p className="aa" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Aa</p>
-            <h4>Plus Jakarta Sans</h4>
-            <dl>
-              <div><dt>Used for</dt><dd>UI, headings, numbers</dd></div>
-              <div><dt>Weights</dt><dd>400, 500, 700</dd></div>
-              <div><dt>Sizes</dt><dd>32 / 24 / 18 / 14 / 13</dd></div>
-              <div><dt>Numbers</dt><dd>Tabular for all money</dd></div>
-            </dl>
-          </article>
-          <article>
-            <p className="aa" lang="hi" style={{ fontFamily: "Mukta, sans-serif" }}>अआ</p>
-            <h4>Mukta</h4>
-            <dl>
-              <div><dt>Used for</dt><dd>Hindi (Devanagari)</dd></div>
-              <div><dt>Weights</dt><dd>400, 600</dd></div>
-              <div><dt>Sizes</dt><dd>Same as Jakarta, +1px</dd></div>
-              <div><dt>Why</dt><dd>Sits at the same height</dd></div>
-            </dl>
-          </article>
-          <ul className="ds-scale" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
-            <li style={{ fontSize: 30, fontWeight: 700 }}>Good morning, Meera<span>Display 32</span></li>
-            <li style={{ fontSize: 22, fontWeight: 700 }}>₹48,250 today<span>Title 24</span></li>
-            <li style={{ fontSize: 17, fontWeight: 700 }}>Needs your approval<span>Heading 18</span></li>
-            <li style={{ fontSize: 14 }}>Nothing changes until you say yes.<span>Body 14</span></li>
-            <li style={{ fontSize: 13, color: "#676C88" }}>Oldest one is 2 days old<span>Label 13</span></li>
-          </ul>
-        </div>
-      </div>
-
-      <div className="ds-block" data-reveal>
-        <h3 className="ds-h">Colour</h3>
-        {RAMPS.map(([name, role, hexes]) => (
-          <div key={name} className="ds-ramp">
-            <p>
-              <strong>{name}</strong> {role}
-            </p>
-            <div>
-              {hexes.map((h, i) => (
-                <span key={h} style={{ background: h, color: i > 3 ? "#fff" : "#14142B" }}>
-                  <b>{STEPS[i]}</b>
-                  {h}
-                </span>
-              ))}
-            </div>
-          </div>
-        ))}
-        <div className="ds-status">
-          {STATUS.map(([n, h, u]) => (
-            <div key={n}>
-              <i style={{ background: h }} />
-              <p>
-                <strong>{n}</strong> {h}
-                <br />
-                <span>{u}</span>
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="ds-block" data-reveal>
-        <h3 className="ds-h">Co, the mark</h3>
-        <div className="ds-marks">
-          {MARKS.map(([s, l]) => (
-            <div key={s}>
-              <CoMark state={s} size={56} />
-              <p>{l}</p>
-            </div>
-          ))}
-        </div>
-        <p className="cs-note">Two flat circles: Meera and Co, with the work happening where they overlap. The shape alone tells you the state, so it still reads at 16px and with motion turned off.</p>
-      </div>
-
-      <div className="ds-block" data-reveal>
-        <h3 className="ds-h">Buttons</h3>
-        <div className="cs-scroll">
-          <table className="ds-matrix">
-            <thead>
-              <tr>
-                <th />
-                {["Default", "Hover", "Pressed", "Disabled"].map((s) => (
-                  <th key={s}>{s}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                ["Primary", "p"],
-                ["Secondary", "s"],
-                ["Destructive", "d"],
-              ].map(([n, k]) => (
-                <tr key={k}>
-                  <th scope="row">{n}</th>
-                  {["", "hover", "press", "off"].map((st) => (
-                    <td key={st}>
-                      <span className={`b b--${k} ${st}`}>{k === "p" ? "Approve" : k === "s" ? "Edit price" : "Reject"}</span>
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div className="ds-grid" data-reveal>
-        <div className="ds-block">
-          <h3 className="ds-h">Chips</h3>
-          <div className="ds-row">
-            <span className="chip">Amazon</span>
-            <span className="chip">Flipkart</span>
-            <span className="chip">Meesho</span>
-          </div>
-          <div className="ds-row">
-            <span className="conf h">● High</span>
-            <span className="conf m">● Medium</span>
-            <span className="conf l">● Low</span>
-          </div>
-          <p className="cs-note">Marketplaces get plain grey labels. Only status gets colour.</p>
-        </div>
-        <div className="ds-block">
-          <h3 className="ds-h">The freedom control</h3>
-          <div className="seg" role="radiogroup" aria-label="Freedom level example">
-            {[
-              ["suggest", "Suggest only"],
-              ["ask", "Ask me first"],
-              ["auto", "Auto within limits"],
-            ].map(([v, l]) => (
-              <button key={v} type="button" role="radio" aria-checked={mode === v} onClick={() => setMode(v)}>
-                {l}
-              </button>
-            ))}
-          </div>
-          <p className="cs-note">The control she'll touch most. Go on, click it.</p>
-        </div>
-        <div className="ds-block">
-          <h3 className="ds-h">Navigation</h3>
-          <div className="ds-nav">
-            {["Default", "Hover", "Active", "Badge"].map((s) => (
-              <div key={s}>
-                <span className={`ni ${s.toLowerCase()}`}>
-                  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
-                    <path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
-                  </svg>
-                  {s === "Badge" && <b>3</b>}
-                </span>
-                <p>{s}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="ds-block">
-          <h3 className="ds-h">Shape and space</h3>
-          <ul className="ds-tokens">
-            <li><span>Corners</span> pill buttons · 24 cards · 32 frame</li>
-            <li><span>Gaps</span> 24 to 32px</li>
-            <li><span>Rows</span> 56px in tables</li>
-            <li><span>Targets</span> 48px at least</li>
-            <li><span>Contrast</span> WCAG AA on all text</li>
-          </ul>
-        </div>
-      </div>
-    </Part>
   );
 }
 
