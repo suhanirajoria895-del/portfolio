@@ -1769,14 +1769,49 @@ function Reflection() {
   );
 }
 
+const CONFETTI = ["₹", "✓", "★", "♥", "₹", "✓", "★", "✦", "₹", "✓", "♥", "✦", "★", "₹"];
+
 function Footer() {
+  const [state, setState] = useState("pending"); // pending | yes | no
   return (
-    <footer className="cs-foot">
-      <p>Thanks for reading this far. If you'd like the long version, with all the messy bits, I'd love to walk you through it.</p>
-      <div>
-        <a href="/#contact" className="cs-btn">Say hello</a>
-        <a href="/#projects" className="cs-link">Back to all work</a>
+    <footer className="end">
+      <p className="cs-mono">One last suggestion from Co</p>
+      <div className={`end__card ${state}`}>
+        <div className="end__head">
+          <CoMark state={state === "yes" ? "done" : "needsYou"} size={40} />
+          <div>
+            <p className="end__k">Needs your call · Portfolio</p>
+            <h3>{state === "yes" ? "Approved. Suhani is on it." : state === "no" ? "Rejected. Co learned something." : "Hire Suhani as your next product designer?"}</h3>
+          </div>
+        </div>
+        {state === "pending" && (
+          <>
+            <p className="end__why">Co is <b>very sure</b>: research ✓ · flows ✓ · a working prototype ✓ · knows when to ask before acting ✓</p>
+            <div className="end__btns">
+              <button type="button" className="yes" onClick={() => setState("yes")}>✓ Approve</button>
+              <button type="button" className="no" onClick={() => setState("no")}>Not now</button>
+            </div>
+          </>
+        )}
+        {state === "yes" && (
+          <div className="end__done">
+            <a href="/#contact" className="cs-btn">Say hello →</a>
+            <a href="/#projects" className="cs-link">See more work</a>
+            <div className="end__confetti" aria-hidden="true">
+              {CONFETTI.map((c, i) => (
+                <span key={i} style={{ "--x": `${(i * 37) % 100}%`, "--d": `${(i % 7) * 70}ms`, "--r": `${(i * 53) % 360}deg` }}>{c}</span>
+              ))}
+            </div>
+          </div>
+        )}
+        {state === "no" && (
+          <div className="end__done">
+            <span className="end__toast">Changed your mind? <button type="button" onClick={() => setState("pending")}>Undo</button></span>
+            <a href="/#projects" className="cs-link">See more work</a>
+          </div>
+        )}
       </div>
+      <p className="end__note">Every decision on this page asked before acting. So does this one.</p>
     </footer>
   );
 }
