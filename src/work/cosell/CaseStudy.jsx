@@ -4,6 +4,7 @@ import { useActiveId, useRevealAll } from "./hooks.js";
 
 const A = "/work/cosell/"; // asset base
 const DEMO = "/work/cosell/demo/index.html#/";
+const FIGJAM = "https://www.figma.com/board/thUniTYGliBINd10bU6FLS";
 const MEERA =
   "https://images.unsplash.com/photo-1723041885055-3e35ae8dd980?w=360&h=360&fit=crop&crop=focalpoint&fp-x=0.53&fp-y=0.42&fp-z=2.2&auto=format&q=70";
 
@@ -149,6 +150,21 @@ function Header() {
         </dl>
       </div>
 
+      <dl className="cs-tldr">
+        <div>
+          <dt>Problem</dt>
+          <dd>Sellers on three marketplaces lose hours to tab switching, and 1 to 3% of sales to errors nobody catches.</dd>
+        </div>
+        <div>
+          <dt>What I made</dt>
+          <dd>Co, a copilot that watches all three shops, fixes what it's allowed to, and asks about the rest.</dd>
+        </div>
+        <div>
+          <dt>The hard part</dt>
+          <dd>Getting a seller to trust software with her prices. Every decision on this page comes back to that.</dd>
+        </div>
+      </dl>
+
       <div className="cs-head__board" aria-hidden="true">
         <Sticky c="y" r={-4}>
           <p className="hand">"Which of these 3 tabs is lying to me today?"</p>
@@ -269,33 +285,6 @@ const JOURNEY = [
   ["22:00", "Reconcile payouts", -3, "Can't tell which fee is wrong"],
 ];
 
-const WALL = [
-  {
-    head: "Time goes to watching, not selling",
-    c: "y",
-    notes: ["Same stock number typed into 3 portals", "Diwali week: \"humanly impossible\" to keep counts in sync", "Every morning starts with 3 logins"],
-    insight: "Sellers already have plenty of dashboards. What they're short of is time to look at them.",
-  },
-  {
-    head: "Mistakes are small and silent",
-    c: "p",
-    notes: ["Wrong commission slab", "RTO charged on a delivered order", "Returned stock never restocked"],
-    insight: "A 1 to 3% leak is invisible on any given day. Over a year it's a lot of money.",
-  },
-  {
-    head: "Being late is expensive",
-    c: "b",
-    notes: ["Claim windows close in ~30 days", "Return replies have a deadline", "Fashion returns: 25 to 40% of orders"],
-    insight: "The problem isn't knowing what to do. It's knowing in time.",
-  },
-  {
-    head: "Handing over control is scary",
-    c: "g",
-    notes: ["Margins are thin, one bad price hurts", "Price rules differ per marketplace", "Auto-repricing tools feel like a black box"],
-    insight: "Nobody will let software touch prices unless they can see why and take it back.",
-  },
-];
-
 function Research() {
   return (
     <Sec
@@ -303,7 +292,7 @@ function Research() {
       n="02"
       kicker="Research"
       title="I went looking for the moments where time and money slip away."
-      lede="This was desk research, not interviews (more on that at the end). I read seller guides, reconciliation write-ups, logistics reports and a lot of forum threads, and put every observation on a sticky note."
+      lede="This was desk research, not interviews (more on that at the end). I read seller guides, reconciliation write-ups, logistics reports and a lot of forum threads, and put every observation on a sticky note in FigJam."
     >
       <ol className="cs-process" data-reveal>
         {[
@@ -323,23 +312,15 @@ function Research() {
 
       <figure className="cs-fig cs-fig--board" data-reveal>
         <figcaption>
-          <span className="cs-mono">Affinity wall</span> Around 40 notes ended up in four piles. Here are a few from each.
+          <span className="cs-mono">Affinity wall, from my FigJam board</span> Every observation went on a sticky, then into
+          four piles. The white note under each pile is what that pile told me.
+          <a href={FIGJAM} target="_blank" rel="noreferrer" className="cs-figlink">
+            Open the board ↗
+          </a>
         </figcaption>
-        <div className="cs-wall">
-          {WALL.map((col, ci) => (
-            <div key={col.head} className="cs-wall__col">
-              <p className="hand cs-wall__head">{col.head}</p>
-              {col.notes.map((n, i) => (
-                <Sticky key={n} c={col.c} r={((ci + i) % 3) - 1 + (i % 2 ? 1.5 : -1.5)}>
-                  <p className="hand">{n}</p>
-                </Sticky>
-              ))}
-              <p className="cs-wall__insight">
-                <span className="cs-mono">So</span> {col.insight}
-              </p>
-            </div>
-          ))}
-        </div>
+        <a href={FIGJAM} target="_blank" rel="noreferrer" className="cs-board-img">
+          <img src={`${A}figjam-wall.webp`} alt="FigJam affinity wall: four clusters of sticky notes about time, silent mistakes, lateness and trust, each ending in an insight" width="2320" height="1230" loading="lazy" />
+        </a>
       </figure>
 
       <figure className="cs-fig" data-reveal>
@@ -968,9 +949,43 @@ function Solution() {
         ))}
       </div>
 
+      <article className="cs-wrong" data-reveal>
+        <div className="cs-feat__copy">
+          <span className="cs-num">05</span>
+          <h3>When Co gets it wrong</h3>
+          <p>
+            It will, sometimes. So I designed this before the happy path. One tap puts things back exactly as they were,
+            and then Co asks why, with the answers it most needs as buttons, not a text box nobody fills in.
+          </p>
+          <p className="cs-note">The next suggestion like this one shows "Last time you said: price was fine" right on the card.</p>
+        </div>
+        <div className="cs-wrong__ui" aria-label="Mock-up of the undo and feedback flow">
+          <div className="w-card">
+            <p className="w-k">Done by Co · 7:40 AM</p>
+            <p className="w-t">Matched Block-print dupatta to ₹649 on Amazon</p>
+            <div className="w-undo">
+              <span>₹649 → ₹699, back to before</span>
+              <b>Undone</b>
+            </div>
+          </div>
+          <div className="w-card">
+            <p className="w-t">What went wrong? It helps Co next time.</p>
+            <div className="w-chips">
+              <span className="on">My price was fine</span>
+              <span>Wrong competitor</span>
+              <span>Never discount this one</span>
+              <span>Just not today</span>
+            </div>
+            <p className="w-learn">
+              <CoMark state="done" size={18} /> Got it. Co won't match prices on this dupatta again without asking.
+            </p>
+          </div>
+        </div>
+      </article>
+
       <div className="cs-phones" data-reveal>
         <div className="cs-phones__copy">
-          <span className="cs-num">05</span>
+          <span className="cs-num">06</span>
           <h3>A phone app for the gaps between packing orders</h3>
           <p>She can approve straight from the lock screen, ask Co something in Hindi out loud, and get a short recap of the day at night.</p>
         </div>
@@ -1231,6 +1246,34 @@ function Iterations() {
           </li>
         </ol>
       </div>
+
+      <div className="cs-wrongme" data-reveal>
+        <p className="cs-mono">Where I was wrong</p>
+        <h3>I added a theme switch because I couldn't choose. That was my problem, not Meera's.</h3>
+        <div className="cs-wrongme__grid">
+          <div>
+            <p className="lab">What I did</p>
+            <p>
+              I worried periwinkle looked like every other AI product, so I built an indigo and marigold theme too and
+              put a switch in the header to flip between them.
+            </p>
+          </div>
+          <div>
+            <p className="lab">What happened</p>
+            <p>
+              The first person I showed it to asked what the switch was even for. Fair question.
+              A seller opening this at 7 AM doesn't want to pick a colour scheme. It just added a question.
+            </p>
+          </div>
+          <div>
+            <p className="lab">What I changed</p>
+            <p>
+              I picked one palette, the warmer periwinkle and pink, and removed the switch. The lesson: when I can't
+              decide something, I shouldn't hand that decision to the user.
+            </p>
+          </div>
+        </div>
+      </div>
     </Sec>
   );
 }
@@ -1255,6 +1298,16 @@ function Reflection() {
             <li>Talk to real sellers first. Desk research only gets you so far.</li>
             <li>Get a native speaker to check every Hindi line.</li>
             <li>Design the "Co got it wrong" moment before the happy path.</li>
+          </ul>
+        </Sticky>
+        <Sticky c="g" r={1}>
+          <h3 className="hand">First 5 questions for real sellers</h3>
+          <ul>
+            <li>Walk me through yesterday morning, tab by tab.</li>
+            <li>When did a fee last surprise you? What did you do?</li>
+            <li>What would you never let software change?</li>
+            <li>Who else touches your seller accounts?</li>
+            <li>Show me where you track payouts today.</li>
           </ul>
         </Sticky>
         <Sticky c="b" r={-0.5}>

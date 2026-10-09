@@ -108,7 +108,7 @@ button { font: inherit; cursor: pointer; }
 .cs-body { color: var(--ink-2); }
 .cs-note { margin-top: 12px; font-size: 13px; color: var(--muted); }
 .cs-h3 { font-size: 20px; font-weight: 500; letter-spacing: -0.01em; }
-.cs-big { font: 400 clamp(56px, 7vw, 88px)/1 var(--serif); letter-spacing: -0.02em; }
+.cs-big { font: 600 clamp(52px, 6vw, 76px)/1 var(--sans); letter-spacing: -0.04em; }
 .cs-btn {
   display: inline-flex; align-items: center; gap: 8px;
   margin-top: 20px; padding: 11px 20px; border-radius: 999px; border: 0;
@@ -616,3 +616,66 @@ mark { background: linear-gradient(transparent 55%, #ffe27a 55%, #ffe27a 92%, tr
 .cs-phones .cs-num { color: #c9c2ff; }
 
 .drag-hint { position: absolute; bottom: 10px; left: var(--split); translate: -50% 0; padding: 0 10px; border-radius: 99px; background: rgba(255, 255, 255, 0.92); font-size: 20px; pointer-events: none; }
+
+/* ───────── no handwriting: notes use the body face ───────── */
+.hand { font-family: var(--sans); font-weight: 500; letter-spacing: -0.01em; line-height: 1.3; }
+.hand.small { font-size: 12.5px; font-weight: 400; }
+.hand.big { font-size: 34px; font-weight: 600; }
+.sticky .hand { font-size: 15.5px; }
+.sticky h3.hand { font-size: 17px; font-weight: 600; }
+.cs-rules__title, .cs-killed__title { font-size: 20px; font-weight: 600; rotate: 0deg; }
+.cs-reflect h3 { font-size: 17px; }
+.margin-note { font-size: 13px; font-weight: 500; }
+.wf-note { font-size: 13px; font-weight: 500; }
+.wf-note.n3 { font-size: 14px; }
+.cs-feat__note { font-size: 13px; font-weight: 500; padding: 5px 10px; }
+.drag-hint { font-size: 12px; padding: 2px 10px; }
+.cs-num { font: 600 44px/1 var(--sans); letter-spacing: -0.04em; }
+.cs-journey .scrawl, .cs-eco .scrawl, .cs-flow .scrawl { font-family: var(--sans); font-size: 13px; font-weight: 500; font-style: italic; }
+.cs-polaroid .hand { font-size: 14px; }
+.cs-persona__quote .hand { font-size: 17px; }
+
+/* TL;DR */
+.cs-tldr { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin: 8px 0 0; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); overflow: hidden; }
+.cs-tldr div { padding: 18px 20px; }
+.cs-tldr div + div { border-left: 1px solid var(--line); }
+.cs-tldr dt { font: 500 11.5px var(--mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent); }
+.cs-tldr dd { margin: 6px 0 0; font-size: 14.5px; color: var(--ink-2); }
+@media (max-width: 760px) { .cs-tldr { grid-template-columns: 1fr; } .cs-tldr div + div { border-left: 0; border-top: 1px solid var(--line); } }
+.cs-head { row-gap: 32px; }
+.cs-head__board { grid-row: 1; grid-column: 2; }
+@media (max-width: 1180px) { .cs-head__board { grid-row: auto; grid-column: auto; } }
+
+/* FigJam board */
+.cs-figlink { margin-left: auto; font-size: 13px; font-weight: 500; text-decoration: none; }
+.cs-board-img { display: block; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px -24px rgba(60, 45, 10, 0.4); transition: transform 300ms var(--ease); }
+.cs-board-img:hover { transform: translateY(-3px); }
+
+/* Co got it wrong */
+.cs-wrong { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.6fr); gap: clamp(24px, 4vw, 56px); align-items: center; }
+.cs-wrong h3 { margin-top: 10px; font-size: 24px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.2; }
+.cs-wrong p { margin-top: 10px; color: var(--ink-2); }
+.cs-wrong__ui { display: grid; gap: 14px; padding: 6% 8%; border-radius: 24px; background: var(--sunk); font-family: "Plus Jakarta Sans", sans-serif; color: #14142b; }
+.w-card { padding: 20px; border-radius: 20px; background: #fff; box-shadow: 0 1px 2px rgba(20, 20, 43, 0.06), 0 16px 32px -20px rgba(20, 20, 43, 0.3); }
+.w-card:first-child { rotate: -1deg; }
+.w-card:last-child { rotate: 0.8deg; margin-left: 8%; }
+.w-k { margin: 0 !important; font-size: 12px; color: #676c88 !important; }
+.w-t { margin: 6px 0 0 !important; font-size: 16px; font-weight: 700; color: #14142b !important; }
+.w-undo { display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding: 10px 14px; border-radius: 12px; background: #eceef4; font-size: 13.5px; }
+.w-undo b { color: #1f7a52; }
+.w-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.w-chips span { padding: 7px 12px; border-radius: 999px; border: 1px solid #e2e4ee; font-size: 13px; }
+.w-chips span.on { background: #14142b; border-color: #14142b; color: #fff; }
+.w-learn { display: flex; align-items: center; gap: 8px; margin: 14px 0 0 !important; font-size: 13.5px; color: #3b3f5c !important; }
+@media (max-width: 860px) { .cs-wrong { grid-template-columns: 1fr; } }
+
+/* where I was wrong */
+.cs-wrongme { margin-top: clamp(48px, 6vw, 72px); padding: clamp(24px, 4vw, 40px); border-radius: 20px; background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--bad); }
+.cs-wrongme .cs-mono { color: var(--bad); }
+.cs-wrongme h3 { margin-top: 10px; max-width: 720px; font-size: 22px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.3; }
+.cs-wrongme__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 24px; }
+.cs-wrongme .lab { font: 500 11.5px var(--mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.cs-wrongme__grid p:last-child { margin-top: 6px; font-size: 14.5px; color: var(--ink-2); }
+@media (max-width: 800px) { .cs-wrongme__grid { grid-template-columns: 1fr; } }
+.cs-reflect { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 700px) { .cs-reflect { grid-template-columns: 1fr; } }
