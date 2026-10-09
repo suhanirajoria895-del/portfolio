@@ -1,11 +1,13 @@
+import useReveal from "../hooks/useReveal.js";
+
 export default function Contact() {
+  const ref = useReveal();
   return (
-    <section id="contact">
-      <h2>Contact</h2>
-      <p>
-        Want to work together? Say hello at{" "}
-        <a href="mailto:suhanirajoria19@gmail.com">suhanirajoria19@gmail.com</a>.
-      </p>
+    <section id="contact" className="contact reveal" ref={ref}>
+      <h2>Let's make something together.</h2>
+      <a className="btn" href="mailto:suhanirajoria19@gmail.com">
+        Work with me
+      </a>
     </section>
   );
 }

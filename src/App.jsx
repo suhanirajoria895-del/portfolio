@@ -1,6 +1,7 @@
-import Header from "./components/Header.jsx";
-import Hero from "./components/Hero.jsx";
-import About from "./components/About.jsx";
+import Collage from "./components/Collage.jsx";
+import Statement from "./components/Statement.jsx";
+import Work from "./components/Work.jsx";
+import Tools from "./components/Tools.jsx";
 import Projects from "./components/Projects.jsx";
 import Contact from "./components/Contact.jsx";
 import Footer from "./components/Footer.jsx";
@@ -8,10 +9,11 @@ import Footer from "./components/Footer.jsx";
 export default function App() {
   return (
     <>
-      <Header />
+      <Collage />
       <main>
-        <Hero />
-        <About />
+        <Statement />
+        <Work />
+        <Tools />
         <Projects />
         <Contact />
       </main>

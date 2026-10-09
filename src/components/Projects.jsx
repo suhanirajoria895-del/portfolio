@@ -1,16 +1,18 @@
 import { projects } from "../data/projects.js";
+import useReveal from "../hooks/useReveal.js";
 
 export default function Projects() {
+  const ref = useReveal();
   return (
-    <section id="projects">
-      <h2>Projects</h2>
-      <div className="grid">
+    <section id="projects" className="projects reveal" ref={ref}>
+      <h2>What I'm making</h2>
+      <div className="project-grid">
         {projects.map((p) => (
-          <article className="card" key={p.title}>
+          <a className="project" href={p.link} key={p.title}>
+            <img src={p.image} alt="" loading="lazy" width="900" height="600" />
             <h3>{p.title}</h3>
             <p>{p.description}</p>
-            <a href={p.link}>View project →</a>
-          </article>
+          </a>
         ))}
       </div>
     </section>

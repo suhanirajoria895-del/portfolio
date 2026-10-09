@@ -1,17 +1,35 @@
+// Replace the picsum images with your own work: drop files in /public and use "/name.jpg".
+export const heroImage = "https://picsum.photos/seed/portfolio-hero-portrait/800/800";
+
+export const services = [
+  {
+    title: "Web design",
+    image: "https://picsum.photos/seed/portfolio-web-design/600/760",
+  },
+  {
+    title: "Front-end builds",
+    image: "https://picsum.photos/seed/portfolio-frontend/600/760",
+  },
+  {
+    title: "Brand and visuals",
+    image: "https://picsum.photos/seed/portfolio-brand/600/760",
+    sticker: "And whew, do I love to make things look good.",
+  },
+];
+
+export const tools = ["React", "Figma", "JavaScript", "Vite", "Photoshop"];
+
 export const projects = [
   {
-    title: "Project One",
-    description: "A short description of what this project is and what you built.",
-    link: "#",
+    title: "CoSell",
+    description: "An AI copilot that watches Amazon, Flipkart and Meesho for a solo seller, and hands her only the decisions that need her.",
+    image: "/work/cosell/home.webp",
+    link: "/work/cosell/",
   },
   {
     title: "Project Two",
     description: "A short description of what this project is and what you built.",
-    link: "#",
-  },
-  {
-    title: "Project Three",
-    description: "A short description of what this project is and what you built.",
+    image: "https://picsum.photos/seed/portfolio-project-two/900/600",
     link: "#",
   },
 ];

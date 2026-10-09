@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "plus jakarta sans",
+        "createdAt": "2026-10-09T03:07:59.391Z",
+        "reason": "Claude: design-system section documents CoSell's actual product typeface; specimens must render in it"
+      }
+    ]
+  }
+}
