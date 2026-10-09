@@ -176,7 +176,7 @@ function Header() {
         </div>
         <div>
           <dt>What I made</dt>
-          <dd>Co, a copilot that watches all three shops, fixes what it's allowed to, and asks about the rest.</dd>
+          <dd>Co, a copilot that watches every shop, fixes what it's allowed to, and asks about the rest.</dd>
         </div>
         <div>
           <dt>The hard part</dt>
@@ -1340,8 +1340,6 @@ function Solution() {
         </div>
       </div>
 
-      <DesignSystem />
-
       <div className="cs-phones" data-reveal>
         <div className="cs-phones__copy">
           <p className="cs-mono">Mobile</p>
@@ -1365,6 +1363,9 @@ function Solution() {
         </span>
         <span aria-hidden="true">↗</span>
       </a>
+
+
+      <DesignSystem />
     </Sec>
   );
 }
