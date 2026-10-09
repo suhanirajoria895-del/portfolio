@@ -151,7 +151,7 @@ function Header() {
         <dl className="cs-meta">
           <div>
             <dt>Role</dt>
-            <dd>UX research, interaction design, UI</dd>
+            <dd>UX research, UI design</dd>
           </div>
           <div>
             <dt>Type</dt>
