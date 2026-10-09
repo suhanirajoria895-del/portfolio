@@ -1527,3 +1527,47 @@ body {
 .cs-phones__try { background: var(--accent); color: #fff; }
 .cs-protolink { background: var(--accent); }
 .cs-swim .stagepill { fill: var(--soft); } .cs-swim .stage { fill: var(--accent); }
+
+/* ───────── iterations as evolution strips ───────── */
+.evo { padding: clamp(20px, 2.6vw, 30px); border-radius: 28px; background: #fff; border: 1px solid var(--line); }
+.evo header { display: flex; align-items: center; gap: 12px; }
+.evo__n { font: 600 12px var(--mono); padding: 5px 9px; border-radius: 9px; background: var(--accent-tint); color: var(--accent); }
+.evo h3 { margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
+.evo__track { list-style: none; margin: 20px 0 0; padding: 0; display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: stretch; }
+.evo__step { display: contents; }
+.evo__card { position: relative; display: flex; flex-direction: column; padding: 14px; border-radius: 20px; background: #f6f5fb; border: 1px solid transparent; transition: transform 300ms var(--ease); }
+.evo__card:hover { transform: translateY(-4px); }
+.evo__step:not(.final) .evo__card { filter: saturate(0.6); opacity: 0.85; }
+.evo__step.final .evo__card { background: var(--soft); border-color: var(--soft-line); box-shadow: 0 20px 40px -26px rgba(85, 67, 232, 0.6); }
+.evo__tag { position: absolute; top: 10px; left: 10px; z-index: 1; padding: 3px 9px; border-radius: 99px; background: #fff; font: 600 11px var(--mono); color: var(--muted); }
+.evo__step.final .evo__tag { background: var(--accent); color: #fff; }
+.evo__art { flex: 1; display: grid; place-items: center; min-height: 190px; padding: 26px 6px 6px; }
+.evo__cap { margin: 10px 0 0; font-size: 13px; font-weight: 500; text-align: center; color: var(--ink-2); }
+.evo__why { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; width: 120px; padding: 0 8px; text-align: center; }
+.evo__why span { font-size: 11.5px; line-height: 1.35; color: var(--bad); font-weight: 500; }
+.evo__why i { font-style: normal; font-size: 22px; color: var(--accent); }
+.evo__phone { max-height: 230px; width: auto; border-radius: 18px; box-shadow: 0 14px 28px -16px rgba(20, 20, 43, 0.4); }
+.mc { display: flex; gap: 10px; align-items: center; width: 100%; max-width: 250px; padding: 12px; border-radius: 14px; background: #fff; box-shadow: 0 10px 22px -14px rgba(20, 20, 43, 0.35); font-family: "Plus Jakarta Sans", sans-serif; }
+.mc img { width: 46px; height: 46px; border-radius: 10px; object-fit: cover; flex: none; }
+.mc__k { margin: 0; font-size: 11px; color: #676c88; }
+.mc__big { margin: 0; font-size: 17px; font-weight: 800; color: #17734d; letter-spacing: -0.02em; }
+.mc__t { margin: 2px 0 0; font-size: 12.5px; font-weight: 600; color: #14142b; }
+.mc__btn { display: inline-block; margin-top: 8px; padding: 4px 12px; border-radius: 99px; background: #eeecff; color: #5543e8; font-size: 11.5px; font-weight: 700; }
+.mc__btn.dark { background: #14142b; color: #fff; }
+.evo .orb { width: 72px; height: 72px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, #b9a8ff 30%, #ff9cc0 65%, #8c7bff); box-shadow: 0 0 40px 10px rgba(160, 130, 255, 0.4); }
+.evo .circles { position: relative; width: 84px; height: 56px; }
+.evo .circles i { position: absolute; top: 0; width: 56px; height: 56px; border-radius: 50%; background: #6b5cff; }
+.evo .circles i + i { left: 28px; background: #ff8fb1; mix-blend-mode: multiply; }
+.evo__marks { display: grid; grid-template-columns: repeat(2, auto); gap: 16px; }
+@media (prefers-reduced-motion: no-preference) {
+  .evo.in .evo__card { animation: rise 600ms var(--ease) both; }
+  .evo.in .evo__step:nth-child(2) .evo__card { animation-delay: 180ms; }
+  .evo.in .evo__step:nth-child(3) .evo__card { animation-delay: 360ms; }
+  .evo.in .evo__why i { animation: nudge 1.6s ease-in-out infinite; }
+  @keyframes nudge { 50% { transform: translateX(5px); } }
+}
+@media (max-width: 900px) {
+  .evo__track { grid-template-columns: 1fr; gap: 10px; }
+  .evo__why { width: auto; flex-direction: row; }
+  .evo__why i { rotate: 90deg; }
+}

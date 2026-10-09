@@ -1599,131 +1599,88 @@ function Solution() {
 
 /* ───────────────────────── 10 iterations ───────────────────────── */
 
+function Evo({ n, title, steps }) {
+  return (
+    <article className="evo" data-reveal>
+      <header>
+        <span className="evo__n">{n}</span>
+        <h3>{title}</h3>
+      </header>
+      <ol className="evo__track">
+        {steps.map((st, i) => (
+          <li key={st.v} className={`evo__step ${i === steps.length - 1 ? "final" : ""}`} style={{ "--i": i }}>
+            <div className="evo__card">
+              <span className="evo__tag">{st.v}</span>
+              <div className="evo__art">{st.art}</div>
+              <p className="evo__cap">{st.cap}</p>
+            </div>
+            {i < steps.length - 1 && (
+              <div className="evo__why">
+                <span>{st.why}</span>
+                <i aria-hidden="true">→</i>
+              </div>
+            )}
+          </li>
+        ))}
+      </ol>
+    </article>
+  );
+}
+
+function MiniCard({ money, photo }) {
+  return (
+    <div className="mc">
+      {photo && <img src={`${A}pop/bottle.webp`} alt="" />}
+      <div>
+        {money ? <p className="mc__big">+₹7,641 a week</p> : <p className="mc__k">Pricing · Flipkart</p>}
+        <p className="mc__t">{money ? "Drop Copper bottle to ₹849" : "Lower price of Copper water bottle"}</p>
+        <span className={`mc__btn ${money ? "dark" : ""}`}>{money ? "Approve" : "Review"}</span>
+      </div>
+    </div>
+  );
+}
+
 function Iterations() {
-  const [split, setSplit] = useState(50);
   return (
     <Part title="Three things I changed after the first version">
-      <article className="cs-iter" data-reveal>
-        <div className="cs-iter__copy">
-          <p className="cs-mono">Decision 01 · Mobile</p>
-          <h3>Mobile: one decision at a time</h3>
-          <dl>
-            <div>
-              <dt>First version</dt>
-              <dd>The desktop home squeezed onto a phone: a list of cards, each with small labels and a Review button.</dd>
-            </div>
-            <div>
-              <dt>Why it failed</dt>
-              <dd>
-                Meera uses her phone in gaps of a few seconds, between packing orders. A list asks her to scan, pick and
-                open. That's three steps too many.
-              </dd>
-            </div>
-            <div>
-              <dt>What changed</dt>
-              <dd>
-                A stack she swipes through, yes or no, one at a time. The most common decision, a price match, can be
-                approved right from the lock screen.
-              </dd>
-            </div>
-          </dl>
-        </div>
-        <div className="cs-compare" style={{ "--split": `${split}%` }}>
-          <img src={`${A}cmp-round1.webp`} alt="First version: a list of plain cards" className="before" />
-          <img src={`${A}cmp-final.webp`} alt="Final: a swipeable stack of decisions and an evening recap" className="after" />
-          <span className="line" aria-hidden="true" />
-          <input type="range" min="0" max="100" value={split} onChange={(e) => setSplit(Number(e.target.value))} aria-label="Compare the first and final mobile versions" />
-          <span className="tag l">First</span>
-          <span className="tag r">Final</span>
-          <p className="drag-hint" aria-hidden="true">← drag →</p>
-        </div>
-      </article>
-
-      <article className="cs-iter flip" data-reveal>
-        <div className="cs-iter__copy">
-          <p className="cs-mono">Decision 02 · The suggestion card</p>
-          <h3>Suggestion cards: lead with the money</h3>
-          <dl>
-            <div>
-              <dt>First version</dt>
-              <dd>Cards described the action: "Lower price of Copper water bottle". Accurate, and easy to skip.</dd>
-            </div>
-            <div>
-              <dt>Why it failed</dt>
-              <dd>Meera doesn't decide on the action, she decides on the money. The card made her work out the impact herself.</dd>
-            </div>
-            <div>
-              <dt>What changed</dt>
-              <dd>The product photo and the expected gain lead. The action moves underneath, as the detail it is.</dd>
-            </div>
-          </dl>
-        </div>
-        <div className="cs-iter__art cards">
-          <div className="mini before">
-            <p className="tag">First</p>
-            <p className="k">Pricing · Flipkart</p>
-            <p className="t">Lower price of Copper water bottle on Flipkart</p>
-            <span className="btn">Review</span>
-          </div>
-          <div className="mini after">
-            <p className="tag">Final</p>
-            <div className="row">
-              <img src={`${A}pop/bottle.webp`} alt="" aria-hidden="true" className="thumb" />
-              <div>
-                <p className="big">+₹7,641 a week</p>
-                <p className="t">Drop Copper bottle to ₹849 on Flipkart</p>
-              </div>
-            </div>
-            <span className="btn dark">Approve</span>
-          </div>
-        </div>
-      </article>
-
-      <article className="cs-iter" data-reveal>
-        <div className="cs-iter__copy">
-          <p className="cs-mono">Decision 03 · Co's presence</p>
-          <h3>Co's icon: show what it's doing</h3>
-          <dl>
-            <div>
-              <dt>First version</dt>
-              <dd>A soft gradient orb in the corner. It said "there's AI here", and nothing else.</dd>
-            </div>
-            <div>
-              <dt>Why it failed</dt>
-              <dd>
-                It looked like every AI product, and it couldn't answer the question Meera actually has: is Co busy,
-                waiting on me, or done? At 16px it was just a blur.
-              </dd>
-            </div>
-            <div>
-              <dt>What changed</dt>
-              <dd>The CoSell logo itself, with a small badge for state: a coral dot when Co needs her, a tick when it's done, grey when paused.</dd>
-            </div>
-          </dl>
-        </div>
-        <div className="cs-iter__art marks">
-          <div className="orb-old">
-            <span className="orb" aria-hidden="true" />
-            <p className="tag">First</p>
-          </div>
-          <span className="arrow" aria-hidden="true">→</span>
-          <div className="orb-new">
-            {[
-              ["idle", "Watching"],
-              ["thinking", "Thinking"],
-              ["needsYou", "Needs you"],
-              ["done", "Done"],
-              ["paused", "Paused"],
-            ].map(([st, l]) => (
-              <div key={st}>
-                <CoMark state={st} size={40} />
-                <span>{l}</span>
-              </div>
-            ))}
-            <p className="tag">Final</p>
-          </div>
-        </div>
-      </article>
+      <Evo
+        n="01"
+        title="Mobile: from a mini dashboard to one decision at a time"
+        steps={[
+          { v: "V1", cap: "A list of cards, labels and a Review button", art: <img className="evo__phone" src={`${A}iter-v1-phone.webp`} alt="First mobile version: a list of cards" />, why: "Too many taps between packing orders" },
+          { v: "V2", cap: "A daily brief with numbers first", art: <img className="evo__phone" src={`${A}iter-v1-brief.webp`} alt="Second mobile version: a daily brief" />, why: "Still reading, not deciding" },
+          { v: "Final", cap: "A swipe stack: yes or no, one at a time", art: <img className="evo__phone" src={`${A}m-morning.webp`} alt="Final mobile version: a swipe stack of decisions" /> },
+        ]}
+      />
+      <Evo
+        n="02"
+        title="Suggestion cards: lead with the money"
+        steps={[
+          { v: "V1", cap: "Describes the action", art: <MiniCard />, why: "She decides on money, not actions" },
+          { v: "V2", cap: "The gain leads", art: <MiniCard money />, why: "Needed to know which product at a glance" },
+          { v: "Final", cap: "Photo + gain + one button", art: <MiniCard money photo /> },
+        ]}
+      />
+      <Evo
+        n="03"
+        title="Co's icon: from decoration to status"
+        steps={[
+          { v: "V1", cap: "A glowing orb: just says \"AI\"", art: <span className="orb" />, why: "Looked like every AI product" },
+          { v: "V2", cap: "Two circles that change shape", art: <span className="circles"><i /><i /></span>, why: "Hard to read at 16px, no brand tie-in" },
+          {
+            v: "Final",
+            cap: "The logo, with a badge for state",
+            art: (
+              <span className="evo__marks">
+                <CoMark state="idle" size={34} />
+                <CoMark state="needsYou" size={34} />
+                <CoMark state="done" size={34} />
+                <CoMark state="paused" size={34} />
+              </span>
+            ),
+          },
+        ]}
+      />
     </Part>
   );
 }
