@@ -1813,10 +1813,10 @@ function Reflection() {
         <p className="cs-mono">What I learned</p>
         <div className="rf__cards">
           {[
-            ["🗣️", "Talk first", "Three seller calls would have tested a week of desk research."],
-            ["🔍", "Start with rivals", "Finding the marketplace AIs late reshaped what CoSell is for."],
-            ["↩️", "Design the failure", "\"Co got it wrong\" ended up shaping the whole approval flow."],
-            ["अ", "Native check", "Every Hindi line needs a native speaker, not just me."],
+            ["🤝", "Trust is the product", "The AI was the easy part. Every screen had to earn a seller's yes."],
+            ["↩️", "Design the failure first", "Planning for \"Co got it wrong\" shaped the whole approval flow."],
+            ["🎯", "Less, but sharper", "Cutting the dashboard to one queue made the product feel calm, not empty."],
+            ["अ", "Language is access", "Hindi and voice turned a power-user tool into one any seller can use."],
           ].map(([icon, t, d], i) => (
             <div key={t} style={{ "--r": `${[-2, 1.5, -1, 2][i]}deg` }}>
               <span className="ic">{icon}</span>
@@ -1829,9 +1829,9 @@ function Reflection() {
 
       <div className="road" data-reveal>
         {[
-          ["Now", "Test the approval screen with 5 sellers", "users"],
-          ["Next", "Prove a small win, like a restock alert, earns trust", "trust"],
-          ["Later", "Pilot fee checks on real settlement files", "money"],
+          ["Now", "Put the prototype in front of sellers who run 2+ shops", "users"],
+          ["Next", "Measure if one small win, a restock alert, unlocks more trust", "trust"],
+          ["Later", "Recover real money: fee checks on live settlement files", "money"],
         ].map(([k, d], i) => (
           <div key={k} className="road__stop">
             <span className="road__dot">{i + 1}</span>
