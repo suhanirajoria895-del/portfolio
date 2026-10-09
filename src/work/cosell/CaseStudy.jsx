@@ -1501,6 +1501,9 @@ function Solution() {
           <p className="cs-mono">Mobile</p>
           <h3>Mobile app</h3>
           <p>She can approve straight from the lock screen, ask Co something in Hindi out loud, and get a short recap of the day at night.</p>
+          <a className="cs-phones__try" href="/work/cosell/demo/index.html#/app" target="_blank" rel="noreferrer">
+            Try the phone app ↗
+          </a>
         </div>
         <div className="cs-phones__stage">
           {[
