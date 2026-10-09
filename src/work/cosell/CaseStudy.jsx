@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { CoMark } from "./CoMark.jsx";
+import { Coffee, Package, Scissors, Undo2, Tag, Receipt, UserRound, ShoppingCart, Truck, Sheet, Smile, Meh, Frown, Angry, Handshake, Target, Languages, Check, ArrowRight, Mail } from "lucide-react";
 import DesignSystem from "./DesignSystem.jsx";
 import { useActiveId, useAmbientMotion, useRevealAll } from "./hooks.js";
 
@@ -364,12 +365,12 @@ function Statement() {
 /* ───────────────────────── 02 research ───────────────────────── */
 
 const JOURNEY = [
-  ["7:30", "Morning check", "Logs in to 3 dashboards", 1, "35 min of tab switching", "☕"],
-  ["9:00", "Stock update", "Types counts in 3 places", -1, "Oversells a dupatta", "📦"],
-  ["11:00", "Packing", "37 orders out the door", 2, "The part she enjoys", "🧵"],
-  ["15:00", "Returns", "Replies panel by panel", -2, "Misses a 2-day window", "↩️"],
-  ["18:00", "Pricing", "Guesses at rival prices", -1, "No history to go on", "🏷️"],
-  ["22:00", "Payouts", "Reconciles in Excel", -3, "Can't tell which fee is wrong", "🧾"],
+  ["7:30", "Morning check", "Logs in to 3 dashboards", 1, "35 min of tab switching", Coffee],
+  ["9:00", "Stock update", "Types counts in 3 places", -1, "Oversells a dupatta", Package],
+  ["11:00", "Packing", "37 orders out the door", 2, "The part she enjoys", Scissors],
+  ["15:00", "Returns", "Replies panel by panel", -2, "Misses a 2-day window", Undo2],
+  ["18:00", "Pricing", "Guesses at rival prices", -1, "No history to go on", Tag],
+  ["22:00", "Payouts", "Reconciles in Excel", -3, "Can't tell which fee is wrong", Receipt],
 ];
 
 const AFFINITY = [
@@ -510,10 +511,10 @@ const BREAKS = [
 ];
 
 const LANE_STYLE = [
-  ["#6B5CFF", "👩🏽"],
-  ["#F5A524", "🛒"],
-  ["#2FB67C", "📦"],
-  ["#8A8FA8", "📊"],
+  ["#6B5CFF", UserRound],
+  ["#F5A524", ShoppingCart],
+  ["#2FB67C", Truck],
+  ["#8A8FA8", Sheet],
 ];
 
 function Swimlane() {
@@ -546,7 +547,7 @@ function Swimlane() {
           <g key={l}>
             <rect x="0" y={TOP + i * LH} width={W} height={LH - 6} rx="18" className="lane" />
             <rect x="0" y={TOP + i * LH} width="6" height={LH - 6} rx="3" fill={LANE_STYLE[i][0]} />
-            <text x="22" y={TOP + i * LH + LH / 2 - 2} className="licon">{LANE_STYLE[i][1]}</text>
+            {(() => { const L = LANE_STYLE[i][1]; return <L x="18" y={TOP + i * LH + (LH - 6) / 2 - 10} size={20} strokeWidth={1.75} color={LANE_STYLE[i][0]} />; })()}
             <text x="50" y={TOP + i * LH + LH / 2 + 1} className="lname">{l}</text>
           </g>
         ))}
@@ -584,7 +585,7 @@ function Swimlane() {
 }
 
 function Journey() {
-  const face = (v) => (v >= 2 ? "😊" : v >= 1 ? "🙂" : v >= -1 ? "😕" : v >= -2 ? "😣" : "😩");
+  const face = (v) => (v >= 1 ? Smile : v >= -1 ? Meh : v >= -2 ? Frown : Angry);
   const W = 1000;
   const x = (i) => 80 + i * ((W - 160) / (JOURNEY.length - 1));
   const y = (v) => 120 - v * 26;
@@ -621,14 +622,14 @@ function Journey() {
             {pts.map(([px, py], i) => (
               <g key={i}>
                 <circle cx={px} cy={py} r="20" className="jm__halo" />
-                <text x={px} y={py + 7} textAnchor="middle" className="jm__face">{face(JOURNEY[i][3])}</text>
+                {(() => { const F = face(JOURNEY[i][3]); return <F x={px - 11} y={py - 11} size={22} strokeWidth={1.75} className="jm__face" color={JOURNEY[i][3] < 0 ? "#d6455d" : "#2fb67c"} />; })()}
               </g>
             ))}
           </svg>
           <ol className="jm__steps">
-            {JOURNEY.map(([t, stage, doing, v, pain, icon]) => (
+            {JOURNEY.map(([t, stage, doing, v, pain, Icon]) => (
               <li key={t} className={v < 0 ? "bad" : "ok"}>
-                <span className="jm__icon">{icon}</span>
+                <span className="jm__icon"><Icon size={18} strokeWidth={1.75} /></span>
                 <p className="jm__time">{t}</p>
                 <h4>{stage}</h4>
                 <p className="jm__doing">{doing}</p>
@@ -1690,7 +1691,7 @@ function Iterations() {
 
 function Reflection() {
   return (
-    <Sec id="reflection" n="✦" kicker="Reflection" title="Reflection and next steps">
+    <Sec id="reflection" n="07" kicker="Reflection" title="Reflection and next steps">
       <div className="cs-valid" data-reveal>
         <span className="tag">Not tested yet</span>
         <h3>I haven't tested CoSell with sellers.</h3>
@@ -1738,13 +1739,13 @@ function Reflection() {
         <p className="cs-mono">What I learned</p>
         <div className="rf__cards">
           {[
-            ["🤝", "Trust is the product", "The AI was the easy part. Every screen had to earn a seller's yes."],
-            ["↩️", "Design the failure first", "Planning for \"Co got it wrong\" shaped the whole approval flow."],
-            ["🎯", "Less, but sharper", "Cutting the dashboard to one queue made the product feel calm, not empty."],
-            ["अ", "Language is access", "Hindi and voice turned a power-user tool into one any seller can use."],
-          ].map(([icon, t, d], i) => (
+            [Handshake, "Trust is the product", "The AI was the easy part. Every screen had to earn a seller's yes."],
+            [Undo2, "Design the failure first", "Planning for \"Co got it wrong\" shaped the whole approval flow."],
+            [Target, "Less, but sharper", "Cutting the dashboard to one queue made the product feel calm, not empty."],
+            [Languages, "Language is access", "Hindi and voice turned a power-user tool into one any seller can use."],
+          ].map(([Icon, t, d], i) => (
             <div key={t} style={{ "--r": `${[-2, 1.5, -1, 2][i]}deg` }}>
-              <span className="ic">{icon}</span>
+              <span className="ic"><Icon size={22} strokeWidth={1.75} /></span>
               <h4>{t}</h4>
               <p>{d}</p>
             </div>
@@ -1769,49 +1770,39 @@ function Reflection() {
   );
 }
 
-const CONFETTI = ["₹", "✓", "★", "♥", "₹", "✓", "★", "✦", "₹", "✓", "♥", "✦", "★", "₹"];
-
 function Footer() {
   const [state, setState] = useState("pending"); // pending | yes | no
   return (
-    <footer className="end">
-      <p className="cs-mono">One last suggestion from Co</p>
-      <div className={`end__card ${state}`}>
-        <div className="end__head">
-          <CoMark state={state === "yes" ? "done" : "needsYou"} size={40} />
-          <div>
-            <p className="end__k">Needs your call · Portfolio</p>
-            <h3>{state === "yes" ? "Approved. Suhani is on it." : state === "no" ? "Rejected. Co learned something." : "Hire Suhani as your next product designer?"}</h3>
-          </div>
-        </div>
-        {state === "pending" && (
-          <>
-            <p className="end__why">Co is <b>very sure</b>: research ✓ · flows ✓ · a working prototype ✓ · knows when to ask before acting ✓</p>
-            <div className="end__btns">
-              <button type="button" className="yes" onClick={() => setState("yes")}>✓ Approve</button>
+    <footer className={`end ${state}`}>
+      <div className="end__panel">
+        <p className="end__k">
+          <CoMark state={state === "yes" ? "done" : "needsYou"} size={22} />
+          {state === "yes" ? "Approved" : state === "no" ? "Not now" : "Needs your call"}
+        </p>
+        <h2>
+          {state === "yes" ? "Great. Let's talk." : state === "no" ? "Fair. There's more work to see." : <>Hire Suhani as your next product designer?</>}
+        </h2>
+        <div className="end__btns">
+          {state === "pending" && (
+            <>
+              <button type="button" className="yes" onClick={() => setState("yes")}><Check size={18} strokeWidth={2.5} /> Approve</button>
               <button type="button" className="no" onClick={() => setState("no")}>Not now</button>
-            </div>
-          </>
-        )}
-        {state === "yes" && (
-          <div className="end__done">
-            <a href="/#contact" className="cs-btn">Say hello →</a>
-            <a href="/#projects" className="cs-link">See more work</a>
-            <div className="end__confetti" aria-hidden="true">
-              {CONFETTI.map((c, i) => (
-                <span key={i} style={{ "--x": `${(i * 37) % 100}%`, "--d": `${(i % 7) * 70}ms`, "--r": `${(i * 53) % 360}deg` }}>{c}</span>
-              ))}
-            </div>
-          </div>
-        )}
-        {state === "no" && (
-          <div className="end__done">
-            <span className="end__toast">Changed your mind? <button type="button" onClick={() => setState("pending")}>Undo</button></span>
-            <a href="/#projects" className="cs-link">See more work</a>
-          </div>
-        )}
+            </>
+          )}
+          {state === "yes" && (
+            <>
+              <a href="/#contact" className="yes"><Mail size={18} strokeWidth={2} /> Get in touch</a>
+              <a href="/#projects" className="no">More work <ArrowRight size={16} /></a>
+            </>
+          )}
+          {state === "no" && (
+            <>
+              <a href="/#projects" className="yes">More work <ArrowRight size={16} /></a>
+              <button type="button" className="no" onClick={() => setState("pending")}><Undo2 size={16} /> Undo</button>
+            </>
+          )}
+        </div>
       </div>
-      <p className="end__note">Every decision on this page asked before acting. So does this one.</p>
     </footer>
   );
 }

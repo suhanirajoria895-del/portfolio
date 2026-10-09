@@ -238,13 +238,6 @@ export default function DesignSystem() {
           </div>
         </Panel>
         <div className="dsx-col">
-          <Panel title="Elevation">
-            <div className="dsx-elev">
-              <div style={{ boxShadow: "0 8px 24px rgba(20,20,43,0.05)" }}>card</div>
-              <div style={{ boxShadow: "0 16px 48px rgba(20,20,43,0.14)" }}>pop</div>
-              <div style={{ boxShadow: "0 24px 64px rgba(20,20,43,0.08)" }}>frame</div>
-            </div>
-          </Panel>
           <Panel title="Logo">
             <div className="dsx-logo">
               <Logo height={30} />
