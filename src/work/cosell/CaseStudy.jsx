@@ -412,7 +412,7 @@ function Research() {
         </header>
         <div className="aw__cols">
           {AFFINITY.map(([title, c, notes, insight], ci) => (
-            <div key={title} className={`aw__col ${c}`}>
+            <div key={title} className={`aw__col aw-${c}`}>
               <p className="aw__title">
                 <span>{String(ci + 1).padStart(2, "0")}</span>
                 {title}
