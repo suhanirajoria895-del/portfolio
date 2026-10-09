@@ -13,8 +13,8 @@ const SECTIONS = [
   ["research", "Research"],
   ["analysis", "Analysis"],
   ["synthesis", "Synthesis"],
-  ["solution", "Solution"],
   ["design", "Design"],
+  ["solution", "Solution"],
 ]
 
 export default function CaseStudy() {
@@ -42,18 +42,17 @@ export default function CaseStudy() {
           <Flows />
           <Tradeoffs />
         </Sec>
-        <Solution />
         <Sec
           id="design"
-          n="06"
+          n="05"
           kicker="Design"
-          title="How it got from grey boxes to the final screens."
-          lede="Wireframes first, then the system that holds every screen together, then three rounds of making it feel like something."
+          title="Grey boxes first, then the things I had to get wrong."
+          lede="I sketched layouts in greyscale until the structure held up, then turned them into real screens and changed my mind three times along the way."
         >
           <Wireframes />
-          <DesignSystem />
           <Iterations />
         </Sec>
+        <Solution />
         <Reflection />
         <Footer />
       </main>
@@ -695,9 +694,86 @@ function Wire({ lines = 3 }) {
   return Array.from({ length: lines }, (_, i) => <i key={i} className="wl" style={{ width: `${90 - i * 18}%` }} />);
 }
 
+/* Grey blocks laid out in % so they sit exactly over the real screenshot. [x0, y0, x1, y1, kind] on a 2000×1250 grid. */
+const WIRES = {
+  home: [
+    [33, 33, 155, 1215, "side"],
+    [200, 90, 600, 122, "line"],
+    [975, 75, 1445, 135, "pill"],
+    [200, 185, 670, 240, "head"],
+    [200, 252, 670, 282, "line"],
+    [202, 315, 555, 555, "card"],
+    [592, 315, 945, 555, "card"],
+    [982, 315, 1335, 555, "card"],
+    [1370, 178, 1922, 555, "card dark"],
+    [202, 590, 1336, 1096, "card"],
+    [235, 735, 1300, 790, "row"],
+    [235, 835, 1300, 890, "row"],
+    [235, 935, 1300, 990, "row"],
+    [1372, 590, 1920, 1096, "card"],
+  ],
+  approval: [
+    [33, 33, 155, 1215, "side"],
+    [200, 75, 560, 135, "line"],
+    [975, 75, 1445, 135, "pill"],
+    [200, 180, 1160, 235, "head"],
+    [202, 268, 1336, 698, "card"],
+    [246, 365, 368, 487, "img"],
+    [400, 395, 800, 460, "head"],
+    [1372, 268, 1922, 698, "card"],
+    [202, 735, 1336, 1072, "card"],
+    [874, 840, 1290, 970, "chart"],
+    [1372, 735, 1922, 1072, "card"],
+    [1405, 893, 1553, 960, "btn dark"],
+    [1571, 893, 1725, 960, "btn"],
+  ],
+};
+
+function WireToFinal() {
+  const [which, setWhich] = useState("home");
+  const [split, setSplit] = useState(55);
+  return (
+    <figure className="cs-w2f" data-reveal>
+      <figcaption>
+        <span className="cs-mono">Wireframe to final</span>
+        <span>Drag to see how much of the grey-box layout survived into the real screen.</span>
+        <span className="seg cs-w2f__tabs" role="radiogroup" aria-label="Which screen">
+          {[
+            ["home", "Home"],
+            ["approval", "Suggestion"],
+          ].map(([k, l]) => (
+            <button key={k} type="button" role="radio" aria-checked={which === k} onClick={() => setWhich(k)}>
+              {l}
+            </button>
+          ))}
+        </span>
+      </figcaption>
+      <div className="cs-w2f__stage" style={{ "--split": `${split}%` }}>
+        <img src={`${A}${which}.webp`} alt={`Final ${which} screen`} width="2880" height="1800" />
+        <div className="cs-w2f__wire" aria-hidden="true">
+          {WIRES[which].map(([x0, y0, x1, y1, k], i) => (
+            <i
+              key={i}
+              className={k}
+              style={{ left: `${x0 / 20}%`, top: `${y0 / 12.5}%`, width: `${(x1 - x0) / 20}%`, height: `${(y1 - y0) / 12.5}%` }}
+            />
+          ))}
+        </div>
+        <span className="wipe" aria-hidden="true" />
+        <input type="range" min="0" max="100" value={split} onChange={(e) => setSplit(Number(e.target.value))} aria-label="Wipe between wireframe and final screen" />
+        <span className="tag l">Wireframe</span>
+        <span className="tag r">Final</span>
+      </div>
+    </figure>
+  );
+}
+
 function Wireframes() {
   return (
-    <Part kicker="Wireframes" title="Grey boxes first, so the argument stayed about structure." lede="I drew two versions of the home screen and judged them on one thing: what does Meera do in her first ten seconds?">
+    <Part kicker="Wireframes" title="Structure first, colour later." lede="I drew two versions of the home screen and judged them on one thing: what does Meera do in her first ten seconds?">
+      <WireToFinal />
+
+      <p className="cs-mono cs-wires__label" data-reveal>How I got to that home screen</p>
       <div className="cs-wires" data-reveal>
         <figure className="cs-wire">
           <div className="wf">
@@ -905,6 +981,7 @@ function UndoDemo() {
 const SCREENS = [
   {
     img: "home",
+    short: "Home",
     t: "Home, a to-do list rather than a dashboard",
     d: "The first thing Meera sees is what needs her, not a wall of charts.",
     pins: [
@@ -916,6 +993,7 @@ const SCREENS = [
   },
   {
     img: "approval",
+    short: "Suggestion",
     t: "A suggestion, with all its working shown",
     d: "Everything she needs to say yes or no, on one screen.",
     pins: [
@@ -927,6 +1005,7 @@ const SCREENS = [
   },
   {
     img: "inventory",
+    short: "Inventory",
     t: "One stock count for three shops",
     d: "When a marketplace shows the wrong number, it's caught before it oversells.",
     pins: [
@@ -937,6 +1016,7 @@ const SCREENS = [
   },
   {
     img: "returns",
+    short: "Returns",
     t: "Returns, with the replies already drafted",
     d: "Sorted by deadline, so nothing gets decided for her by default.",
     pins: [
@@ -946,6 +1026,7 @@ const SCREENS = [
   },
   {
     img: "settings",
+    short: "Co settings",
     t: "How much Co is allowed to do",
     d: "Freedom is set task by task, and some lines are never crossed.",
     pins: [
@@ -956,10 +1037,35 @@ const SCREENS = [
   },
 ];
 
+function ScreenViewer() {
+  const [i, setI] = useState(0);
+  const s = SCREENS[i];
+  return (
+    <div className="cs-viewer" data-reveal>
+      <div className="cs-viewer__tabs" role="tablist" aria-label="Screens">
+        {SCREENS.map((sc, k) => (
+          <button key={sc.img} type="button" role="tab" aria-selected={k === i} onClick={() => setI(k)}>
+            <span>{String(k + 1).padStart(2, "0")}</span>
+            {sc.short}
+          </button>
+        ))}
+      </div>
+      <Screen key={s.img} s={s} />
+      <div className="cs-viewer__nav">
+        <button type="button" onClick={() => setI((i + SCREENS.length - 1) % SCREENS.length)} aria-label="Previous screen">←</button>
+        <span>
+          {i + 1} / {SCREENS.length}
+        </span>
+        <button type="button" onClick={() => setI((i + 1) % SCREENS.length)} aria-label="Next screen">→</button>
+      </div>
+    </div>
+  );
+}
+
 function Screen({ s }) {
   const [on, setOn] = useState(null);
   return (
-    <article className="cs-screen" data-reveal>
+    <article className="cs-screen">
       <header>
         <h3>{s.t}</h3>
         <p>{s.d}</p>
@@ -996,12 +1102,8 @@ function Screen({ s }) {
 
 function Solution() {
   return (
-    <Sec id="solution" n="05" kicker="Solution" title="Co keeps watch, and only taps Meera on the shoulder when it matters.">
-      <div className="cs-screens">
-        {SCREENS.map((sc) => (
-          <Screen key={sc.img} s={sc} />
-        ))}
-      </div>
+    <Sec id="solution" n="06" kicker="Solution" title="Co keeps watch, and only taps Meera on the shoulder when it matters.">
+      <ScreenViewer />
 
       <article className="cs-wrong" data-reveal>
         <div className="cs-feat__copy">
@@ -1036,6 +1138,26 @@ function Solution() {
           </div>
         </div>
       </article>
+
+      <div className="cs-edges" data-reveal>
+        <p className="cs-mono">The other days it goes wrong</p>
+        <h3>Edge cases I designed for, not just the happy path</h3>
+        <div className="cs-edges__grid">
+          {[
+            ["A marketplace stops syncing", "Numbers from that shop are marked stale with the time of the last sync. Never hidden, never guessed."],
+            ["Two suggestions clash", "A price cut and an ad pause on the same product become one decision, so she isn't asked twice."],
+            ["Co isn't sure", "Below a confidence floor, Co asks a question instead of proposing an action."],
+            ["She's away for a week", "Nothing waits forever. Anything past its deadline falls back to her safest setting and shows up in the recap."],
+          ].map(([t, d]) => (
+            <div key={t}>
+              <h4>{t}</h4>
+              <p>{d}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <DesignSystem />
 
       <div className="cs-phones" data-reveal>
         <div className="cs-phones__copy">
@@ -1402,12 +1524,14 @@ function Reflection() {
     <Sec id="reflection" n="✦" kicker="Reflection" title="The real test is simple: would sellers actually say yes to Co?">
       <div className="cs-reflect" data-reveal>
         <Sticky c="y" r={-1.5}>
-          <h3 className="hand">What I'd measure</h3>
+          <h3 className="hand">What success would look like</h3>
           <ul>
-            <li>Time spent across dashboards, before and after</li>
-            <li>How often she approves, split by how sure Co was</li>
-            <li>How often she hits undo. High means Co is wrong. Zero might mean she's stopped checking.</li>
+            <li><b>Under 15 min a day</b> across all three dashboards, from well over an hour</li>
+            <li><b>7 in 10 suggestions approved</b> without edits, for High-confidence ones</li>
+            <li><b>Undo on fewer than 1 in 20</b> actions. Zero would worry me too: it may mean she's stopped checking.</li>
+            <li><b>Every fee error caught</b> inside its claim window</li>
           </ul>
+          <p className="cs-note">These are targets I'd test against, not results.</p>
         </Sticky>
         <Sticky c="p" r={1}>
           <h3 className="hand">What I'd do differently</h3>
