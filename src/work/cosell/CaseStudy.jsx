@@ -365,12 +365,19 @@ function Statement() {
 /* ───────────────────────── 02 research ───────────────────────── */
 
 const JOURNEY = [
-  ["7:30", "Check 3 dashboards", 1, "35 min of tab switching"],
-  ["9:00", "Update stock ×3", -1, "Oversells a dupatta"],
-  ["11:00", "Pack orders", 1, ""],
-  ["15:00", "Answer returns", -2, "Misses a 2-day reply window"],
-  ["18:00", "Match prices", -1, "Guessing, again"],
-  ["22:00", "Reconcile payouts", -3, "Can't tell which fee is wrong"],
+  ["7:30", "Morning check", "Logs in to 3 dashboards", 1, "35 min of tab switching", "☕"],
+  ["9:00", "Stock update", "Types counts in 3 places", -1, "Oversells a dupatta", "📦"],
+  ["11:00", "Packing", "37 orders out the door", 2, "The part she enjoys", "🧵"],
+  ["15:00", "Returns", "Replies panel by panel", -2, "Misses a 2-day window", "↩️"],
+  ["18:00", "Pricing", "Guesses at rival prices", -1, "No history to go on", "🏷️"],
+  ["22:00", "Payouts", "Reconciles in Excel", -3, "Can't tell which fee is wrong", "🧾"],
+];
+
+const AFFINITY = [
+  ["Time goes to watching", "y", ["Same stock typed into 3 portals", "Diwali week: \"humanly impossible\"", "3 logins every morning"], "Sellers have dashboards. They lack time to watch them."],
+  ["Mistakes are silent", "p", ["Wrong commission slab", "RTO on a delivered order", "Returns never restocked"], "A tiny daily leak is big over a year."],
+  ["Late is expensive", "b", ["Claims close in ~30 days", "Return replies have deadlines", "25–40% fashion returns"], "Knowing in time beats knowing what to do."],
+  ["Control is scary", "g", ["Thin margins", "Different price rules", "Repricers feel like a black box"], "No one lets software touch prices without a why and an undo."],
 ];
 
 function Research() {
@@ -398,25 +405,32 @@ function Research() {
         ))}
       </ol>
 
-      <figure className="cs-fig cs-fig--board" data-reveal>
-        <figcaption>
-          <span className="cs-mono">Affinity wall, from my FigJam board</span> Every observation went on a sticky, then into
-          four piles. The white note under each pile is what that pile told me.
-          <a href={FIGJAM} target="_blank" rel="noreferrer" className="cs-figlink">
-            Open the board ↗
-          </a>
-        </figcaption>
-        <a href={FIGJAM} target="_blank" rel="noreferrer" className="cs-board-img">
-          <img src={`${A}figjam-wall.webp`} alt="FigJam affinity wall: four clusters of sticky notes about time, silent mistakes, lateness and trust, each ending in an insight" width="2320" height="1230" loading="lazy" />
-        </a>
-      </figure>
+      <section className="aw" data-reveal>
+        <header>
+          <p className="cs-mono">Affinity mapping</p>
+          <h3>40 observations, four patterns</h3>
+        </header>
+        <div className="aw__cols">
+          {AFFINITY.map(([title, c, notes, insight], ci) => (
+            <div key={title} className={`aw__col ${c}`}>
+              <p className="aw__title">
+                <span>{String(ci + 1).padStart(2, "0")}</span>
+                {title}
+              </p>
+              <div className="aw__notes">
+                {notes.map((n, i) => (
+                  <p key={n} style={{ "--r": `${[-2.5, 1.8, -1.2, 2.2][(ci + i) % 4]}deg` }}>
+                    {n}
+                  </p>
+                ))}
+              </div>
+              <p className="aw__insight">{insight}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
-      <figure className="cs-fig" data-reveal>
-        <figcaption>
-          <span className="cs-mono">Journey map</span> One seller's day as it is now, and how each part of it feels
-        </figcaption>
-        <Journey />
-      </figure>
+      <Journey />
 
       <figure className="cs-fig" data-reveal>
         <figcaption>
@@ -551,37 +565,64 @@ function Swimlane() {
 }
 
 function Journey() {
-  const W = 840;
-  const H = 230;
-  const x = (i) => 70 + i * ((W - 140) / (JOURNEY.length - 1));
-  const y = (v) => 110 - v * 24;
-  const path = JOURNEY.map(([, , v], i) => `${i ? "L" : "M"}${x(i)},${y(v)}`).join(" ");
+  const face = (v) => (v >= 2 ? "😊" : v >= 1 ? "🙂" : v >= -1 ? "😕" : v >= -2 ? "😣" : "😩");
+  const W = 1000;
+  const x = (i) => 80 + i * ((W - 160) / (JOURNEY.length - 1));
+  const y = (v) => 120 - v * 26;
+  const pts = JOURNEY.map(([, , , v], i) => [x(i), y(v)]);
+  const d = pts.reduce((acc, [px, py], i) => {
+    if (!i) return `M${px},${py}`;
+    const [qx, qy] = pts[i - 1];
+    const mx = (qx + px) / 2;
+    return `${acc} C${mx},${qy} ${mx},${py} ${px},${py}`;
+  }, "");
   return (
-    <div className="cs-scroll">
-      <svg viewBox={`0 0 ${W} ${H + 70}`} className="cs-journey" role="img" aria-label="Journey map: the day gets worse from morning to night, lowest when reconciling payouts">
-        <line x1="40" x2={W - 40} y1={y(0)} y2={y(0)} className="axis" />
-        <text x="40" y={y(0) - 8} className="lab">okay</text>
-        <path d={path} className="curve" />
-        {JOURNEY.map(([t, task, v, pain], i) => (
-          <g key={t}>
-            <circle cx={x(i)} cy={y(v)} r="6" className={v < 0 ? "pt bad" : "pt"} />
-            {pain && (
-              <text
-                x={x(i)}
-                y={y(v) + (v < 0 ? 24 : -14)}
-                textAnchor={i === JOURNEY.length - 1 ? "end" : i === 0 ? "start" : "middle"}
-                className="pain"
-              >
-                {pain}
-              </text>
-            )}
-            <text x={x(i)} y={H + 22} textAnchor="middle" className="time">{t}</text>
-            <text x={x(i)} y={H + 44} textAnchor="middle" className="task">{task}</text>
-          </g>
-        ))}
-        <text x={x(5) - 20} y={y(-3) + 48} textAnchor="end" className="scrawl">worst part of the day, every day</text>
-      </svg>
-    </div>
+    <section className="jm" data-reveal>
+      <header>
+        <p className="cs-mono">Journey map · a day today</p>
+        <h3>The day starts fine, and ends in a spreadsheet</h3>
+      </header>
+      <div className="cs-scroll">
+        <div className="jm__body">
+          <svg viewBox={`0 0 ${W} 230`} className="jm__curve" aria-hidden="true">
+            <defs>
+              <linearGradient id="jm-g" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0" stopColor="#2FB67C" />
+                <stop offset="0.45" stopColor="#F5A524" />
+                <stop offset="1" stopColor="#EF5B6B" />
+              </linearGradient>
+              <linearGradient id="jm-fill" x1="0" x2="0" y1="0" y2="1">
+                <stop offset="0" stopColor="#6B5CFF" stopOpacity="0.16" />
+                <stop offset="1" stopColor="#6B5CFF" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            <line x1="40" x2={W - 40} y1={y(0)} y2={y(0)} className="jm__base" />
+            <path d={`${d} L${x(5)},230 L${x(0)},230 Z`} fill="url(#jm-fill)" />
+            <path d={d} className="jm__line" stroke="url(#jm-g)" />
+            {pts.map(([px, py], i) => (
+              <g key={i}>
+                <circle cx={px} cy={py} r="20" className="jm__halo" />
+                <text x={px} y={py + 7} textAnchor="middle" className="jm__face">{face(JOURNEY[i][3])}</text>
+              </g>
+            ))}
+          </svg>
+          <ol className="jm__steps">
+            {JOURNEY.map(([t, stage, doing, v, pain, icon]) => (
+              <li key={t} className={v < 0 ? "bad" : "ok"}>
+                <span className="jm__icon">{icon}</span>
+                <p className="jm__time">{t}</p>
+                <h4>{stage}</h4>
+                <p className="jm__doing">{doing}</p>
+                <p className="jm__pain">{pain}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+      <p className="jm__foot">
+        <b>Biggest drop:</b> payouts at 10 PM, the one job that decides whether she made money.
+      </p>
+    </section>
   );
 }
 
@@ -627,34 +668,36 @@ const RIVALS = [
 
 /* x: 0 = one marketplace, 100 = all of them. y: 0 = shows information, 100 = takes action. */
 const MAP = [
-  ["Amazon Seller Assistant", 12, 74],
-  ["Flipkart Saarthi", 18, 46],
-  ["Meesho voice agents", 9, 24],
-  ["Shopify Sidekick", 30, 66],
-  ["Unicommerce / EasyEcom", 80, 34],
-  ["Spreadsheets", 64, 10],
+  ["Amazon Seller Assistant", "amazon.in", 22, 78],
+  ["Flipkart Saarthi", "flipkart.com", 26, 52],
+  ["Meesho voice agents", "meesho.com", 20, 26],
+  ["Shopify Sidekick", "shopify.com", 38, 64],
+  ["Unicommerce", "unicommerce.com", 78, 34],
+  ["Spreadsheets", "", 62, 12],
 ];
 
 function Positioning() {
   return (
-    <div className="cs-pos" role="img" aria-label="Positioning map: marketplace AI tools act but see one marketplace; multichannel tools see all marketplaces but only show information; CoSell sees all and acts with permission.">
-      <div className="cs-pos__plot">
-        <span className="gap">The empty corner</span>
-        {MAP.map(([n, x, y]) => (
-          <span key={n} className="dot" style={{ left: `${x}%`, bottom: `${y}%` }}>
-            <i />
+    <div className="pm" role="img" aria-label="Positioning map: marketplace AI tools act but see one marketplace; multichannel tools see all marketplaces but only show information; CoSell sees all and acts with permission.">
+      <div className="pm__plot">
+        <span className="pm__q tl">Acts, one shop</span>
+        <span className="pm__q tr">Acts, every shop</span>
+        <span className="pm__q bl">Informs, one shop</span>
+        <span className="pm__q br">Informs, every shop</span>
+        <span className="pm__glow" />
+        {MAP.map(([n, dom, x, y]) => (
+          <span key={n} className="pm__chip" style={{ left: `${x}%`, bottom: `${y}%` }}>
+            {dom ? <img src={`https://www.google.com/s2/favicons?domain=${dom}&sz=64`} alt="" /> : <i>▦</i>}
             {n}
           </span>
         ))}
-        <span className="dot us" style={{ left: "84%", bottom: "80%" }}>
-          <CoMark state="idle" size={26} />
+        <span className="pm__chip us" style={{ left: "82%", bottom: "78%" }}>
+          <CoMark state="idle" size={24} />
           CoSell
         </span>
       </div>
-      <span className="ax y1">Takes action ↑</span>
-      <span className="ax y0">Shows information</span>
-      <span className="ax x0">One marketplace</span>
-      <span className="ax x1">Every marketplace →</span>
+      <span className="pm__ax y">Takes action →</span>
+      <span className="pm__ax x">Sees every marketplace →</span>
     </div>
   );
 }
@@ -733,21 +776,24 @@ function Analysis() {
       </article>
 
       <div className="cs-comp" data-reveal>
+        <p className="cs-mono">Competitive landscape</p>
         <h3 className="cs-h3">Every marketplace now has its own AI. Each one only sees its own shop.</h3>
-        <Positioning />
-        <div className="cs-rivals">
-          {RIVALS.map((r) => (
-            <a key={r.name} className="cs-rival" href={r.src[1]} target="_blank" rel="noreferrer">
-              <span className="logo">
-                <img src={`https://www.google.com/s2/favicons?domain=${r.domain}&sz=64`} alt="" width="28" height="28" loading="lazy" />
-              </span>
-              <span className="nm">{r.name}</span>
-              <span className="ok">✓ {r.took}</span>
-              <span className="miss">✕ {r.gap}</span>
-            </a>
-          ))}
+        <div className="cmp">
+          <Positioning />
+          <ul className="cmp__list">
+            {RIVALS.map((r) => (
+              <li key={r.name}>
+                <img src={`https://www.google.com/s2/favicons?domain=${r.domain}&sz=64`} alt="" width="32" height="32" loading="lazy" />
+                <div>
+                  <p className="nm">{r.name}</p>
+                  <p className="ok">+ {r.took}</p>
+                  <p className="miss">− {r.gap}</p>
+                </div>
+                <a href={r.src[1]} target="_blank" rel="noreferrer" aria-label={`Source for ${r.name}`}>↗</a>
+              </li>
+            ))}
+          </ul>
         </div>
-        <p className="cs-note">Based on public announcements and press coverage. Each card links to its source.</p>
       </div>
     </Sec>
   );
