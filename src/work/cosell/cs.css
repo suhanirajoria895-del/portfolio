@@ -712,3 +712,57 @@ mark { background: linear-gradient(transparent 55%, #ffe27a 55%, #ffe27a 92%, tr
   .cs-screen__frame { padding: 5px; border-radius: 14px; }
   .cs-screen__frame img { border-radius: 10px; }
 }
+
+/* ───────── vibrant base ───────── */
+:root {
+  --bg: #f4f2ff;
+  --sunk: #ecebfb;
+  --line: #e1def5;
+}
+body {
+  background:
+    radial-gradient(1100px 700px at 8% -5%, rgba(255, 167, 196, 0.55), transparent 60%),
+    radial-gradient(900px 700px at 100% 12%, rgba(140, 125, 255, 0.45), transparent 60%),
+    radial-gradient(900px 800px at 60% 55%, rgba(120, 220, 200, 0.28), transparent 60%),
+    radial-gradient(1000px 900px at 0% 100%, rgba(255, 200, 120, 0.35), transparent 60%),
+    #f4f2ff;
+  background-attachment: fixed;
+}
+.cs-side { background: rgba(255, 255, 255, 0.55); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border-right-color: rgba(255, 255, 255, 0.7); }
+.cs-chips { background: rgba(255, 255, 255, 0.6); }
+.cs-fig--board { background: rgba(255, 255, 255, 0.5); border-color: rgba(255, 255, 255, 0.8); }
+.cs-feat__art, .cs-wrong__ui { background: rgba(255, 255, 255, 0.45); }
+
+/* ───────── iterations as decisions ───────── */
+.cs-iter { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(24px, 4vw, 56px); align-items: center; padding: clamp(24px, 3vw, 36px); border-radius: 24px; background: var(--surface); border: 1px solid var(--line); }
+.cs-iter.flip .cs-iter__copy { order: 2; }
+.cs-iter h3 { margin-top: 10px; font-size: 22px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.25; }
+.cs-iter dl { margin: 18px 0 0; display: grid; gap: 14px; }
+.cs-iter dt { font: 500 11.5px var(--mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.cs-iter dl div:nth-child(2) dt { color: var(--bad); }
+.cs-iter dl div:nth-child(3) dt { color: var(--good); }
+.cs-iter dd { margin: 4px 0 0; font-size: 14.5px; color: var(--ink-2); }
+.cs-iter .tag { font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.cs-iter__art { padding: 28px; border-radius: 18px; background: var(--sunk); }
+@media (max-width: 860px) { .cs-iter { grid-template-columns: 1fr; } .cs-iter.flip .cs-iter__copy { order: 0; } }
+
+.cs-iter__art.cards { display: grid; gap: 16px; font-family: "Plus Jakarta Sans", sans-serif; color: #14142b; }
+.mini { position: relative; padding: 16px 18px; border-radius: 16px; background: #fff; box-shadow: 0 12px 28px -18px rgba(20, 20, 43, 0.35); }
+.mini .tag { position: absolute; top: -9px; right: 14px; padding: 2px 8px; border-radius: 99px; background: #fff; border: 1px solid var(--line); }
+.mini.before { opacity: 0.8; rotate: -1deg; }
+.mini.after { rotate: 0.8deg; margin-left: 6%; }
+.mini .k { margin: 0; font-size: 12px; color: #676c88; }
+.mini .t { margin: 4px 0 0; font-size: 14.5px; font-weight: 600; }
+.mini .big { margin: 0; font-size: 26px; font-weight: 800; letter-spacing: -0.02em; color: #1f7a52; }
+.mini .row { display: flex; gap: 14px; align-items: center; }
+.mini .thumb { width: 56px; height: 56px; border-radius: 12px; object-fit: cover; flex: none; }
+.mini .btn { display: inline-block; width: auto; height: auto; margin-top: 12px; padding: 7px 16px; border-radius: 99px; border: 0; background: #eeecff; color: #5543e8; font-size: 13px; font-weight: 700; }
+.mini .btn.dark { background: #14142b; color: #fff; }
+
+.cs-iter__art.marks { display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap; }
+.orb-old, .orb-new { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.orb { width: 72px; height: 72px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff, #b9a8ff 30%, #ff9cc0 65%, #8c7bff); box-shadow: 0 0 40px 10px rgba(160, 130, 255, 0.45); }
+.orb-new { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 12px; padding: 14px; border-radius: 16px; background: #fff; position: relative; }
+.orb-new > div { display: flex; flex-direction: column; align-items: center; gap: 4px; font-size: 11px; color: var(--muted); }
+.orb-new .tag { position: absolute; top: -9px; right: 14px; padding: 2px 8px; border-radius: 99px; background: #fff; border: 1px solid var(--line); }
+.cs-iter__art .arrow { font-size: 22px; color: var(--muted); }

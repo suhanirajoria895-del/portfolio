@@ -1265,63 +1265,132 @@ function DesignSystem() {
 function Iterations() {
   const [split, setSplit] = useState(50);
   return (
-    <Part kicker="Iterations" title="My first version worked fine. It just didn't make anyone feel anything.">
-      <div className="cs-evo" data-reveal>
+    <Part
+      kicker="Iterations"
+      title="Three things I got wrong the first time, and what changed them."
+      lede="Each one started as a reasonable-looking screen. Each one changed because it didn't fit how Meera actually works."
+    >
+      <article className="cs-iter" data-reveal>
+        <div className="cs-iter__copy">
+          <p className="cs-mono">Decision 01 · Mobile</p>
+          <h3>From a shrunk dashboard to one decision at a time</h3>
+          <dl>
+            <div>
+              <dt>First version</dt>
+              <dd>The desktop home squeezed onto a phone: a list of cards, each with small labels and a Review button.</dd>
+            </div>
+            <div>
+              <dt>Why it failed</dt>
+              <dd>
+                Meera uses her phone in gaps of a few seconds, between packing orders. A list asks her to scan, pick and
+                open. That's three steps too many.
+              </dd>
+            </div>
+            <div>
+              <dt>What changed</dt>
+              <dd>
+                A stack she swipes through, yes or no, one at a time. The most common decision, a price match, can be
+                approved right from the lock screen.
+              </dd>
+            </div>
+          </dl>
+        </div>
         <div className="cs-compare" style={{ "--split": `${split}%` }}>
-          <img src={`${A}cmp-round1.webp`} alt="Round 1: plain white cards on a flat background" className="before" />
-          <img src={`${A}cmp-final.webp`} alt="Final: glass morning screen and an evening recap" className="after" />
+          <img src={`${A}cmp-round1.webp`} alt="First version: a list of plain cards" className="before" />
+          <img src={`${A}cmp-final.webp`} alt="Final: a swipeable stack of decisions and an evening recap" className="after" />
           <span className="line" aria-hidden="true" />
-          <input type="range" min="0" max="100" value={split} onChange={(e) => setSplit(Number(e.target.value))} aria-label="Compare round 1 and the final version" />
-          <span className="tag l">Round 1</span>
+          <input type="range" min="0" max="100" value={split} onChange={(e) => setSplit(Number(e.target.value))} aria-label="Compare the first and final mobile versions" />
+          <span className="tag l">First</span>
           <span className="tag r">Final</span>
-          <p className="hand drag-hint" aria-hidden="true">← drag →</p>
+          <p className="drag-hint" aria-hidden="true">← drag →</p>
         </div>
-        <ol className="cs-rounds">
-          <li>
-            <span className="cs-mono">Round 1</span>
-            <h3>Correct, and completely forgettable.</h3>
-            <p>Everything was a white card with small grey labels. Nothing on the screen talked about money.</p>
-          </li>
-          <li>
-            <span className="cs-mono">Round 2</span>
-            <h3>Lead with the money.</h3>
-            <p>Product photos went to the front of each card, and the headline became "+₹7,641 extra sales a week".</p>
-          </li>
-          <li>
-            <span className="cs-mono">Round 3</span>
-            <h3>Think in a day, not in screens.</h3>
-            <p>A calm morning, a decision on the lock screen, a Hindi voice question, an evening recap. And the glowing AI blob I started with became two flat circles.</p>
-          </li>
-        </ol>
-      </div>
+      </article>
 
-      <div className="cs-wrongme" data-reveal>
-        <p className="cs-mono">Where I was wrong</p>
-        <h3>I added a theme switch because I couldn't choose. That was my problem, not Meera's.</h3>
-        <div className="cs-wrongme__grid">
-          <div>
-            <p className="lab">What I did</p>
-            <p>
-              I worried periwinkle looked like every other AI product, so I built an indigo and marigold theme too and
-              put a switch in the header to flip between them.
-            </p>
+      <article className="cs-iter flip" data-reveal>
+        <div className="cs-iter__copy">
+          <p className="cs-mono">Decision 02 · The suggestion card</p>
+          <h3>From describing the change to saying what it's worth</h3>
+          <dl>
+            <div>
+              <dt>First version</dt>
+              <dd>Cards described the action: "Lower price of Copper water bottle on Flipkart". Accurate, and easy to skip.</dd>
+            </div>
+            <div>
+              <dt>Why it failed</dt>
+              <dd>Meera doesn't decide on the action, she decides on the money. The card made her work out the impact herself.</dd>
+            </div>
+            <div>
+              <dt>What changed</dt>
+              <dd>The product photo and the expected gain lead. The action moves underneath, as the detail it is.</dd>
+            </div>
+          </dl>
+        </div>
+        <div className="cs-iter__art cards">
+          <div className="mini before">
+            <p className="tag">First</p>
+            <p className="k">Pricing · Flipkart</p>
+            <p className="t">Lower price of Copper water bottle on Flipkart</p>
+            <span className="btn">Review</span>
           </div>
-          <div>
-            <p className="lab">What happened</p>
-            <p>
-              The first person I showed it to asked what the switch was even for. Fair question.
-              A seller opening this at 7 AM doesn't want to pick a colour scheme. It just added a question.
-            </p>
-          </div>
-          <div>
-            <p className="lab">What I changed</p>
-            <p>
-              I picked one palette, the warmer periwinkle and pink, and removed the switch. The lesson: when I can't
-              decide something, I shouldn't hand that decision to the user.
-            </p>
+          <div className="mini after">
+            <p className="tag">Final</p>
+            <div className="row">
+              <img src={`${A}pop/bottle.webp`} alt="" aria-hidden="true" className="thumb" />
+              <div>
+                <p className="big">+₹7,641 a week</p>
+                <p className="t">Drop Copper bottle to ₹849 on Flipkart</p>
+              </div>
+            </div>
+            <span className="btn dark">Approve</span>
           </div>
         </div>
-      </div>
+      </article>
+
+      <article className="cs-iter" data-reveal>
+        <div className="cs-iter__copy">
+          <p className="cs-mono">Decision 03 · Co's presence</p>
+          <h3>From a glowing AI orb to a mark that tells you what Co is doing</h3>
+          <dl>
+            <div>
+              <dt>First version</dt>
+              <dd>A soft gradient orb in the corner. It said "there's AI here", and nothing else.</dd>
+            </div>
+            <div>
+              <dt>Why it failed</dt>
+              <dd>
+                It looked like every AI product, and it couldn't answer the question Meera actually has: is Co busy,
+                waiting on me, or done? At 16px it was just a blur.
+              </dd>
+            </div>
+            <div>
+              <dt>What changed</dt>
+              <dd>Two flat circles that move apart, overlap or turn grey. Five states you can read at a glance, even with motion off.</dd>
+            </div>
+          </dl>
+        </div>
+        <div className="cs-iter__art marks">
+          <div className="orb-old">
+            <span className="orb" aria-hidden="true" />
+            <p className="tag">First</p>
+          </div>
+          <span className="arrow" aria-hidden="true">→</span>
+          <div className="orb-new">
+            {[
+              ["idle", "Watching"],
+              ["thinking", "Thinking"],
+              ["needsYou", "Needs you"],
+              ["done", "Done"],
+              ["paused", "Paused"],
+            ].map(([st, l]) => (
+              <div key={st}>
+                <CoMark state={st} size={40} />
+                <span>{l}</span>
+              </div>
+            ))}
+            <p className="tag">Final</p>
+          </div>
+        </div>
+      </article>
     </Part>
   );
 }
