@@ -416,3 +416,7 @@ a { color: inherit; }
 @media (max-width: 860px) { .glove__more { grid-template-columns: 1fr; } }
 
 .cover__glove { aspect-ratio: 0.95; object-fit: cover; object-position: 80% 40%; width: 78%; }
+
+.cover__phone { width: 34%; right: -4%; bottom: -10%; filter: none; }
+.cover__phone .ph { font-size: 11px; }
+.cover__phone { width: 270px; right: -2%; bottom: -6%; transform-origin: 100% 100%; scale: 0.78; }

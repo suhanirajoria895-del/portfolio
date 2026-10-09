@@ -48,7 +48,7 @@ function HomeScreen() {
   );
 }
 
-function SessionScreen() {
+export function SessionScreen() {
   const [rep, setRep] = useState(8);
   const [lit, setLit] = useState(0);
   useEffect(() => {

@@ -4,7 +4,7 @@ import {
   Stethoscope, BookOpen, Map, Layers, Target,
 } from "lucide-react";
 import { useActiveId, useRevealAll } from "../cosell/hooks.js";
-import AppScreens from "./AppScreens.jsx";
+import AppScreens, { SessionScreen } from "./AppScreens.jsx";
 
 const A = "/work/steadytrack/";
 const RENDER = `${A}renders/`;
@@ -128,7 +128,7 @@ function Cover() {
         <div className="cover__art">
           <div className="beat" aria-hidden="true"><i /><i /><i /></div>
           <Render name="hero-hand.jpg" fallback={`${A}glove-photo.webp`} alt="The SteadyTrack smart glove on an older hand" className="cover__glove" />
-          <img className="cover__phone" src={`${A}app-session.webp`} alt="" />
+          <div className="cover__phone"><SessionScreen /></div>
           <span className="cover__chip"><i />On the beat · 12 of 15</span>
         </div>
         <div className="cover__copy">
