@@ -161,7 +161,19 @@ function Header() {
             <dt>Platform</dt>
             <dd>Web + mobile</dd>
           </div>
+          <div>
+            <dt>Tools</dt>
+            <dd>Figma, Claude Code, React</dd>
+          </div>
         </dl>
+        <ol className="cs-steps">
+          {["Research", "Define", "Wireframe", "Design", "Prototype"].map((t, i) => (
+            <li key={t}>
+              <span>{i + 1}</span>
+              {t}
+            </li>
+          ))}
+        </ol>
       </div>
 
       <div className="cs-hero" aria-hidden="true">
@@ -672,15 +684,8 @@ function Analysis() {
       n="03"
       kicker="Analysis"
       title="Who I designed for, and what already exists"
-      lede="I designed for one specific seller, built from the research. Then I looked at the AI tools she can already use, to see what's actually missing."
+      lede="One seller, built from the research, and the AI tools she already has."
     >
-      <figure className="cs-fig" data-reveal>
-        <figcaption>
-          <span className="cs-mono">Ecosystem map</span> Everything Meera reconciles by hand, with nothing connecting them but her
-        </figcaption>
-        <Ecosystem />
-      </figure>
-
       <article className="cs-persona" data-reveal>
         <div className="cs-polaroid">
           <span className="tape" aria-hidden="true" />
@@ -831,33 +836,6 @@ function Flows() {
         <Loop />
       </figure>
 
-      <figure className="cs-fig" data-reveal>
-        <figcaption>
-          <span className="cs-mono">Site map</span> Built around Meera's day, not around the marketplaces' menus
-        </figcaption>
-        <div className="cs-ia">
-          <div className="cs-ia__root">CoSell</div>
-          <div className="cs-ia__cols">
-            {[
-              ["Home", ["Today's numbers", "Things to approve", "What Co did overnight"]],
-              ["Approvals", ["The proposal", "Why Co suggests it", "Checks against her limits"]],
-              ["Inventory", ["One stock count", "Fix mismatches", "Restock"]],
-              ["Returns & payouts", ["Drafted replies", "Fee checks"]],
-              ["Co settings", ["Freedom per task", "Limits", "Never-discount list"]],
-              ["Phone", ["Morning stack", "Approve from lock screen", "Ask in Hindi", "Evening recap"]],
-            ].map(([t, items]) => (
-              <div key={t}>
-                <p>{t}</p>
-                <ul>
-                  {items.map((x) => (
-                    <li key={x}>{x}</li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </figure>
     </Part>
   );
 }
@@ -1079,6 +1057,57 @@ const WIRES = {
   ],
 };
 
+/** A static low-fi screen drawn from the same blocks as the wireframe-to-final slider. */
+function WireScreen({ which }) {
+  const blocks = which === "dash" ? WIRES_DASH : WIRES[which];
+  return (
+    <div className="lofi-screen" aria-hidden="true">
+      {blocks.map(([x0, y0, x1, y1, k], i) => (
+        <i key={i} className={k} style={{ left: `${x0 / 20}%`, top: `${y0 / 12.5}%`, width: `${(x1 - x0) / 20}%`, height: `${(y1 - y0) / 12.5}%` }} />
+      ))}
+    </div>
+  );
+}
+
+const WIRES_DASH = [
+  [33, 33, 155, 1215, "side"],
+  [200, 90, 600, 122, "line"],
+  [975, 75, 1445, 135, "pill"],
+  [202, 180, 640, 330, "card"],
+  [672, 180, 1110, 330, "card"],
+  [1142, 180, 1580, 330, "card"],
+  [1612, 180, 1922, 330, "card"],
+  [202, 360, 1922, 820, "chart"],
+  [202, 850, 1922, 1100, "card"],
+  [235, 900, 1300, 920, "line"],
+  [235, 960, 1100, 980, "line"],
+  [235, 1020, 900, 1040, "line"],
+];
+
+function PhoneWire() {
+  return (
+    <div className="lofi-phone" aria-hidden="true">
+      <i className="pw-bar" />
+      <i className="pw-title" />
+      <i className="pw-sub" />
+      <div className="pw-stack">
+        <span />
+        <span />
+        <div className="pw-card">
+          <i className="pw-img" />
+          <i className="pw-l1" />
+          <i className="pw-l2" />
+          <div className="pw-btns">
+            <b />
+            <b className="dark" />
+          </div>
+        </div>
+      </div>
+      <i className="pw-tabs" />
+    </div>
+  );
+}
+
 function WireToFinal() {
   const [which, setWhich] = useState("home");
   const [split, setSplit] = useState(55);
@@ -1123,123 +1152,33 @@ function Wireframes() {
     <Part title="From wireframe to screen">
       <WireToFinal />
 
-      <p className="cs-mono cs-wires__label" data-reveal>How I got to that home screen</p>
-      <div className="cs-wires" data-reveal>
-        <figure className="cs-wire">
-          <div className="wf">
-            <div className="wf-side" />
-            <div className="wf-main">
-              <div className="wf-row">
-                <b className="wf-box" />
-                <b className="wf-box" />
-                <b className="wf-box" />
-                <b className="wf-box" />
-              </div>
-              <div className="wf-chart" />
-              <div className="wf-list">
-                <Wire lines={4} />
-              </div>
-            </div>
-          </div>
-          <p className="hand wf-note n1">charts she'd look at and then… what?</p>
-          <p className="hand wf-note n2">the stuff that needs her is down here ↓</p>
-          <figcaption>
-            <span className="tag no">Option A</span> The classic analytics dashboard. It felt familiar, but every decision
-            sat below the fold.
-          </figcaption>
+      <div className="lofi" data-reveal>
+        <figure className="lofi__wide">
+          <WireScreen which="home" />
+          <figcaption>Home: what needs a yes, first</figcaption>
         </figure>
-        <figure className="cs-wire picked">
-          <div className="wf">
-            <div className="wf-side" />
-            <div className="wf-main">
-              <i className="wl h" />
-              <div className="wf-row">
-                <b className="wf-box" />
-                <b className="wf-box" />
-                <b className="wf-box" />
-              </div>
-              <div className="wf-queue">
-                {[0, 1, 2].map((i) => (
-                  <div key={i}>
-                    <span className="sq" />
-                    <Wire lines={1} />
-                    <span className="btn" />
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="wf-rail">
-              <Wire lines={5} />
-            </div>
-          </div>
-          <p className="hand wf-note n3">this IS the job ✓</p>
-          <figcaption>
-            <span className="tag yes">Option B, picked</span> Three numbers, then the things waiting for a yes, with
-            Co's overnight log off to the side.
-          </figcaption>
+        <figure className="lofi__wide">
+          <WireScreen which="approval" />
+          <figcaption>Suggestion: the change, the checks, the why</figcaption>
+        </figure>
+        <figure className="lofi__phone">
+          <PhoneWire />
+          <figcaption>Phone: one decision at a time</figcaption>
         </figure>
       </div>
 
-      <div className="cs-wires three" data-reveal>
-        <figure className="cs-wire">
-          <div className="wf tall">
-            <div className="wf-main">
-              <i className="wl h" />
-              <div className="wf-split">
-                <div className="wf-card">
-                  <span className="sq" /> <i className="wl big" />
-                </div>
-                <div className="wf-card">
-                  <Wire lines={3} />
-                </div>
-              </div>
-              <div className="wf-split">
-                <div className="wf-card">
-                  <Wire lines={3} />
-                </div>
-                <div className="wf-card">
-                  <span className="btn dark" /> <span className="btn" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <figcaption>Approval detail: the change, the checks, the why, then decide.</figcaption>
+      <div className="lofi-options" data-reveal>
+        <figure>
+          <WireScreen which="dash" />
+          <figcaption>
+            <span className="tag no">Option A</span> Charts first. Decisions sat below the fold.
+          </figcaption>
         </figure>
-        <figure className="cs-wire">
-          <div className="wf phone">
-            <i className="wl h" />
-            <div className="wf-stack">
-              <div />
-              <div />
-              <div className="top">
-                <span className="sq big" />
-                <Wire lines={2} />
-              </div>
-            </div>
-            <div className="wf-swipe">
-              <span>← No</span>
-              <span>Yes →</span>
-            </div>
-          </div>
-          <figcaption>Phone, morning: a stack of decisions to swipe through before chai.</figcaption>
-        </figure>
-        <figure className="cs-wire">
-          <div className="wf tall">
-            <div className="wf-main">
-              <i className="wl h" />
-              {[0, 1, 2, 3].map((i) => (
-                <div key={i} className="wf-seg">
-                  <Wire lines={1} />
-                  <span className="seg">
-                    <b className={i === 1 ? "on" : ""} />
-                    <b className={i === 0 ? "on" : ""} />
-                    <b className={i > 1 ? "on" : ""} />
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <figcaption>Settings: a freedom level per task, instead of one big switch.</figcaption>
+        <figure className="picked">
+          <WireScreen which="home" />
+          <figcaption>
+            <span className="tag yes">Option B, picked</span> The queue first. Decisions are the job.
+          </figcaption>
         </figure>
       </div>
     </Part>
@@ -1292,39 +1231,10 @@ function Tradeoffs() {
         </div>
       </div>
 
-      <UndoDemo />
     </Part>
   );
 }
 
-function UndoDemo() {
-  const [state, setState] = useState("idle");
-  return (
-    <div className="cs-undo" data-reveal>
-      <p className="cs-mono">Try it: is a quick yes plus undo better than a pop-up?</p>
-      <div className="cs-undo__card">
-        <span>Drop the Copper bottle to ₹849 on one marketplace</span>
-        <button type="button" className="cs-btn" disabled={state === "approved"} onClick={() => setState("approved")}>
-          {state === "approved" ? "Done" : "Approve"}
-        </button>
-      </div>
-      <div className={`cs-toast ${state === "approved" ? "on" : ""}`} role="status">
-        <CoMark state="done" size={20} /> Done. Co's updating the listing.
-        <button type="button" onClick={() => setState("undone")}>
-          Undo
-        </button>
-      </div>
-      {state === "undone" && (
-        <p className="cs-note">
-          Undone. Nothing changed.{" "}
-          <button type="button" className="cs-link" onClick={() => setState("idle")}>
-            Try again
-          </button>
-        </p>
-      )}
-    </div>
-  );
-}
 
 /* ───────────────────────── 08 solution ───────────────────────── */
 
@@ -1399,6 +1309,33 @@ const CONTROLS = [
   ["Undo, and action history", "Everything Co did overnight is listed with a time and an undo.", "activity"],
   ["Checks before it asks", "Each suggestion shows which of her rules it was checked against.", "guardrails"],
 ];
+
+function LiveProto() {
+  const [on, setOn] = useState(false);
+  return (
+    <figure className="cs-live" data-reveal>
+      <figcaption>
+        <span className="cs-mono">Interactive prototype</span>
+        <span>Log in with any number, approve a price, undo it, switch to Hindi.</span>
+        <a href={DEMO} target="_blank" rel="noreferrer">
+          Full screen ↗
+        </a>
+      </figcaption>
+      <div className="cs-live__frame" ref={(el) => el && el.style.setProperty("--s", String(el.clientWidth / 1440))}>
+        {on ? (
+          <iframe src={DEMO} title="CoSell interactive prototype" />
+        ) : (
+          <button type="button" className="cs-live__start" onClick={() => setOn(true)}>
+            <img src={`${A}home.webp`} alt="" width="2880" height="1800" loading="lazy" />
+            <span>
+              <CoMark state="thinking" size={22} /> Start the prototype
+            </span>
+          </button>
+        )}
+      </div>
+    </figure>
+  );
+}
 
 function ScreenViewer() {
   const [i, setI] = useState(0);
@@ -1486,6 +1423,8 @@ function Screen({ s }) {
 function Solution() {
   return (
     <Sec id="solution" n="06" kicker="Solution" title="Final designs">
+      <LiveProto />
+
       <ScreenViewer />
 
       <div className="cs-control" data-reveal>
@@ -1786,16 +1725,6 @@ function Reflection() {
               <b>Have a native speaker check the Hindi.</b> I wrote every string myself.
             </li>
           </ol>
-        </div>
-        <div className="cs-script">
-          <h3>What I'd ask the first five sellers</h3>
-          <ul>
-            <li>"Walk me through yesterday morning, tab by tab."</li>
-            <li>"Have you tried the AI assistant in your seller panel? What did you use it for?"</li>
-            <li>"When did a fee last surprise you? What did you do?"</li>
-            <li>"What would you never let software change?"</li>
-            <li>"Show me where you track payouts today."</li>
-          </ul>
         </div>
       </div>
 
