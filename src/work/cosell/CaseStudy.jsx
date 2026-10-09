@@ -224,10 +224,77 @@ function Problem() {
           </li>
         ))}
       </ol>
+      <div className="cs-work" data-reveal>
+        <h3 className="cs-h3">The same five jobs, repeated on every marketplace</h3>
+        <p className="cs-body">
+          Take a seller on Amazon, Flipkart and Meesho. Each panel has its own stock count, fee rules and returns process,
+          so every routine job is done three times, by hand.
+        </p>
+        <div className="cs-scroll">
+          <table className="cs-worktable">
+            <thead>
+              <tr>
+                <th>The job</th>
+                <th>Why it repeats</th>
+                <th>What goes wrong</th>
+                <th>Evidence</th>
+              </tr>
+            </thead>
+            <tbody>
+              {WORK.map(([job, why, wrong, kind, src]) => (
+                <tr key={job}>
+                  <th scope="row">{job}</th>
+                  <td>{why}</td>
+                  <td>{wrong}</td>
+                  <td>
+                    {src ? (
+                      <a className={`ev ${kind}`} href={src[1]} target="_blank" rel="noreferrer">
+                        {kind === "res" ? "Researched" : "Partly researched"} · {src[0]} ↗
+                      </a>
+                    ) : (
+                      <span className="ev asm">Assumption</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="cs-known" data-reveal>
+        <div>
+          <p className="cs-mono">What the research supports</p>
+          <ul>
+            <li>Without synced stock, multi-channel sellers oversell.</li>
+            <li>Fashion returns run at 25–40% of orders.</li>
+            <li>1–3% of GMV can leak through fee and return errors.</li>
+            <li>Wrong charges have to be claimed within about 30 days.</li>
+          </ul>
+        </div>
+        <div>
+          <p className="cs-mono">What I assumed, and haven't tested</p>
+          <ul>
+            <li>How long the daily dashboard routine takes (the times on the journey map are estimates).</li>
+            <li>That sellers would trust an AI that asks first more than one that acts alone.</li>
+            <li>That Hindi and voice matter enough to build in from the start.</li>
+            <li>Meera herself: an archetype, not a person I spoke to.</li>
+          </ul>
+        </div>
+      </div>
+
       <Statement />
     </Sec>
   );
 }
+
+const WORK = [
+  ["Update stock", "Each marketplace keeps its own count", "Counts drift, and an item sells after it's gone", "res", ["Base", "https://base.com/en-EN/blog/how-can-multi-channel-sellers-manage-orders-across-amazon-flipkart-myntra-and-more/"]],
+  ["Set and match prices", "Commission and fees differ, so the same price earns a different margin", "A price change breaks a margin or a marketplace's price rules", "res", ["Base", "https://base.com/en-EN/blog/how-can-multi-channel-sellers-manage-orders-across-amazon-flipkart-myntra-and-more/"]],
+  ["Answer returns", "Each has its own process and reply deadline", "Late replies and high return volumes eat into profit", "part", ["Shipmozo", "https://www.shipmozo.com/blog/ecommerce-returns-and-reverse-logistics"]],
+  ["Check payouts", "Every settlement lists fees differently", "Wrong commissions and RTO charges go unclaimed", "res", ["Mynd", "https://www.myndsolution.com/best-practices/handling-marketplace-reconciliation-for-online-sellers-in-india/"]],
+  ["Check every dashboard", "There's no single view of the business", "Problems are found late, or not at all", "asm", null],
+];
 
 const LINES = [
   { label: "12 × Cotton kurti set", amt: 14800 },
@@ -1163,6 +1230,7 @@ function UndoDemo() {
 const SCREENS = [
   {
     img: "home",
+    dec: { problem: "Sellers open the app to find out what needs them, and a dashboard makes them hunt for it.", alts: ["Charts-first analytics dashboard", "Notifications in a bell menu"], why: "A queue sorted by urgency answers \"what do I do now?\" in one glance. The numbers stay, but shrink to three." },
     short: "Home",
     t: "Home, a to-do list rather than a dashboard",
     d: "The first thing Meera sees is what needs her, not a wall of charts.",
@@ -1175,6 +1243,7 @@ const SCREENS = [
   },
   {
     img: "approval",
+    dec: { problem: "A seller won't approve a price change she can't check.", alts: ["A one-line card with Approve / Reject", "A confidence score like 87%"], why: "Showing the change, her margin after it, her own limits and the reason lets her judge it in seconds. High / Medium / Low with reasons is easier to trust than a number." },
     short: "Suggestion",
     t: "A suggestion, with all its working shown",
     d: "Everything she needs to say yes or no, on one screen.",
@@ -1187,8 +1256,9 @@ const SCREENS = [
   },
   {
     img: "inventory",
+    dec: { problem: "Stock counts drift between marketplaces and cause overselling.", alts: ["Auto-correct every mismatch silently", "Only flag them in a report"], why: "Flag each mismatch with a one-click fix. Fixing silently would hide errors from her; a report alone would be read too late." },
     short: "Inventory",
-    t: "One stock count for three shops",
+    t: "One stock count across every shop",
     d: "When a marketplace shows the wrong number, it's caught before it oversells.",
     pins: [
       [12, 24, "One banner, one action: Co can fix both mismatches."],
@@ -1198,6 +1268,7 @@ const SCREENS = [
   },
   {
     img: "returns",
+    dec: { problem: "Each marketplace has its own reply deadline, and missing it means losing the case.", alts: ["Let Co send replies automatically", "A plain list of open returns"], why: "Sort by deadline and draft the reply, but let her send it. A reply speaks for her shop, so it stays her call by default." },
     short: "Returns",
     t: "Returns, with the replies already drafted",
     d: "Sorted by deadline, so nothing gets decided for her by default.",
@@ -1208,6 +1279,7 @@ const SCREENS = [
   },
   {
     img: "settings",
+    dec: { problem: "Sellers trust some automation (restock alerts) long before others (pricing).", alts: ["One global AI on/off switch", "Fixed rules set during onboarding"], why: "A freedom level per task, plus hard limits Co can never cross. Trust can grow one task at a time." },
     short: "Co settings",
     t: "How much Co is allowed to do",
     d: "Freedom is set task by task, and some lines are never crossed.",
@@ -1217,6 +1289,14 @@ const SCREENS = [
       [65, 75, "Products Co must never discount, whatever happens."],
     ],
   },
+];
+
+const CONTROLS = [
+  ["Approve, edit or reject", "Every suggestion ends in three choices. Edit opens the price so she can set her own.", "decide2"],
+  ["Limits Co can't cross", "Minimum margin, max price change a day, daily ad budget. Even on auto.", "limits"],
+  ["Never-discount list", "Products Co may never lower the price of, whatever the data says.", "never"],
+  ["Undo, and action history", "Everything Co did overnight is listed with a time and an undo.", "activity"],
+  ["Checks before it asks", "Each suggestion shows which of her rules it was checked against.", "guardrails"],
 ];
 
 function ScreenViewer() {
@@ -1278,6 +1358,26 @@ function Screen({ s }) {
           </li>
         ))}
       </ol>
+      {s.dec && (
+        <div className="cs-dec">
+          <div>
+            <p className="cs-mono">Problem</p>
+            <p>{s.dec.problem}</p>
+          </div>
+          <div>
+            <p className="cs-mono">Also considered</p>
+            <ul>
+              {s.dec.alts.map((a) => (
+                <li key={a}>{a}</li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <p className="cs-mono">Why this</p>
+            <p>{s.dec.why}</p>
+          </div>
+        </div>
+      )}
     </article>
   );
 }
@@ -1286,6 +1386,24 @@ function Solution() {
   return (
     <Sec id="solution" n="06" kicker="Solution" title="Final designs">
       <ScreenViewer />
+
+      <div className="cs-control" data-reveal>
+        <h3 className="cs-h3">The seller stays in control</h3>
+        <p className="cs-body">Five controls hold up CoSell's promise. Every one is in the real interface, not just the story.</p>
+        <div className="cs-control__grid">
+          {CONTROLS.map(([t, d, img]) => (
+            <figure key={t}>
+              <div className="shot">
+                <img src={`${A}pop/${img}.webp`} alt={`${t} in the CoSell interface`} loading="lazy" />
+              </div>
+              <figcaption>
+                <b>{t}</b>
+                {d}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
 
       <article className="cs-wrong" data-reveal>
         <div className="cs-feat__copy">
@@ -1700,11 +1818,37 @@ function Iterations() {
 function Reflection() {
   return (
     <Sec id="reflection" n="✦" kicker="Reflection" title="Reflection and next steps">
+      <div className="cs-valid" data-reveal>
+        <span className="tag">Not tested yet</span>
+        <h3>I haven't tested CoSell with sellers.</h3>
+        <p>
+          Everything on this page comes from desk research and my own critique. Here's how I'd test it first.
+        </p>
+        <dl>
+          <div>
+            <dt>Method</dt>
+            <dd>Moderated, remote sessions with the clickable prototype, about 45 minutes each.</dd>
+          </div>
+          <div>
+            <dt>Who</dt>
+            <dd>5 small sellers who sell on at least two marketplaces, and run the shop mostly on their own.</dd>
+          </div>
+          <div>
+            <dt>Tasks</dt>
+            <dd>Approve a price change, undo it, set a minimum margin, and find a wrong fee on a settlement.</dd>
+          </div>
+          <div>
+            <dt>What I'm checking</dt>
+            <dd>Whether the reasons on a suggestion are enough to decide, and whether undo makes approving feel safe.</dd>
+          </div>
+        </dl>
+      </div>
+
       <div className="cs-goals" data-reveal>
         <p className="cs-mono">How I'd know it works · targets, not results</p>
         <div className="cs-goals__row">
           {[
-            ["15 min", "a day across all dashboards, down from over an hour"],
+            ["15 min", "a day across all dashboards"],
             ["7 / 10", "high-confidence suggestions approved without edits"],
             ["< 1 / 20", "actions undone. Zero would worry me too: it may mean she's stopped checking"],
             ["0", "fee errors found after the claim window has closed"],
