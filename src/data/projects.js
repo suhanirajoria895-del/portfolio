@@ -27,6 +27,12 @@ export const projects = [
     link: "/work/cosell/",
   },
   {
+    title: "Ruko",
+    description: "A scam shield for UPI payments: the right pause before money leaves, and a calm guide for the first hour after a scam.",
+    image: "/work/ruko/cover.webp",
+    link: "/work/ruko/",
+  },
+  {
     title: "SteadyTrack",
     description: "A smart therapy glove and companion app that turn daily hand exercises for Parkinson's into guided, rhythmic practice at home.",
     image: "/work/steadytrack/hero-glove-app.webp",

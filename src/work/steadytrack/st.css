@@ -420,3 +420,5 @@ a { color: inherit; }
 .cover__phone { width: 34%; right: -4%; bottom: -10%; filter: none; }
 .cover__phone .ph { font-size: 11px; }
 .cover__phone { width: 270px; right: -2%; bottom: -6%; transform-origin: 100% 100%; scale: 0.78; }
+.cover__phone { right: -8%; bottom: -12%; scale: 0.58; }
+.cover__glove { width: 82%; margin-right: 14%; }
