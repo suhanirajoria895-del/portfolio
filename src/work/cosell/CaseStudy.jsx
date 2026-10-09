@@ -11,16 +11,11 @@ const MEERA =
 const SECTIONS = [
   ["problem", "Problem"],
   ["research", "Research"],
-  ["analysis", "Who it's for"],
-  ["define", "The brief"],
-  ["flows", "Flows"],
-  ["wireframes", "Wireframes"],
-  ["tradeoffs", "Trade-offs"],
+  ["analysis", "Analysis"],
+  ["synthesis", "Synthesis"],
   ["solution", "Solution"],
-  ["system", "Design system"],
-  ["iterations", "Iterations"],
-  ["reflection", "Reflection"],
-];
+  ["design", "Design"],
+]
 
 export default function CaseStudy() {
   useRevealAll();
@@ -36,13 +31,29 @@ export default function CaseStudy() {
         <Problem />
         <Research />
         <Analysis />
-        <Define />
-        <Flows />
-        <Wireframes />
-        <Tradeoffs />
+        <Sec
+          id="synthesis"
+          n="04"
+          kicker="Synthesis"
+          title="From what I found to what I'd build."
+          lede="The brief, the rules Co plays by, the loop every feature runs through, and the trade-offs I made along the way."
+        >
+          <Define />
+          <Flows />
+          <Tradeoffs />
+        </Sec>
         <Solution />
-        <DesignSystem />
-        <Iterations />
+        <Sec
+          id="design"
+          n="06"
+          kicker="Design"
+          title="How it got from grey boxes to the final screens."
+          lede="Wireframes first, then the system that holds every screen together, then three rounds of making it feel like something."
+        >
+          <Wireframes />
+          <DesignSystem />
+          <Iterations />
+        </Sec>
         <Reflection />
         <Footer />
       </main>
@@ -103,6 +114,19 @@ function Sec({ id, n, kicker, title, children, lede }) {
       </header>
       {children}
     </section>
+  );
+}
+
+function Part({ kicker, title, children, lede }) {
+  return (
+    <div className="cs-part">
+      <header className="cs-part__head" data-reveal>
+        <p className="cs-mono">{kicker}</p>
+        <h3>{title}</h3>
+        {lede && <p className="cs-body">{lede}</p>}
+      </header>
+      {children}
+    </div>
   );
 }
 
@@ -413,7 +437,7 @@ function Analysis() {
     <Sec
       id="analysis"
       n="03"
-      kicker="Who it's for"
+      kicker="Analysis"
       title="One person, stuck in the middle of six systems."
       lede="To keep myself honest I designed for one specific seller. She isn't real, but everything about her comes from the research."
     >
@@ -523,7 +547,7 @@ function Ecosystem() {
 
 function Define() {
   return (
-    <Sec id="define" n="04" kicker="The brief" title="Squeezing all of that into one question.">
+    <Part kicker="The brief" title="Squeezing all of that into one question.">
       <blockquote className="cs-hmw" data-reveal>
         <span className="cs-mono">How might we</span>
         let a solo seller hand the repetitive marketplace work to an AI, <em>and still feel like it's her shop?</em>
@@ -546,7 +570,7 @@ function Define() {
           ))}
         </div>
       </div>
-    </Sec>
+    </Part>
   );
 }
 
@@ -554,13 +578,7 @@ function Define() {
 
 function Flows() {
   return (
-    <Sec
-      id="flows"
-      n="05"
-      kicker="Flows"
-      title="Co does the watching. Meera does the deciding."
-      lede="Before drawing a single screen, I wrote down who does what. Then I drew the one loop that every feature goes through."
-    >
+    <Part kicker="Flows" title="Co does the watching. Meera does the deciding." lede="Before drawing a single screen, I wrote down who does what. Then I drew the one loop that every feature goes through.">
       <div className="cs-roles" data-reveal>
         <div>
           <p className="who">
@@ -618,7 +636,7 @@ function Flows() {
           </div>
         </div>
       </figure>
-    </Sec>
+    </Part>
   );
 }
 
@@ -679,13 +697,7 @@ function Wire({ lines = 3 }) {
 
 function Wireframes() {
   return (
-    <Sec
-      id="wireframes"
-      n="06"
-      kicker="Wireframes"
-      title="Grey boxes first, so the argument stayed about structure."
-      lede="I drew two versions of the home screen and judged them on one thing: what does Meera do in her first ten seconds?"
-    >
+    <Part kicker="Wireframes" title="Grey boxes first, so the argument stayed about structure." lede="I drew two versions of the home screen and judged them on one thing: what does Meera do in her first ten seconds?">
       <div className="cs-wires" data-reveal>
         <figure className="cs-wire">
           <div className="wf">
@@ -804,7 +816,7 @@ function Wireframes() {
           <figcaption>Settings: a freedom level per task, instead of one big switch.</figcaption>
         </figure>
       </div>
-    </Sec>
+    </Part>
   );
 }
 
@@ -820,7 +832,7 @@ const TRADEOFFS = [
 
 function Tradeoffs() {
   return (
-    <Sec id="tradeoffs" n="07" kicker="Trade-offs" title="Every decision cost me something. This is what I gave up.">
+    <Part kicker="Trade-offs" title="Every decision cost me something. This is what I gave up.">
       <div className="cs-trade" data-reveal>
         <div className="cs-trade__row head" aria-hidden="true">
           <span>Decision</span>
@@ -855,7 +867,7 @@ function Tradeoffs() {
       </div>
 
       <UndoDemo />
-    </Sec>
+    </Part>
   );
 }
 
@@ -890,68 +902,110 @@ function UndoDemo() {
 
 /* ───────────────────────── 08 solution ───────────────────────── */
 
-const FEATURES = [
+const SCREENS = [
   {
-    n: "01",
-    t: "Home works like a to-do list",
-    d: "Today's numbers up top, then only the things that need a yes, most urgent first. What Co did overnight sits quietly on the side.",
-    shot: "home",
-    pop: "queue",
-    side: "r",
-    note: "each row: what, where, how sure, one button",
+    img: "home",
+    t: "Home, a to-do list rather than a dashboard",
+    d: "The first thing Meera sees is what needs her, not a wall of charts.",
+    pins: [
+      [12, 30, "Three numbers, no more. Sales, orders to ship, returns."],
+      [70, 18, "One line on how the shop is doing, so she doesn't have to work it out."],
+      [12, 52, "Things waiting for a yes, most urgent first. Each row: what, where, how sure, one button."],
+      [71, 52, "What Co did overnight, each with its own undo."],
+    ],
   },
   {
-    n: "02",
-    t: "Every suggestion shows its working",
-    d: "The change, her margin after it, the three limits it was checked against, and what competitors have been doing. Yes, tweak or no, all on one screen.",
-    shot: "approval",
-    pop: "guardrails",
-    side: "l",
-    note: "her own rules, checked before she even asks",
+    img: "approval",
+    t: "A suggestion, with all its working shown",
+    d: "Everything she needs to say yes or no, on one screen.",
+    pins: [
+      [12, 30, "The change, in big numbers, with her margin and expected orders after it."],
+      [70, 26, "Her own limits, checked before she even asks."],
+      [12, 64, "Why Co thinks this, in plain words, plus what competitors did this week."],
+      [70, 63, "Yes, tweak or no. She can let Co do this kind of thing alone next time."],
+    ],
   },
   {
-    n: "03",
-    t: "Freedom is set task by task",
-    d: "For pricing, restocking, returns and ads separately: just suggest, ask me first, or go ahead within my limits.",
-    shot: "settings",
-    pop: "autonomy",
-    side: "r",
-    note: "trust grows one task at a time",
-  },
-  {
-    n: "04",
+    img: "inventory",
     t: "One stock count for three shops",
-    d: "When a marketplace shows the wrong number, it lights up red with a one-click fix, before it oversells.",
-    shot: "inventory",
-    pop: "stock",
-    side: "l",
-    note: "Flipkart says 124, she has 118",
+    d: "When a marketplace shows the wrong number, it's caught before it oversells.",
+    pins: [
+      [12, 24, "One banner, one action: Co can fix both mismatches."],
+      [46.5, 50, "Flipkart says 124. She actually has 118."],
+      [70, 38, "Restock ideas based on the last 14 days of sales."],
+    ],
+  },
+  {
+    img: "returns",
+    t: "Returns, with the replies already drafted",
+    d: "Sorted by deadline, so nothing gets decided for her by default.",
+    pins: [
+      [12, 25, "How returns are going, at a glance."],
+      [73, 52, "The closest deadline is flagged in red. Co's reply is one click away."],
+    ],
+  },
+  {
+    img: "settings",
+    t: "How much Co is allowed to do",
+    d: "Freedom is set task by task, and some lines are never crossed.",
+    pins: [
+      [12, 37, "Pricing, restocking, returns and ads each get their own level."],
+      [65, 37, "Hard limits: minimum margin, max price change, daily ad budget."],
+      [65, 75, "Products Co must never discount, whatever happens."],
+    ],
   },
 ];
 
+function Screen({ s }) {
+  const [on, setOn] = useState(null);
+  return (
+    <article className="cs-screen" data-reveal>
+      <header>
+        <h3>{s.t}</h3>
+        <p>{s.d}</p>
+      </header>
+      <div className="cs-screen__frame">
+        <img src={`${A}${s.img}.webp`} alt={s.t} width="2880" height="1800" loading="lazy" />
+        {s.pins.map(([x, y], i) => (
+          <button
+            key={i}
+            type="button"
+            className={`cs-pin ${on === i ? "on" : ""}`}
+            style={{ left: `${x}%`, top: `${y}%` }}
+            onMouseEnter={() => setOn(i)}
+            onMouseLeave={() => setOn(null)}
+            onFocus={() => setOn(i)}
+            onBlur={() => setOn(null)}
+            aria-label={`Note ${i + 1}`}
+          >
+            {i + 1}
+          </button>
+        ))}
+      </div>
+      <ol className="cs-screen__notes">
+        {s.pins.map(([, , note], i) => (
+          <li key={i} className={on === i ? "on" : ""} onMouseEnter={() => setOn(i)} onMouseLeave={() => setOn(null)}>
+            <span>{i + 1}</span>
+            {note}
+          </li>
+        ))}
+      </ol>
+    </article>
+  );
+}
+
 function Solution() {
   return (
-    <Sec id="solution" n="08" kicker="Solution" title="Co keeps watch, and only taps Meera on the shoulder when it matters.">
-      <div className="cs-features">
-        {FEATURES.map((f) => (
-          <article key={f.n} className={`cs-feat ${f.side}`} data-reveal>
-            <div className="cs-feat__copy">
-              <span className="cs-num">{f.n}</span>
-              <h3>{f.t}</h3>
-              <p>{f.d}</p>
-            </div>
-            <div className="cs-feat__art">
-              <img className="base" src={`${A}${f.shot}.webp`} alt="" loading="lazy" width="2880" height="1800" />
-              <img className="pop" src={`${A}pop/${f.pop}.webp`} alt={f.t} loading="lazy" />
-              <p className="hand cs-feat__note" aria-hidden="true">{f.note}</p>
-            </div>
-          </article>
+    <Sec id="solution" n="05" kicker="Solution" title="Co keeps watch, and only taps Meera on the shoulder when it matters.">
+      <div className="cs-screens">
+        {SCREENS.map((sc) => (
+          <Screen key={sc.img} s={sc} />
         ))}
       </div>
 
       <article className="cs-wrong" data-reveal>
         <div className="cs-feat__copy">
-          <span className="cs-num">05</span>
+          <p className="cs-mono">And when it goes wrong</p>
           <h3>When Co gets it wrong</h3>
           <p>
             It will, sometimes. So I designed this before the happy path. One tap puts things back exactly as they were,
@@ -985,7 +1039,7 @@ function Solution() {
 
       <div className="cs-phones" data-reveal>
         <div className="cs-phones__copy">
-          <span className="cs-num">06</span>
+          <p className="cs-mono">On the phone</p>
           <h3>A phone app for the gaps between packing orders</h3>
           <p>She can approve straight from the lock screen, ask Co something in Hindi out loud, and get a short recap of the day at night.</p>
         </div>
@@ -1035,13 +1089,7 @@ const MARKS = [
 function DesignSystem() {
   const [mode, setMode] = useState("ask");
   return (
-    <Sec
-      id="system"
-      n="09"
-      kicker="Design system"
-      title="A quiet system, so the money and the decisions are what you notice."
-      lede="Flat colour, lots of room, one main button per card. Colour only ever means a status, never decoration. And every value lives in one file, so I could change the palette without touching a screen."
-    >
+    <Part kicker="Design system" title="A quiet system, so the money and the decisions are what you notice." lede="Flat colour, lots of room, one main button per card. Colour only ever means a status, never decoration. Every value lives in one file, so I could change the palette without touching a screen.">
       <div className="ds-block" data-reveal>
         <h3 className="ds-h">Typefaces</h3>
         <div className="ds-type">
@@ -1208,7 +1256,7 @@ function DesignSystem() {
           </ul>
         </div>
       </div>
-    </Sec>
+    </Part>
   );
 }
 
@@ -1217,7 +1265,7 @@ function DesignSystem() {
 function Iterations() {
   const [split, setSplit] = useState(50);
   return (
-    <Sec id="iterations" n="10" kicker="Iterations" title="My first version worked fine. It just didn't make anyone feel anything.">
+    <Part kicker="Iterations" title="My first version worked fine. It just didn't make anyone feel anything.">
       <div className="cs-evo" data-reveal>
         <div className="cs-compare" style={{ "--split": `${split}%` }}>
           <img src={`${A}cmp-round1.webp`} alt="Round 1: plain white cards on a flat background" className="before" />
@@ -1274,7 +1322,7 @@ function Iterations() {
           </div>
         </div>
       </div>
-    </Sec>
+    </Part>
   );
 }
 
@@ -1282,7 +1330,7 @@ function Iterations() {
 
 function Reflection() {
   return (
-    <Sec id="reflection" n="11" kicker="Reflection" title="The real test is simple: would sellers actually say yes to Co?">
+    <Sec id="reflection" n="✦" kicker="Reflection" title="The real test is simple: would sellers actually say yes to Co?">
       <div className="cs-reflect" data-reveal>
         <Sticky c="y" r={-1.5}>
           <h3 className="hand">What I'd measure</h3>

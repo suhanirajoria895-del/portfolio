@@ -679,3 +679,36 @@ mark { background: linear-gradient(transparent 55%, #ffe27a 55%, #ffe27a 92%, tr
 @media (max-width: 800px) { .cs-wrongme__grid { grid-template-columns: 1fr; } }
 .cs-reflect { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 @media (max-width: 700px) { .cs-reflect { grid-template-columns: 1fr; } }
+
+/* ───────── sub-parts inside a section ───────── */
+.cs-part { padding-top: clamp(32px, 4vw, 48px); border-top: 1px solid var(--line); }
+.cs-part > :not(:first-child) { margin-top: clamp(32px, 4vw, 48px); }
+.cs-part__head { max-width: 720px; }
+.cs-part__head .cs-mono { color: var(--accent); }
+.cs-part__head h3 { margin-top: 10px; font-size: clamp(22px, 2.4vw, 28px); font-weight: 500; letter-spacing: -0.025em; line-height: 1.2; }
+.cs-part__head .cs-body { margin-top: 10px; }
+
+/* ───────── full screens with numbered callouts ───────── */
+.cs-screens { display: grid; gap: clamp(64px, 8vw, 104px); }
+.cs-screen header { max-width: 680px; }
+.cs-screen h3 { font-size: clamp(22px, 2.4vw, 28px); font-weight: 500; letter-spacing: -0.025em; line-height: 1.2; }
+.cs-screen header p { margin-top: 8px; color: var(--ink-2); }
+.cs-screen__frame { position: relative; margin-top: 24px; padding: 10px; border-radius: 24px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 30px 60px -36px rgba(60, 45, 10, 0.35); }
+.cs-screen__frame img { border-radius: 16px; }
+.cs-pin {
+  position: absolute; width: 30px; height: 30px; margin: -30px 0 0 -30px; border: 0; border-radius: 50%;
+  display: grid; place-items: center; background: var(--ink); color: #fff; font: 600 13px var(--sans);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.9), 0 6px 14px -4px rgba(0, 0, 0, 0.4);
+  transition: transform 200ms var(--ease), background-color 200ms;
+}
+.cs-pin.on, .cs-pin:hover { background: var(--accent); transform: scale(1.15); }
+.cs-screen__notes { list-style: none; margin: 20px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px 24px; }
+.cs-screen__notes li { display: flex; gap: 10px; padding: 10px 12px; margin: -10px -12px 0; border-radius: 12px; font-size: 14.5px; color: var(--ink-2); line-height: 1.5; transition: background-color 200ms; }
+.cs-screen__notes li.on { background: var(--surface); }
+.cs-screen__notes span { flex: none; width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%; background: var(--ink); color: #fff; font-size: 11.5px; font-weight: 600; }
+.cs-screen__notes li.on span { background: var(--accent); }
+@media (max-width: 600px) {
+  .cs-pin { width: 22px; height: 22px; margin: -11px 0 0 -11px; font-size: 11px; box-shadow: 0 0 0 2px #fff; }
+  .cs-screen__frame { padding: 5px; border-radius: 14px; }
+  .cs-screen__frame img { border-radius: 10px; }
+}
