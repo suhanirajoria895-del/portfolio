@@ -5,6 +5,7 @@ import { PauseScreen, PayScreen, CollectScreen, TrustedScreen, RecoverScreen, Se
 
 const IANS_LOSS = "https://ianslive.in/indians-lose-over-rs-52976-crore-to-cyber-frauds-over-six-years-report--20260103154943";
 const IANS_UPI = "https://ianslive.in/upi-frauds-worth-rs-805-crore-witnessed-this-fiscal-so-far-minister--20251215175703";
+const P = "/work/ruko/";
 const FOF = "https://frankonfraud.com/wp-content/uploads/2026/01/Digital-Arrest-Scams-Explained.pdf";
 
 const SCENES = [
@@ -79,9 +80,21 @@ function useProgress() {
 function Scene({ id, n, label, children }) {
   return (
     <section id={id} className="sc">
+      <span className="sc__big" aria-hidden="true">{n}</span>
       <header className="sc__top"><span>{n}</span><span>{label}</span></header>
       {children}
     </section>
+  );
+}
+
+/** The signature object: a glossy "pause" orb. */
+function Orb({ className = "" }) {
+  return (
+    <div className={`orb ${className}`} aria-hidden="true">
+      <i className="orb__glow" />
+      <i className="orb__body"><b /><b /></i>
+      <i className="orb__ring" />
+    </div>
   );
 }
 
@@ -122,10 +135,10 @@ function Cover() {
           <p>Ruko (Hindi for "wait") is a scam shield for UPI. It slows people down only when something looks wrong, and guides them through the first hour if a scam has already happened.</p>
         </div>
         <div className="cover__art rk-cover">
-          <div className="beat" aria-hidden="true"><i /><i /><i /></div>
-          <div className="rk-cover__back"><PayScreen /></div>
+          <Orb className="rk-cover__orb" />
           <div className="rk-cover__front"><PauseScreen /></div>
           <span className="cover__chip"><i />Paused · new payee + unknown call</span>
+          <span className="cover__chip two"><i />₹49,000 still in her account</span>
         </div>
       </div>
       <dl className="facts" data-reveal>
@@ -144,6 +157,14 @@ function Problem() {
         <Lead title={<>Payments got fast. <span>Scams got faster.</span></>}>
           UPI made paying anyone instant. Scammers use that speed: fake police calls, "refund" links, and "receive money" requests that actually take money. Every one works the same way: create panic, then get the money moved before the person can think.
         </Lead>
+        <div className="rk-scene">
+          <img src={`${P}call.webp`} alt="A young man frowning at his phone, hand on his forehead" />
+          <div className="rk-scene__bubbles" aria-hidden="true">
+            <p>"This is Mumbai Police. Your Aadhaar is linked to a crime."</p>
+            <p>"Don't tell anyone. Stay on this call."</p>
+            <p className="pay">"Transfer ₹49,000 now to clear your name."</p>
+          </div>
+        </div>
         <div className="rk-stats">
           <a href={IANS_LOSS} target="_blank" rel="noreferrer" className="dark">
             <b>₹19,813 cr</b><span>lost to cyber fraud in India in 2025, across about 21.8 lakh complaints</span><em>I4C via IANS ↗</em>
@@ -239,15 +260,15 @@ function People() {
       <Lead k="Who it's for" title={<>Two people, <span>one scam</span></>}>Archetypes built from victim stories and family accounts.</Lead>
       <div className="rk-people">
         <article>
-          <span className="rk-av lg">S</span>
+          <img src={`${P}sunita.webp`} alt="An older Indian woman in a floral sari, smiling" />
           <div>
-            <h3>Sunita, 58</h3><p className="k">Retired teacher · Pune</p>
+            <h3>Sunita, 66</h3><p className="k">Retired teacher · Pune</p>
             <p>Uses UPI for groceries and her pension. Trusts anyone who sounds official. Would rather not "trouble" her son.</p>
           </div>
         </article>
         <span className="rk-link-line" aria-hidden="true" />
         <article className="dark">
-          <span className="rk-av lg alt">R</span>
+          <img src={`${P}rohan2.webp`} alt="A young man in a black t-shirt looking at his phone" />
           <div>
             <h3>Rohan, 31</h3><p className="k">Her son · Bengaluru</p>
             <p>Set up her phone. Worries about scam calls, but can't be there when one comes.</p>
@@ -317,7 +338,8 @@ function InsightList() {
 
 function Hmw() {
   return (
-    <Block className="dark">
+    <Block className="dark hmw">
+      <Orb className="hmw__orb" />
       <p className="k">How might we</p>
       <p className="rk-hmw">help people <mark>stop and think</mark> at the exact moment a scam pushes them to pay, without slowing down the thousands of normal payments they make?</p>
     </Block>
