@@ -35,8 +35,8 @@ export default function CaseStudy() {
           id="synthesis"
           n="04"
           kicker="Synthesis"
-          title="From what I found to what I'd build."
-          lede="The brief, the rules Co plays by, the loop every feature runs through, and the trade-offs I made along the way."
+          title="Defining what to build"
+          lede="The problem statement, design principles, core flow and the trade-offs behind them."
         >
           <Define />
           <Flows />
@@ -46,8 +46,8 @@ export default function CaseStudy() {
           id="design"
           n="05"
           kicker="Design"
-          title="Grey boxes first, then the things I had to get wrong."
-          lede="I sketched layouts in greyscale until the structure held up, then turned them into real screens and changed my mind three times along the way."
+          title="Wireframes and iterations"
+          lede="Low-fidelity layouts to settle the structure, then the changes I made once they became real screens."
         >
           <Wireframes />
           <Iterations />
@@ -145,9 +145,7 @@ function Header() {
     <header className="cs-head" data-reveal>
       <div className="cs-head__copy">
         <p className="cs-mono">Case study 01 · Product design · Self-initiated</p>
-        <h1>
-          Meera sells kurtis on three marketplaces. Her <mark>real job</mark> is watching three dashboards.
-        </h1>
+        <h1>CoSell: an AI copilot for sellers on Amazon, Flipkart and Meesho</h1>
         <p className="cs-lede">
           CoSell is my attempt to give that job away. It's a copilot called Co that keeps an eye on Amazon, Flipkart and
           Meesho at once, catches the mistakes that cost money, and hands Meera a short list of things only she can decide.
@@ -215,7 +213,7 @@ function Problem() {
       id="problem"
       n="01"
       kicker="Problem"
-      title="Selling on three marketplaces is really running three small businesses."
+      title="Sellers on multiple marketplaces manage everything by hand"
       lede="Each one has its own dashboard, its own label format, its own returns rules and its own way of charging fees. So the day goes to switching tabs. And the mistakes are small enough that nobody spots them, but they keep happening."
     >
       <ol className="cs-chain" data-reveal>
@@ -314,7 +312,7 @@ function Research() {
       id="research"
       n="02"
       kicker="Research"
-      title="I went looking for the moments where time and money slip away."
+      title="Where sellers lose time and money"
       lede="This was desk research, not interviews (more on that at the end). I read seller guides, reconciliation write-ups, logistics reports and a lot of forum threads, and put every observation on a sticky note in FigJam."
     >
       <ol className="cs-process" data-reveal>
@@ -437,7 +435,7 @@ function Analysis() {
       id="analysis"
       n="03"
       kicker="Analysis"
-      title="One person, stuck in the middle of six systems."
+      title="Who I designed for"
       lede="To keep myself honest I designed for one specific seller. She isn't real, but everything about her comes from the research."
     >
       <figure className="cs-fig" data-reveal>
@@ -546,13 +544,13 @@ function Ecosystem() {
 
 function Define() {
   return (
-    <Part kicker="The brief" title="Squeezing all of that into one question.">
+    <Part kicker="The brief" title="Problem statement and principles">
       <blockquote className="cs-hmw" data-reveal>
         <span className="cs-mono">How might we</span>
         let a solo seller hand the repetitive marketplace work to an AI, <em>and still feel like it's her shop?</em>
       </blockquote>
       <div className="cs-rules" data-reveal>
-        <p className="hand cs-rules__title">Four rules I pinned above my desk</p>
+        <p className="hand cs-rules__title">Design principles</p>
         <div className="cs-rules__grid">
           {[
             ["y", -2, "Nothing changes without a yes.", "Unless Meera has written a rule that says Co can go ahead."],
@@ -577,7 +575,7 @@ function Define() {
 
 function Flows() {
   return (
-    <Part kicker="Flows" title="Co does the watching. Meera does the deciding." lede="Before drawing a single screen, I wrote down who does what. Then I drew the one loop that every feature goes through.">
+    <Part kicker="Flows" title="What Co does and what the seller decides" lede="Before drawing a single screen, I wrote down who does what. Then I drew the one loop that every feature goes through.">
       <div className="cs-roles" data-reveal>
         <div>
           <p className="who">
@@ -698,34 +696,161 @@ function Wire({ lines = 3 }) {
 const WIRES = {
   home: [
     [33, 33, 155, 1215, "side"],
-    [200, 90, 600, 122, "line"],
+    [62, 72, 128, 138, "logo"],
+    [80, 212, 110, 242, "icon"],
+    [80, 296, 110, 326, "icon"],
+    [80, 380, 110, 410, "icon"],
+    [80, 462, 110, 492, "icon"],
+    [80, 546, 110, 576, "icon"],
+    [80, 1130, 110, 1160, "icon"],
     [975, 75, 1445, 135, "pill"],
-    [200, 185, 670, 240, "head"],
-    [200, 252, 670, 282, "line"],
+    [1000, 95, 1030, 115, "circle"],
+    [1045, 98, 1220, 113, "line"],
+    [1470, 78, 1590, 132, "pill"],
+    [1478, 83, 1528, 127, "circle dark"],
+    [1612, 78, 1670, 132, "circle"],
+    [1695, 80, 1745, 130, "circle img"],
+    [1758, 86, 1820, 102, "line dark"],
+    [1758, 112, 1905, 127, "line"],
+    [200, 96, 600, 116, "line"],
+    [200, 190, 670, 235, "head"],
+    [208, 260, 222, 274, "circle dark"],
+    [245, 258, 670, 276, "line"],
     [202, 315, 555, 555, "card"],
+    [235, 350, 277, 392, "icon tint"],
+    [292, 362, 415, 380, "line"],
+    [235, 420, 370, 455, "head"],
+    [235, 476, 425, 492, "line"],
     [592, 315, 945, 555, "card"],
+    [625, 350, 667, 392, "icon tint"],
+    [682, 362, 805, 380, "line"],
+    [625, 420, 760, 455, "head"],
+    [625, 476, 815, 492, "line"],
     [982, 315, 1335, 555, "card"],
+    [1015, 350, 1057, 392, "icon tint"],
+    [1072, 362, 1195, 380, "line"],
+    [1015, 420, 1150, 455, "head"],
+    [1015, 476, 1205, 492, "line"],
+    [410, 415, 530, 455, "spark"],
     [1370, 178, 1922, 555, "card dark"],
+    [1405, 215, 1535, 232, "line light"],
+    [1405, 255, 1712, 290, "head light"],
+    [1405, 300, 1600, 333, "head light"],
+    [1405, 352, 1720, 368, "line light"],
+    [1405, 468, 1643, 520, "pill light"],
+    [1805, 210, 1890, 295, "ring"],
+    [1690, 370, 1905, 535, "img light"],
     [202, 590, 1336, 1096, "card"],
-    [235, 735, 1300, 790, "row"],
-    [235, 835, 1300, 890, "row"],
-    [235, 935, 1300, 990, "row"],
+    [235, 628, 480, 656, "head"],
+    [497, 628, 530, 656, "chip tint"],
+    [235, 668, 730, 688, "line"],
+    [235, 735, 297, 795, "img"],
+    [318, 755, 830, 775, "line dark"],
+    [928, 747, 1022, 783, "chip"],
+    [1045, 747, 1178, 783, "chip tint"],
+    [1200, 743, 1302, 787, "chip tint"],
+    [235, 835, 297, 895, "img"],
+    [318, 855, 830, 875, "line dark"],
+    [928, 847, 1022, 883, "chip"],
+    [1045, 847, 1178, 883, "chip tint"],
+    [1200, 843, 1302, 887, "chip tint"],
+    [235, 935, 297, 995, "img"],
+    [318, 955, 830, 975, "line dark"],
+    [928, 947, 1022, 983, "chip"],
+    [1045, 947, 1178, 983, "chip tint"],
+    [1200, 943, 1302, 987, "chip tint"],
+    [235, 1040, 430, 1058, "line accent"],
     [1372, 590, 1920, 1096, "card"],
+    [1405, 628, 1555, 656, "head"],
+    [1758, 630, 1887, 652, "chip tint"],
+    [1405, 668, 1683, 688, "line"],
+    [1405, 717, 1427, 739, "circle"],
+    [1447, 717, 1770, 735, "line dark"],
+    [1447, 747, 1590, 763, "line"],
+    [1405, 800, 1427, 822, "circle"],
+    [1447, 800, 1770, 818, "line dark"],
+    [1447, 830, 1590, 846, "line"],
+    [1405, 884, 1427, 906, "circle"],
+    [1447, 884, 1770, 902, "line dark"],
+    [1447, 914, 1590, 930, "line"],
+    [1405, 995, 1427, 1017, "circle"],
+    [1447, 995, 1770, 1013, "line dark"],
+    [1447, 1025, 1590, 1041, "line"],
   ],
   approval: [
     [33, 33, 155, 1215, "side"],
-    [200, 75, 560, 135, "line"],
+    [62, 72, 128, 138, "logo"],
+    [80, 212, 110, 242, "icon"],
+    [80, 296, 110, 326, "icon"],
+    [80, 380, 110, 410, "icon"],
+    [80, 462, 110, 492, "icon"],
+    [80, 546, 110, 576, "icon"],
+    [80, 1130, 110, 1160, "icon"],
     [975, 75, 1445, 135, "pill"],
-    [200, 180, 1160, 235, "head"],
+    [1000, 95, 1030, 115, "circle"],
+    [1045, 98, 1220, 113, "line"],
+    [1470, 78, 1590, 132, "pill"],
+    [1478, 83, 1528, 127, "circle dark"],
+    [1612, 78, 1670, 132, "circle"],
+    [1695, 80, 1745, 130, "circle img"],
+    [1758, 86, 1820, 102, "line dark"],
+    [1758, 112, 1905, 127, "line"],
+    [200, 75, 260, 135, "circle"],
+    [278, 96, 560, 116, "line"],
+    [200, 185, 1155, 232, "head"],
+    [1178, 190, 1270, 222, "chip"],
+    [1282, 190, 1468, 222, "chip tint"],
+    [1642, 205, 1922, 221, "line"],
     [202, 268, 1336, 698, "card"],
+    [246, 316, 506, 333, "line"],
+    [983, 316, 1290, 333, "line dark"],
     [246, 365, 368, 487, "img"],
-    [400, 395, 800, 460, "head"],
+    [400, 418, 497, 438, "line strike"],
+    [527, 400, 580, 452, "circle tint"],
+    [612, 395, 793, 460, "head big"],
+    [823, 410, 953, 442, "chip tint"],
+    [246, 553, 757, 653, "sub"],
+    [274, 575, 375, 592, "line"],
+    [274, 605, 415, 628, "head"],
+    [781, 553, 1290, 653, "sub"],
+    [808, 575, 950, 592, "line"],
+    [808, 605, 1125, 628, "head"],
     [1372, 268, 1922, 698, "card"],
+    [1405, 305, 1636, 335, "head"],
+    [1745, 302, 1887, 334, "chip tint"],
+    [1405, 346, 1553, 364, "line"],
+    [1405, 409, 1445, 449, "circle tint"],
+    [1461, 409, 1667, 429, "line dark"],
+    [1461, 436, 1600, 452, "line"],
+    [1405, 487, 1445, 527, "circle tint"],
+    [1461, 487, 1667, 507, "line dark"],
+    [1461, 514, 1600, 530, "line"],
+    [1405, 565, 1445, 605, "circle tint"],
+    [1461, 565, 1667, 585, "line dark"],
+    [1461, 592, 1600, 608, "line"],
+    [1405, 645, 1563, 663, "line accent"],
     [202, 735, 1336, 1072, "card"],
+    [248, 787, 541, 812, "head"],
+    [246, 845, 296, 893, "icon tint"],
+    [313, 860, 645, 878, "line dark"],
+    [246, 911, 296, 959, "icon tint"],
+    [313, 926, 645, 944, "line dark"],
+    [246, 978, 296, 1026, "icon tint"],
+    [313, 993, 645, 1011, "line dark"],
+    [874, 783, 1185, 800, "line"],
     [874, 840, 1290, 970, "chart"],
+    [874, 980, 950, 995, "line"],
+    [1236, 980, 1280, 995, "line"],
     [1372, 735, 1922, 1072, "card"],
+    [1405, 773, 1643, 800, "head"],
+    [1405, 815, 1865, 833, "line"],
+    [1405, 843, 1517, 861, "line"],
     [1405, 893, 1553, 960, "btn dark"],
     [1571, 893, 1725, 960, "btn"],
+    [1815, 918, 1876, 936, "line bad"],
+    [1405, 990, 1750, 1008, "line dark"],
+    [1405, 1017, 1647, 1033, "line"],
+    [1826, 995, 1887, 1028, "pill"],
   ],
 };
 
@@ -736,7 +861,7 @@ function WireToFinal() {
     <figure className="cs-w2f" data-reveal>
       <figcaption>
         <span className="cs-mono">Wireframe to final</span>
-        <span>Drag to see how much of the grey-box layout survived into the real screen.</span>
+        <span>Drag to compare the wireframe with the final screen.</span>
         <span className="seg cs-w2f__tabs" role="radiogroup" aria-label="Which screen">
           {[
             ["home", "Home"],
@@ -770,7 +895,7 @@ function WireToFinal() {
 
 function Wireframes() {
   return (
-    <Part kicker="Wireframes" title="Structure first, colour later." lede="I drew two versions of the home screen and judged them on one thing: what does Meera do in her first ten seconds?">
+    <Part kicker="Wireframes" title="Wireframes" lede="I drew two versions of the home screen and judged them on one thing: what does Meera do in her first ten seconds?">
       <WireToFinal />
 
       <p className="cs-mono cs-wires__label" data-reveal>How I got to that home screen</p>
@@ -908,7 +1033,7 @@ const TRADEOFFS = [
 
 function Tradeoffs() {
   return (
-    <Part kicker="Trade-offs" title="Every decision cost me something. This is what I gave up.">
+    <Part kicker="Trade-offs" title="Trade-offs">
       <div className="cs-trade" data-reveal>
         <div className="cs-trade__row head" aria-hidden="true">
           <span>Decision</span>
@@ -927,7 +1052,7 @@ function Tradeoffs() {
       </div>
 
       <div className="cs-killed" data-reveal>
-        <p className="hand cs-killed__title">Ideas I threw out</p>
+        <p className="hand cs-killed__title">Ideas I rejected</p>
         <div className="cs-killed__row">
           {[
             ["Let Co run fully on autopilot", "Exactly the fear the research kept surfacing. Nobody would switch it on."],
@@ -1102,12 +1227,12 @@ function Screen({ s }) {
 
 function Solution() {
   return (
-    <Sec id="solution" n="06" kicker="Solution" title="Co keeps watch, and only taps Meera on the shoulder when it matters.">
+    <Sec id="solution" n="06" kicker="Solution" title="Final designs">
       <ScreenViewer />
 
       <article className="cs-wrong" data-reveal>
         <div className="cs-feat__copy">
-          <p className="cs-mono">And when it goes wrong</p>
+          <p className="cs-mono">Error recovery</p>
           <h3>When Co gets it wrong</h3>
           <p>
             It will, sometimes. So I designed this before the happy path. One tap puts things back exactly as they were,
@@ -1140,8 +1265,7 @@ function Solution() {
       </article>
 
       <div className="cs-edges" data-reveal>
-        <p className="cs-mono">The other days it goes wrong</p>
-        <h3>Edge cases I designed for, not just the happy path</h3>
+                <h3>Edge cases</h3>
         <div className="cs-edges__grid">
           {[
             ["A marketplace stops syncing", "Numbers from that shop are marked stale with the time of the last sync. Never hidden, never guessed."],
@@ -1161,8 +1285,8 @@ function Solution() {
 
       <div className="cs-phones" data-reveal>
         <div className="cs-phones__copy">
-          <p className="cs-mono">On the phone</p>
-          <h3>A phone app for the gaps between packing orders</h3>
+          <p className="cs-mono">Mobile</p>
+          <h3>Mobile app</h3>
           <p>She can approve straight from the lock screen, ask Co something in Hindi out loud, and get a short recap of the day at night.</p>
         </div>
         <div className="cs-phones__stage">
@@ -1211,7 +1335,7 @@ const MARKS = [
 function DesignSystem() {
   const [mode, setMode] = useState("ask");
   return (
-    <Part kicker="Design system" title="A quiet system, so the money and the decisions are what you notice." lede="Flat colour, lots of room, one main button per card. Colour only ever means a status, never decoration. Every value lives in one file, so I could change the palette without touching a screen.">
+    <Part kicker="Design system" title="Design system" lede="Flat colour, lots of room, one main button per card. Colour only ever means a status, never decoration. Every value lives in one file, so I could change the palette without touching a screen.">
       <div className="ds-block" data-reveal>
         <h3 className="ds-h">Typefaces</h3>
         <div className="ds-type">
@@ -1389,13 +1513,13 @@ function Iterations() {
   return (
     <Part
       kicker="Iterations"
-      title="Three things I got wrong the first time, and what changed them."
-      lede="Each one started as a reasonable-looking screen. Each one changed because it didn't fit how Meera actually works."
+      title="What changed between versions"
+      lede="Three decisions I revised after seeing the first version."
     >
       <article className="cs-iter" data-reveal>
         <div className="cs-iter__copy">
           <p className="cs-mono">Decision 01 · Mobile</p>
-          <h3>From a shrunk dashboard to one decision at a time</h3>
+          <h3>Mobile: one decision at a time</h3>
           <dl>
             <div>
               <dt>First version</dt>
@@ -1431,7 +1555,7 @@ function Iterations() {
       <article className="cs-iter flip" data-reveal>
         <div className="cs-iter__copy">
           <p className="cs-mono">Decision 02 · The suggestion card</p>
-          <h3>From describing the change to saying what it's worth</h3>
+          <h3>Suggestion cards: lead with the money</h3>
           <dl>
             <div>
               <dt>First version</dt>
@@ -1471,7 +1595,7 @@ function Iterations() {
       <article className="cs-iter" data-reveal>
         <div className="cs-iter__copy">
           <p className="cs-mono">Decision 03 · Co's presence</p>
-          <h3>From a glowing AI orb to a mark that tells you what Co is doing</h3>
+          <h3>Co's icon: show what it's doing</h3>
           <dl>
             <div>
               <dt>First version</dt>
@@ -1521,7 +1645,7 @@ function Iterations() {
 
 function Reflection() {
   return (
-    <Sec id="reflection" n="✦" kicker="Reflection" title="The real test is simple: would sellers actually say yes to Co?">
+    <Sec id="reflection" n="✦" kicker="Reflection" title="Reflection and next steps">
       <div className="cs-reflect" data-reveal>
         <Sticky c="y" r={-1.5}>
           <h3 className="hand">What success would look like</h3>
