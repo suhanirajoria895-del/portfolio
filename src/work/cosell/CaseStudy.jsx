@@ -1,237 +1,174 @@
 import { useMemo, useState } from "react";
-import { CoMark, Logo } from "./CoMark.jsx";
-import { useActiveId, useDragScroll, useRevealAll } from "./hooks.js";
+import { CoMark } from "./CoMark.jsx";
+import { useActiveId, useRevealAll } from "./hooks.js";
 
 const A = "/work/cosell/"; // asset base
 const DEMO = "/work/cosell/demo/index.html#/";
 
-const CHAPTERS = [
+const SECTIONS = [
   ["problem", "Problem"],
   ["research", "Research"],
-  ["challenge", "Challenge"],
-  ["decisions", "Decisions"],
+  ["analysis", "Analysis"],
+  ["define", "Define"],
+  ["flows", "Flows"],
+  ["wireframes", "Wireframes"],
+  ["tradeoffs", "Trade-offs"],
   ["solution", "Solution"],
   ["system", "Design system"],
-  ["evolution", "Iterations"],
-  ["outcome", "Outcome"],
+  ["iterations", "Iterations"],
+  ["reflection", "Reflection"],
 ];
 
 export default function CaseStudy() {
   useRevealAll();
-  const ids = useMemo(() => CHAPTERS.map(([id]) => id), []);
+  const ids = useMemo(() => SECTIONS.map(([id]) => id), []);
   const active = useActiveId(ids);
 
   return (
-    <>
-      <TopBar />
-      <ChapterNav active={active} />
+    <div className="cs-shell">
+      <Sidebar active={active} />
+      <Chips active={active} />
       <main className="cs">
-        <Hero />
-        <TLDR />
+        <Header />
         <Problem />
         <Research />
-        <Challenge />
-        <Decisions />
+        <Analysis />
+        <Define />
+        <Flows />
+        <Wireframes />
+        <Tradeoffs />
         <Solution />
-        <EdgeCases />
         <DesignSystem />
-        <Evolution />
-        <Outcome />
-        <Closing />
+        <Iterations />
+        <Reflection />
+        <Footer />
       </main>
-    </>
-  );
-}
-
-/* ───────────────────────── chrome ───────────────────────── */
-
-function TopBar() {
-  return (
-    <header className="cs-top">
-      <a href="/#projects" className="cs-back">
-        <span aria-hidden="true">←</span> Suhani Rajoria
-      </a>
-      <Logo height={18} />
-      <a href={DEMO} target="_blank" rel="noreferrer" className="cs-pill cs-pill--dark">
-        Try the prototype <span aria-hidden="true">↗</span>
-      </a>
-      <span className="cs-progress" aria-hidden="true" />
-    </header>
-  );
-}
-
-function ChapterNav({ active }) {
-  return (
-    <>
-      {/* Tablets and phones: a sticky chip bar instead of the side index */}
-      <nav className="cs-chips" aria-label="Jump to section">
-        {CHAPTERS.map(([id, label]) => (
-          <a key={id} href={`#${id}`} aria-current={active === id ? "true" : undefined}>
-            {label}
-          </a>
-        ))}
-      </nav>
-      <SideIndex active={active} />
-    </>
-  );
-}
-
-function SideIndex({ active }) {
-  return (
-    <nav className="cs-chapters" aria-label="Case study sections">
-      <ol>
-        {CHAPTERS.map(([id, label], i) => (
-          <li key={id}>
-            <a href={`#${id}`} aria-current={active === id ? "true" : undefined}>
-              <span className="n">{String(i + 1).padStart(2, "0")}</span>
-              <span className="l">{label}</span>
-            </a>
-          </li>
-        ))}
-      </ol>
-    </nav>
-  );
-}
-
-/* ───────────────────────── hero ───────────────────────── */
-
-function Hero() {
-  return (
-    <section className="cs-hero">
-      <div className="cs-hero__circles" aria-hidden="true">
-        <span className="c c--peri" />
-        <span className="c c--pink" />
-      </div>
-
-      <div className="cs-wrap cs-hero__copy">
-        <h1>
-          Your business, <em>watched over.</em>
-        </h1>
-        <p className="cs-lede">
-          CoSell is an AI copilot that runs the busywork across Amazon, Flipkart and Meesho for small Indian sellers,
-          and asks before it acts.
-        </p>
-        <dl className="cs-meta">
-          <div>
-            <dt>Type</dt>
-            <dd>Self-initiated concept, solo</dd>
-          </div>
-          <div>
-            <dt>My role</dt>
-            <dd>Research, product strategy, UX, UI, design system</dd>
-          </div>
-          <div>
-            <dt>Platform</dt>
-            <dd>Desktop web app + mobile companion</dd>
-          </div>
-          <div>
-            <dt>Built with</dt>
-            <dd>React, Tailwind, Claude Code</dd>
-          </div>
-        </dl>
-      </div>
-
-      <div className="cs-wrap">
-        <figure className="cs-hero__shot">
-          <BrowserFrame src={`${A}home.webp`} alt="CoSell home: greeting, today's sales, approvals queue and Co's overnight activity" eager />
-        </figure>
-      </div>
-    </section>
-  );
-}
-
-function BrowserFrame({ src, alt, eager }) {
-  return (
-    <div className="cs-browser">
-      <div className="cs-browser__bar" aria-hidden="true">
-        <i />
-        <i />
-        <i />
-        <span>cosell.app</span>
-      </div>
-      <img src={src} alt={alt} width="2880" height="1800" loading={eager ? "eager" : "lazy"} decoding="async" />
     </div>
   );
 }
 
-function TLDR() {
-  const rows = [
-    ["Problem", "Sellers on three marketplaces run three dashboards by hand, and small errors leak money unnoticed."],
-    ["Solution", "Co, an agent that watches every listing and brings the seller only what needs a decision."],
-    ["My role", "Everything: research, strategy, UX, UI, the design system and a working prototype."],
-    ["Outcome", "A clickable desktop and mobile prototype, in English and Hindi, ready to test with sellers."],
-  ];
+/* ───────────────────────── shell ───────────────────────── */
+
+function Sidebar({ active }) {
+  const idx = SECTIONS.findIndex(([id]) => id === active);
   return (
-    <section className="cs-wrap cs-tldr" data-reveal>
-      {rows.map(([k, v]) => (
-        <div key={k}>
-          <h2>{k}</h2>
-          <p>{v}</p>
-        </div>
+    <aside className="cs-side">
+      <a href="/#projects" className="cs-side__back">
+        <span aria-hidden="true">←</span> All work
+      </a>
+      <p className="cs-side__proj">CoSell</p>
+      <nav aria-label="Case study sections">
+        <ol>
+          {SECTIONS.map(([id, label], i) => (
+            <li key={id} className={i < idx ? "done" : ""}>
+              <a href={`#${id}`} aria-current={active === id ? "true" : undefined}>
+                <span className="n">{String(i + 1).padStart(2, "0")}</span>
+                {label}
+              </a>
+            </li>
+          ))}
+        </ol>
+      </nav>
+      <a href={DEMO} target="_blank" rel="noreferrer" className="cs-side__cta">
+        Open prototype <span aria-hidden="true">↗</span>
+      </a>
+    </aside>
+  );
+}
+
+function Chips({ active }) {
+  return (
+    <nav className="cs-chips" aria-label="Jump to section">
+      {SECTIONS.map(([id, label], i) => (
+        <a key={id} href={`#${id}`} aria-current={active === id ? "true" : undefined}>
+          <span>{String(i + 1).padStart(2, "0")}</span> {label}
+        </a>
       ))}
+    </nav>
+  );
+}
+
+function Sec({ id, n, kicker, title, children, lede }) {
+  return (
+    <section id={id} className="cs-sec">
+      <header className="cs-sec__head" data-reveal>
+        <p className="cs-kicker">
+          <span>{n}</span> {kicker}
+        </p>
+        <h2>{title}</h2>
+        {lede && <p className="cs-lede">{lede}</p>}
+      </header>
+      {children}
     </section>
+  );
+}
+
+/* ───────────────────────── header ───────────────────────── */
+
+function Header() {
+  return (
+    <header className="cs-head" data-reveal>
+      <p className="cs-mono">Case study 01 · Product design · Concept</p>
+      <h1>
+        CoSell: an AI copilot for small sellers that <em>asks before it acts</em>
+      </h1>
+      <p className="cs-lede">
+        Indian sellers who list on Amazon, Flipkart and Meesho run three dashboards by hand. I designed an agent that
+        watches all three and brings the seller only the decisions that need them.
+      </p>
+      <ul className="cs-tags">
+        {["AI agent UX", "B2B SaaS", "Desktop + mobile", "English + Hindi"].map((t) => (
+          <li key={t}>{t}</li>
+        ))}
+      </ul>
+      <dl className="cs-meta">
+        <div>
+          <dt>Role</dt>
+          <dd>Solo designer: research, strategy, UX, UI, design system</dd>
+        </div>
+        <div>
+          <dt>Type</dt>
+          <dd>Self-initiated concept</dd>
+        </div>
+        <div>
+          <dt>Platform</dt>
+          <dd>Desktop web app and mobile companion</dd>
+        </div>
+        <div>
+          <dt>Output</dt>
+          <dd>11 screens, a design system, a clickable prototype</dd>
+        </div>
+      </dl>
+    </header>
   );
 }
 
 /* ───────────────────────── 01 problem ───────────────────────── */
 
-const PORTALS = [
-  { name: "Amazon", rows: ["Label format A", "Returns: 30 days", "Fee: 15% + fixed"] },
-  { name: "Flipkart", rows: ["Label format B", "Returns: 7 days", "Fee: slab based"] },
-  { name: "Meesho", rows: ["Label format C", "Returns: RTO heavy", "Fee: 0% + logistics"] },
-];
-
 function Problem() {
-  const [merged, setMerged] = useState(false);
   return (
-    <section id="problem" className="cs-section cs-wrap">
-      <div className="cs-split">
-        <div data-reveal>
-          <h2 className="cs-h2">Three marketplaces means running three businesses.</h2>
-          <p className="cs-body">
-            Every channel has its own dashboard, label format, return process and fee structure, so a seller's day is
-            spent switching between portals. Mistakes are expensive and easy to miss.
-          </p>
-          <button type="button" className="cs-pill cs-pill--dark" onClick={() => setMerged((m) => !m)} aria-pressed={merged}>
-            {merged ? "Back to three portals" : "Now hand it to Co"}
-          </button>
-        </div>
-
-        <div className={`cs-juggle ${merged ? "is-merged" : ""}`} data-reveal aria-live="polite">
-          {PORTALS.map((p, i) => (
-            <div key={p.name} className="cs-portal" style={{ "--i": i }}>
-              <p className="cs-portal__name">{p.name} Seller Panel</p>
-              {p.rows.map((r) => (
-                <p key={r} className="cs-portal__row">
-                  {r}
-                </p>
-              ))}
-            </div>
-          ))}
-          <div className="cs-portal cs-portal--co">
-            <CoMark state="needsYou" size={40} />
-            <p className="cs-portal__big">3 things need you</p>
-            <p className="cs-portal__row">12 handled overnight across all three</p>
-          </div>
-        </div>
-      </div>
-
-      <ul className="cs-frame3">
+    <Sec
+      id="problem"
+      n="01"
+      kicker="Problem"
+      title="Three marketplaces means running three businesses."
+      lede="Every channel has its own dashboard, label format, return process and fee structure. A solo seller spends the day switching portals, and small errors leak money nobody notices."
+    >
+      <ol className="cs-chain" data-reveal>
         {[
-          ["Constraint", "Three rule books", "Every marketplace has its own labels, return windows and fee slabs."],
-          ["Gap", "Nobody watches all three", "A solo seller checks each panel by hand, usually once a day."],
-          ["Consequence", "Money leaks quietly", "Wrong fees and missed claims go unnoticed until the window closes."],
+          ["Constraint", "Three rule books", "Different labels, return windows and fee slabs on every marketplace."],
+          ["Gap", "Nobody watches all three", "The seller checks each panel by hand, usually once a day."],
+          ["Consequence", "Money leaks quietly", "Wrong fees and missed claims surface after the window closes."],
         ].map(([k, t, d], i) => (
-          <li key={k} data-reveal style={{ "--d": `${i * 90}ms` }}>
-            <p className="k">{k}</p>
+          <li key={k} className={i === 2 ? "bad" : ""}>
+            <p className="cs-mono">{k}</p>
             <h3>{t}</h3>
             <p>{d}</p>
           </li>
         ))}
-      </ul>
-
+      </ol>
       <Statement />
-    </section>
+    </Sec>
   );
 }
 
@@ -242,10 +179,8 @@ const LINES = [
   { label: "RTO charge, order MS-88217", amt: -410, flag: "This order was delivered, not returned. ₹410." },
   { label: "TCS and TDS", amt: -296 },
 ];
-
 const inr = (n) => `${n < 0 ? "−" : ""}₹${Math.abs(n).toLocaleString("en-IN")}`;
 
-/** A real artifact makes the leak tangible: a settlement where Co spots what a tired seller misses. */
 function Statement() {
   const [scan, setScan] = useState(false);
   const total = LINES.reduce((s, l) => s + l.amt, 0);
@@ -261,11 +196,7 @@ function Statement() {
             <li key={l.label} className={l.flag ? "flag" : ""} style={{ "--d": `${i * 120}ms` }}>
               <span>{l.label}</span>
               <span className="amt">{inr(l.amt)}</span>
-              {l.flag && (
-                <p className="note">
-                  <CoMark state="needsYou" size={16} /> {l.flag}
-                </p>
-              )}
+              {l.flag && <p className="note">{l.flag}</p>}
             </li>
           ))}
         </ul>
@@ -273,22 +204,21 @@ function Statement() {
           <span>Payout</span>
           <span className="amt">{inr(total)}</span>
         </div>
-        <button type="button" className="cs-pill cs-pill--dark" onClick={() => setScan((s) => !s)} aria-pressed={scan}>
-          {scan ? "Hide Co's check" : "Let Co check it"}
-        </button>
       </div>
-
-      <div className="cs-stat">
-        <p className="cs-stat__n">1 to 3%</p>
-        <p className="cs-stat__t">
-          of gross sales can quietly leak through wrong commission rates, wrong RTO charges and returns that never get
-          restocked. Claims usually have to be raised within about 30 days.{" "}
+      <div>
+        <p className="cs-big">1 to 3%</p>
+        <p className="cs-body">
+          of gross sales can leak through wrong commissions, wrong RTO charges and returns that never get restocked.
+          Claims usually close in about 30 days.{" "}
           <a href="https://www.myndsolution.com/best-practices/handling-marketplace-reconciliation-for-online-sellers-in-india/" target="_blank" rel="noreferrer">
             Mynd Solution
           </a>
         </p>
-        <p className={`cs-stat__found ${scan ? "on" : ""}`} aria-live="polite">
-          {scan ? "₹1,890 found on one statement. That's 16.7% of this payout." : "Most sellers never open this screen."}
+        <button type="button" className="cs-btn" onClick={() => setScan((s) => !s)} aria-pressed={scan}>
+          {scan ? "Hide the check" : "Check this statement"}
+        </button>
+        <p className={`cs-found ${scan ? "on" : ""}`} aria-live="polite">
+          {scan ? "₹1,890 found on one statement, 16.7% of this payout." : "Most sellers never open this screen."}
         </p>
       </div>
     </div>
@@ -297,831 +227,957 @@ function Statement() {
 
 /* ───────────────────────── 02 research ───────────────────────── */
 
-const INSIGHTS = [
-  ["The cost is attention, not tools.", "Sellers already have dashboards. What they lack is time to watch all of them."],
-  ["Small errors compound silently.", "A 1 to 3% leak is invisible day to day, and large over a year."],
-  ["Timing matters.", "Claim windows and sale spikes punish anyone who checks late."],
-  ["Trust is the barrier to automation.", "Handing pricing to software feels risky when margins are thin."],
+const JOURNEY = [
+  ["7:30", "Check 3 dashboards", 1, "35 min of tab switching"],
+  ["9:00", "Update stock ×3", -1, "Oversold a dupatta last week"],
+  ["11:00", "Pack orders", 1, ""],
+  ["15:00", "Answer returns", -2, "Missed a 2-day reply window"],
+  ["18:00", "Match prices", -1, "Guessing prices"],
+  ["22:00", "Reconcile payouts", -3, "Can't tell which fee is wrong"],
 ];
 
 function Research() {
   return (
-    <section id="research" className="cs-section cs-wrap">
-      <h2 className="cs-h2" data-reveal>
-        Sellers don't need more data. They need to know what to fix today.
-      </h2>
-      <p className="cs-body" data-reveal>
-        I analysed seller guides, reconciliation write-ups and logistics reports to find where time and money leak.
-      </p>
-
-      <div className="cs-process" data-reveal>
+    <Sec
+      id="research"
+      n="02"
+      kicker="Research"
+      title="Sellers don't need more data. They need to know what to fix today."
+      lede="I studied seller guides, reconciliation write-ups, logistics reports and marketplace forums to map where time and money go."
+    >
+      <ol className="cs-process" data-reveal>
         {[
-          ["Understand", ["Secondary research", "Pain-point mapping", "Persona"]],
-          ["Define", ["Insights", "How might we", "Principles", "Tool landscape"]],
-          ["Shape", ["Meera's day as the IA", "Design system", "Coded prototype", "Three rounds of iteration"]],
-        ].map(([phase, steps], i) => (
-          <div key={phase}>
-            <p className="phase">
-              <span>{i + 1}</span> {phase}
-            </p>
-            <ul>
-              {steps.map((s) => (
-                <li key={s}>{s}</li>
-              ))}
-            </ul>
-          </div>
+          ["Understand", "Desk research, forum threads, fee docs"],
+          ["Map", "A day in the life, pain points, ecosystem"],
+          ["Define", "Insights, HMW, principles"],
+          ["Shape", "Flows, wireframes, system, prototype"],
+          ["Refine", "Three rounds of critique"],
+        ].map(([t, d], i) => (
+          <li key={t}>
+            <span className="cs-mono">0{i + 1}</span>
+            <h3>{t}</h3>
+            <p>{d}</p>
+          </li>
+        ))}
+      </ol>
+
+      <figure className="cs-fig" data-reveal>
+        <figcaption>
+          <span className="cs-mono">Journey map</span> A seller's day today, with how each task feels
+        </figcaption>
+        <Journey />
+      </figure>
+
+      <div className="cs-insights" data-reveal>
+        {[
+          ["The cost is attention, not tools.", "Sellers already have dashboards. What they lack is time to watch all of them."],
+          ["Small errors compound silently.", "A 1 to 3% leak is invisible each day and large over a year."],
+          ["Timing is everything.", "Claim windows and sale spikes punish anyone who checks late."],
+          ["Trust blocks automation.", "Handing pricing to software feels risky when margins are thin."],
+        ].map(([t, d], i) => (
+          <article key={t}>
+            <span className="cs-mono">Insight 0{i + 1}</span>
+            <h3>{t}</h3>
+            <p>{d}</p>
+          </article>
         ))}
       </div>
 
-      <div className="cs-research">
-        <article className="cs-persona" data-reveal>
-          <img
-            src="https://images.unsplash.com/photo-1723041885055-3e35ae8dd980?w=240&h=240&fit=crop&crop=focalpoint&fp-x=0.53&fp-y=0.42&fp-z=2.2&auto=format&q=70"
-            alt=""
-            width="96"
-            height="96"
-            loading="lazy"
-          />
-          <div>
-            <h3>Meera, 34, Jaipur</h3>
-            <p>
-              Sells cotton kurti sets on Amazon, Flipkart and Meesho with one helper. Checks three dashboards every
-              morning, reconciles payouts in Excel at night, and finds out about a stockout only when an order is
-              cancelled.
-            </p>
-            <blockquote>"I don't need more data. I need someone to tell me what to fix today."</blockquote>
-            <p className="cs-note">An archetype built from the research, not a real interviewee. Quote is illustrative.</p>
-          </div>
-        </article>
-
-        <ul className="cs-insights">
-          {INSIGHTS.map(([t, d], i) => (
-            <li key={t} data-reveal style={{ "--d": `${i * 70}ms` }}>
-              <h3>{t}</h3>
-              <p>{d}</p>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <Landscape />
-
       <details className="cs-more" data-reveal>
-        <summary>Read the research table</summary>
+        <summary>Sources behind the insights</summary>
         <table>
-          <thead>
-            <tr>
-              <th>Pain point</th>
-              <th>What the research says</th>
-            </tr>
-          </thead>
           <tbody>
             <tr>
-              <td>Overselling and stockouts</td>
+              <td>Overselling</td>
               <td>
-                Without synced stock, sellers are "guaranteed to oversell", and per-channel buffers tie up cash.{" "}
-                <a href="https://base.com/en-EN/blog/how-can-multi-channel-sellers-manage-orders-across-amazon-flipkart-myntra-and-more/" target="_blank" rel="noreferrer">Base</a>
-              </td>
-            </tr>
-            <tr>
-              <td>Manual work at peak</td>
-              <td>
-                Updating counts across four or more portals during sales like Diwali is described as humanly impossible.{" "}
+                Without synced stock, sellers are "guaranteed to oversell".{" "}
                 <a href="https://base.com/en-EN/blog/how-can-multi-channel-sellers-manage-orders-across-amazon-flipkart-myntra-and-more/" target="_blank" rel="noreferrer">Base</a>
               </td>
             </tr>
             <tr>
               <td>Returns and RTO</td>
               <td>
-                Industry estimates put fashion returns at 25 to 40% of orders and COD return-to-origin at 20 to 40% in
-                high-return categories.{" "}
+                Fashion returns run at 25 to 40% of orders, and COD return-to-origin at 20 to 40%.{" "}
                 <a href="https://www.shipmozo.com/blog/ecommerce-returns-and-reverse-logistics" target="_blank" rel="noreferrer">Shipmozo</a>
               </td>
             </tr>
             <tr>
-              <td>Hidden revenue leakage</td>
+              <td>Revenue leakage</td>
               <td>
-                Wrong commissions, wrong RTO charges and missing returned stock can cost 1 to 3% of GMV.{" "}
+                Wrong commissions and missing returned stock cost 1 to 3% of GMV.{" "}
                 <a href="https://www.myndsolution.com/best-practices/handling-marketplace-reconciliation-for-online-sellers-in-india/" target="_blank" rel="noreferrer">Mynd</a>
-              </td>
-            </tr>
-            <tr>
-              <td>Pricing mistakes</td>
-              <td>
-                Manual pricing errors can break marketplace price policies or erode margin at once.{" "}
-                <a href="https://base.com/en-EN/blog/how-can-multi-channel-sellers-manage-orders-across-amazon-flipkart-myntra-and-more/" target="_blank" rel="noreferrer">Base</a>
               </td>
             </tr>
           </tbody>
         </table>
       </details>
-    </section>
+    </Sec>
   );
 }
 
-/* Tool categories, not named products: I didn't audit specific vendors. */
-const TOOLS = ["Inventory sync tools", "Marketplace seller apps", "Spreadsheets", "CoSell"];
+function Journey() {
+  const W = 840;
+  const H = 230;
+  const x = (i) => 70 + i * ((W - 140) / (JOURNEY.length - 1));
+  const y = (v) => 110 - v * 24;
+  const path = JOURNEY.map(([, , v], i) => `${i ? "L" : "M"}${x(i)},${y(v)}`).join(" ");
+  return (
+    <div className="cs-scroll">
+      <svg viewBox={`0 0 ${W} ${H + 70}`} className="cs-journey" role="img" aria-label="Journey map: the day gets worse from morning to night, lowest at reconciling payouts">
+        <line x1="40" x2={W - 40} y1={y(0)} y2={y(0)} className="axis" />
+        <text x="40" y={y(0) - 8} className="lab">neutral</text>
+        <path d={path} className="curve" />
+        {JOURNEY.map(([t, task, v, pain], i) => (
+          <g key={t}>
+            <circle cx={x(i)} cy={y(v)} r="6" className={v < 0 ? "pt bad" : "pt"} />
+            {pain && (
+              <text x={x(i)} y={y(v) + (v < 0 ? 24 : -14)} textAnchor={i === JOURNEY.length - 1 ? "end" : i === 0 ? "start" : "middle"} className="pain">
+                {pain}
+              </text>
+            )}
+            <text x={x(i)} y={H + 22} textAnchor="middle" className="time">{t}</text>
+            <text x={x(i)} y={H + 44} textAnchor="middle" className="task">{task}</text>
+          </g>
+        ))}
+      </svg>
+    </div>
+  );
+}
+
+/* ───────────────────────── 03 analysis ───────────────────────── */
+
+const TOOLS = ["Inventory sync", "Seller apps", "Spreadsheets", "CoSell"];
 const CAPS = [
   ["One stock count", [1, 0, 0.5, 1]],
   ["Spots fee and return errors", [0, 0, 0.5, 1]],
   ["Explains why", [0, 0, 0, 1]],
   ["Acts, with permission", [0, 0, 0, 1]],
-  ["Works in Hindi, by voice", [0, 0.5, 0, 1]],
+  ["Hindi and voice", [0, 0.5, 0, 1]],
 ];
 
-function Landscape() {
+function Analysis() {
   return (
-    <div className="cs-landscape" data-reveal>
-      <h3 className="cs-h3">Existing tools sync stock. None of them decide.</h3>
-      <div className="cs-matrix" role="table" aria-label="What existing tools do, compared with CoSell">
-        <div className="row head" role="row">
-          <span role="columnheader" />
-          {TOOLS.map((t) => (
-            <span key={t} role="columnheader" className={t === "CoSell" ? "us" : ""}>
-              {t}
-            </span>
-          ))}
-        </div>
-        {CAPS.map(([cap, vals]) => (
-          <div className="row" role="row" key={cap}>
-            <span role="rowheader">{cap}</span>
-            {vals.map((v, i) => (
-              <span key={i} role="cell" className={`dot ${TOOLS[i] === "CoSell" ? "us" : ""}`} aria-label={v === 1 ? "Yes" : v ? "Partly" : "No"}>
-                <i className={v === 1 ? "full" : v ? "half" : "none"} />
-              </span>
-            ))}
+    <Sec id="analysis" n="03" kicker="Analysis" title="One person sits in the middle of six systems.">
+      <figure className="cs-fig" data-reveal>
+        <figcaption>
+          <span className="cs-mono">Ecosystem map</span> Everything the seller reconciles by hand
+        </figcaption>
+        <Ecosystem />
+      </figure>
+
+      <article className="cs-persona" data-reveal>
+        <div className="cs-persona__id">
+          <img
+            src="https://images.unsplash.com/photo-1723041885055-3e35ae8dd980?w=240&h=240&fit=crop&crop=focalpoint&fp-x=0.53&fp-y=0.42&fp-z=2.2&auto=format&q=70"
+            alt=""
+            width="88"
+            height="88"
+            loading="lazy"
+          />
+          <div>
+            <h3>Meera, 34</h3>
+            <p>Meera Handloom, Jaipur</p>
+            <p className="cs-mono">Archetype, built from research</p>
           </div>
-        ))}
+        </div>
+        <dl>
+          <div>
+            <dt>About</dt>
+            <dd>Sells cotton kurti sets and home goods on three marketplaces with one helper.</dd>
+          </div>
+          <div>
+            <dt>Goals</dt>
+            <dd>Grow sales without hiring. Get home before nine.</dd>
+          </div>
+          <div>
+            <dt>Frustrations</dt>
+            <dd>Stockouts she hears about from cancellations. Fees she can't check.</dd>
+          </div>
+          <div>
+            <dt>Needs</dt>
+            <dd>One place to look, a short list of what to fix, in Hindi when tired.</dd>
+          </div>
+        </dl>
+        <blockquote>"I don't need more data. I need someone to tell me what to fix today."</blockquote>
+      </article>
+
+      <div className="cs-matrix-wrap" data-reveal>
+        <h3 className="cs-h3">Existing tools sync stock. None of them decide.</h3>
+        <div className="cs-scroll">
+          <table className="cs-matrix">
+            <thead>
+              <tr>
+                <th />
+                {TOOLS.map((t) => (
+                  <th key={t} className={t === "CoSell" ? "us" : ""}>{t}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {CAPS.map(([cap, vals]) => (
+                <tr key={cap}>
+                  <th scope="row">{cap}</th>
+                  {vals.map((v, i) => (
+                    <td key={i} className={TOOLS[i] === "CoSell" ? "us" : ""}>
+                      <span className={v === 1 ? "yes" : v ? "part" : "no"}>{v === 1 ? "✓" : v ? "Partly" : "✕"}</span>
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="cs-note">Compared by tool category, not specific vendors. "Partly" means it needs manual work.</p>
       </div>
-      <p className="cs-note">Compared by category, from the research. Partial means it needs manual work or add-ons.</p>
+    </Sec>
+  );
+}
+
+function Ecosystem() {
+  const nodes = [
+    [120, 60, "Amazon", "Seller Central"],
+    [120, 170, "Flipkart", "Seller Hub"],
+    [120, 280, "Meesho", "Supplier panel"],
+    [720, 60, "Couriers", "Pickups, RTO"],
+    [720, 170, "Buyers", "Returns, reviews"],
+    [720, 280, "Excel", "Payout checks"],
+  ];
+  return (
+    <div className="cs-scroll">
+      <svg viewBox="0 0 840 340" className="cs-eco" role="img" aria-label="Meera in the centre, connected to Amazon, Flipkart, Meesho, couriers, buyers and an Excel sheet">
+        {nodes.map(([x, y]) => (
+          <line key={`${x}${y}`} x1={x < 400 ? x + 90 : x - 90} y1={y} x2={x < 400 ? 330 : 510} y2="170" className="edge" />
+        ))}
+        {nodes.map(([x, y, t, s]) => (
+          <g key={t}>
+            <rect x={x - 90} y={y - 30} width="180" height="60" rx="12" className="node" />
+            <text x={x} y={y - 3} textAnchor="middle" className="t">{t}</text>
+            <text x={x} y={y + 16} textAnchor="middle" className="s">{s}</text>
+          </g>
+        ))}
+        <rect x="330" y="120" width="180" height="100" rx="16" className="node me" />
+        <text x="420" y="164" textAnchor="middle" className="t me">Meera</text>
+        <text x="420" y="186" textAnchor="middle" className="s me">+ one helper</text>
+        <text x="420" y="300" textAnchor="middle" className="s">6 systems · 0 shared views</text>
+      </svg>
     </div>
   );
 }
 
-/* ───────────────────────── 03 challenge + principles ───────────────────────── */
+/* ───────────────────────── 04 define ───────────────────────── */
 
-const PRINCIPLES = [
-  ["Ask before acting.", "Nothing changes without approval, unless the seller has set a rule that allows it.", "dial-safety-net"],
-  ["Show the why.", "Every proposal carries its evidence, expected impact and how sure Co is.", "coins-magnifier"],
-  ["Everything is reversible.", "Undo is always one tap away, and every action is logged.", "all-clear"],
-  ["Calm by default.", "One place to look, sorted by what needs the seller now.", "shop-counter"],
-];
-
-function Challenge() {
+function Define() {
   return (
-    <section id="challenge" className="cs-section">
-      <div className="cs-hmw">
-        <span className="c c--peri" aria-hidden="true" />
-        <span className="c c--pink" aria-hidden="true" />
-        <p className="cs-wrap">
-          How might we let a solo seller hand repetitive marketplace work to an AI agent,{" "}
-          <em>without losing control of their margins or their brand?</em>
-        </p>
-      </div>
-
-      <div className="cs-wrap cs-principles">
-        {PRINCIPLES.map(([t, d, art], i) => (
-          <article key={t} data-reveal style={{ "--d": `${i * 80}ms` }}>
-            <img src={`${A}art/${art}.webp`} alt="" loading="lazy" width="900" height="620" />
-            <h3>{t}</h3>
-            <p>{d}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ───────────────────────── 04 decisions ───────────────────────── */
-
-const DECISIONS = [
-  {
-    title: "The approval queue is the home screen.",
-    img: "home.webp",
-    pos: "8% 92%",
-    did: "Put Co's proposals front and centre, sorted by urgency, with one Review button each.",
-    didnt: "A notification inbox that decisions get buried in.",
-    why: "Decisions are the job. The home screen should be the to-do list.",
-  },
-  {
-    title: "Confidence in words, with the evidence.",
-    img: "approval.webp",
-    pos: "30% 40%",
-    did: "High, Medium or Low beside every proposal, plus the reasons and a guardrail check.",
-    didnt: "A raw score like 87%.",
-    why: "A number invites false precision. Evidence lets the seller judge for herself.",
-  },
-  {
-    title: "Autonomy is set per action, not one AI switch.",
-    img: "settings.webp",
-    pos: "20% 40%",
-    did: "Suggest only, Ask me first, or Auto within limits, separately for repricing, restock, returns and ads.",
-    didnt: "A single global on/off switch for the AI.",
-    why: "Sellers trust a restock alert long before they trust automatic repricing.",
-  },
-];
-
-function Decisions() {
-  return (
-    <section id="decisions" className="cs-section cs-wrap">
-      <h2 className="cs-h2" data-reveal>
-        Every choice was about earning trust one decision at a time.
-      </h2>
-      <div className="cs-decisions">
-        {DECISIONS.map((d) => (
-          <article key={d.title} className="cs-decision" data-reveal>
-            <div className="cs-decision__shot">
-              <img src={`${A}${d.img}`} alt="" loading="lazy" style={{ objectPosition: d.pos }} />
+    <Sec id="define" n="04" kicker="Define" title="Turning the research into a brief.">
+      <blockquote className="cs-hmw" data-reveal>
+        <span className="cs-mono">How might we</span>
+        let a solo seller hand repetitive marketplace work to an AI agent, <em>without losing control of their margins or their brand?</em>
+      </blockquote>
+      <ol className="cs-principles" data-reveal>
+        {[
+          ["Ask before acting.", "Nothing changes without approval, unless the seller has set a rule that allows it."],
+          ["Show the why.", "Every proposal carries its evidence, expected impact and how sure Co is."],
+          ["Everything is reversible.", "Undo is one tap away, and every action is logged."],
+          ["Calm by default.", "One place to look, sorted by what needs the seller now."],
+        ].map(([t, d], i) => (
+          <li key={t}>
+            <span className="cs-mono">P{i + 1}</span>
+            <div>
+              <h3>{t}</h3>
+              <p>{d}</p>
             </div>
-            <div className="cs-decision__copy">
-              <h3>{d.title}</h3>
-              <dl>
-                <div>
-                  <dt>Decided</dt>
-                  <dd>{d.did}</dd>
-                </div>
-                <div className="no">
-                  <dt>Didn't do</dt>
-                  <dd>{d.didnt}</dd>
-                </div>
-                <div>
-                  <dt>Why</dt>
-                  <dd>{d.why}</dd>
-                </div>
-              </dl>
-            </div>
-          </article>
+          </li>
         ))}
-
-        <UndoDecision />
-      </div>
-    </section>
+      </ol>
+    </Sec>
   );
 }
 
-/** The fourth decision, shown as the interaction itself. */
-function UndoDecision() {
-  const [state, setState] = useState("idle"); // idle | approved | undone
+/* ───────────────────────── 05 flows ───────────────────────── */
+
+function Flows() {
   return (
-    <article className="cs-decision cs-decision--live" data-reveal>
-      <div className="cs-undo-demo">
-        <div className="cs-undo-card">
-          <p className="cs-undo-card__t">Lower Copper bottle to ₹849 on Flipkart</p>
-          <button type="button" className="cs-pill cs-pill--dark" disabled={state === "approved"} onClick={() => setState("approved")}>
-            {state === "approved" ? "Approved" : "Approve"}
-          </button>
-        </div>
-        <div className={`cs-toast ${state === "approved" ? "is-on" : ""}`} role="status">
-          <CoMark state="done" size={22} />
-          Approved. Co is on it.
-          <button type="button" onClick={() => setState("undone")}>
-            Undo
-          </button>
-        </div>
-        {state === "undone" && <p className="cs-undo-note">Undone. Nothing changed on Flipkart.</p>}
-        {state !== "idle" && (
-          <button type="button" className="cs-reset" onClick={() => setState("idle")}>
-            Replay
-          </button>
-        )}
-      </div>
-      <div className="cs-decision__copy">
-        <h3>Saying yes is cheap, because undo is always there.</h3>
-        <dl>
-          <div>
-            <dt>Decided</dt>
-            <dd>An undo toast after every action, plus a full activity log. Try it.</dd>
-          </div>
-          <div className="no">
-            <dt>Didn't do</dt>
-            <dd>An "Are you sure?" dialog before every approval.</dd>
-          </div>
-          <div>
-            <dt>Why</dt>
-            <dd>Lowering the cost of a yes builds trust over time. Dialogs just add friction.</dd>
-          </div>
-        </dl>
-      </div>
-    </article>
-  );
-}
-
-/* ───────────────────────── 05 solution ───────────────────────── */
-
-const STEPS = [
-  ["home", "Command centre", "Today's sales, the approval queue and a live feed of what Co did overnight."],
-  ["approval", "Approval detail", "What Co wants, why, the evidence, the guardrails it checked, and approve, edit or reject."],
-  ["inventory", "One stock count", "Stock across all three marketplaces, with mismatches flagged and one-click fixes."],
-  ["returns", "Returns and payouts", "Co drafts return replies and flags wrong fees before the claim window closes."],
-  ["settings", "Autonomy and limits", "Per action: suggest, ask, or act within a minimum margin and daily budget."],
-  ["onboarding", "A first win in minute one", "Connect the shops, set limits, and Co offers a low-risk restock alert."],
-];
-
-const PHONES = [
-  ["m-morning", "Morning", "Swipe right to approve, left to reject."],
-  ["m-why", "Why?", "Reasons, guardrails and a price stepper in a sheet."],
-  ["m-lock", "Lock screen", "Approve straight from the notification."],
-  ["m-voice", "Ask Co", "By voice, in Hindi or English."],
-  ["m-evening", "Evening", "How today went, as a stack of wins."],
-];
-
-function Solution() {
-  const stepIds = useMemo(() => STEPS.map(([id]) => `step-${id}`), []);
-  const active = useActiveId(stepIds, "-40% 0px -55% 0px");
-  const reel = useDragScroll();
-
-  return (
-    <section id="solution" className="cs-section">
-      <div className="cs-wrap">
-        <h2 className="cs-h2" data-reveal>
-          Co watches everything, and brings Meera only what needs her.
-        </h2>
-      </div>
-
-      <div className="cs-wrap cs-roles" data-reveal>
+    <Sec
+      id="flows"
+      n="05"
+      kicker="Flows"
+      title="Co surfaces. Meera decides."
+      lede="Before any screen, I split the work between the agent and the person, then drew the one loop every feature runs through."
+    >
+      <div className="cs-roles" data-reveal>
         <div>
           <p className="who">
-            <CoMark state="thinking" size={26} /> Co does
+            <CoMark state="thinking" size={22} /> Co surfaces
           </p>
           <ul>
-            <li>Watches every listing, order and payout, all night</li>
-            <li>Predicts stock-outs before a sale spike</li>
+            <li>Watches listings, orders and payouts, all night</li>
+            <li>Predicts stockouts before a sale spike</li>
             <li>Drafts price changes and return replies, with evidence</li>
             <li>Flags wrong fees before the claim window closes</li>
           </ul>
         </div>
         <div>
-          <p className="who">
-            <img src="https://images.unsplash.com/photo-1723041885055-3e35ae8dd980?w=80&h=80&fit=crop&crop=focalpoint&fp-x=0.53&fp-y=0.42&fp-z=2.2&auto=format&q=70" alt="" width="26" height="26" /> Meera decides
-          </p>
+          <p className="who">Meera decides</p>
           <ul>
             <li>Approves, edits or rejects every proposal</li>
-            <li>Sets the limits Co can never cross</li>
-            <li>Chooses how much freedom each kind of work gets</li>
+            <li>Sets limits Co can never cross</li>
+            <li>Chooses how much freedom each task gets</li>
             <li>Can undo anything, any time</li>
           </ul>
         </div>
       </div>
 
-      <div className="cs-wrap cs-day" data-reveal>
-        <h3 className="cs-h3">The product follows Meera's day, not the marketplaces' menus.</h3>
-        <ol>
-          {[
-            ["7:40 AM", "Two quick decisions on her phone, before chai"],
-            ["11:00 AM", "37 orders packed for pickup, stock already in sync"],
-            ["3:00 PM", "Return replies drafted, she approves on desktop"],
-            ["9:12 PM", "Evening brief: what sold, and what Co did"],
-          ].map(([t, d]) => (
-            <li key={t}>
-              <span className="t">{t}</span>
-              <span className="d">{d}</span>
-            </li>
-          ))}
-        </ol>
-      </div>
+      <figure className="cs-fig" data-reveal>
+        <figcaption>
+          <span className="cs-mono">Core loop</span> How every proposal moves from signal to action
+        </figcaption>
+        <Loop />
+      </figure>
 
-      <div className="cs-wrap cs-story">
-        <ol className="cs-story__steps">
-          {STEPS.map(([id, t, d]) => (
-            <li key={id} id={`step-${id}`} className={active === `step-${id}` ? "is-active" : ""}>
-              <h3>{t}</h3>
-              <p>{d}</p>
-              <img className="cs-story__inline" src={`${A}${id}.webp`} alt="" loading="lazy" />
-            </li>
-          ))}
-        </ol>
-        <div className="cs-story__stage" aria-hidden="true">
-          <div className="cs-browser">
-            <div className="cs-browser__bar">
-              <i />
-              <i />
-              <i />
-              <span>cosell.app</span>
-            </div>
-            <div className="cs-story__frames">
-              {STEPS.map(([id]) => (
-                <img key={id} src={`${A}${id}.webp`} alt="" loading="lazy" className={active === `step-${id}` ? "is-on" : ""} />
-              ))}
-            </div>
+      <figure className="cs-fig" data-reveal>
+        <figcaption>
+          <span className="cs-mono">Information architecture</span> Organised around Meera's day, not the marketplaces' menus
+        </figcaption>
+        <div className="cs-ia">
+          <div className="cs-ia__root">CoSell</div>
+          <div className="cs-ia__cols">
+            {[
+              ["Home", ["Today's numbers", "Approval queue", "Co's overnight log"]],
+              ["Approvals", ["Proposal detail", "Why + evidence", "Guardrails"]],
+              ["Inventory", ["One stock count", "Mismatch fixes", "Restock"]],
+              ["Returns & payouts", ["Drafted replies", "Fee checks"]],
+              ["Co settings", ["Autonomy per task", "Limits", "Never-discount list"]],
+              ["Mobile", ["Morning stack", "Lock-screen approve", "Voice, Hindi", "Evening brief"]],
+            ].map(([t, items]) => (
+              <div key={t}>
+                <p>{t}</p>
+                <ul>
+                  {items.map((x) => (
+                    <li key={x}>{x}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
-      </div>
-
-      <div className="cs-wrap">
-        <h3 className="cs-h3" data-reveal>
-          And a mobile companion for decisions between packing orders.
-        </h3>
-      </div>
-      <div className="cs-reel" ref={reel} tabIndex={0} aria-label="Mobile screens, scroll sideways">
-        {PHONES.map(([img, t, d]) => (
-          <figure key={img} data-reveal>
-            <img src={`${A}${img}.webp`} alt={`${t}: ${d}`} width="556" height="1174" loading="lazy" draggable="false" />
-            <figcaption>
-              <strong>{t}</strong> {d}
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-
-      <div className="cs-wrap cs-try" data-reveal>
-        <div>
-          <h3 className="cs-h3">Don't take my word for it. Click around.</h3>
-          <p className="cs-body">
-            The full prototype, running live. Approve a price, fix the stock mismatch, switch to Hindi, or ask Co a
-            question from the search bar.
-          </p>
-          <a href={DEMO} target="_blank" rel="noreferrer" className="cs-pill cs-pill--dark">
-            Open full screen <span aria-hidden="true">↗</span>
-          </a>
-        </div>
-        <LiveDemo />
-      </div>
-    </section>
+      </figure>
+    </Sec>
   );
 }
 
-/** The prototype only loads when asked, so it never slows the page down. */
-function LiveDemo() {
-  const [on, setOn] = useState(false);
+function Loop() {
   return (
-    <div className="cs-live">
-      <div className="cs-browser">
-        <div className="cs-browser__bar" aria-hidden="true">
-          <i />
-          <i />
-          <i />
-          <span>cosell.app</span>
-        </div>
-        <div className="cs-live__viewport">
-          {on ? (
-            <iframe src={DEMO} title="CoSell interactive prototype" loading="lazy" />
-          ) : (
-            <button type="button" className="cs-live__start" onClick={() => setOn(true)}>
-              <img src={`${A}home.webp`} alt="" loading="lazy" />
-              <span className="cs-pill cs-pill--dark">
-                <CoMark state="thinking" size={20} /> Load the live prototype
-              </span>
-            </button>
-          )}
-        </div>
-      </div>
+    <div className="cs-scroll">
+      <svg viewBox="0 0 900 300" className="cs-flow" role="img" aria-label="Flowchart: Co detects a signal, checks guardrails. If within auto limits it acts and shows undo. Otherwise it queues a proposal; Meera approves, edits or rejects; rejections feed back to Co.">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" className="head" />
+          </marker>
+        </defs>
+        {[
+          [20, 120, "Signal", "price drop, low stock"],
+          [190, 120, "Guardrails", "floor, margin, % cap"],
+        ].map(([x, y, t, s]) => (
+          <g key={t}>
+            <rect x={x} y={y} width="140" height="60" rx="10" className="box" />
+            <text x={x + 70} y={y + 27} textAnchor="middle" className="t">{t}</text>
+            <text x={x + 70} y={y + 45} textAnchor="middle" className="s">{s}</text>
+          </g>
+        ))}
+        <path d="M160,150 H185" className="ln" markerEnd="url(#ar)" />
+        <path d="M330,150 H375" className="ln" markerEnd="url(#ar)" />
+        <polygon points="445,105 515,150 445,195 375,150" className="box dia" />
+        <text x="445" y="146" textAnchor="middle" className="t">Auto</text>
+        <text x="445" y="162" textAnchor="middle" className="s">allowed?</text>
+        <path d="M445,105 V50 H560" className="ln" markerEnd="url(#ar)" />
+        <text x="455" y="80" className="s">yes</text>
+        <path d="M445,195 V250 H560" className="ln" markerEnd="url(#ar)" />
+        <text x="455" y="230" className="s">no</text>
+        <rect x="565" y="20" width="160" height="60" rx="10" className="box ok" />
+        <text x="645" y="47" textAnchor="middle" className="t">Act + log</text>
+        <text x="645" y="65" textAnchor="middle" className="s">undo for 24h</text>
+        <rect x="565" y="220" width="160" height="60" rx="10" className="box me" />
+        <text x="645" y="247" textAnchor="middle" className="t">Meera reviews</text>
+        <text x="645" y="265" textAnchor="middle" className="s">approve · edit · reject</text>
+        <path d="M725,250 H790 V80" className="ln" markerEnd="url(#ar)" />
+        <text x="800" y="170" className="s">approve / edit</text>
+        <path d="M645,280 V295 H90 V185" className="ln dash" markerEnd="url(#ar)" />
+        <text x="300" y="290" className="s">reject: reason teaches Co</text>
+        <rect x="740" y="20" width="140" height="60" rx="10" className="box ok" />
+        <path d="M725,50 H735" className="ln" />
+        <text x="810" y="47" textAnchor="middle" className="t">Marketplace</text>
+        <text x="810" y="65" textAnchor="middle" className="s">updated</text>
+      </svg>
     </div>
   );
 }
 
-function EdgeCases() {
-  const cases = [
-    ["Co is wrong.", "The seller undoes it and tells Co why, so the next proposal is better."],
-    ["A marketplace connection fails.", "Affected numbers are marked stale, never hidden."],
-    ["Two proposals clash.", "A price cut and an ad pause on one product merge into one decision."],
-    ["Co isn't sure.", "It asks a question instead of proposing an action."],
-  ];
+/* ───────────────────────── 06 wireframes ───────────────────────── */
+
+function Wire({ lines = 3 }) {
+  return Array.from({ length: lines }, (_, i) => <i key={i} className="wl" style={{ width: `${90 - i * 18}%` }} />);
+}
+
+function Wireframes() {
   return (
-    <section className="cs-wrap cs-edges" data-reveal>
-      <h3 className="cs-h3">I designed for the days it goes wrong, too.</h3>
-      <ul>
-        {cases.map(([t, d]) => (
-          <li key={t}>
-            <strong>{t}</strong> {d}
-          </li>
-        ))}
-      </ul>
-    </section>
+    <Sec
+      id="wireframes"
+      n="06"
+      kicker="Wireframes"
+      title="Low fidelity first, to argue about structure, not colour."
+      lede="I sketched two home layouts and tested them against one question: what does Meera do in her first ten seconds?"
+    >
+      <div className="cs-wires" data-reveal>
+        <figure className="cs-wire">
+          <div className="wf">
+            <div className="wf-side" />
+            <div className="wf-main">
+              <div className="wf-row">
+                <b className="wf-box" />
+                <b className="wf-box" />
+                <b className="wf-box" />
+                <b className="wf-box" />
+              </div>
+              <div className="wf-chart" />
+              <div className="wf-list">
+                <Wire lines={4} />
+              </div>
+            </div>
+          </div>
+          <figcaption>
+            <span className="tag no">Option A</span> Analytics dashboard: charts first, alerts in a bell. Familiar, but
+            decisions hide below the fold.
+          </figcaption>
+        </figure>
+        <figure className="cs-wire picked">
+          <div className="wf">
+            <div className="wf-side" />
+            <div className="wf-main">
+              <i className="wl h" />
+              <div className="wf-row">
+                <b className="wf-box" />
+                <b className="wf-box" />
+                <b className="wf-box" />
+              </div>
+              <div className="wf-queue">
+                {[0, 1, 2].map((i) => (
+                  <div key={i}>
+                    <span className="sq" />
+                    <Wire lines={1} />
+                    <span className="btn" />
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="wf-rail">
+              <Wire lines={5} />
+            </div>
+          </div>
+          <figcaption>
+            <span className="tag yes">Option B, chosen</span> Queue first: three numbers, then what needs approval, with
+            Co's log on the side.
+          </figcaption>
+        </figure>
+      </div>
+
+      <div className="cs-wires three" data-reveal>
+        <figure className="cs-wire">
+          <div className="wf tall">
+            <div className="wf-main">
+              <i className="wl h" />
+              <div className="wf-split">
+                <div className="wf-card">
+                  <span className="sq" /> <i className="wl big" />
+                </div>
+                <div className="wf-card">
+                  <Wire lines={3} />
+                </div>
+              </div>
+              <div className="wf-split">
+                <div className="wf-card">
+                  <Wire lines={3} />
+                </div>
+                <div className="wf-card">
+                  <span className="btn dark" /> <span className="btn" />
+                </div>
+              </div>
+            </div>
+          </div>
+          <figcaption>Approval detail: change, guardrails, why, decide.</figcaption>
+        </figure>
+        <figure className="cs-wire">
+          <div className="wf phone">
+            <i className="wl h" />
+            <div className="wf-stack">
+              <div />
+              <div />
+              <div className="top">
+                <span className="sq big" />
+                <Wire lines={2} />
+              </div>
+            </div>
+            <div className="wf-swipe">
+              <span>← Reject</span>
+              <span>Approve →</span>
+            </div>
+          </div>
+          <figcaption>Mobile morning: a swipe stack of decisions.</figcaption>
+        </figure>
+        <figure className="cs-wire">
+          <div className="wf tall">
+            <div className="wf-main">
+              <i className="wl h" />
+              {[0, 1, 2, 3].map((i) => (
+                <div key={i} className="wf-seg">
+                  <Wire lines={1} />
+                  <span className="seg">
+                    <b className={i === 1 ? "on" : ""} />
+                    <b className={i === 0 ? "on" : ""} />
+                    <b className={i > 1 ? "on" : ""} />
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <figcaption>Settings: freedom per task, not one switch.</figcaption>
+        </figure>
+      </div>
+    </Sec>
   );
 }
 
-/* ───────────────────────── 06 design system ───────────────────────── */
+/* ───────────────────────── 07 trade-offs ───────────────────────── */
 
-const COLORS = [
-  { group: "Brand", items: [["Periwinkle", "#6B5CFF", "Primary, sidebar"], ["Soft pink", "#FF8FB1", "Co's second circle"], ["Navy", "#14142B", "Text, primary buttons"], ["Canvas", "#EEF0F7", "App background"]] },
-  { group: "Periwinkle scale", items: [["Tint", "#EEECFF", "Secondary buttons"], ["Ink", "#5543E8", "Text on tint, 5.4:1"], ["Lavender", "#C9C2FF", "Illustration fill"], ["Muted text", "#676C88", "Small copy, 5.1:1"]] },
-  { group: "Status", items: [["Success", "#2FB67C", "High confidence"], ["Warning", "#F5A524", "Medium, low stock"], ["Danger", "#EF5B6B", "Low, mismatch"], ["Needs you", "#F07A5A", "Co's alert dot"]] },
+const TRADEOFFS = [
+  ["Home screen", "Approval queue as home", "A rich analytics dashboard", "Decisions are the job. Charts can wait a click."],
+  ["Confidence", "High / Medium / Low, with reasons", "A precise score like 87%", "A number invites false precision. Evidence lets her judge."],
+  ["Autonomy", "Three levels, set per task", "One global AI on/off switch", "Sellers trust restock alerts long before automatic repricing."],
+  ["Safety", "Undo toast + activity log", "\"Are you sure?\" before every approval", "Cheap yeses build trust. Dialogs only add friction."],
+  ["Language", "Full Hindi toggle + voice", "English only, faster to ship", "Tired at 10 PM, many sellers think in Hindi."],
 ];
 
-const MARK_STATES = [
-  ["idle", "Idle", "Slightly overlapping. Co is watching."],
-  ["thinking", "Thinking", "The pair orbits in a two-second loop."],
-  ["needsYou", "Needs you", "Fully overlapped, with a coral dot."],
-  ["done", "Done", "Side by side, a tick in the overlap."],
-  ["paused", "Paused", "Both grey. Co is switched off."],
+function Tradeoffs() {
+  return (
+    <Sec id="tradeoffs" n="07" kicker="Trade-offs" title="Every choice cost something. Here's what I gave up.">
+      <div className="cs-trade" data-reveal>
+        <div className="cs-trade__row head" aria-hidden="true">
+          <span>Decision</span>
+          <span>Chose</span>
+          <span>Gave up</span>
+          <span>Why</span>
+        </div>
+        {TRADEOFFS.map(([k, chose, gave, why]) => (
+          <div key={k} className="cs-trade__row">
+            <span className="k">{k}</span>
+            <span className="chose">{chose}</span>
+            <span className="gave">{gave}</span>
+            <span className="why">{why}</span>
+          </div>
+        ))}
+      </div>
+      <UndoDemo />
+    </Sec>
+  );
+}
+
+function UndoDemo() {
+  const [state, setState] = useState("idle");
+  return (
+    <div className="cs-undo" data-reveal>
+      <p className="cs-mono">Try the trade-off</p>
+      <div className="cs-undo__card">
+        <span>Lower Copper bottle to ₹849 on Flipkart</span>
+        <button type="button" className="cs-btn" disabled={state === "approved"} onClick={() => setState("approved")}>
+          {state === "approved" ? "Approved" : "Approve"}
+        </button>
+      </div>
+      <div className={`cs-toast ${state === "approved" ? "on" : ""}`} role="status">
+        <CoMark state="done" size={20} /> Approved. Co is on it.
+        <button type="button" onClick={() => setState("undone")}>
+          Undo
+        </button>
+      </div>
+      {state === "undone" && (
+        <p className="cs-note">
+          Undone. Nothing changed on Flipkart.{" "}
+          <button type="button" className="cs-link" onClick={() => setState("idle")}>
+            Replay
+          </button>
+        </p>
+      )}
+    </div>
+  );
+}
+
+/* ───────────────────────── 08 solution ───────────────────────── */
+
+const FEATURES = [
+  {
+    n: "F1",
+    t: "A home that's a to-do list",
+    d: "Today's numbers, then only what needs a yes, sorted by urgency. Co's overnight work sits quietly on the side.",
+    shot: "home",
+    pop: "queue",
+    side: "r",
+  },
+  {
+    n: "F2",
+    t: "Every proposal shows its homework",
+    d: "The change, the margin after it, three guardrails checked and the competitor trend. Approve, edit or reject in one place.",
+    shot: "approval",
+    pop: "guardrails",
+    side: "l",
+  },
+  {
+    n: "F3",
+    t: "Freedom is set per task",
+    d: "Suggest only, ask me first, or act within limits, for repricing, restock, returns and ads separately.",
+    shot: "settings",
+    pop: "autonomy",
+    side: "r",
+  },
+  {
+    n: "F4",
+    t: "One stock count across three shops",
+    d: "Mismatches glow red with a one-click fix, before a marketplace oversells.",
+    shot: "inventory",
+    pop: "stock",
+    side: "l",
+  },
+];
+
+function Solution() {
+  return (
+    <Sec
+      id="solution"
+      n="08"
+      kicker="Solution"
+      title="Co watches everything, and brings Meera only what needs her."
+    >
+      <div className="cs-features">
+        {FEATURES.map((f) => (
+          <article key={f.n} className={`cs-feat ${f.side}`} data-reveal>
+            <div className="cs-feat__copy">
+              <span className="cs-mono">{f.n}</span>
+              <h3>{f.t}</h3>
+              <p>{f.d}</p>
+            </div>
+            <div className="cs-feat__art">
+              <img className="base" src={`${A}${f.shot}.webp`} alt="" loading="lazy" width="2880" height="1800" />
+              <img className="pop" src={`${A}pop/${f.pop}.webp`} alt={f.t} loading="lazy" />
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div className="cs-phones" data-reveal>
+        <div className="cs-phones__copy">
+          <span className="cs-mono">F5</span>
+          <h3>A phone companion for decisions between packing orders</h3>
+          <p>Approve from the lock screen, ask Co in Hindi by voice, and end the day with a brief of what went right.</p>
+        </div>
+        <div className="cs-phones__stage">
+          {[
+            ["m-lock", "Lock screen approval"],
+            ["m-morning", "Morning swipe stack"],
+            ["m-voice", "Ask Co in Hindi"],
+          ].map(([img, alt], i) => (
+            <img key={img} src={`${A}${img}.webp`} alt={alt} width="556" height="1174" loading="lazy" style={{ "--i": i }} />
+          ))}
+        </div>
+      </div>
+
+      <a className="cs-proto" href={DEMO} target="_blank" rel="noreferrer" data-reveal>
+        <span>
+          <strong>Click through the prototype.</strong> Approve a price, fix a stock mismatch, switch to Hindi.
+        </span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </Sec>
+  );
+}
+
+/* ───────────────────────── 09 design system ───────────────────────── */
+
+const RAMPS = [
+  ["Periwinkle", "Brand, primary", ["#F4F3FF", "#EEECFF", "#C9C2FF", "#9B8FFF", "#6B5CFF", "#5543E8", "#3A2DB0"]],
+  ["Navy", "Text, buttons", ["#F2F3F8", "#E2E4EE", "#A9ADBF", "#676C88", "#3B3F5C", "#23253F", "#14142B"]],
+  ["Pink", "Co's second circle", ["#FFF2F6", "#FFDCE7", "#FFB8CE", "#FF8FB1", "#F2668F", "#C94570", "#8F2A4C"]],
+];
+const STEPS = ["50", "100", "200", "400", "500", "600", "800"];
+const STATUS = [
+  ["Success", "#2FB67C", "High confidence"],
+  ["Warning", "#F5A524", "Medium, low stock"],
+  ["Danger", "#EF5B6B", "Low, mismatch"],
+  ["Needs you", "#F07A5A", "Co's alert dot"],
+];
+const MARKS = [
+  ["idle", "Idle"],
+  ["thinking", "Thinking"],
+  ["needsYou", "Needs you"],
+  ["done", "Done"],
+  ["paused", "Paused"],
 ];
 
 function DesignSystem() {
-  const [mark, setMark] = useState("thinking");
-  const [copied, setCopied] = useState(null);
   const [mode, setMode] = useState("ask");
-  const [toggle, setToggle] = useState(true);
-
-  const copy = async (hex) => {
-    try {
-      await navigator.clipboard.writeText(hex);
-    } catch {
-      /* clipboard blocked: still show the value */
-    }
-    setCopied(hex);
-    window.setTimeout(() => setCopied((c) => (c === hex ? null : c)), 1400);
-  };
-
-  const markInfo = MARK_STATES.find(([s]) => s === mark);
-
   return (
-    <section id="system" className="cs-section cs-system">
-      <div className="cs-wrap">
-        <h2 className="cs-h2" data-reveal>
-          A calm system, so the money and the decisions stand out.
-        </h2>
-        <p className="cs-body" data-reveal>
-          Flat colour, generous space, one primary action per card. Colour only ever means status; marketplaces are
-          plain text labels. Every token lives in one file, so the palette can change without touching a screen.
-        </p>
+    <Sec
+      id="system"
+      n="09"
+      kicker="Design system"
+      title="A calm system, so money and decisions stand out."
+      lede="Flat colour, generous space, one primary action per card. Colour only ever means status. Every token lives in one file."
+    >
+      <div className="ds-block" data-reveal>
+        <h3 className="ds-h">Typefaces</h3>
+        <div className="ds-type">
+          <article>
+            <p className="aa" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>Aa</p>
+            <h4>Plus Jakarta Sans</h4>
+            <dl>
+              <div><dt>Role</dt><dd>UI, headings, numbers</dd></div>
+              <div><dt>Weights</dt><dd>400, 500, 700</dd></div>
+              <div><dt>Scale</dt><dd>32 / 24 / 18 / 14 / 13</dd></div>
+              <div><dt>Numbers</dt><dd>Tabular for all money</dd></div>
+            </dl>
+          </article>
+          <article>
+            <p className="aa" lang="hi" style={{ fontFamily: "Mukta, sans-serif" }}>अआ</p>
+            <h4>Mukta</h4>
+            <dl>
+              <div><dt>Role</dt><dd>Devanagari fallback</dd></div>
+              <div><dt>Weights</dt><dd>400, 600</dd></div>
+              <div><dt>Scale</dt><dd>Matches Jakarta, +1px</dd></div>
+              <div><dt>Why</dt><dd>Same x-height feel</dd></div>
+            </dl>
+          </article>
+          <ul className="ds-scale" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+            <li style={{ fontSize: 30, fontWeight: 700 }}>Good morning, Meera<span>Display 32</span></li>
+            <li style={{ fontSize: 22, fontWeight: 700 }}>₹48,250 today<span>Title 24</span></li>
+            <li style={{ fontSize: 17, fontWeight: 700 }}>Needs your approval<span>Heading 18</span></li>
+            <li style={{ fontSize: 14 }}>Nothing changes until you say yes.<span>Body 14</span></li>
+            <li style={{ fontSize: 13, color: "#676C88" }}>Oldest one is 2 days old<span>Label 13</span></li>
+          </ul>
+        </div>
+      </div>
 
-        <div className="ds-board">
-          {/* Identity */}
-          <div className="ds-tile ds-identity" data-reveal>
-            <h3>Identity</h3>
-            <Logo height={44} />
+      <div className="ds-block" data-reveal>
+        <h3 className="ds-h">Colour</h3>
+        {RAMPS.map(([name, role, hexes]) => (
+          <div key={name} className="ds-ramp">
             <p>
-              Two circles: the seller and Co. Where they overlap, the work gets done. The static lockup is the brand;
-              the mark becomes Co's face in the product.
+              <strong>{name}</strong> {role}
             </p>
-          </div>
-
-          {/* Co mark */}
-          <div className="ds-tile ds-mark" data-reveal>
-            <h3>Co, as a character</h3>
-            <div className="ds-mark__stage">
-              <CoMark state={mark} size={132} />
-            </div>
-            <p className="ds-mark__desc" aria-live="polite">
-              <strong>{markInfo[1]}.</strong> {markInfo[2]}
-            </p>
-            <div className="ds-seg" role="radiogroup" aria-label="Co mark state">
-              {MARK_STATES.map(([s, label]) => (
-                <button key={s} type="button" role="radio" aria-checked={mark === s} onClick={() => setMark(s)}>
-                  {label}
-                </button>
+            <div>
+              {hexes.map((h, i) => (
+                <span key={h} style={{ background: h, color: i > 3 ? "#fff" : "#14142B" }}>
+                  <b>{STEPS[i]}</b>
+                  {h}
+                </span>
               ))}
             </div>
-            <p className="ds-small">No gradients, gloss or glow. With reduced motion the orbit stops and shape alone carries the state.</p>
           </div>
+        ))}
+        <div className="ds-status">
+          {STATUS.map(([n, h, u]) => (
+            <div key={n}>
+              <i style={{ background: h }} />
+              <p>
+                <strong>{n}</strong> {h}
+                <br />
+                <span>{u}</span>
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
 
-          {/* Colour */}
-          <div className="ds-tile ds-colour" data-reveal>
-            <h3>Colour</h3>
-            {COLORS.map(({ group, items }) => (
-              <div key={group} className="ds-colour__group">
-                <p className="ds-small">{group}</p>
-                <div className="ds-swatches">
-                  {items.map(([name, hex, use]) => (
-                    <button key={hex} type="button" className="ds-swatch" onClick={() => copy(hex)} aria-label={`Copy ${name} ${hex}`}>
-                      <span className="chip" style={{ background: hex }} />
-                      <span className="nm">{name}</span>
-                      <span className="hx">{copied === hex ? "Copied" : hex}</span>
-                      <span className="us">{use}</span>
-                    </button>
+      <div className="ds-block" data-reveal>
+        <h3 className="ds-h">Co, the mark</h3>
+        <div className="ds-marks">
+          {MARKS.map(([s, l]) => (
+            <div key={s}>
+              <CoMark state={s} size={56} />
+              <p>{l}</p>
+            </div>
+          ))}
+        </div>
+        <p className="cs-note">Two flat circles: the seller and Co. Shape carries the state, so it reads at 16px and without motion.</p>
+      </div>
+
+      <div className="ds-block" data-reveal>
+        <h3 className="ds-h">Buttons</h3>
+        <div className="cs-scroll">
+          <table className="ds-matrix">
+            <thead>
+              <tr>
+                <th />
+                {["Default", "Hover", "Pressed", "Disabled"].map((s) => (
+                  <th key={s}>{s}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {[
+                ["Primary", "p"],
+                ["Secondary", "s"],
+                ["Destructive", "d"],
+              ].map(([n, k]) => (
+                <tr key={k}>
+                  <th scope="row">{n}</th>
+                  {["", "hover", "press", "off"].map((st) => (
+                    <td key={st}>
+                      <span className={`b b--${k} ${st}`}>{k === "p" ? "Approve" : k === "s" ? "Edit price" : "Reject"}</span>
+                    </td>
                   ))}
-                </div>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="ds-grid" data-reveal>
+        <div className="ds-block">
+          <h3 className="ds-h">Chips</h3>
+          <div className="ds-row">
+            <span className="chip">Amazon</span>
+            <span className="chip">Flipkart</span>
+            <span className="chip">Meesho</span>
+          </div>
+          <div className="ds-row">
+            <span className="conf h">● High</span>
+            <span className="conf m">● Medium</span>
+            <span className="conf l">● Low</span>
+          </div>
+          <p className="cs-note">Marketplaces are plain grey labels. Only status gets colour.</p>
+        </div>
+        <div className="ds-block">
+          <h3 className="ds-h">Autonomy control</h3>
+          <div className="seg" role="radiogroup" aria-label="Autonomy example">
+            {[
+              ["suggest", "Suggest only"],
+              ["ask", "Ask me first"],
+              ["auto", "Auto within limits"],
+            ].map(([v, l]) => (
+              <button key={v} type="button" role="radio" aria-checked={mode === v} onClick={() => setMode(v)}>
+                {l}
+              </button>
+            ))}
+          </div>
+          <p className="cs-note">The most-used control in the product. Try it.</p>
+        </div>
+        <div className="ds-block">
+          <h3 className="ds-h">Navigation</h3>
+          <div className="ds-nav">
+            {["Default", "Hover", "Active", "Badge"].map((s) => (
+              <div key={s}>
+                <span className={`ni ${s.toLowerCase()}`}>
+                  <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+                    <path d="M4 11l8-6 8 6v8a1 1 0 0 1-1 1h-4v-6H9v6H5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" />
+                  </svg>
+                  {s === "Badge" && <b>3</b>}
+                </span>
+                <p>{s}</p>
               </div>
             ))}
           </div>
-
-          {/* Type */}
-          <div className="ds-tile ds-type" data-reveal>
-            <h3>Type</h3>
-            <p className="ds-small">Plus Jakarta Sans, tabular numbers for all money</p>
-            <ul>
-              <li style={{ fontSize: 32, fontWeight: 700 }}>
-                Good morning, Meera <span>32 / Bold</span>
-              </li>
-              <li style={{ fontSize: 24, fontWeight: 700 }}>
-                ₹48,250 today <span>24 / Bold</span>
-              </li>
-              <li style={{ fontSize: 18, fontWeight: 700 }}>
-                Needs your approval <span>18 / Bold</span>
-              </li>
-              <li style={{ fontSize: 14 }}>
-                Co prepared these. Nothing changes until you say yes. <span>14 / Body</span>
-              </li>
-              <li style={{ fontSize: 13, color: "#676C88" }}>
-                Oldest one is 2 days old <span>13 / Label</span>
-              </li>
-            </ul>
-            <p className="ds-hindi" lang="hi">
-              सुप्रभात, Meera! <span>Mukta for Devanagari, picked up glyph by glyph</span>
-            </p>
-          </div>
-
-          {/* Components */}
-          <div className="ds-tile ds-components" data-reveal>
-            <h3>Components</h3>
-            <div className="ds-row">
-              <span className="b b--primary">Approve</span>
-              <span className="b b--secondary">Review</span>
-              <span className="b b--ghost">Skip</span>
-            </div>
-            <div className="ds-row">
-              <span className="tag">Amazon</span>
-              <span className="tag">Flipkart</span>
-              <span className="tag">Meesho</span>
-              <span className="conf conf--h">High</span>
-              <span className="conf conf--m">Medium</span>
-              <span className="conf conf--l">Low</span>
-            </div>
-            <div className="ds-row">
-              <div className="seg" role="radiogroup" aria-label="Autonomy example">
-                {[
-                  ["suggest", "Suggest only"],
-                  ["ask", "Ask me first"],
-                  ["auto", "Auto within limits"],
-                ].map(([v, l]) => (
-                  <button key={v} type="button" role="radio" aria-checked={mode === v} onClick={() => setMode(v)}>
-                    {l}
-                  </button>
-                ))}
-              </div>
-              <button
-                type="button"
-                role="switch"
-                aria-checked={toggle}
-                aria-label="Auto-approve price matches"
-                className={`sw ${toggle ? "on" : ""}`}
-                onClick={() => setToggle((t) => !t)}
-              >
-                <i />
-              </button>
-            </div>
-            <div className="ds-row">
-              <div className="stat">
-                <p>Today's sales</p>
-                <p className="v">₹48,250</p>
-                <p className="up">+12% vs yesterday</p>
-              </div>
-              <div className="toast">
-                <CoMark state="done" size={18} /> Approved. Co is on it. <b>Undo</b>
-              </div>
-            </div>
-          </div>
-
-          {/* Shape & spacing */}
-          <div className="ds-tile ds-shape" data-reveal>
-            <h3>Shape and space</h3>
-            <div className="ds-radii">
-              <span style={{ borderRadius: 999 }}>Pill · buttons</span>
-              <span style={{ borderRadius: 24 }}>24 · cards</span>
-              <span style={{ borderRadius: 32 }}>32 · frame</span>
-            </div>
-            <ul className="ds-rules">
-              <li>Max six cards a screen</li>
-              <li>24 to 32px gaps</li>
-              <li>56px table rows</li>
-              <li>48px touch targets</li>
-              <li>200ms hover, undo on everything</li>
-              <li>WCAG AA on every text colour</li>
-            </ul>
-          </div>
-
-          {/* Illustration */}
-          <div className="ds-tile ds-art" data-reveal>
-            <h3>Illustration</h3>
-            <p className="ds-small">Flat line art: navy strokes, periwinkle and pink fills, a little Indian craft</p>
-            <div className="ds-art__grid">
-              {["shop-counter", "all-clear", "box-alert", "coins-magnifier", "dial-safety-net", "connect-shops"].map((n) => (
-                <img key={n} src={`${A}art/${n}.webp`} alt="" loading="lazy" />
-              ))}
-            </div>
-          </div>
+        </div>
+        <div className="ds-block">
+          <h3 className="ds-h">Shape and space</h3>
+          <ul className="ds-tokens">
+            <li><span>Radius</span> pill · 24 cards · 32 frame</li>
+            <li><span>Gaps</span> 24 to 32px</li>
+            <li><span>Rows</span> 56px tables</li>
+            <li><span>Targets</span> 48px minimum</li>
+            <li><span>Contrast</span> WCAG AA on all text</li>
+          </ul>
         </div>
       </div>
-    </section>
+    </Sec>
   );
 }
 
-/* ───────────────────────── 07 iterations ───────────────────────── */
+/* ───────────────────────── 10 iterations ───────────────────────── */
 
-function Evolution() {
+function Iterations() {
   const [split, setSplit] = useState(50);
   return (
-    <section id="evolution" className="cs-section cs-wrap">
-      <h2 className="cs-h2" data-reveal>
-        The first version worked. It just didn't feel like anything.
-      </h2>
-
+    <Sec id="iterations" n="10" kicker="Iterations" title="The first version worked. It just didn't feel like anything.">
       <div className="cs-evo" data-reveal>
         <div className="cs-compare" style={{ "--split": `${split}%` }}>
           <img src={`${A}cmp-round1.webp`} alt="Round 1: plain white cards on a flat background" className="before" />
-          <img src={`${A}cmp-final.webp`} alt="Final: atmospheric glass morning and a pastel ticket-stack evening" className="after" />
-          <span className="cs-compare__line" aria-hidden="true" />
-          <input
-            type="range"
-            min="0"
-            max="100"
-            value={split}
-            onChange={(e) => setSplit(Number(e.target.value))}
-            aria-label="Compare the first and final mobile versions"
-          />
-          <span className="cs-compare__tag l">Round 1</span>
-          <span className="cs-compare__tag r">Final</span>
+          <img src={`${A}cmp-final.webp`} alt="Final: glass morning and a ticket-stack evening" className="after" />
+          <span className="line" aria-hidden="true" />
+          <input type="range" min="0" max="100" value={split} onChange={(e) => setSplit(Number(e.target.value))} aria-label="Compare round 1 and final" />
+          <span className="tag l">Round 1</span>
+          <span className="tag r">Final</span>
         </div>
-
-        <ol className="cs-evo__notes">
+        <ol className="cs-rounds">
           <li>
-            <h3>Round 1: correct, but generic.</h3>
-            <p>Every element was a white card and the hierarchy was all small labels. Nothing showed money.</p>
+            <span className="cs-mono">R1</span>
+            <h3>Correct, but generic.</h3>
+            <p>Every element was a white card. Nothing showed money.</p>
           </li>
           <li>
-            <h3>Round 2: money first.</h3>
-            <p>Product photos lead each card and the headline became "+₹7,641 extra sales a week".</p>
+            <span className="cs-mono">R2</span>
+            <h3>Money first.</h3>
+            <p>Product photos lead each card. The headline became "+₹7,641 extra sales a week".</p>
           </li>
           <li>
-            <h3>Round 3: one day, five screens.</h3>
-            <p>An atmospheric glass morning, a lock-screen decision, Hindi voice, and an evening ticket stack.</p>
+            <span className="cs-mono">R3</span>
+            <h3>One day, five screens.</h3>
+            <p>A glass morning, a lock-screen decision, Hindi voice and an evening brief. A glowing AI orb became two flat circles.</p>
           </li>
         </ol>
       </div>
-
-      <div className="cs-evo2" data-reveal>
-        <div className="cs-orbs">
-          <div>
-            <span className="old-orb" aria-hidden="true" />
-            <p>
-              <strong>Before:</strong> a glowing gradient orb. Pretty, but it looked like every AI product.
-            </p>
-          </div>
-          <span className="arrow" aria-hidden="true">→</span>
-          <div>
-            <CoMark state="idle" size={72} />
-            <p>
-              <strong>After:</strong> two flat circles. It reads at 16px, and it carries five states.
-            </p>
-          </div>
-        </div>
-        <p className="cs-body">
-          I also tested an indigo and marigold palette to move away from "AI purple". It was distinctive, but the
-          periwinkle and pink felt warmer for a solo seller, so I kept them and dropped the theme switch.
-        </p>
-        <img src={`${A}m-morning.webp`} alt="Final morning screen" className="cs-evo2__final" loading="lazy" />
-      </div>
-    </section>
+    </Sec>
   );
 }
 
-/* ───────────────────────── 08 outcome ───────────────────────── */
+/* ───────────────────────── 11 reflection ───────────────────────── */
 
-function Outcome() {
+function Reflection() {
   return (
-    <section id="outcome" className="cs-section cs-wrap">
-      <h2 className="cs-h2" data-reveal>
-        The real test is whether sellers say yes to Co.
-      </h2>
-      <div className="cs-outcome">
-        <div data-reveal>
+    <Sec id="reflection" n="11" kicker="Reflection" title="The real test is whether sellers say yes to Co.">
+      <div className="cs-reflect" data-reveal>
+        <div>
           <h3>What I'd measure</h3>
           <ul>
-            <li>
-              <strong>Time across dashboards</strong> per day, before and after.
-            </li>
-            <li>
-              <strong>Approval rate</strong> of Co's proposals, by confidence level.
-            </li>
-            <li>
-              <strong>Undo rate.</strong> High means Co is wrong; near zero may mean nobody checks.
-            </li>
+            <li>Time spent across dashboards, before and after</li>
+            <li>Approval rate of proposals, by confidence level</li>
+            <li>Undo rate: high means Co is wrong, zero may mean nobody checks</li>
           </ul>
         </div>
-        <div data-reveal>
-          <h3>What I'd change</h3>
+        <div>
+          <h3>What I'd do differently</h3>
           <ul>
-            <li>Start from interviews, not only secondary research.</li>
-            <li>Have a native speaker review every Hindi string.</li>
-            <li>Design the "Co was wrong" flow before the happy path.</li>
+            <li>Start with seller interviews, not only desk research</li>
+            <li>Have a native speaker review every Hindi string</li>
+            <li>Design the "Co was wrong" flow before the happy path</li>
           </ul>
         </div>
-        <div data-reveal>
+        <div>
           <h3>Next</h3>
           <ul>
-            <li>Test the approval card with 3 to 5 real sellers.</li>
-            <li>Measure whether a low-risk first win, like a restock alert, really earns trust.</li>
+            <li>Test the approval card with 3 to 5 real sellers</li>
+            <li>Check whether a low-risk first win really earns trust</li>
           </ul>
         </div>
       </div>
-    </section>
+    </Sec>
   );
 }
 
-function Closing() {
+function Footer() {
   return (
-    <section className="cs-closing">
-      <CoMark state="done" size={64} />
-      <h2>Want the full walkthrough?</h2>
-      <p>I'm happy to talk through the decisions, the trade-offs and what I'd test first.</p>
-      <div className="cs-closing__ctas">
-        <a href="/#contact" className="cs-pill cs-pill--light">
-          Let's talk
-        </a>
-        <a href="/#projects" className="cs-link">
-          Back to all work
-        </a>
+    <footer className="cs-foot">
+      <p>Want the full walkthrough? I'm happy to talk through the decisions and what I'd test first.</p>
+      <div>
+        <a href="/#contact" className="cs-btn">Get in touch</a>
+        <a href="/#projects" className="cs-link">Back to all work</a>
       </div>
-    </section>
+    </footer>
   );
 }
