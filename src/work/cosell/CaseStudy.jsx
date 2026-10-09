@@ -147,8 +147,8 @@ function Header() {
         <p className="cs-mono">Case study 01 · Product design · Self-initiated</p>
         <h1>CoSell: an AI copilot for sellers on Amazon, Flipkart and Meesho</h1>
         <p className="cs-lede">
-          CoSell is my attempt to give that job away. It's a copilot called Co that keeps an eye on Amazon, Flipkart and
-          Meesho at once, catches the mistakes that cost money, and hands Meera a short list of things only she can decide.
+          Small sellers often list on three marketplaces and check each dashboard by hand. CoSell's copilot, Co, watches
+          all three at once, catches mistakes that cost money, and shows the seller only the decisions that need her.
         </p>
         <ul className="cs-tags">
           {["AI agent UX", "Seller tools", "Desktop + mobile", "English + Hindi"].map((t) => (
