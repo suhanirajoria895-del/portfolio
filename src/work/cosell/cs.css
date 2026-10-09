@@ -845,3 +845,46 @@ body {
 .cs-w2f__wire i.chart { border: 0; border-bottom: 1.5px dashed #c9c9c9; border-radius: 0; background: linear-gradient(170deg, transparent 40%, #ececec 41%) , linear-gradient(to bottom right, transparent 49%, #b5b5b5 49.5%, #b5b5b5 50.5%, transparent 51%); }
 .cs-w2f__wire i.btn { border: 1.5px solid #cfcfcf; background: #fff; border-radius: 99px; }
 .cs-w2f__wire i.btn.dark { background: #3a3a3a; border-color: #3a3a3a; }
+
+/* ───────── competitive analysis ───────── */
+.cs-comp .cs-h3 { margin-top: 8px; font-size: 22px; }
+.cs-comp .cs-body { margin-top: 10px; max-width: 760px; }
+.cs-rivals { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; margin-top: 24px; }
+.cs-rivals article { display: flex; flex-direction: column; padding: 20px; border-radius: 18px; background: var(--surface); border: 1px solid var(--line); }
+.cs-rivals h4 { margin: 0; font-size: 16px; font-weight: 600; }
+.cs-rivals header p { margin-top: 2px; font-size: 12.5px; color: var(--muted); }
+.cs-rivals .does { margin-top: 12px; font-size: 14px; color: var(--ink-2); line-height: 1.55; }
+.cs-rivals dl { margin: 14px 0 0; display: grid; gap: 10px; padding-top: 12px; border-top: 1px dashed var(--line); }
+.cs-rivals dt { font: 500 11px var(--mono); text-transform: uppercase; letter-spacing: 0.06em; color: var(--good); }
+.cs-rivals dl div:last-child dt { color: var(--bad); }
+.cs-rivals dd { margin: 3px 0 0; font-size: 13.5px; color: var(--ink-2); }
+.cs-rivals a { margin-top: auto; padding-top: 14px; font-size: 12.5px; color: var(--muted); text-decoration: none; }
+.cs-rivals a:hover { color: var(--accent); }
+
+/* ───────── reflection, no stickies ───────── */
+.cs-goals__row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin-top: 14px; border-radius: 20px; overflow: hidden; background: var(--ink); color: #fff; }
+.cs-goals__row div { padding: 26px 22px; }
+.cs-goals__row div + div { border-left: 1px solid rgba(255, 255, 255, 0.12); }
+.cs-goals__row .n { font-size: 40px; font-weight: 600; letter-spacing: -0.04em; line-height: 1; color: #c9c2ff; }
+.cs-goals__row p:last-child { margin-top: 10px; font-size: 13.5px; color: #c4c4cc; line-height: 1.5; }
+@media (max-width: 860px) { .cs-goals__row { grid-template-columns: 1fr 1fr; } .cs-goals__row div:nth-child(3) { border-left: 0; } .cs-goals__row div:nth-child(n + 3) { border-top: 1px solid rgba(255, 255, 255, 0.12); } }
+
+.cs-look { display: grid; grid-template-columns: 1.2fr 1fr; gap: 20px; }
+.cs-look > div { padding: clamp(22px, 3vw, 32px); border-radius: 20px; background: var(--surface); border: 1px solid var(--line); }
+.cs-look h3 { font-size: 19px; font-weight: 600; letter-spacing: -0.01em; }
+.cs-look ol { margin: 16px 0 0; padding: 0; list-style: none; counter-reset: n; display: grid; gap: 14px; }
+.cs-look ol li { counter-increment: n; position: relative; padding-left: 40px; font-size: 14.5px; color: var(--ink-2); line-height: 1.55; }
+.cs-look ol li::before { content: counter(n, decimal-leading-zero); position: absolute; left: 0; top: 1px; font: 500 12px var(--mono); color: var(--accent); }
+.cs-look b { color: var(--ink); font-weight: 600; }
+.cs-script { background: var(--accent-tint) !important; border-color: transparent !important; }
+.cs-script ul { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 10px; }
+.cs-script li { padding: 12px 14px; border-radius: 14px 14px 14px 4px; background: #fff; font-size: 14px; color: var(--ink-2); }
+@media (max-width: 860px) { .cs-look { grid-template-columns: 1fr; } }
+
+.cs-next { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); position: relative; }
+.cs-next::before { content: ""; position: absolute; left: 0; right: 0; top: 7px; height: 2px; background: linear-gradient(90deg, var(--accent), #ff8fb1); border-radius: 2px; }
+.cs-next li { position: relative; padding: 26px 20px 0 0; }
+.cs-next li::before { content: ""; position: absolute; top: 0; left: 0; width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 3px solid var(--accent); }
+.cs-next .cs-mono { color: var(--accent); }
+.cs-next p { margin-top: 6px; font-size: 14.5px; color: var(--ink-2); }
+@media (max-width: 760px) { .cs-next { grid-template-columns: 1fr; gap: 18px; } .cs-next::before { display: none; } }

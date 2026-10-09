@@ -145,10 +145,10 @@ function Header() {
     <header className="cs-head" data-reveal>
       <div className="cs-head__copy">
         <p className="cs-mono">Case study 01 · Product design · Self-initiated</p>
-        <h1>CoSell: an AI copilot for sellers on Amazon, Flipkart and Meesho</h1>
+        <h1>CoSell: an AI copilot for sellers who sell on more than one marketplace</h1>
         <p className="cs-lede">
-          Small sellers often list on three marketplaces and check each dashboard by hand. CoSell's copilot, Co, watches
-          all three at once, catches mistakes that cost money, and shows the seller only the decisions that need her.
+          Small sellers often list on several marketplaces and check each dashboard by hand. CoSell's copilot, Co, watches
+          all of them at once, catches mistakes that cost money, and shows the seller only the decisions that need her.
         </p>
         <ul className="cs-tags">
           {["AI agent UX", "Seller tools", "Desktop + mobile", "English + Hindi"].map((t) => (
@@ -174,7 +174,7 @@ function Header() {
       <dl className="cs-tldr">
         <div>
           <dt>Problem</dt>
-          <dd>Sellers on three marketplaces lose hours to tab switching, and 1 to 3% of sales to errors nobody catches.</dd>
+          <dd>Sellers on several marketplaces lose hours to tab switching, and 1 to 3% of sales to errors nobody catches.</dd>
         </div>
         <div>
           <dt>What I made</dt>
@@ -252,7 +252,7 @@ function Statement() {
         <span className="tape" aria-hidden="true" />
         <div className={`cs-settle ${scan ? "is-scanned" : ""}`}>
           <div className="cs-settle__head">
-            <p>Flipkart settlement</p>
+            <p>Marketplace settlement</p>
             <p className="muted">3 Oct, payout cycle 40</p>
           </div>
           <ul>
@@ -420,13 +420,57 @@ function Journey() {
 
 /* ───────────────────────── 03 who it's for ───────────────────────── */
 
-const TOOLS = ["Inventory sync", "Seller apps", "Spreadsheets", "CoSell"];
+const RIVALS = [
+  {
+    name: "Amazon Seller Assistant",
+    who: "Amazon, free for sellers in India",
+    does: "Answers questions, writes listings from a photo, and can make changes once the seller gives permission. Works in English and Hinglish.",
+    took: "Asking for permission before acting.",
+    gap: "Only sees the seller's Amazon shop.",
+    src: ["aboutamazon.in", "https://www.aboutamazon.in/news/small-business/amazon-seller-assistant-ai-tool-india"],
+  },
+  {
+    name: "Flipkart Saarthi",
+    who: "Flipkart Ads",
+    does: "A conversational ads dashboard that points out campaigns that aren't working and suggests fixes.",
+    took: "Pointing at the problem first, then suggesting what to do.",
+    gap: "Focused on ads, and only on Flipkart.",
+    src: ["The Wire", "https://m.thewire.in/article/ptiprnews/flipkart-ads-launches-saarthi-to-help-sellers-grow-with-ai-powered-tools-and-expert-advertising-support"],
+  },
+  {
+    name: "Meesho seller AI",
+    who: "Meesho",
+    does: "Voice agents in local languages handle up to 3 lakh seller calls a day, plus AI help with catalogues and ads.",
+    took: "Local-language voice for sellers who don't want to type.",
+    gap: "Support and setup, not day-to-day decisions.",
+    src: ["Inc42", "https://inc42.com/features/amazon-flipkart-meeshos-ai-focus-shifts-to-seller-side-stacks/"],
+  },
+  {
+    name: "Shopify Sidekick",
+    who: "Shopify, for store owners",
+    does: "Builds reports, suggests campaigns and sets up automations, with the merchant approving each one.",
+    took: "Showing the automation before it runs.",
+    gap: "Lives inside one store, not across marketplaces.",
+    src: ["Retail Brew", "https://www.retailbrew.com/stories/2025/12/11/shopify-plugs-in-more-ai-power-to-merchant-assistant"],
+  },
+  {
+    name: "Unicommerce / EasyEcom",
+    who: "Multichannel software",
+    does: "Syncs stock across many channels and reconciles payouts and returns, through tools like UniReco and EasyReco.",
+    took: "Treating payout reconciliation as a feature, not a spreadsheet.",
+    gap: "Built for brands with warehouses and ops teams, and it flags issues rather than deciding anything.",
+    src: ["The Week", "https://www.theweek.in/wire-updates/business/2025/06/19/dcm36-unicommerce.html"],
+  },
+];
+
+const TOOLS = ["Marketplace AI", "Shopify Sidekick", "Multichannel tools", "CoSell"];
 const CAPS = [
-  ["One stock count", [1, 0, 0.5, 1]],
-  ["Catches fee and return errors", [0, 0, 0.5, 1]],
-  ["Explains itself", [0, 0, 0, 1]],
-  ["Can act, if you let it", [0, 0, 0, 1]],
-  ["Hindi and voice", [0, 0.5, 0, 1]],
+  ["Sees every marketplace at once", [0, 0, 1, 1]],
+  ["Checks the fees a marketplace charged", [0, 0, 1, 1]],
+  ["Acts for you, with permission", [1, 1, 0.5, 1]],
+  ["Explains why, in plain words", [0.5, 0.5, 0, 1]],
+  ["Hindi, and voice", [0.5, 0.5, 0, 1]],
+  ["Made for a one-person shop", [1, 1, 0, 1]],
 ];
 
 function Analysis() {
@@ -435,8 +479,8 @@ function Analysis() {
       id="analysis"
       n="03"
       kicker="Analysis"
-      title="Who I designed for"
-      lede="To keep myself honest I designed for one specific seller. She isn't real, but everything about her comes from the research."
+      title="Who I designed for, and what already exists"
+      lede="I designed for one specific seller, built from the research. Then I looked at the AI tools she can already use, to see what's actually missing."
     >
       <figure className="cs-fig" data-reveal>
         <figcaption>
@@ -477,8 +521,43 @@ function Analysis() {
         </div>
       </article>
 
+      <div className="cs-comp" data-reveal>
+        <p className="cs-mono">Competitive analysis</p>
+        <h3 className="cs-h3">Every marketplace now has its own AI. That's the problem.</h3>
+        <p className="cs-body">
+          When I started, I assumed sellers had no AI help. That's not true anymore. In 2025 and 2026 every big marketplace
+          shipped an assistant for its sellers. But each one only sees its own shop, and none of them is going to point out
+          a fee it overcharged. A seller on three marketplaces now has three separate assistants, and still nobody looking
+          across all of them.
+        </p>
+        <div className="cs-rivals">
+          {RIVALS.map((r) => (
+            <article key={r.name}>
+              <header>
+                <h4>{r.name}</h4>
+                <p>{r.who}</p>
+              </header>
+              <p className="does">{r.does}</p>
+              <dl>
+                <div>
+                  <dt>What I took from it</dt>
+                  <dd>{r.took}</dd>
+                </div>
+                <div>
+                  <dt>What it misses</dt>
+                  <dd>{r.gap}</dd>
+                </div>
+              </dl>
+              <a href={r.src[1]} target="_blank" rel="noreferrer">
+                Source: {r.src[0]} ↗
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
+
       <div className="cs-matrix-wrap" data-reveal>
-        <h3 className="cs-h3">The tools out there sync stock. None of them help her decide anything.</h3>
+        <h3 className="cs-h3">Where CoSell fits</h3>
         <div className="cs-scroll">
           <table className="cs-matrix">
             <thead>
@@ -503,7 +582,10 @@ function Analysis() {
             </tbody>
           </table>
         </div>
-        <p className="cs-note">I compared kinds of tools rather than named products, because I didn't audit specific vendors. "Partly" means it takes manual work.</p>
+        <p className="cs-note">
+          "Marketplace AI" groups the Amazon, Flipkart and Meesho tools above. Based on public announcements and press
+          coverage, not hands-on testing, so "Partly" means it's announced or limited.
+        </p>
       </div>
     </Sec>
   );
@@ -511,16 +593,16 @@ function Analysis() {
 
 function Ecosystem() {
   const nodes = [
-    [120, 60, "Amazon", "Seller Central"],
-    [120, 170, "Flipkart", "Seller Hub"],
-    [120, 280, "Meesho", "Supplier panel"],
+    [120, 60, "Marketplace 1", "Seller panel"],
+    [120, 170, "Marketplace 2", "Seller panel"],
+    [120, 280, "Marketplace 3", "Seller panel"],
     [720, 60, "Couriers", "Pickups, RTO"],
     [720, 170, "Buyers", "Returns, reviews"],
     [720, 280, "Excel", "Payout checks"],
   ];
   return (
     <div className="cs-scroll">
-      <svg viewBox="0 0 840 340" className="cs-eco" role="img" aria-label="Meera in the centre, connected to Amazon, Flipkart, Meesho, couriers, buyers and an Excel sheet">
+      <svg viewBox="0 0 840 340" className="cs-eco" role="img" aria-label="Meera in the centre, connected to three marketplaces, couriers, buyers and an Excel sheet">
         {nodes.map(([x, y]) => (
           <line key={`${x}${y}`} x1={x < 400 ? x + 90 : x - 90} y1={y} x2={x < 400 ? 330 : 510} y2="170" className="edge" />
         ))}
@@ -1033,7 +1115,7 @@ const TRADEOFFS = [
 
 function Tradeoffs() {
   return (
-    <Part kicker="Trade-offs" title="Trade-offs">
+    <Part kicker="Choices I had to make" title="What I picked, and what I gave up for it">
       <div className="cs-trade" data-reveal>
         <div className="cs-trade__row head" aria-hidden="true">
           <span>Decision</span>
@@ -1078,20 +1160,20 @@ function UndoDemo() {
     <div className="cs-undo" data-reveal>
       <p className="cs-mono">Try it: is a quick yes plus undo better than a pop-up?</p>
       <div className="cs-undo__card">
-        <span>Drop the Copper bottle to ₹849 on Flipkart</span>
+        <span>Drop the Copper bottle to ₹849 on one marketplace</span>
         <button type="button" className="cs-btn" disabled={state === "approved"} onClick={() => setState("approved")}>
           {state === "approved" ? "Done" : "Approve"}
         </button>
       </div>
       <div className={`cs-toast ${state === "approved" ? "on" : ""}`} role="status">
-        <CoMark state="done" size={20} /> Done. Co's updating Flipkart.
+        <CoMark state="done" size={20} /> Done. Co's updating the listing.
         <button type="button" onClick={() => setState("undone")}>
           Undo
         </button>
       </div>
       {state === "undone" && (
         <p className="cs-note">
-          Undone. Nothing changed on Flipkart.{" "}
+          Undone. Nothing changed.{" "}
           <button type="button" className="cs-link" onClick={() => setState("idle")}>
             Try again
           </button>
@@ -1135,7 +1217,7 @@ const SCREENS = [
     d: "When a marketplace shows the wrong number, it's caught before it oversells.",
     pins: [
       [12, 24, "One banner, one action: Co can fix both mismatches."],
-      [46.5, 50, "Flipkart says 124. She actually has 118."],
+      [46.5, 50, "One marketplace says 124. She actually has 118."],
       [70, 38, "Restock ideas based on the last 14 days of sales."],
     ],
   },
@@ -1559,7 +1641,7 @@ function Iterations() {
           <dl>
             <div>
               <dt>First version</dt>
-              <dd>Cards described the action: "Lower price of Copper water bottle on Flipkart". Accurate, and easy to skip.</dd>
+              <dd>Cards described the action: "Lower price of Copper water bottle". Accurate, and easy to skip.</dd>
             </div>
             <div>
               <dt>Why it failed</dt>
@@ -1646,43 +1728,68 @@ function Iterations() {
 function Reflection() {
   return (
     <Sec id="reflection" n="✦" kicker="Reflection" title="Reflection and next steps">
-      <div className="cs-reflect" data-reveal>
-        <Sticky c="y" r={-1.5}>
-          <h3 className="hand">What success would look like</h3>
-          <ul>
-            <li><b>Under 15 min a day</b> across all three dashboards, from well over an hour</li>
-            <li><b>7 in 10 suggestions approved</b> without edits, for High-confidence ones</li>
-            <li><b>Undo on fewer than 1 in 20</b> actions. Zero would worry me too: it may mean she's stopped checking.</li>
-            <li><b>Every fee error caught</b> inside its claim window</li>
-          </ul>
-          <p className="cs-note">These are targets I'd test against, not results.</p>
-        </Sticky>
-        <Sticky c="p" r={1}>
-          <h3 className="hand">What I'd do differently</h3>
-          <ul>
-            <li>Talk to real sellers first. Desk research only gets you so far.</li>
-            <li>Get a native speaker to check every Hindi line.</li>
-            <li>Design the "Co got it wrong" moment before the happy path.</li>
-          </ul>
-        </Sticky>
-        <Sticky c="g" r={1}>
-          <h3 className="hand">First 5 questions for real sellers</h3>
-          <ul>
-            <li>Walk me through yesterday morning, tab by tab.</li>
-            <li>When did a fee last surprise you? What did you do?</li>
-            <li>What would you never let software change?</li>
-            <li>Who else touches your seller accounts?</li>
-            <li>Show me where you track payouts today.</li>
-          </ul>
-        </Sticky>
-        <Sticky c="b" r={-0.5}>
-          <h3 className="hand">What's next</h3>
-          <ul>
-            <li>Put the approval screen in front of 3 to 5 sellers.</li>
-            <li>See whether one small early win, like a restock alert, really builds trust.</li>
-          </ul>
-        </Sticky>
+      <div className="cs-goals" data-reveal>
+        <p className="cs-mono">How I'd know it works · targets, not results</p>
+        <div className="cs-goals__row">
+          {[
+            ["15 min", "a day across all dashboards, down from over an hour"],
+            ["7 / 10", "high-confidence suggestions approved without edits"],
+            ["< 1 / 20", "actions undone. Zero would worry me too: it may mean she's stopped checking"],
+            ["0", "fee errors found after the claim window has closed"],
+          ].map(([n, d]) => (
+            <div key={n}>
+              <p className="n">{n}</p>
+              <p>{d}</p>
+            </div>
+          ))}
+        </div>
       </div>
+
+      <div className="cs-look" data-reveal>
+        <div>
+          <h3>If I did it again</h3>
+          <ol>
+            <li>
+              <b>Talk to sellers before anything else.</b> I leaned on articles and forum threads. Even three short calls
+              would have tested my assumptions earlier.
+            </li>
+            <li>
+              <b>Start with the competition.</b> I found the marketplace assistants late, and they changed what CoSell
+              needed to be.
+            </li>
+            <li>
+              <b>Design "Co got it wrong" first.</b> It ended up shaping the whole approval flow, so it should have come
+              before the happy path.
+            </li>
+            <li>
+              <b>Have a native speaker check the Hindi.</b> I wrote every string myself.
+            </li>
+          </ol>
+        </div>
+        <div className="cs-script">
+          <h3>What I'd ask the first five sellers</h3>
+          <ul>
+            <li>"Walk me through yesterday morning, tab by tab."</li>
+            <li>"Have you tried the AI assistant in your seller panel? What did you use it for?"</li>
+            <li>"When did a fee last surprise you? What did you do?"</li>
+            <li>"What would you never let software change?"</li>
+            <li>"Show me where you track payouts today."</li>
+          </ul>
+        </div>
+      </div>
+
+      <ol className="cs-next" data-reveal>
+        {[
+          ["Now", "Test the approval screen with 3 to 5 sellers who use more than one marketplace."],
+          ["Then", "See whether one small early win, like a restock alert, makes them trust Co with more."],
+          ["Later", "Pilot fee checks on real settlement files, since that's what no marketplace tool does."],
+        ].map(([k, d]) => (
+          <li key={k}>
+            <span className="cs-mono">{k}</span>
+            <p>{d}</p>
+          </li>
+        ))}
+      </ol>
     </Sec>
   );
 }
