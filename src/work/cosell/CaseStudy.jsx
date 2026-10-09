@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { CoMark } from "./CoMark.jsx";
 import DesignSystem from "./DesignSystem.jsx";
-import { useActiveId, useRevealAll } from "./hooks.js";
+import { useActiveId, useAmbientMotion, useRevealAll } from "./hooks.js";
 
 const A = "/work/cosell/"; // asset base
 const DEMO = "/work/cosell/demo/index.html#/login";
@@ -20,11 +20,13 @@ const SECTIONS = [
 
 export default function CaseStudy() {
   useRevealAll();
+  useAmbientMotion();
   const ids = useMemo(() => SECTIONS.map(([id]) => id), []);
   const active = useActiveId(ids);
 
   return (
     <div className="cs-shell">
+      <div className="cs-progress" aria-hidden="true" />
       <Sidebar active={active} />
       <Chips active={active} />
       <main className="cs">
@@ -510,50 +512,70 @@ const BREAKS = [
   ["Money", [["4", "A rival's price drop is seen hours late, after the Buy Box is lost."], ["5", "Fee errors hide in settlement files and go unclaimed."]]],
 ];
 
+const LANE_STYLE = [
+  ["#6B5CFF", "👩🏽"],
+  ["#F5A524", "🛒"],
+  ["#2FB67C", "📦"],
+  ["#8A8FA8", "📊"],
+];
+
 function Swimlane() {
-  const LW = 140;
-  const CW = 170;
-  const LH = 84;
-  const TOP = 34;
-  const pos = (lane, stage) => [LW + 20 + stage * CW, TOP + lane * LH + 22];
-  const BW = 140;
-  const BH = 40;
+  const LW = 172;
+  const CW = 154;
+  const LH = 92;
+  const TOP = 44;
+  const BW = 134;
+  const BH = 44;
+  const pos = (lane, stage) => [LW + 16 + stage * CW, TOP + lane * LH + (LH - BH) / 2];
+  const W = LW + 16 + STAGES.length * CW;
   return (
     <div className="cs-scroll">
-      <svg viewBox={`0 0 ${LW + 20 + STAGES.length * CW} ${TOP + LANES.length * LH + 10}`} className="cs-swim" role="img" aria-label="Swimlane of a seller's day across marketplaces, buyers and a spreadsheet, with five breakpoints">
+      <svg viewBox={`0 0 ${W} ${TOP + LANES.length * LH + 8}`} className="cs-swim" role="img" aria-label="Swimlane of a seller's day across marketplaces, buyers and a spreadsheet, with five breakpoints">
         <defs>
-          <marker id="sw-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
-            <path d="M0,0 L10,5 L0,10 z" fill="#8a8fa8" />
+          <marker id="sw-ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,1 L9,5 L0,9 z" fill="#a39fc4" />
           </marker>
+          <filter id="sw-sh" x="-20%" y="-20%" width="140%" height="160%">
+            <feDropShadow dx="0" dy="4" stdDeviation="5" floodColor="#2b1f6b" floodOpacity="0.12" />
+          </filter>
         </defs>
         {STAGES.map((st, i) => (
-          <text key={st} x={LW + 20 + i * CW + BW / 2} y={20} textAnchor="middle" className="stage">{st}</text>
+          <g key={st}>
+            <rect x={LW + 16 + i * CW - 8} y="6" width={CW - 14} height="26" rx="13" className="stagepill" />
+            <text x={LW + 16 + i * CW - 8 + (CW - 14) / 2} y="23" textAnchor="middle" className="stage">{st}</text>
+          </g>
         ))}
         {LANES.map((l, i) => (
           <g key={l}>
-            <rect x="0" y={TOP + i * LH} width="100%" height={LH} className={i % 2 ? "lane alt" : "lane"} />
-            <text x="14" y={TOP + i * LH + LH / 2 + 4} className="lname">{l}</text>
+            <rect x="0" y={TOP + i * LH} width={W} height={LH - 6} rx="18" className="lane" />
+            <rect x="0" y={TOP + i * LH} width="6" height={LH - 6} rx="3" fill={LANE_STYLE[i][0]} />
+            <text x="22" y={TOP + i * LH + LH / 2 - 2} className="licon">{LANE_STYLE[i][1]}</text>
+            <text x="50" y={TOP + i * LH + LH / 2 + 1} className="lname">{l}</text>
           </g>
         ))}
         {LINKS.map(([a, b]) => {
           const [x1, y1] = pos(STEPS_SW[a][0], STEPS_SW[a][1]);
           const [x2, y2] = pos(STEPS_SW[b][0], STEPS_SW[b][1]);
-          const sameCol = x1 === x2;
-          const d = sameCol
-            ? `M${x1 + BW / 2},${y1 + (y2 > y1 ? BH : 0)} V${y2 + (y2 > y1 ? 0 : BH)}`
-            : `M${x1 + BW},${y1 + BH / 2} H${(x1 + BW + x2) / 2} V${y2 + BH / 2} H${x2}`;
+          let d;
+          if (x1 === x2) {
+            const down = y2 > y1;
+            d = `M${x1 + BW / 2},${y1 + (down ? BH : 0)} L${x2 + BW / 2},${y2 + (down ? -2 : BH + 2)}`;
+          } else {
+            const sx = x1 + BW, sy = y1 + BH / 2, ex = x2 - 2, ey = y2 + BH / 2, mx = (sx + ex) / 2;
+            d = `M${sx},${sy} C${mx},${sy} ${mx},${ey} ${ex},${ey}`;
+          }
           return <path key={`${a}-${b}`} d={d} className="ln" markerEnd="url(#sw-ar)" />;
         })}
         {STEPS_SW.map(([lane, stage, label, bp]) => {
           const [x, y] = pos(lane, stage);
           return (
-            <g key={label}>
-              <rect x={x} y={y} width={BW} height={BH} rx="10" className={lane === 0 ? "box me" : "box"} />
+            <g key={label} className="node" style={{ "--d": `${(stage * 4 + lane) * 60}ms` }}>
+              <rect x={x} y={y} width={BW} height={BH} rx="12" className={lane === 0 ? "box me" : "box"} filter="url(#sw-sh)" />
               <text x={x + BW / 2} y={y + BH / 2 + 4} textAnchor="middle" className="t">{label}</text>
               {bp && (
-                <g>
-                  <circle cx={x + BW - 2} cy={y + 2} r="10" className="bp" />
-                  <text x={x + BW - 2} y={y + 5.5} textAnchor="middle" className="bpt">{bp}</text>
+                <g className="flag">
+                  <circle cx={x + BW - 4} cy={y + 2} r="11" className="bp" />
+                  <text x={x + BW - 4} y={y + 6} textAnchor="middle" className="bpt">{bp}</text>
                 </g>
               )}
             </g>
@@ -1214,16 +1236,35 @@ function Wireframes() {
 
       <div className="lofi" data-reveal>
         <figure className="lofi__wide">
-          <WireScreen which="home" />
-          <figcaption>Home: what needs a yes, first</figcaption>
+          <div className="lofi-win">
+            <span className="dots"><i /><i /><i /></span>
+            <WireScreen which="home" />
+            <span className="lofi-note" style={{ left: "16%", top: "62%" }}>1</span>
+            <span className="lofi-note" style={{ left: "84%", top: "36%" }}>2</span>
+          </div>
+          <figcaption>
+            <b>Home</b>
+            <span>① Approval queue leads ② Co's overnight log on the side</span>
+          </figcaption>
         </figure>
         <figure className="lofi__wide">
-          <WireScreen which="approval" />
-          <figcaption>Suggestion: the change, the checks, the why</figcaption>
+          <div className="lofi-win">
+            <span className="dots"><i /><i /><i /></span>
+            <WireScreen which="approval" />
+            <span className="lofi-note" style={{ left: "26%", top: "36%" }}>1</span>
+            <span className="lofi-note" style={{ left: "88%", top: "70%" }}>2</span>
+          </div>
+          <figcaption>
+            <b>Suggestion</b>
+            <span>① The change in big numbers ② One clear decision</span>
+          </figcaption>
         </figure>
         <figure className="lofi__phone">
           <PhoneWire />
-          <figcaption>Phone: one decision at a time</figcaption>
+          <figcaption>
+            <b>Phone</b>
+            <span>One card, swipe to decide</span>
+          </figcaption>
         </figure>
       </div>
 

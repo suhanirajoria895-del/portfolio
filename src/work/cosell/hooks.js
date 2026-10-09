@@ -77,3 +77,30 @@ export function useDragScroll() {
   }, []);
   return ref;
 }
+
+/** Scroll progress bar + a soft glow that follows the cursor over dark panels. */
+export function useAmbientMotion() {
+  useEffect(() => {
+    const bar = document.querySelector(".cs-progress");
+    const onScroll = () => {
+      const h = document.documentElement.scrollHeight - innerHeight;
+      bar?.style.setProperty("--p", String(h > 0 ? scrollY / h : 0));
+    };
+    const panels = document.querySelectorAll(".aw, .pm, .cs-live, .cs-phones");
+    const onMove = (e) => {
+      const r = e.currentTarget.getBoundingClientRect();
+      e.currentTarget.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      e.currentTarget.style.setProperty("--my", `${e.clientY - r.top}px`);
+    };
+    panels.forEach((p) => {
+      p.classList.add("glow-follow");
+      p.addEventListener("pointermove", onMove);
+    });
+    onScroll();
+    addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      removeEventListener("scroll", onScroll);
+      panels.forEach((p) => p.removeEventListener("pointermove", onMove));
+    };
+  }, []);
+}

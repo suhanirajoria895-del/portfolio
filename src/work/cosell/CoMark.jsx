@@ -36,22 +36,36 @@ export function CoMark({ state = "idle", size = 48 }) {
   );
 }
 
+export function LogoMark({ size = 32 }) {
+  const id = useId().replace(/:/g, "");
+  return (
+    <svg width={size} height={size} viewBox="0 3 60 60" aria-hidden="true">
+      <defs>
+        <linearGradient id={`${id}a`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#8B7BFF" /><stop offset="1" stopColor="#5B4BF5" /></linearGradient>
+        <linearGradient id={`${id}b`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#FF9EC2" /><stop offset="1" stopColor="#C9A8FF" /></linearGradient>
+        <linearGradient id={`${id}c`} x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#2A2370" /><stop offset="1" stopColor="#14123A" /></linearGradient>
+        <path id={`${id}s`} d="M12 22 L29 11 L29 35 L12 46 Z" />
+        <mask id={`${id}k`} maskUnits="userSpaceOnUse" x="0" y="0" width="64" height="64">
+          <use href={`#${id}s`} fill="#fff" stroke="#fff" strokeWidth="10" strokeLinejoin="round" />
+        </mask>
+      </defs>
+      <g strokeWidth="10" strokeLinejoin="round">
+        <use href={`#${id}s`} fill={`url(#${id}a)`} stroke={`url(#${id}a)`} />
+        <use href={`#${id}s`} transform="translate(14 9)" fill={`url(#${id}b)`} stroke={`url(#${id}b)`} opacity="0.92" />
+        <g mask={`url(#${id}k)`}>
+          <use href={`#${id}s`} transform="translate(14 9)" fill={`url(#${id}c)`} stroke={`url(#${id}c)`} />
+        </g>
+      </g>
+    </svg>
+  );
+}
+
 /** The static brand lockup (mark + wordmark). */
 export function Logo({ height = 28, className = "" }) {
-  const id = useId();
   return (
-    <span className={`cs-logo ${className}`} style={{ gap: height * 0.2 }} role="img" aria-label="CoSell">
-      <svg width={(height * 65) / 40} height={height} viewBox="0 0 65 40" aria-hidden="true">
-        <defs>
-          <clipPath id={`${id}l`}>
-            <circle cx="20" cy="20" r="20" />
-          </clipPath>
-        </defs>
-        <circle cx="20" cy="20" r="20" fill="#6B5CFF" />
-        <circle cx="45" cy="20" r="20" fill="#FF8FB1" />
-        <circle cx="45" cy="20" r="20" fill="#14142B" clipPath={`url(#${id}l)`} />
-      </svg>
-      <span aria-hidden="true" style={{ fontSize: height * 1.24 }}>
+    <span className={`cs-logo ${className}`} style={{ gap: height * 0.28 }} role="img" aria-label="CoSell">
+      <LogoMark size={height} />
+      <span aria-hidden="true" style={{ fontSize: height * 1.1 }}>
         CoSell
       </span>
     </span>
