@@ -45,7 +45,7 @@ export function PauseScreen({ live = true }) {
       <p className="rk-sub">You're about to send <b>₹49,000</b> to <b>verify-cbi@ybl</b></p>
       <ul className="rk-reasons">
         <li><UserRound size={15} />You've never paid this person</li>
-        <li><PhoneIcon size={15} />An unknown number called you 3 minutes ago</li>
+        <li><PhoneIcon size={15} />You said someone on a call asked you to pay</li>
         <li><Landmark size={15} />Police and banks never ask you to pay over a call</li>
       </ul>
       <button className="rk-btn teal"><PhoneIcon size={16} /> Call Rohan first</button>
@@ -84,7 +84,7 @@ export function TrustedScreen() {
       <div className="rk-notif">
         <div className="rk-notif__head"><span className="rk-app"><ShieldCheck size={13} /></span><b>Ruko</b><span>now</span></div>
         <b>Mum paused a ₹49,000 payment</b>
-        <p>To someone she's never paid, right after an unknown call. She asked you to call.</p>
+        <p>To someone she's never paid, while a caller was asking her to pay. She asked you to call.</p>
         <div className="rk-notif__btns"><button><PhoneIcon size={14} /> Call Mum</button><button>Later</button></div>
       </div>
       <p className="rk-priv">Only the amount and the reason are shared, and only because Sunita tapped "Call Rohan first".</p>
@@ -129,7 +129,7 @@ export function SettingsScreen() {
       <div className="rk-card">
         <p className="rk-k">Pause me when a payment is over</p>
         <div className="rk-seg">{["₹5k", "₹10k", "₹25k"].map((x, i) => <button key={x} className={i === 1 ? "on" : ""}>{x}</button>)}</div>
-        <p className="rk-mini">…and always for new payees after an unknown call.</p>
+        <p className="rk-mini">…and whenever I say a caller is asking me to pay.</p>
       </div>
       <div className="rk-card">
         <p className="rk-k">Language</p>
