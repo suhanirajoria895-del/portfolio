@@ -163,17 +163,9 @@ function Header() {
           </div>
           <div>
             <dt>Tools</dt>
-            <dd>Figma, Claude Code, React</dd>
+            <dd>Figma, Claude Code</dd>
           </div>
         </dl>
-        <ol className="cs-steps">
-          {["Research", "Define", "Wireframe", "Design", "Prototype"].map((t, i) => (
-            <li key={t}>
-              <span>{i + 1}</span>
-              {t}
-            </li>
-          ))}
-        </ol>
       </div>
 
       <div className="cs-hero" aria-hidden="true">
@@ -195,20 +187,20 @@ function Header() {
         </div>
       </div>
 
-      <dl className="cs-tldr">
-        <div>
-          <dt>Problem</dt>
-          <dd>Hours lost switching dashboards, and 1–3% of sales lost to errors nobody catches.</dd>
-        </div>
-        <div>
-          <dt>What I built</dt>
-          <dd>Co, a copilot that fixes what it's allowed to and asks about the rest.</dd>
-        </div>
-        <div>
-          <dt>The hard part</dt>
-          <dd>Getting a seller to trust software with her prices.</dd>
-        </div>
-      </dl>
+      <ul className="cs-glance">
+        <li>
+          <b>1–3%</b>
+          <span>of sales lost to fee and return errors nobody catches</span>
+        </li>
+        <li className="mid">
+          <CoMark state="needsYou" size={40} />
+          <span>Co watches every shop and brings back only what needs a yes</span>
+        </li>
+        <li>
+          <b>Trust</b>
+          <span>the real design problem: letting software touch her prices</span>
+        </li>
+      </ul>
     </header>
   );
 }
@@ -686,35 +678,57 @@ function Analysis() {
       title="Who I designed for, and what already exists"
       lede="One seller, built from the research, and the AI tools she already has."
     >
-      <article className="cs-persona" data-reveal>
-        <div className="cs-polaroid">
-          <span className="tape" aria-hidden="true" />
-          <img src={MEERA} alt="" width="180" height="180" loading="lazy" />
-          <p className="hand">Meera, 34 · Jaipur</p>
+      <article className="pc" data-reveal>
+        <div className="pc__id">
+          <img src={MEERA} alt="" width="120" height="120" loading="lazy" />
+          <div>
+            <p className="cs-mono">Primary persona · an archetype</p>
+            <h3>Meera, 34</h3>
+            <p className="pc__sub">Runs Meera Handloom from Jaipur, with one helper</p>
+            <div className="pc__shops">
+              {["amazon.in", "flipkart.com", "meesho.com"].map((d) => (
+                <img key={d} src={`https://www.google.com/s2/favicons?domain=${d}&sz=64`} alt="" width="22" height="22" />
+              ))}
+              <span>3 marketplaces · 356 listings</span>
+            </div>
+          </div>
+          <blockquote>"I don't need more data. I need someone to tell me what to fix today."</blockquote>
         </div>
-        <div className="cs-persona__body">
-          <p className="cs-mono">Meera Handloom · an archetype, not an interviewee</p>
-          <dl>
-            <div>
-              <dt>Her day</dt>
-              <dd>Sells cotton kurti sets and home goods on three marketplaces, with one helper for packing.</dd>
+        <div className="pc__nums">
+          {[
+            ["3", "dashboards every morning"],
+            ["35 min", "just checking them"],
+            ["10 PM", "when payouts get reconciled"],
+            ["0", "time to check every fee"],
+          ].map(([n, l]) => (
+            <div key={l}>
+              <b>{n}</b>
+              <span>{l}</span>
             </div>
-            <div>
-              <dt>What she wants</dt>
-              <dd>To grow without hiring anyone else, and to stop working at 10 PM.</dd>
-            </div>
-            <div>
-              <dt>What drives her mad</dt>
-              <dd>Finding out she's out of stock from a cancelled order. Fees she has no way to check.</dd>
-            </div>
-            <div>
-              <dt>What would help</dt>
-              <dd>One place to look, a short list of what to fix, and Hindi when she's tired.</dd>
-            </div>
-          </dl>
-          <Sticky c="y" r={2} className="cs-persona__quote">
-            <p className="hand">"I don't need more data. I need someone to tell me what to fix today."</p>
-          </Sticky>
+          ))}
+        </div>
+        <div className="pc__grid">
+          <div className="g">
+            <p>Wants</p>
+            <ul>
+              <li>Grow without hiring</li>
+              <li>Stop working at 10 PM</li>
+              <li>One place to look</li>
+            </ul>
+          </div>
+          <div className="b">
+            <p>Frustrations</p>
+            <ul>
+              <li>Learns of stockouts from cancellations</li>
+              <li>Fees she can't check</li>
+              <li>Three logins, three rule books</li>
+            </ul>
+          </div>
+          <div className="t">
+            <p>Tech comfort</p>
+            <div className="pc__bar"><i style={{ width: "60%" }} /></div>
+            <span>Uses seller apps daily. Prefers Hindi when tired. Wary of anything that changes prices on its own.</span>
+          </div>
         </div>
       </article>
 
@@ -1708,41 +1722,37 @@ function Reflection() {
         </div>
       </div>
 
-      <div className="cs-look" data-reveal>
-        <div>
-          <h3>If I did it again</h3>
-          <ol>
-            <li>
-              <b>Talk to sellers before anything else.</b> I leaned on articles and forum threads. Even three short calls
-              would have tested my assumptions earlier.
-            </li>
-            <li>
-              <b>Start with the competition.</b> I found the marketplace assistants late, and they changed what CoSell
-              needed to be.
-            </li>
-            <li>
-              <b>Design "Co got it wrong" first.</b> It ended up shaping the whole approval flow, so it should have come
-              before the happy path.
-            </li>
-            <li>
-              <b>Have a native speaker check the Hindi.</b> I wrote every string myself.
-            </li>
-          </ol>
+      <div className="rf" data-reveal>
+        <p className="cs-mono">What I learned</p>
+        <div className="rf__cards">
+          {[
+            ["🗣️", "Talk first", "Three seller calls would have tested a week of desk research."],
+            ["🔍", "Start with rivals", "Finding the marketplace AIs late reshaped what CoSell is for."],
+            ["↩️", "Design the failure", "\"Co got it wrong\" ended up shaping the whole approval flow."],
+            ["अ", "Native check", "Every Hindi line needs a native speaker, not just me."],
+          ].map(([icon, t, d], i) => (
+            <div key={t} style={{ "--r": `${[-2, 1.5, -1, 2][i]}deg` }}>
+              <span className="ic">{icon}</span>
+              <h4>{t}</h4>
+              <p>{d}</p>
+            </div>
+          ))}
         </div>
       </div>
 
-      <ol className="cs-next" data-reveal>
+      <div className="road" data-reveal>
         {[
-          ["Now", "Test the approval screen with 3 to 5 sellers who use more than one marketplace."],
-          ["Then", "See whether one small early win, like a restock alert, makes them trust Co with more."],
-          ["Later", "Pilot fee checks on real settlement files, since that's what no marketplace tool does."],
-        ].map(([k, d]) => (
-          <li key={k}>
-            <span className="cs-mono">{k}</span>
+          ["Now", "Test the approval screen with 5 sellers", "users"],
+          ["Next", "Prove a small win, like a restock alert, earns trust", "trust"],
+          ["Later", "Pilot fee checks on real settlement files", "money"],
+        ].map(([k, d], i) => (
+          <div key={k} className="road__stop">
+            <span className="road__dot">{i + 1}</span>
+            <p className="cs-mono">{k}</p>
             <p>{d}</p>
-          </li>
+          </div>
         ))}
-      </ol>
+      </div>
     </Sec>
   );
 }
