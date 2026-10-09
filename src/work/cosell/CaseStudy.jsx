@@ -83,9 +83,6 @@ function Sidebar({ active }) {
           ))}
         </ol>
       </nav>
-      <a href={DEMO} target="_blank" rel="noreferrer" className="cs-side__cta">
-        Open the prototype <span aria-hidden="true">↗</span>
-      </a>
     </aside>
   );
 }
@@ -1593,12 +1590,6 @@ function Solution() {
         </div>
       </div>
 
-      <a className="cs-proto" href={DEMO} target="_blank" rel="noreferrer" data-reveal>
-        <span>
-          <strong>Have a click around the prototype.</strong> Approve a price, fix a stock mismatch, switch it to Hindi.
-        </span>
-        <span aria-hidden="true">↗</span>
-      </a>
 
 
       <DesignSystem />

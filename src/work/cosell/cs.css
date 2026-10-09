@@ -1493,3 +1493,37 @@ body {
   .co-mark[data-state="thinking"] img { animation: co-breathe 1.6s ease-in-out infinite; }
 }
 @keyframes co-breathe { 50% { transform: scale(0.88) rotate(-8deg); opacity: 0.75; } }
+
+/* ───────── calmer surfaces + tighter rhythm ───────── */
+:root { --soft: #efecff; --soft-2: #f6f4ff; --soft-line: #e2ddff; }
+.cs-sec { padding-top: clamp(48px, 6vw, 80px); }
+.cs-sec > :not(:first-child) { margin-top: clamp(24px, 3vw, 36px); }
+.cs-part { padding-top: clamp(24px, 3vw, 32px); }
+.cs-part > :not(:first-child) { margin-top: clamp(20px, 2.4vw, 28px); }
+.cs-sec__head + .cs-part { margin-top: clamp(16px, 2vw, 24px) !important; }
+.cs-features, .cs-screens { gap: clamp(32px, 4vw, 56px); }
+.cs-head { padding: clamp(40px, 6vw, 72px) 0 clamp(32px, 4vw, 48px); }
+.cs-foot { margin-top: clamp(48px, 6vw, 72px); }
+.dsx .dsx-level { margin-top: clamp(24px, 3vw, 36px) !important; }
+
+/* big blocks: soft lavender instead of near-black */
+.cs-hmw, .cs-roles > div:last-child, .cs-phones, .cs-goals__row, .dsx-level, .cs-breaks div,
+.cs-glance li.mid, .pc__nums, .aw, .pm, .cs-live { background: var(--soft) !important; color: var(--ink) !important; border-color: var(--soft-line) !important; }
+.cs-hmw .cs-mono, .cs-phones .cs-mono, .aw .cs-mono, .dsx-level__n { color: var(--accent) !important; }
+.cs-hmw em { color: var(--accent); }
+.cs-roles > div:last-child li, .cs-phones p, .cs-goals__row p:last-child, .dsx-level p, .cs-breaks li, .cs-glance li.mid span, .pc__nums span, .aw__insight { color: var(--ink-2) !important; }
+.cs-roles > div:last-child li::before { background: var(--accent); }
+.cs-goals__row .n, .pc__nums b, .cs-phones .cs-num { color: var(--accent) !important; }
+.cs-goals__row div + div, .pc__nums div + div { border-color: var(--soft-line) !important; }
+.dsx-level__n { background: #fff !important; }
+.aw { background-image: radial-gradient(circle, rgba(107, 92, 255, 0.12) 1px, transparent 1.3px) !important; background-size: 20px 20px !important; }
+.aw__title span { background: #fff; color: var(--accent); }
+.aw__insight { background: #fff !important; border-color: var(--soft-line) !important; }
+.pm__plot { background: linear-gradient(rgba(107, 92, 255, 0.12) 1px, transparent 1px) 0 50% / 100% 50% no-repeat, linear-gradient(90deg, rgba(107, 92, 255, 0.12) 1px, transparent 1px) 50% 0 / 50% 100% no-repeat, #fff !important; }
+.pm__q { color: #a9a6c8; } .pm__q.tr { color: #e2508a; }
+.pm__ax { color: var(--muted); }
+.pm__chip { border: 1px solid var(--soft-line); box-shadow: 0 6px 14px -8px rgba(60, 40, 160, 0.35); }
+.pm__chip.us { background: var(--accent); color: #fff; border-color: var(--accent); }
+.cs-phones__try { background: var(--accent); color: #fff; }
+.cs-protolink { background: var(--accent); }
+.cs-swim .stagepill { fill: var(--soft); } .cs-swim .stage { fill: var(--accent); }
