@@ -227,8 +227,8 @@ function Problem() {
       <div className="cs-work" data-reveal>
         <h3 className="cs-h3">The same five jobs, repeated on every marketplace</h3>
         <p className="cs-body">
-          Take a seller on Amazon, Flipkart and Meesho. Each panel has its own stock count, fee rules and returns process,
-          so every routine job is done three times, by hand.
+          Take a seller on three marketplaces. Each panel has its own stock count, fee rules and returns process, so
+          every routine job is done three times, by hand.
         </p>
         <div className="cs-scroll">
           <table className="cs-worktable">
