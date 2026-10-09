@@ -3,7 +3,7 @@ import { CoMark } from "./CoMark.jsx";
 import { useActiveId, useRevealAll } from "./hooks.js";
 
 const A = "/work/cosell/"; // asset base
-const DEMO = "/work/cosell/demo/index.html#/";
+const DEMO = "/work/cosell/demo/index.html#/login";
 const FIGJAM = "https://www.figma.com/board/thUniTYGliBINd10bU6FLS";
 const MEERA =
   "https://images.unsplash.com/photo-1723041885055-3e35ae8dd980?w=360&h=360&fit=crop&crop=focalpoint&fp-x=0.53&fp-y=0.42&fp-z=2.2&auto=format&q=70";
