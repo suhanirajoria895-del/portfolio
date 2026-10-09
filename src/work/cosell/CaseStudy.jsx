@@ -142,21 +142,15 @@ function Header() {
     <header className="cs-head" data-reveal>
       <div className="cs-head__copy">
         <p className="cs-mono">Case study 01 · Product design · Self-initiated</p>
-        <h1>CoSell: one AI copilot for every marketplace you sell on</h1>
+        <h1>One AI copilot for every marketplace you sell on</h1>
         <p className="cs-lede">
-          Many small sellers run their business across several marketplaces, each with its own dashboard to check. CoSell
-          brings them into one place. Its copilot, Co, keeps track of every channel, flags errors that cost money, and
-          leaves the seller with a short list of decisions to make.
+          CoSell watches all of a seller's marketplaces at once, catches errors that cost money, and leaves her a short
+          list of decisions.
         </p>
-        <ul className="cs-tags">
-          {["AI agent UX", "Seller tools", "Desktop + mobile", "English + Hindi"].map((t) => (
-            <li key={t}>{t}</li>
-          ))}
-        </ul>
         <dl className="cs-meta">
           <div>
-            <dt>My role</dt>
-            <dd>UX research, interaction design, UI design</dd>
+            <dt>Role</dt>
+            <dd>UX research, interaction design, UI</dd>
           </div>
           <div>
             <dt>Type</dt>
@@ -164,40 +158,44 @@ function Header() {
           </div>
           <div>
             <dt>Platform</dt>
-            <dd>Web app for the desk, phone for the in-between moments</dd>
+            <dd>Web + mobile</dd>
           </div>
         </dl>
+      </div>
+
+      <div className="cs-hero" aria-hidden="true">
+        <div className="cs-hero__web">
+          <div className="bar">
+            <i />
+            <i />
+            <i />
+          </div>
+          <img src={`${A}home.webp`} alt="" width="2880" height="1800" />
+        </div>
+        <img className="cs-hero__phone" src={`${A}m-morning.webp`} alt="" width="556" height="1174" />
+        <div className="cs-hero__chip">
+          <CoMark state="needsYou" size={22} />
+          <span>
+            <b>3 things need you</b>
+            12 handled overnight
+          </span>
+        </div>
       </div>
 
       <dl className="cs-tldr">
         <div>
           <dt>Problem</dt>
-          <dd>Sellers on several marketplaces lose hours to tab switching, and 1 to 3% of sales to errors nobody catches.</dd>
+          <dd>Hours lost switching dashboards, and 1–3% of sales lost to errors nobody catches.</dd>
         </div>
         <div>
-          <dt>What I made</dt>
-          <dd>Co, a copilot that watches every shop, fixes what it's allowed to, and asks about the rest.</dd>
+          <dt>What I built</dt>
+          <dd>Co, a copilot that fixes what it's allowed to and asks about the rest.</dd>
         </div>
         <div>
           <dt>The hard part</dt>
-          <dd>Getting a seller to trust software with her prices. Every decision on this page comes back to that.</dd>
+          <dd>Getting a seller to trust software with her prices.</dd>
         </div>
       </dl>
-
-      <ul className="cs-head__facts">
-        <li>
-          <b>3+</b>
-          <span>seller dashboards checked by hand every day</span>
-        </li>
-        <li>
-          <b>1–3%</b>
-          <span>of sales lost to fee and return errors</span>
-        </li>
-        <li>
-          <b>~30 days</b>
-          <span>to claim a wrong fee before it's gone</span>
-        </li>
-      </ul>
     </header>
   );
 }

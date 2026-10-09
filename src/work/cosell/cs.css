@@ -942,3 +942,22 @@ body {
 .cs-killed { margin-top: clamp(28px, 3vw, 40px); }
 .cs-foot { padding-bottom: 96px; }
 .cs-proto + .cs-part { margin-top: clamp(56px, 7vw, 88px); }
+
+/* ───────── hero with mockup ───────── */
+.cs-head { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 32px 48px; }
+.cs-head h1 { font-size: clamp(36px, 4.4vw, 58px); }
+.cs-head .cs-lede { max-width: 480px; }
+.cs-head .cs-meta { grid-template-columns: repeat(3, auto); justify-content: start; gap: 28px; margin-top: 32px; }
+.cs-hero { position: relative; grid-row: 1; grid-column: 2; padding: 4% 0 10% 6%; }
+.cs-hero__web { border-radius: 16px; overflow: hidden; background: #fff; box-shadow: 0 2px 4px rgba(20, 20, 43, 0.06), 0 40px 80px -30px rgba(60, 40, 160, 0.45); transform: perspective(1600px) rotateY(-9deg) rotateX(3deg); transform-origin: left center; }
+.cs-hero__web .bar { display: flex; gap: 6px; padding: 10px 12px; background: #f3f2fa; }
+.cs-hero__web .bar i { width: 9px; height: 9px; border-radius: 50%; background: #d9d6ea; }
+.cs-hero__phone { position: absolute; left: -4%; bottom: 0; width: 30%; filter: drop-shadow(0 30px 40px rgba(40, 20, 120, 0.4)); }
+.cs-hero__chip { position: absolute; right: -2%; top: -2%; display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 16px; background: #fff; box-shadow: 0 16px 32px -14px rgba(40, 20, 120, 0.4); font-size: 12.5px; color: var(--muted); }
+.cs-hero__chip b { display: block; font-size: 14px; color: var(--ink); }
+.cs-tldr { margin-top: 0; }
+@media (max-width: 1180px) {
+  .cs-head { grid-template-columns: 1fr; }
+  .cs-hero { grid-row: auto; grid-column: auto; padding-left: 12%; }
+}
+@media (max-width: 640px) { .cs-head .cs-meta { grid-template-columns: 1fr 1fr; } .cs-hero__chip { display: none; } }
