@@ -1414,13 +1414,18 @@ function ScreenViewer() {
   const s = SCREENS[i];
   return (
     <div className="cs-viewer" data-reveal>
-      <div className="cs-viewer__tabs" role="tablist" aria-label="Screens">
-        {SCREENS.map((sc, k) => (
-          <button key={sc.img} type="button" role="tab" aria-selected={k === i} onClick={() => setI(k)}>
-            <span>{String(k + 1).padStart(2, "0")}</span>
-            {sc.short}
-          </button>
-        ))}
+      <div className="cs-viewer__top">
+          <div className="cs-viewer__tabs" role="tablist" aria-label="Screens">
+          {SCREENS.map((sc, k) => (
+            <button key={sc.img} type="button" role="tab" aria-selected={k === i} onClick={() => setI(k)}>
+              <span>{String(k + 1).padStart(2, "0")}</span>
+              {sc.short}
+            </button>
+          ))}
+        </div>
+        <a className="cs-protolink" href={DEMO} target="_blank" rel="noreferrer">
+          <span className="dot" /> View prototype <span aria-hidden="true">↗</span>
+        </a>
       </div>
       <Screen key={s.img} s={s} />
       <div className="cs-viewer__nav">
@@ -1495,10 +1500,6 @@ function Screen({ s }) {
 function Solution() {
   return (
     <Sec id="solution" n="06" kicker="Solution" title="Final designs">
-      <a className="cs-protolink" href={DEMO} target="_blank" rel="noreferrer" data-reveal>
-        <span className="dot" /> Open the interactive prototype <span aria-hidden="true">↗</span>
-      </a>
-
       <ScreenViewer />
 
       <div className="cs-control" data-reveal>

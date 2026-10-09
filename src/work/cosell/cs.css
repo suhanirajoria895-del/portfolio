@@ -1571,3 +1571,12 @@ body {
   .evo__why { width: auto; flex-direction: row; }
   .evo__why i { rotate: 90deg; }
 }
+
+.cs-viewer__top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+.cs-viewer__top .cs-protolink { padding: 10px 18px; font-size: 14px; }
+
+/* simpler, calmer page background */
+body { background: #f7f7fb !important; background-attachment: initial !important; }
+.cs-side { background: #fbfbfd !important; border-right-color: #ececf3 !important; backdrop-filter: none !important; }
+.cs-chips { background: rgba(247, 247, 251, 0.92) !important; }
+.cs-viewer { background: #fff !important; border-color: var(--line) !important; backdrop-filter: none !important; }
