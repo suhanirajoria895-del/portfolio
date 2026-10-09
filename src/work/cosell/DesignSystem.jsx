@@ -371,7 +371,7 @@ export default function DesignSystem() {
         </Panel>
       </div>
 
-      <Panel title="Co, the mark" note="Two flat circles: the seller and Co. The shape carries the state, so it reads at 16px and with motion off.">
+      <Panel title="Co, the mark" note="The logo doubles as Co. A badge carries the state, so it reads at small sizes and with motion off.">
         <div className="dsx-marks">
           {MARKS.map(([s, l]) => (
             <div key={s}>

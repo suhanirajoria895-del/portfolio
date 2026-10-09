@@ -1488,3 +1488,8 @@ body {
 .cs-protolink { display: inline-flex; align-items: center; gap: 10px; width: fit-content; padding: 12px 20px; border-radius: 999px; background: var(--ink); color: #fff; font-size: 14.5px; font-weight: 600; text-decoration: none; transition: transform 200ms var(--ease); }
 .cs-protolink:hover { transform: translateY(-2px); }
 .cs-protolink .dot { width: 8px; height: 8px; border-radius: 50%; background: #2fb67c; box-shadow: 0 0 0 4px rgba(47, 182, 124, 0.25); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .co-mark[data-state="thinking"] img { animation: co-breathe 1.6s ease-in-out infinite; }
+}
+@keyframes co-breathe { 50% { transform: scale(0.88) rotate(-8deg); opacity: 0.75; } }

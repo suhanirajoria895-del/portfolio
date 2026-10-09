@@ -1,38 +1,21 @@
-import { useId } from "react";
 
-// Same geometry as the product's <CoMark>: two flat circles, navy where they overlap.
-const SPREAD = { idle: 7, thinking: 7, needsYou: 0, done: 6.5, paused: 7 };
-const R = 12;
 
 export function CoMark({ state = "idle", size = 48 }) {
-  const id = useId();
-  const d = SPREAD[state];
-  const grey = state === "paused";
-  const move = { transition: "transform 520ms cubic-bezier(0.34, 1.56, 0.64, 1)" };
+  const badge = Math.max(6, size * 0.32);
   return (
-    <svg width={size} height={size} viewBox="0 0 48 48" className="co-mark" data-state={state} aria-hidden="true">
-      <defs>
-        <clipPath id={`${id}a`}>
-          <circle cx="24" cy="24" r={R} style={{ ...move, transform: `translateX(${-d}px)` }} />
-        </clipPath>
-      </defs>
-      <g className="co-mark__pair">
-        <circle cx="24" cy="24" r={R} fill={grey ? "#C9CCD8" : "#6B5CFF"} style={{ ...move, transform: `translateX(${-d}px)` }} />
-        <circle cx="24" cy="24" r={R} fill={grey ? "#C9CCD8" : "#FF8FB1"} style={{ ...move, transform: `translateX(${d}px)` }} />
-        <circle
-          cx="24"
-          cy="24"
-          r={R}
-          fill={grey ? "#A9ADBF" : "#14142B"}
-          clipPath={`url(#${id}a)`}
-          style={{ ...move, transform: `translateX(${d}px)` }}
-        />
-      </g>
-      {state === "done" && (
-        <path d="M21.2 24.2l2 2.1 3.6-4.3" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+    <span className="co-mark" data-state={state} aria-hidden="true" style={{ position: "relative", display: "inline-block", width: size, height: size, flex: "none" }}>
+      <img src="/work/cosell/cosell-mark.png" alt="" width={size} height={size} draggable="false" style={{ display: "block", filter: state === "paused" ? "grayscale(1) opacity(0.55)" : undefined }} />
+      {state === "needsYou" && (
+        <span style={{ position: "absolute", right: -badge * 0.15, top: -badge * 0.15, width: badge, height: badge, borderRadius: "50%", background: "#F07A5A", boxShadow: "0 0 0 2px #fff" }} />
       )}
-      {state === "needsYou" && <circle cx="37" cy="11" r="5" fill="#F07A5A" stroke="#fff" strokeWidth="2" />}
-    </svg>
+      {state === "done" && (
+        <span style={{ position: "absolute", right: -badge * 0.3, bottom: -badge * 0.3, width: badge * 1.3, height: badge * 1.3, borderRadius: "50%", background: "#2FB67C", boxShadow: "0 0 0 2px #fff", display: "grid", placeItems: "center" }}>
+          <svg viewBox="0 0 12 12" width={badge * 0.8} height={badge * 0.8}>
+            <path d="M2.5 6.2l2.2 2.2 4.8-5" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      )}
+    </span>
   );
 }
 

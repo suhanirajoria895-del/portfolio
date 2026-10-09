@@ -1706,7 +1706,7 @@ function Iterations() {
             </div>
             <div>
               <dt>What changed</dt>
-              <dd>Two flat circles that move apart, overlap or turn grey. Five states you can read at a glance, even with motion off.</dd>
+              <dd>The CoSell logo itself, with a small badge for state: a coral dot when Co needs her, a tick when it's done, grey when paused.</dd>
             </div>
           </dl>
         </div>
