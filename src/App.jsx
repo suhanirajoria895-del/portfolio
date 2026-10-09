@@ -1,4 +1,4 @@
-import Collage from "./components/Collage.jsx";
+import LandingHero from "./components/LandingHero.jsx";
 import Statement from "./components/Statement.jsx";
 import Work from "./components/Work.jsx";
 import Tools from "./components/Tools.jsx";
@@ -9,7 +9,7 @@ import Footer from "./components/Footer.jsx";
 export default function App() {
   return (
     <>
-      <Collage />
+      <LandingHero />
       <main>
         <Statement />
         <Work />

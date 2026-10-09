@@ -44,6 +44,284 @@ img { display: block; max-width: 100%; }
 .defs { position: absolute; width: 0; height: 0; overflow: hidden; }
 
 /* ═══════════════════════════════════════
+   LANDING HERO  (reference redesign)
+   ═══════════════════════════════════════ */
+
+.landing {
+  position: relative;
+  min-height: 100dvh;
+  background: var(--paper);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Nav ── */
+.landing-nav {
+  display: flex;
+  align-items: center;
+  padding: 28px 40px;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.landing-nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.landing-index {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 400;
+  text-decoration: none;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+}
+
+.landing-menu-btn {
+  background: none;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 160ms ease, color 160ms ease;
+}
+.landing-menu-btn:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.landing-nav-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--ink);
+  opacity: 0.22;
+  margin: 0 32px;
+}
+
+.landing-nav-links {
+  display: flex;
+  gap: 36px;
+  flex-shrink: 0;
+}
+.landing-nav-links a {
+  text-decoration: none;
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: 0.01em;
+  position: relative;
+  transition: opacity 200ms ease;
+}
+.landing-nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: -2px; left: 0; right: 0;
+  height: 1px;
+  background: var(--ink);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 280ms var(--ease);
+}
+.landing-nav-links a:hover::after { transform: scaleX(1); }
+
+/* ── Giant name block ── */
+.landing-hero {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0 36px;
+  /* leave room for meta labels at bottom */
+  padding-bottom: 48px;
+}
+
+.landing-name {
+  font-family: var(--serif);
+  font-size: clamp(3.5rem, 11.4vw, 18rem);
+  font-weight: 400;
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--ink);
+  white-space: nowrap;
+  width: 100%;
+  /* push name down a bit visually so meta labels sit below the baseline */
+  padding-top: 16px;
+}
+
+.landing-meta-left,
+.landing-meta-right {
+  position: absolute;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+}
+.landing-meta-left  { left: 40px; }
+.landing-meta-right { right: 40px; align-items: flex-end; }
+
+.landing-sparkle {
+  position: absolute;
+  top: 16px;
+  right: 40px;
+  color: var(--ink);
+  opacity: 0.55;
+  animation: spark-rotate 12s linear infinite;
+}
+@keyframes spark-rotate {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Character strip ── */
+.landing-strip {
+  flex-shrink: 0;
+  overflow: hidden;
+  /* strip sits at the very bottom, characters peek up from below */
+  height: 340px;
+  position: relative;
+}
+
+.landing-strip-track {
+  display: flex;
+  gap: 0;
+  width: max-content;
+  animation: strip-scroll 36s linear infinite;
+}
+@keyframes strip-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.landing-strip:hover .landing-strip-track {
+  animation-play-state: paused;
+}
+
+/* ── Individual character card ── */
+.landing-char {
+  flex-shrink: 0;
+  width: 210px;
+  background: var(--char-bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 18px;
+  gap: 0;
+  position: relative;
+}
+
+/* Speech bubble */
+.landing-bubble {
+  background: #fff;
+  border: 1.5px solid rgba(0,0,0,0.1);
+  border-radius: 16px;
+  padding: 7px 14px;
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--ink);
+  white-space: nowrap;
+  letter-spacing: 0.01em;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  /* small downward tail */
+  margin-bottom: 10px;
+}
+.landing-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 8px solid #fff;
+  filter: drop-shadow(0 1px 1px rgba(0,0,0,0.06));
+}
+
+/* Light theme override for dark pixel card */
+.landing-char--light .landing-bubble {
+  background: #2a2a2a;
+  border-color: rgba(255,255,255,0.1);
+  color: #f0f0f0;
+}
+.landing-char--light .landing-bubble::after {
+  border-top-color: #2a2a2a;
+}
+
+/* Character figure area */
+.landing-char-figure {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.landing-char-img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  object-position: center bottom;
+  display: block;
+}
+
+.landing-char-svg {
+  width: 110px;
+  height: auto;
+  /* slight upward margin so figure sits at the strip edge */
+  margin-bottom: -4px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Reduced motion: pause auto-scroll
+   ───────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .landing-strip-track { animation: none; }
+  .landing-sparkle { animation: none; }
+}
+
+/* Responsive */
+@media (max-width: 960px) {
+  .landing-nav { padding: 20px 24px; }
+  .landing-nav-rule { margin: 0 20px; }
+  .landing-nav-links { gap: 20px; }
+  .landing-hero { padding: 0 24px 40px; }
+  .landing-name { font-size: clamp(2.8rem, 10.5vw, 10rem); }
+  .landing-meta-left { left: 24px; }
+  .landing-meta-right { right: 24px; }
+  .landing-sparkle { right: 24px; }
+  .landing-strip { height: 280px; }
+  .landing-char { width: 180px; }
+}
+
+@media (max-width: 600px) {
+  .landing-nav-links { display: none; }
+  .landing-nav-rule { display: none; }
+  .landing-hero { padding: 0 16px 36px; }
+  .landing-name { font-size: clamp(2.2rem, 11vw, 8rem); white-space: normal; line-height: 0.9; }
+  .landing-meta-left { left: 16px; }
+  .landing-meta-right { right: 16px; }
+  .landing-sparkle { display: none; }
+}
+
+/* ═══════════════════════════════════════
    TOP BAR (header over the collage)
    ═══════════════════════════════════════ */
 .topbar {
