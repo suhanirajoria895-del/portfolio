@@ -1,13 +1,11 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import CaseStudy from "./CaseStudy.jsx";
-import "../steadytrack/st.css";
-import "../steadytrack/apps.css";
-import "./rk.css";
-import "./screens.css";
+import Demo from "./Demo.jsx";
+import "./app.css";
+import "./page.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <CaseStudy />
+    <Demo />
   </StrictMode>
 );

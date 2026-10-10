@@ -27,10 +27,10 @@ export const projects = [
     link: "/work/cosell/",
   },
   {
-    title: "Ruko",
+    title: "Paywise",
     description: "A scam shield for UPI payments: the right pause before money leaves, and a calm guide for the first hour after a scam.",
-    image: "/work/ruko/cover.webp",
-    link: "/work/ruko/",
+    image: "/work/paywise/cover.webp",
+    link: "/work/paywise/",
   },
   {
     title: "SteadyTrack",

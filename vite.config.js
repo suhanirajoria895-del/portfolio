@@ -10,7 +10,8 @@ export default defineConfig({
       input: {
         main: resolve(import.meta.dirname, "index.html"),
         cosell: resolve(import.meta.dirname, "work/cosell/index.html"),
-        ruko: resolve(import.meta.dirname, "work/ruko/index.html"),
+        paywise: resolve(import.meta.dirname, "work/paywise/index.html"),
+        paywiseDemo: resolve(import.meta.dirname, "work/paywise/demo/index.html"),
         steadytrack: resolve(import.meta.dirname, "work/steadytrack/index.html"),
       },
     },
