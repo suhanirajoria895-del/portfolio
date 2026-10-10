@@ -532,7 +532,7 @@ function Reflect() {
         {[
           ["01", "Careful with claims", "We said it \"reduces tremors\". It cues and tracks; we never tested a medical effect."],
           ["02", "Physios in week one", "Our sharpest experts only saw the final idea."],
-          ["03", "Tremor-first app", "56px targets, 18px+ text, taps not swipes."],
+          ["03", "Tremor-first app", "56px targets, 18px+ text, clicks not swipes."],
         ].map(([n, t, d], i) => (
           <article key={t} style={{ "--i": i }}><span className="glyph">{n}</span><h3>{t}</h3><p>{d}</p></article>
         ))}
