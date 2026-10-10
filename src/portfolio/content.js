@@ -106,14 +106,6 @@ export const experience = [
       "Designed wireframes and early visual explorations.",
     ],
   },
-  {
-    from: "2023",
-    to: "2027",
-    role: "B.Des, User Experience Design",
-    org: "MIT ADT University · Minor in Graphic Design",
-    place: "Pune",
-    points: ["Certifications: Advanced Figma UI/UX Design (Udemy, 2024), Adobe Illustrator Essentials (Skillshare, 2025)."],
-  },
 ];
 
 // Add real quotes only: { name, role, quote }. The section hides while empty.
