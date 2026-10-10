@@ -1,0 +1,18 @@
+/* ── Paywise cover: photo + real screen in perspective ── */
+.pc { position: absolute; inset: 0; overflow: hidden; background: #0d1d24; pointer-events: none; }
+.pc-stage { position: absolute; left: 0; top: 0; width: 1672px; height: 941px; transform-origin: 0 0; transition: opacity 400ms; }
+.pc-photo { position: absolute; left: 0; top: 0; width: 1672px; height: 941px; max-width: none; }
+.pc-screen { position: absolute; left: 0; top: 0; width: 390px; height: 844px; transform-origin: 0 0; border-radius: 34px; overflow: hidden; }
+/* Strip the demo's device frame: the photo already has one */
+.pc-screen .rk-app.phone { width: 390px; height: 844px; padding: 0; border-radius: 34px; background: none; box-shadow: none; }
+.pc-screen .rk-app .phone__screen { border-radius: 34px; }
+/* Make the flat UI sit in the scene: warm, slightly dim lamp light and a soft glass sheen */
+.pc-screen .rk-app { filter: brightness(0.74) saturate(0.85) sepia(0.18); }
+.pc-glare {
+  position: absolute; inset: 0; border-radius: 34px; pointer-events: none;
+  background:
+    linear-gradient(115deg, rgba(255, 214, 160, 0.16) 0%, rgba(255, 255, 255, 0.06) 30%, transparent 46%),
+    linear-gradient(0deg, rgba(10, 20, 26, 0.28), transparent 40%);
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.35);
+}
+.pc-thumb { pointer-events: none; }

@@ -52,6 +52,7 @@ export const work = [
     tags: ["Fintech", "Safety", "UPI"],
     body: "A scam shield for UPI payments, and a calm guide for the first hour after a scam.",
     image: "/work/paywise/cover.webp",
+    cover: "paywise",
     href: "/work/paywise/",
   },
   {
@@ -69,6 +70,7 @@ export const work = [
     tags: ["Health", "Hardware + App", "Accessibility"],
     body: "A smart therapy glove and companion app for guided, rhythmic hand exercises for Parkinson's at home.",
     image: "/work/steadytrack/hero-glove-app.webp",
+    cover: "steadytrack",
     href: "/work/steadytrack/",
   },
 ];

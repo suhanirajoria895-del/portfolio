@@ -437,3 +437,4 @@ body { background: #fff8e7; }
 .sx-card-img.has-cover .cv-stage { top: 20%; right: -2%; width: 64%; }
 .sx-card-img.has-cover .cv-copy { top: 24%; width: 40%; }
 .sx-card-img.has-cover .cv-meta { bottom: 9%; }
+.sx-card.is-l-banner .sx-card-img.has-cover { aspect-ratio: 16 / 9; min-height: 0; }

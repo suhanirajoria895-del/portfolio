@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, ArrowLeft, ArrowRight, DownloadSimple } from "@phosphor-icons/react";
 import CosellCover from "./covers/CosellCover.jsx";
+import PaywiseCover from "./covers/PaywiseCover.jsx";
+import SteadyTrackCover from "./covers/SteadyTrackCover.jsx";
 import "../grid-hero.css";
 
 const MENU = [
@@ -13,9 +15,9 @@ const MENU = [
 ];
 
 const SLIDES = [
-  { name: "CoSell", line: "AI Copilot for Online Sellers", image: "/work/cosell/home.webp", href: "/work/cosell/", cover: true },
-  { name: "Paywise", line: "A scam shield for UPI payments", image: "/work/paywise/cover.webp", href: "/work/paywise/" },
-  { name: "SteadyTrack", line: "Therapy glove for Parkinson's", image: "/work/steadytrack/hero-glove-app.webp", href: "/work/steadytrack/" },
+  { name: "CoSell", line: "AI Copilot for Online Sellers", image: "/work/cosell/home.webp", href: "/work/cosell/", cover: "cosell" },
+  { name: "Paywise", line: "A scam shield for UPI payments", image: "/work/paywise/cover.webp", href: "/work/paywise/", cover: "paywise" },
+  { name: "SteadyTrack", line: "Therapy glove for Parkinson's", image: "/work/steadytrack/hero-glove-app.webp", href: "/work/steadytrack/", cover: "steadytrack" },
 ];
 
 // Tiny blurred copy of the hero photo, shown until the full image decodes.
@@ -46,7 +48,7 @@ function Carousel() {
   const s = SLIDES[i];
   return (
     <div
-      className={`gh-car${s.cover ? " is-cover" : ""}`}
+      className={`gh-car${s.cover === "cosell" ? " is-cover" : ""}`}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -56,7 +58,7 @@ function Carousel() {
     >
       {SLIDES.map((sl, n) => (
         <a key={sl.name} href={sl.href} className={`gh-slide${n === i ? " is-on" : ""}`} tabIndex={n === i ? 0 : -1} aria-hidden={n !== i}>
-          {sl.cover ? <CosellCover /> : sl.image ? <img src={sl.image} alt="" loading="lazy" decoding="async" /> : <span className="gh-slide-blank">{sl.name}</span>}
+          {sl.cover === "cosell" ? <CosellCover /> : sl.cover === "paywise" ? <PaywiseCover /> : sl.cover === "steadytrack" ? <SteadyTrackCover /> : sl.image ? <img src={sl.image} alt="" loading="lazy" decoding="async" /> : <span className="gh-slide-blank">{sl.name}</span>}
         </a>
       ))}
       <div className="gh-car-meta" aria-live="polite">

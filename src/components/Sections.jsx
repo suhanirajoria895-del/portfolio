@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, MapPin, Copy, Check } from "@phosphor-icons/react";
 import { work, experience, contact, aboutPhoto, hero } from "../portfolio/content.js";
 import CosellCover from "./covers/CosellCover.jsx";
+import PaywiseCover from "./covers/PaywiseCover.jsx";
+import SteadyTrackCover from "./covers/SteadyTrackCover.jsx";
 import "../sections.css";
 
 const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -153,6 +155,10 @@ function Work() {
             <div className={`sx-card-img${p.cover ? " has-cover" : ""}`}>
               {p.cover === "cosell" ? (
                 <CosellCover />
+              ) : p.cover === "paywise" ? (
+                <PaywiseCover />
+              ) : p.cover === "steadytrack" ? (
+                <SteadyTrackCover />
               ) : (
                 <>
                   <img src={p.image} alt={`${p.name} preview`} loading="lazy" />
