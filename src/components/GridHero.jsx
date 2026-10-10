@@ -163,7 +163,7 @@ export default function GridHero() {
           <div className="gh-panel" style={{ "--k": 1 }}>
             <span className="gh-num">02</span>
             <p className="gh-copy">
-              I turn complicated problems into products people can understand and trust, starting with research and ending in the details.
+              I look beyond the interface to understand the problem, challenge assumptions, and find what truly matters.
             </p>
             <a href="#contact" className="gh-pill">
               Get In Touch
