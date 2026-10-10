@@ -151,16 +151,12 @@ export default function GridHero() {
             <span className="gh-hi">Hi, I am</span>
             <span className="gh-suhani">Suhani</span>
           </h1>
-          <p className="gh-note">
-            <ArrowUpRight size={16} aria-hidden="true" />
-            Design that makes complex things feel simple.
-          </p>
         </div>
 
         <div className="gh-row">
           <div className="gh-panel" style={{ "--k": 0 }}>
             <span className="gh-num">01</span>
-            <p className="gh-role">UI/UX &amp;<br />Product<br />Designer</p>
+            <p className="gh-role">Experience<br />Designer</p>
             <a href="/resume.pdf" className="gh-resume" download>
               Download Resume <DownloadSimple size={15} aria-hidden="true" />
             </a>
