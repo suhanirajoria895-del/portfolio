@@ -34,6 +34,7 @@ export const work = [
     tags: ["AI", "E-commerce", "iOS & Android"],
     body: "Watches Amazon, Flipkart and Meesho for a solo seller, and hands her only the decisions that need her.",
     image: "/work/cosell/home.webp",
+    cover: "cosell",
     href: "/work/cosell/",
   },
   {

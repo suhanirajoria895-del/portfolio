@@ -4,6 +4,8 @@ import { Coffee, Package, Scissors, Undo2, Tag, Receipt, UserRound, ShoppingCart
 import DesignSystem from "./DesignSystem.jsx";
 import { useActiveId, useAmbientMotion, useRevealAll } from "./hooks.js";
 
+import CosellCover from "../../components/covers/CosellCover.jsx";
+
 const A = "/work/cosell/"; // asset base
 const DEMO = "/work/cosell/demo/index.html#/login";
 const FIGJAM = "https://www.figma.com/board/thUniTYGliBINd10bU6FLS";
@@ -26,6 +28,10 @@ export default function CaseStudy() {
   const active = useActiveId(ids);
 
   return (
+    <>
+    <header className="cv-page" aria-label="CoSell case study cover">
+      <CosellCover />
+    </header>
     <div className="cs-shell">
       <div className="cs-progress" aria-hidden="true" />
       <Sidebar active={active} />
@@ -59,6 +65,7 @@ export default function CaseStudy() {
         <Footer />
       </main>
     </div>
+    </>
   );
 }
 

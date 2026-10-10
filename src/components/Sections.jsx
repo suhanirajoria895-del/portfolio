@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, MapPin, Copy, Check } from "@phosphor-icons/react";
 import { work, experience, contact, aboutPhoto, hero } from "../portfolio/content.js";
+import CosellCover from "./covers/CosellCover.jsx";
 import "../sections.css";
 
 const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -149,9 +150,15 @@ function Work() {
                 Read the case study <span className="sx-pill-dot"><ArrowUpRight size={16} weight="bold" aria-hidden="true" /></span>
               </span>
             </div>
-            <div className="sx-card-img">
-              <img src={p.image} alt={`${p.name} preview`} loading="lazy" />
-              <span className="sx-card-sticker">“{p.pull}”</span>
+            <div className={`sx-card-img${p.cover ? " has-cover" : ""}`}>
+              {p.cover === "cosell" ? (
+                <CosellCover />
+              ) : (
+                <>
+                  <img src={p.image} alt={`${p.name} preview`} loading="lazy" />
+                  <span className="sx-card-sticker">“{p.pull}”</span>
+                </>
+              )}
             </div>
             <span className="sx-card-ghost" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
           </a>

@@ -124,8 +124,8 @@ html { scroll-behavior: smooth; }
 .sx-tags li { padding: 5px 12px; border: 1px solid currentColor; border-radius: 999px; font-size: 13px; opacity: 0.85; }
 .sx-card .sx-pill { margin-top: auto; }
 .sx-card-img { position: relative; margin: 16px 16px 16px 0; border-radius: 18px; overflow: hidden; }
-.sx-card-img img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 1200ms var(--out); }
-.sx-card:hover .sx-card-img img { transform: scale(1.05); }
+.sx-card-img > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 1200ms var(--out); }
+.sx-card:hover .sx-card-img > img { transform: scale(1.05); }
 .sx-card-sticker {
   position: absolute; left: 18px; bottom: 18px; max-width: 70%;
   padding: 10px 16px; border-radius: 14px;
@@ -428,3 +428,12 @@ body { background: #fff8e7; }
   .sx-impact-principles { grid-template-columns: 1fr; }
   .sx-impact-principles li { padding: 18px 0; border-left: 0; border-bottom: 1px solid rgba(255, 248, 231, 0.25); }
 }
+
+/* Card with designed cover art instead of a screenshot */
+.sx-card-img.has-cover { display: grid; place-items: center; background: #f3ece1; }
+.sx-card-img.has-cover .cv-frame { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; }
+.sx-card:has(.has-cover) .sx-card-ghost { display: none; }
+/* The card's image box is taller than 16:9, so give the devices more room */
+.sx-card-img.has-cover .cv-stage { top: 20%; right: -2%; width: 64%; }
+.sx-card-img.has-cover .cv-copy { top: 24%; width: 40%; }
+.sx-card-img.has-cover .cv-meta { bottom: 9%; }

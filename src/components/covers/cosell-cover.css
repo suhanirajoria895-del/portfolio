@@ -1,0 +1,79 @@
+/* ── CoSell cover art (16:9, scales with its container) ── */
+.cv-frame { container-type: inline-size; width: 100%; aspect-ratio: 16 / 9; }
+.cv {
+  --paper: #f3ece1;
+  --ink: #1d1a17;
+  --line: rgba(29, 26, 23, 0.12);
+  --violet: #6b5cf6;
+  position: relative; isolation: isolate;
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Poppins", system-ui, sans-serif;
+}
+
+/* Blueprint grid */
+.cv-grid { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.cv-grid i { position: absolute; background: var(--line); }
+.cv-grid .h { left: 0; right: 0; height: 1px; }
+.cv-grid .h1 { top: 9%; } .cv-grid .h2 { top: 86%; }
+.cv-grid .v { top: 0; bottom: 0; width: 1px; }
+.cv-grid .v1 { left: 5%; } .cv-grid .v2 { left: 50%; } .cv-grid .v3 { left: 95%; }
+.cv-grid b { position: absolute; width: 0.5cqw; height: 0.5cqw; margin: -0.25cqw 0 0 -0.25cqw; background: #b9b1a5; }
+
+/* Copy */
+.cv-copy { position: absolute; left: 7%; top: 17%; width: 44%; }
+.cv-kicker { margin: 0; font-size: 0.8cqw; font-weight: 500; letter-spacing: 0.32em; text-transform: uppercase; }
+.cv-title {
+  margin: 0.32em 0 0; font: italic 400 13.5cqw/0.86 "Instrument Serif", "Cormorant Garamond", serif;
+  letter-spacing: -0.035em; margin-left: -0.04em;
+  animation: cv-in 1000ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.cv-tag { margin: 0.5em 0 0; max-width: 15ch; font: italic 400 3.3cqw/1.05 "Instrument Serif", "Cormorant Garamond", serif; animation: cv-in 1000ms cubic-bezier(0.16, 1, 0.3, 1) 150ms both; }
+.cv-rule { display: block; width: 4cqw; height: 0.2cqw; margin-top: 2.2cqw; background: #c4622d; }
+.cv-meta { position: absolute; left: 7%; bottom: 7%; margin: 0; font-size: 0.72cqw; letter-spacing: 0.28em; text-transform: uppercase; color: #4a443d; }
+.cv-meta b { color: var(--ink); font-weight: 600; margin-right: 0.6em; }
+.cv-meta span { margin: 0 0.8em; }
+@keyframes cv-in { from { opacity: 0; transform: translateY(24px); } }
+
+/* Device stage */
+.cv-stage { position: absolute; right: 2%; top: 8%; width: 56%; aspect-ratio: 1.15; animation: cv-in 1200ms cubic-bezier(0.16, 1, 0.3, 1) 250ms both; }
+.cv-glow { position: absolute; left: 30%; top: 40%; width: 60%; height: 50%; border-radius: 50%; background: radial-gradient(closest-side, rgba(124, 104, 255, 0.45), transparent); filter: blur(30px); z-index: -1; }
+.cv-orbit { position: absolute; border: 1.2px solid rgba(107, 92, 246, 0.45); border-radius: 50%; z-index: -1; }
+.cv-orbit.o1 { left: 6%; top: 52%; width: 34%; height: 26%; rotate: -12deg; }
+.cv-orbit.o2 { left: 70%; top: 32%; width: 34%; height: 40%; rotate: 20deg; }
+
+/* Laptop drawn in CSS, screen is the real approval page */
+.cv-laptop { position: absolute; left: 28%; top: 9%; width: 74%; transform: perspective(1800px) rotateY(-16deg) rotateX(4deg) rotateZ(2deg); transform-origin: left center; }
+.cv-lid { position: relative; padding: 2.2% 2.2% 3.2%; border-radius: 1.1cqw 1.1cqw 0.4cqw 0.4cqw; background: linear-gradient(160deg, #2b2b30, #0e0e10); box-shadow: 0 40px 80px -30px rgba(40, 30, 80, 0.55), inset 0 0 0 1.5px #3c3c42; }
+.cv-lid img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; object-position: top left; border-radius: 0.4cqw; }
+.cv-notch { position: absolute; left: 50%; top: 2.2%; z-index: 1; width: 11%; height: 3.6%; translate: -50% 0; border-radius: 0 0 8px 8px; background: #0e0e10; }
+.cv-base { position: relative; height: 0; padding-bottom: 4%; margin: 0 -6%; border-radius: 2px 2px 14px 14px; background: linear-gradient(180deg, #d9d9de, #a9a9b0 70%, #8d8d94); box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.45); }
+.cv-base::before { content: ""; position: absolute; left: 42%; top: 0; width: 16%; height: 30%; border-radius: 0 0 8px 8px; background: #9a9aa1; }
+
+/* Phone: the screenshot already includes its frame */
+.cv-phone { position: absolute; left: 14%; top: 34%; width: 27%; height: auto; rotate: -14deg; filter: drop-shadow(0 40px 40px rgba(40, 30, 80, 0.35)); }
+
+/* Floating chips */
+.cv-chip { position: absolute; display: inline-flex; align-items: center; gap: 0.75cqw; padding: 1cqw 1.5cqw; border-radius: 1.1cqw; background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: 0 20px 40px -18px rgba(40, 30, 80, 0.35); font-size: 1.35cqw; color: var(--ink); animation: cv-float 6s ease-in-out infinite; }
+.cv-chip svg { width: 1.2cqw; height: 1.2cqw; color: var(--violet); }
+.cv-chip .ok svg { width: 0.9cqw; height: 0.9cqw; }
+.cv-chip .ok { display: grid; place-items: center; width: 1.75cqw; height: 1.75cqw; border-radius: 50%; background: var(--violet); color: #fff; }
+.cv-chip .ok svg { color: #fff; }
+.c-approve { left: 10%; top: 22%; rotate: 5deg; }
+.c-conf { right: 0; top: 3%; rotate: 4deg; background: rgba(236, 233, 255, 0.92); color: #4b3fd1; animation-delay: -2s; }
+.c-undo { right: -4%; top: 58%; rotate: 6deg; animation-delay: -4s; }
+@keyframes cv-float { 50% { translate: 0 -10px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .cv-title, .cv-tag, .cv-stage, .cv-chip { animation: none; }
+}
+
+/* Full-screen use on the case study page (sits above the fixed sidebar) */
+.cv-page { position: relative; z-index: 60; height: 100vh; height: 100svh; min-height: 560px; background: #f3ece1; overflow: hidden; }
+.cv-page .cv-frame { position: absolute; inset: 0; height: 100%; aspect-ratio: auto; }
+@media (max-aspect-ratio: 4/3) {
+  .cv-page { height: auto; min-height: 0; }
+  .cv-page .cv-frame { position: relative; height: auto; aspect-ratio: 16 / 9; }
+}
