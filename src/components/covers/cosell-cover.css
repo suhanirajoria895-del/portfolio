@@ -70,10 +70,5 @@
   .cv-title, .cv-tag, .cv-stage, .cv-chip { animation: none; }
 }
 
-/* Full-screen use on the case study page (sits above the fixed sidebar) */
-.cv-page { position: relative; z-index: 60; height: 100vh; height: 100svh; min-height: 560px; background: #f3ece1; overflow: hidden; }
-.cv-page .cv-frame { position: absolute; inset: 0; height: 100%; aspect-ratio: auto; }
-@media (max-aspect-ratio: 4/3) {
-  .cv-page { height: auto; min-height: 0; }
-  .cv-page .cv-frame { position: relative; height: auto; aspect-ratio: 16 / 9; }
-}
+/* Inside the hero carousel card */
+.gh-slide .cv-frame { position: absolute; inset: 0; height: 100%; aspect-ratio: auto; }

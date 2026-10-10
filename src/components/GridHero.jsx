@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, ArrowLeft, ArrowRight, DownloadSimple } from "@phosphor-icons/react";
+import CosellCover from "./covers/CosellCover.jsx";
 import "../grid-hero.css";
 
 const MENU = [
@@ -12,7 +13,7 @@ const MENU = [
 ];
 
 const SLIDES = [
-  { name: "CoSell", line: "AI Copilot for Online Sellers", image: "/work/cosell/home.webp", href: "/work/cosell/" },
+  { name: "CoSell", line: "AI Copilot for Online Sellers", image: "/work/cosell/home.webp", href: "/work/cosell/", cover: true },
   { name: "Paywise", line: "A scam shield for UPI payments", image: "/work/paywise/cover.webp", href: "/work/paywise/" },
   { name: "SteadyTrack", line: "Therapy glove for Parkinson's", image: "/work/steadytrack/hero-glove-app.webp", href: "/work/steadytrack/" },
 ];
@@ -45,7 +46,7 @@ function Carousel() {
   const s = SLIDES[i];
   return (
     <div
-      className="gh-car"
+      className={`gh-car${s.cover ? " is-cover" : ""}`}
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -55,7 +56,7 @@ function Carousel() {
     >
       {SLIDES.map((sl, n) => (
         <a key={sl.name} href={sl.href} className={`gh-slide${n === i ? " is-on" : ""}`} tabIndex={n === i ? 0 : -1} aria-hidden={n !== i}>
-          {sl.image ? <img src={sl.image} alt="" loading="lazy" decoding="async" /> : <span className="gh-slide-blank">{sl.name}</span>}
+          {sl.cover ? <CosellCover /> : sl.image ? <img src={sl.image} alt="" loading="lazy" decoding="async" /> : <span className="gh-slide-blank">{sl.name}</span>}
         </a>
       ))}
       <div className="gh-car-meta" aria-live="polite">

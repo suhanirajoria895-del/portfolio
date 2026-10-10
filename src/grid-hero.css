@@ -303,3 +303,11 @@
   .gh-suhani { clip-path: none; }
   .gh-name { translate: none; }
 }
+
+/* Carousel slide showing cover art: light background, so drop the dark scrim and use ink text */
+.gh-car.is-cover::after { opacity: 0; }
+.gh-car::after { transition: opacity 500ms; }
+.gh-car.is-cover .gh-car-meta { color: #1d1a17; }
+.gh-car.is-cover .gh-car-meta strong, .gh-car.is-cover .gh-car-meta span:not(.gh-count) { display: none; }
+.gh-car.is-cover .gh-car-ctrl button { color: #1d1a17; border-color: rgba(29, 26, 23, 0.4); background: rgba(255, 255, 255, 0.6); }
+.gh-car.is-cover .gh-car-ctrl button:hover { color: #fff; }
