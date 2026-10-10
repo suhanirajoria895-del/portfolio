@@ -123,7 +123,7 @@ export const skills = [
   "ux research", "user interviews", "journey mapping", "information architecture",
   "user flows", "wireframing", "prototyping", "interaction design",
   "design systems", "accessibility", "visual design", "branding", "typography",
-  "figma", "vibe coding", "react",
+  "figma", "dev handoff", "react",
 ];
 
 // Drop the photo you send me here.

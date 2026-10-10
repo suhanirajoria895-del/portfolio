@@ -138,7 +138,7 @@ function Cover() {
       </div>
       <dl className="facts" data-reveal>
         {FACTS.map(([k, v]) => (
-          <div key={k} className={k === "Achievement" ? "wide" : ""}><dt>{k}</dt><dd>{v}</dd></div>
+          <div key={k}><dt>{k}</dt><dd>{v}</dd></div>
         ))}
       </dl>
     </section>

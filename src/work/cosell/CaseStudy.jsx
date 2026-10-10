@@ -151,13 +151,12 @@ function Header() {
         <dl className="cs-facts">
           {[
             ["Role", "UX research, UI design"],
-            ["Team", "Solo"],
+            ["Team", "Individual"],
             ["Type", "Personal project"],
             ["Platform", "Web + mobile"],
             ["Tools", "Figma, Claude Code"],
-            ["Achievement", "A working, clickable prototype of the web and phone app"],
           ].map(([k, v]) => (
-            <div key={k} className={k === "Achievement" ? "wide" : ""}><dt>{k}</dt><dd>{v}</dd></div>
+            <div key={k}><dt>{k}</dt><dd>{v}</dd></div>
           ))}
         </dl>
       </div>
@@ -653,7 +652,7 @@ const RIVALS = [
   {
     name: "Flipkart Saarthi",
     domain: "flipkart.com",
-    took: "Flags the problem, then suggests a fix",
+    took: "Flags the problem, then recommends a fix",
     gap: "Ads only, Flipkart only",
     src: ["The Wire", "https://m.thewire.in/article/ptiprnews/flipkart-ads-launches-saarthi-to-help-sellers-grow-with-ai-powered-tools-and-expert-advertising-support"],
   },
@@ -859,7 +858,7 @@ function Define() {
           {[
             ["y", -2, "Nothing changes without a yes.", "Unless Meera has written a rule that says Co can go ahead."],
             ["p", 1.5, "Always show the working.", "What Co wants, why, what happens next, and how sure it is."],
-            ["b", -1, "Undo is always there.", "One tap to take it back, and a log of everything Co did."],
+            ["b", -1, "Undo is always there.", "One click to take it back, and a log of everything Co did."],
             ["g", 2, "Quiet unless it matters.", "One screen to look at, sorted by what needs her right now."],
           ].map(([c, r, t, d], i) => (
             <Sticky key={t} c={c} r={r}>
@@ -1193,7 +1192,7 @@ function WireToFinal() {
         <span className="seg cs-w2f__tabs" role="radiogroup" aria-label="Which screen">
           {[
             ["home", "Home"],
-            ["approval", "Suggestion"],
+            ["approval", "Recommendation"],
           ].map(([k, l]) => (
             <button key={k} type="button" role="radio" aria-checked={which === k} onClick={() => setWhich(k)}>
               {l}
@@ -1247,7 +1246,7 @@ function Wireframes() {
             <span className="lofi-note" style={{ left: "88%", top: "70%" }}>2</span>
           </div>
           <figcaption>
-            <b>Suggestion</b>
+            <b>Recommendation</b>
             <span>① The change in big numbers ② One clear decision</span>
           </figcaption>
         </figure>
@@ -1290,13 +1289,13 @@ const TRADEOFFS = [
 
 function Tradeoffs() {
   return (
-    <Part title="What I picked, and what I gave up for it">
+    <Part title="Trade-offs: design decisions and reasoning">
       <div className="cs-trade" data-reveal>
         <div className="cs-trade__row head" aria-hidden="true">
           <span>Decision</span>
           <span>Went with</span>
-          <span>Gave up</span>
-          <span>Because</span>
+          <span>Trade-off</span>
+          <span>Reasoning</span>
         </div>
         {TRADEOFFS.map(([k, chose, gave, why]) => (
           <div key={k} className="cs-trade__row">
@@ -1348,8 +1347,8 @@ const SCREENS = [
   {
     img: "approval",
     dec: { problem: "A seller won't approve a price change she can't check.", alts: ["A one-line card with Approve / Reject", "A confidence score like 87%"], why: "Showing the change, her margin after it, her own limits and the reason lets her judge it in seconds. High / Medium / Low with reasons is easier to trust than a number." },
-    short: "Suggestion",
-    t: "A suggestion, with all its working shown",
+    short: "Recommendation",
+    t: "A recommendation, with all its working shown",
     d: "Everything she needs to say yes or no, on one screen.",
     pins: [
       [12, 30, "The change, in big numbers, with her margin and expected orders after it."],
@@ -1396,11 +1395,11 @@ const SCREENS = [
 ];
 
 const CONTROLS = [
-  ["Approve, edit or reject", "Every suggestion ends in three choices. Edit opens the price so she can set her own.", "decide2"],
+  ["Approve, edit or reject", "Every recommendation ends in three choices. Edit opens the price so she can set her own.", "decide2"],
   ["Limits Co can't cross", "Minimum margin, max price change a day, daily ad budget. Even on auto.", "limits"],
   ["Never-discount list", "Products Co may never lower the price of, whatever the data says.", "never"],
   ["Undo, and action history", "Everything Co did overnight is listed with a time and an undo.", "activity"],
-  ["Checks before it asks", "Each suggestion shows which of her rules it was checked against.", "guardrails"],
+  ["Checks before it asks", "Each recommendation shows which of her rules it was checked against.", "guardrails"],
 ];
 
 
@@ -1520,10 +1519,10 @@ function Solution() {
           <p className="cs-mono">Error recovery</p>
           <h3>When Co gets it wrong</h3>
           <p>
-            It will, sometimes. So I designed this before the happy path. One tap puts things back exactly as they were,
+            It will, sometimes. So I designed this before the happy path. One click puts things back exactly as they were,
             and then Co asks why, with the answers it most needs as buttons, not a text box nobody fills in.
           </p>
-          <p className="cs-note">The next suggestion like this one shows "Last time you said: price was fine" right on the card.</p>
+          <p className="cs-note">The next recommendation like this one shows "Last time you said: price was fine" right on the card.</p>
         </div>
         <div className="cs-wrong__ui" aria-label="Mock-up of the undo and feedback flow">
           <div className="w-card">
@@ -1554,7 +1553,7 @@ function Solution() {
         <div className="cs-edges__grid">
           {[
             ["A marketplace stops syncing", "Numbers from that shop are marked stale with the time of the last sync. Never hidden, never guessed."],
-            ["Two suggestions clash", "A price cut and an ad pause on the same product become one decision, so she isn't asked twice."],
+            ["Two recommendations clash", "A price cut and an ad pause on the same product become one decision, so she isn't asked twice."],
             ["Co isn't sure", "Below a confidence floor, Co asks a question instead of proposing an action."],
             ["She's away for a week", "Nothing waits forever. Anything past its deadline falls back to her safest setting and shows up in the recap."],
           ].map(([t, d]) => (
@@ -1643,14 +1642,14 @@ function Iterations() {
         n="01"
         title="Mobile: from a mini dashboard to one decision at a time"
         steps={[
-          { v: "V1", cap: "A list of cards, labels and a Review button", art: <img className="evo__phone" src={`${A}iter-v1-phone.webp`} alt="First mobile version: a list of cards" />, why: "Too many taps between packing orders" },
+          { v: "V1", cap: "A list of cards, labels and a Review button", art: <img className="evo__phone" src={`${A}iter-v1-phone.webp`} alt="First mobile version: a list of cards" />, why: "Too many clicks between packing orders" },
           { v: "V2", cap: "A daily brief with numbers first", art: <img className="evo__phone" src={`${A}iter-v1-brief.webp`} alt="Second mobile version: a daily brief" />, why: "Still reading, not deciding" },
           { v: "Final", cap: "A swipe stack: yes or no, one at a time", art: <img className="evo__phone" src={`${A}m-morning.webp`} alt="Final mobile version: a swipe stack of decisions" /> },
         ]}
       />
       <Evo
         n="02"
-        title="Suggestion cards: lead with the money"
+        title="Recommendation cards: lead with the money"
         steps={[
           { v: "V1", cap: "Describes the action", art: <MiniCard />, why: "She decides on money, not actions" },
           { v: "V2", cap: "The gain leads", art: <MiniCard money />, why: "Needed to know which product at a glance" },
@@ -1707,7 +1706,7 @@ function Reflection() {
           </div>
           <div>
             <dt>What I'm checking</dt>
-            <dd>Whether the reasons on a suggestion are enough to decide, and whether undo makes approving feel safe.</dd>
+            <dd>Whether the reasons on a recommendation are enough to decide, and whether undo makes approving feel safe.</dd>
           </div>
         </dl>
       </div>
@@ -1717,7 +1716,7 @@ function Reflection() {
         <div className="cs-goals__row">
           {[
             ["15 min", "a day across all dashboards"],
-            ["7 / 10", "high-confidence suggestions approved without edits"],
+            ["7 / 10", "high-confidence recommendations approved without edits"],
             ["< 1 / 20", "actions undone. Zero would worry me too: it may mean she's stopped checking"],
             ["0", "fee errors found after the claim window has closed"],
           ].map(([n, d]) => (

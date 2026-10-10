@@ -48,29 +48,28 @@ function Carousel() {
   const s = SLIDES[i];
   return (
     <div
-      className={`gh-car${s.cover === "cosell" ? " is-cover" : ""}`}
+      className="gh-work"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
-      aria-roledescription="carousel"
-      aria-label="Featured projects"
     >
-      {SLIDES.map((sl, n) => (
-        <a key={sl.name} href={sl.href} className={`gh-slide${n === i ? " is-on" : ""}`} tabIndex={n === i ? 0 : -1} aria-hidden={n !== i}>
-          {sl.cover === "cosell" ? <CosellCover /> : sl.cover === "paywise" ? <PaywiseCover /> : sl.cover === "steadytrack" ? <SteadyTrackCover /> : sl.image ? <img src={sl.image} alt="" loading="lazy" decoding="async" /> : <span className="gh-slide-blank">{sl.name}</span>}
-        </a>
-      ))}
-      <div className="gh-car-meta" aria-live="polite">
-        <strong>{s.name}</strong>
-        <span>{s.line}</span>
-        <span className="gh-count">
+      <div className="gh-work-head">
+        <span className="gh-work-label"><b>03</b> Selected work</span>
+        <span className="gh-count" aria-live="polite">
           {String(i + 1).padStart(2, "0")} / {String(SLIDES.length).padStart(2, "0")}
         </span>
+        <div className="gh-car-ctrl">
+          <button type="button" onClick={() => go(-1)} aria-label="Previous project"><ArrowLeft size={14} /></button>
+          <button type="button" onClick={() => go(1)} aria-label="Next project"><ArrowRight size={14} /></button>
+        </div>
       </div>
-      <div className="gh-car-ctrl">
-        <button type="button" onClick={() => go(-1)} aria-label="Previous project"><ArrowLeft size={16} /></button>
-        <button type="button" onClick={() => go(1)} aria-label="Next project"><ArrowRight size={16} /></button>
+      <div className="gh-car" aria-roledescription="carousel" aria-label={`Featured projects: ${s.name}`}>
+        {SLIDES.map((sl, n) => (
+          <a key={sl.name} href={sl.href} className={`gh-slide${n === i ? " is-on" : ""}`} tabIndex={n === i ? 0 : -1} aria-hidden={n !== i} aria-label={`${sl.name}: ${sl.line}`}>
+            {sl.cover === "cosell" ? <CosellCover /> : sl.cover === "paywise" ? <PaywiseCover /> : sl.cover === "steadytrack" ? <SteadyTrackCover /> : sl.image ? <img src={sl.image} alt="" loading="lazy" decoding="async" /> : <span className="gh-slide-blank">{sl.name}</span>}
+          </a>
+        ))}
       </div>
     </div>
   );
@@ -164,7 +163,7 @@ export default function GridHero() {
           <div className="gh-panel" style={{ "--k": 1 }}>
             <span className="gh-num">02</span>
             <p className="gh-copy">
-              UX designer crafting calm, human experiences for complex products, from AI copilots to festival apps and inclusive health tools.
+              I turn complicated problems into products people can understand and trust, starting with research and ending in the details.
             </p>
             <a href="#contact" className="gh-pill">
               Get In Touch
@@ -172,7 +171,6 @@ export default function GridHero() {
             </a>
           </div>
           <div className="gh-panel gh-panel-car" style={{ "--k": 2 }}>
-            <span className="gh-num">03</span>
             <Carousel />
           </div>
         </div>

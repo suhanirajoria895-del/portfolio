@@ -73,12 +73,6 @@ const PRINCIPLES = [
   ["Evidence over opinion", "Research settles debates that taste can't."],
   ["Systems over screens", "Design the rules, and the screens follow."],
 ];
-const NOISE = [
-  "pop-up", "cookie banner", "jargon", "extra step", "dark pattern", "5 CTAs",
-  "fine print", "modal", "dropdown maze", "auto-play", "badge spam", "tooltip",
-  "hidden fees", "carousel", "loading…", "captcha", "21 fields", "confirm?",
-  "settings soup", "notification", "upsell", "terms & conditions", "maybe later", "are you sure?",
-];
 
 function Intro() {
   const ref = useRef(null);
@@ -97,9 +91,6 @@ function Intro() {
   return (
     <section className="sx-impact-wrap" id="intro">
       <div className="sx-impact" ref={ref}>
-        <ul className="sx-noise" aria-hidden="true">
-          {NOISE.map((n, i) => <li key={n} style={{ "--k": (Math.floor(i / 6) * 6 + ((i * 7) % 6)) / NOISE.length }}>{n}</li>)}
-        </ul>
         <div className="sx-impact-top">
           <span>(01)</span><span>What I do</span>
         </div>
@@ -219,7 +210,7 @@ const ELEMENTS = [
   { sym: "Ty", name: "Typography", g: "craft", used: "Minor in Graphic Design; type is where most of my screens start." },
   { sym: "Fg", name: "Figma", g: "build", used: "Home base: components, variables, auto layout and prototyping." },
   { sym: "Re", name: "React", g: "build", used: "Built this portfolio in React, so I know what my handoffs ask of developers." },
-  { sym: "Vc", name: "Vibe coding", g: "build", used: "Turning prototypes into working demos, like CoSell's interactive build." },
+  { sym: "Dh", name: "Dev handoff", g: "build", used: "Specs, states and shared components that developers can build from, as on UGAO at Wysbrx." },
 ];
 
 function Skills() {

@@ -62,7 +62,7 @@ body { background: #fff; }
 
 /* header */
 .rk-head { background: linear-gradient(180deg, var(--mint), #fff 85%); }
-.rk-facts { background: #fff; border: 1px solid var(--edge); }
+.rk-facts { background: #f1f1f6; border: 0; border-radius: 24px; padding: 6px 28px 8px; max-width: 720px; }
 .rk-hero__glow { background: radial-gradient(circle at 40% 45%, rgba(27, 63, 143, 0.35), transparent 65%); opacity: 0.55; }
 .rk-chip .i { color: var(--jade); background: var(--mint); border: 0; }
 .rk-chip .i--amber { color: #A86400; background: var(--saffron-soft); }

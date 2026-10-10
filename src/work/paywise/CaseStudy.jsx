@@ -188,11 +188,11 @@ function Header() {
         <dl className="rk-facts">
           {[
             ["Role", "UX & UI design"],
+            ["Team", "Individual"],
             ["Type", "Personal project"],
             ["Platform", "A layer inside existing UPI apps, plus a small companion app"],
             ["Tools", "Figma"],
           ].map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
-          <div className="wide"><dt>The hard part</dt><dd>Adding friction without making every payment feel scary</dd></div>
         </dl>
         <a className="rk-btn" href={DEMO} target="_blank" rel="noreferrer">Try the prototype <ArrowRight size={16} /></a>
       </div>
@@ -243,7 +243,7 @@ function Problem() {
 
       <div className="rk-chain" data-reveal>
         {[
-          [Zap, "What's fast", "One tap, money gone", "Payments finish in seconds, with no natural moment to stop."],
+          [Zap, "What's fast", "One click, money gone", "Payments finish in seconds, with no natural moment to stop."],
           [Siren, "What scammers use", "Panic and authority", "Fake police, bank or courier calls that demand action now."],
           [EyeOff, "What it costs", "Savings, and shame", "Many victims don't tell anyone, which delays reporting."],
         ].map(([Ic, k, t, d], i) => (
@@ -274,7 +274,7 @@ function Race() {
       </div>
       <div className="rk-race__lane rk-race__lane--pay">
         <span className="rk-race__lbl"><IndianRupee size={16} /> UPI payment</span>
-        <div className="rk-race__track"><b className="rk-race__tap">Tap, PIN, gone</b><em className="rk-race__gap">Paywise's 10 seconds go here</em></div>
+        <div className="rk-race__track"><b className="rk-race__tap">Click, PIN, gone</b><em className="rk-race__gap">Paywise's 10 seconds go here</em></div>
         <span className="rk-race__t">2 sec</span>
       </div>
     </figure>
@@ -534,7 +534,7 @@ function Synthesis() {
             ["Invisible until it matters", "Most payments see nothing new."],
             ["Explain, never accuse", 'Say what looks unusual, not "you\'re being scammed".'],
             ["The person decides", "Paywise flags. It never blocks on its own."],
-            ["Never alone", "One tap to involve someone you trust."],
+            ["Never alone", "One click to involve someone you trust."],
             ["No shame", "Recovery language is calm and blame-free."],
           ].map(([t, d], i) => (
             <li key={t} data-reveal style={{ "--i": i }}>
@@ -550,7 +550,7 @@ function Synthesis() {
         <SignalMeter />
       </Part>
 
-      <Part title="What I picked, and what I gave up">
+      <Part title="Trade-offs: design decisions and reasoning">
         <Trade />
       </Part>
 
@@ -605,7 +605,7 @@ function SignalMeter() {
         <div className="rk-meter__res" key={String(pause)}>
           {pause ? <Clock size={28} strokeWidth={1.6} /> : <Check size={28} strokeWidth={1.8} />}
           <b>{pause ? "Paywise pauses for 10 seconds" : "Payment goes through as normal"}</b>
-          <p>{pause ? "With plain reasons and a one-tap call to Rohan. Sunita still decides." : "No banner, no pop-up. Paywise stays invisible."}</p>
+          <p>{pause ? "With plain reasons and a one-click call to Rohan. Sunita still decides." : "No banner, no pop-up. Paywise stays invisible."}</p>
         </div>
       </div>
     </div>
@@ -615,7 +615,7 @@ function SignalMeter() {
 const TRADE = [
   ["Where it lives", "A layer inside the UPI apps people already use", "A new standalone UPI payments app", "Nobody switches payment apps for safety. Protection has to sit where people already pay."],
   ["When to interrupt", "Only on risky payments", "A warning on every payment", "Constant warnings get ignored."],
-  ["How to interrupt", "A 10-second pause with reasons", 'A pop-up with "Are you sure?"', "People tap through generic pop-ups."],
+  ["How to interrupt", "A 10-second pause with reasons", 'A pop-up with "Are you sure?"', "People click through generic pop-ups."],
   ["Who decides", "The person, with a trusted contact", "Auto-block by AI", "False blocks break trust and leave people stuck."],
   ["Tone", "Calm, specific, plain language", "Red alarm screens", "Fear is what scammers already use."],
   ["After a scam", "A guided first-hour checklist", "A link to a reporting website", "In panic, people need the next step, not a form."],
@@ -705,7 +705,7 @@ const SHOW = [
   ["risk", "Inside your UPI app", "Risk pause", '"Let\'s take 10 seconds." Three plain reasons, then "Call Rohan first", "Cancel", and a smaller "pay anyway" that unlocks after the countdown.'],
   ["collect", "Inside your UPI app", "Collect request decoder", '"This will take ₹4,999 from your account. You will not receive money." The scam depends on that sentence never being said.'],
   ["alert", "Paywise companion", "Rohan's alert", "Rohan gets a simple notification with the reasons and one big button to call. Nothing is shared without Sunita's consent."],
-  ["home", "Paywise companion", "Home", "Protection status, the trusted circle, a protection level, and the scam button kept one tap away."],
+  ["home", "Paywise companion", "Home", "Protection status, the trusted circle, a protection level, and the scam button kept one click away."],
   ["recover", "Paywise companion", '"I think I\'ve been scammed"', "A calm first-hour flow: call 1930, block UPI, report on cybercrime.gov.in, and a message to copy for the bank."],
 ];
 
@@ -765,7 +765,7 @@ function Showcase() {
             </button>
           ))}
         </div>
-        <p className="rk-note">The phone is the real prototype. Tap around in it.</p>
+        <p className="rk-note">The phone is the real prototype. Click around in it.</p>
       </div>
     </div>
   );

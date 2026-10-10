@@ -71,7 +71,7 @@ const TYPE = [
   ["H3", 18, 26, 700, "Guardrails checked"],
   ["Body", 14, 20, 400, "Co prepared these. Nothing changes until you say yes."],
   ["Body strong", 14, 20, 600, "Lower price of Copper water bottle"],
-  ["Label", 13, 18, 500, "Suggested by Co at 7:52 AM"],
+  ["Label", 13, 18, 500, "Recommended by Co at 7:52 AM"],
   ["Money", 14, 20, 700, "₹48,250  +12%"],
 ];
 
@@ -350,7 +350,7 @@ export default function DesignSystem() {
             </button>
             <div className="seg" role="radiogroup" aria-label="Freedom level example">
               {[
-                ["suggest", "Suggest only"],
+                ["suggest", "Recommend only"],
                 ["ask", "Ask me first"],
                 ["auto", "Auto within limits"],
               ].map(([v, l]) => (

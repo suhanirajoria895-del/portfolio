@@ -97,10 +97,10 @@ a { color: inherit; }
 .cover__copy p { margin-top: 20px; max-width: 460px; font-size: 18px; color: var(--ink-2); }
 
 /* fact sheet (shared look with CoSell) */
-.facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0 28px; margin-top: 28px; padding: 6px 28px 8px; border-radius: 24px; background: var(--card); max-width: 1180px; width: 100%; margin-inline: auto; }
+.facts { display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; margin-top: 28px; padding: 6px 28px 8px; border-radius: 24px; background: #f1f1f6; max-width: 720px; width: 100%; margin-inline: auto; }
 .facts div { padding: 16px 0; border-bottom: 1px solid var(--line); }
 .facts div.wide { grid-column: span 2; }
-.facts div:nth-last-child(-n + 3) { border-bottom: 0; }
+.facts div:nth-last-child(-n + 2) { border-bottom: 0; }
 .facts dt { font: 500 11px var(--sans); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 .facts dd { margin-top: 6px; font-size: 15.5px; }
 

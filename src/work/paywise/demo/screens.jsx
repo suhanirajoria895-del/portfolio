@@ -303,7 +303,7 @@ function Welcome({ go }) {
   const [step, setStep] = useState(0);
   const slides = [
     ["A pause before money leaves", "Paywise lives inside the UPI apps you already use. Most payments see nothing new."],
-    ["Never decide alone", "When a payment looks unusual, call someone you trust in one tap."],
+    ["Never decide alone", "When a payment looks unusual, call someone you trust in one click."],
     ["Calm help if it happens", "A first-hour guide that tells you exactly what to do next."],
   ];
   return (
