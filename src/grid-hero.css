@@ -322,3 +322,7 @@
 .gh-work .gh-car-ctrl button { width: 30px; height: 30px; }
 .gh-work .gh-car { flex: 1; min-height: 160px; }
 .gh-work .gh-car::after { display: none; }
+
+/* Only the visible slide takes clicks (hidden slides are stacked on top of it) */
+.gh-slide { pointer-events: none; }
+.gh-slide.is-on { pointer-events: auto; z-index: 1; }
