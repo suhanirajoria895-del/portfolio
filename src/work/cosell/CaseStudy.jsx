@@ -2,13 +2,13 @@ import { useMemo, useState } from "react";
 import { CoMark } from "./CoMark.jsx";
 import { Coffee, Package, Scissors, Undo2, Tag, Receipt, UserRound, ShoppingCart, Truck, Sheet, Smile, Meh, Frown, Angry, Handshake, Target, Languages, Check, ArrowRight, Mail } from "lucide-react";
 import DesignSystem from "./DesignSystem.jsx";
+import { Cite, QuickRead, Scope, Sources } from "./Story.jsx";
+import { ConsideredChosen, SeverityLegend, PriceIteration, ActsOrAsks, AskCo, Accessibility, DesignToCode } from "./Chapters.jsx";
 import { useActiveId, useAmbientMotion, useRevealAll } from "./hooks.js";
 
 const A = "/work/cosell/"; // asset base
 const DEMO = "/work/cosell/demo/index.html#/login";
 const FIGJAM = "https://www.figma.com/board/thUniTYGliBINd10bU6FLS";
-const MEERA =
-  "https://images.unsplash.com/photo-1723041885055-3e35ae8dd980?w=360&h=360&fit=crop&crop=focalpoint&fp-x=0.53&fp-y=0.42&fp-z=2.2&auto=format&q=70";
 
 const SECTIONS = [
   ["problem", "Problem"],
@@ -17,6 +17,10 @@ const SECTIONS = [
   ["synthesis", "Synthesis"],
   ["design", "Design"],
   ["solution", "Solution"],
+  ["accessibility", "Accessibility"],
+  ["code", "Design to code"],
+  ["reflection", "Reflection"],
+  ["sources", "Sources"],
 ]
 
 export default function CaseStudy() {
@@ -43,6 +47,7 @@ export default function CaseStudy() {
         >
           <Define />
           <Flows />
+          <ActsOrAsks />
           <Tradeoffs />
         </Sec>
         <Sec
@@ -55,7 +60,10 @@ export default function CaseStudy() {
           <Iterations />
         </Sec>
         <Solution />
+        <Accessibility />
+        <DesignToCode />
         <Reflection />
+        <Sources />
         <Footer />
       </main>
     </div>
@@ -142,23 +150,28 @@ function Header() {
   return (
     <header className="cs-head" data-reveal>
       <div className="cs-head__copy">
-        <p className="cs-mono">Case study 01 · Product design · Self-initiated</p>
-        <h1>One AI copilot for every marketplace you sell on</h1>
+        <p className="cs-mono">Case study 01 · CoSell · Personal project</p>
+        <h1>An AI copilot that takes routine marketplace work off a small seller's plate, and asks before it acts</h1>
         <p className="cs-lede">
-          CoSell watches all of a seller's marketplaces at once, catches errors that cost money, and leaves her a short
-          list of decisions.
+          CoSell watches every marketplace a seller is on, catches the small errors that cost money, and leaves her a
+          short list of decisions instead of three dashboards.
         </p>
+        <ul className="cs-tags" aria-label="Tags">
+          {["B2B", "Agentic AI", "Dashboard", "Design system"].map((t) => <li key={t}>{t}</li>)}
+        </ul>
         <dl className="cs-facts">
           {[
-            ["Role", "UX research, UI design"],
+            ["Role", "UX research, UI design, front-end prototype"],
             ["Team", "Individual"],
+            ["Timeline", "[TODO: duration · month year]"],
             ["Type", "Personal project"],
-            ["Platform", "Web + mobile"],
-            ["Tools", "Figma, Claude Code"],
+            ["Platform", "Desktop web, mobile companion"],
+            ["Tools", "Figma, FigJam, React + TypeScript, Claude Code"],
           ].map(([k, v]) => (
             <div key={k}><dt>{k}</dt><dd>{v}</dd></div>
           ))}
         </dl>
+        <QuickRead demo={DEMO} />
       </div>
 
       <div className="cs-hero" aria-hidden="true">
@@ -182,7 +195,7 @@ function Header() {
 
       <ul className="cs-glance">
         <li>
-          <b>1–3%</b>
+          <b>1–3%<Cite n={3} /></b>
           <span>of sales lost to fee and return errors nobody catches</span>
         </li>
         <li className="mid">
@@ -228,7 +241,7 @@ function Problem() {
           Take a seller on three marketplaces. Each panel has its own stock count, fee rules and returns process, so
           every routine job is done three times, by hand.
         </p>
-        <div className="cs-scroll">
+        <div className="cs-scroll" tabIndex={0} role="region" aria-label="The five repeated jobs, scroll sideways">
           <table className="cs-worktable">
             <thead>
               <tr>
@@ -246,9 +259,9 @@ function Problem() {
                   <td>{wrong}</td>
                   <td>
                     {src ? (
-                      <a className={`ev ${kind}`} href={src[1]} target="_blank" rel="noreferrer">
-                        {kind === "res" ? "Researched" : "Partly researched"} · {src[0]} ↗
-                      </a>
+                      <span className={`ev ${kind}`}>
+                        {kind === "res" ? "Researched" : "Partly researched"} <Cite n={src} />
+                      </span>
                     ) : (
                       <span className="ev asm">Assumption</span>
                     )}
@@ -264,10 +277,10 @@ function Problem() {
         <div>
           <p className="cs-mono">What the research supports</p>
           <ul>
-            <li>Without synced stock, multi-channel sellers oversell.</li>
-            <li>Fashion returns run at 25–40% of orders.</li>
-            <li>1–3% of GMV can leak through fee and return errors.</li>
-            <li>Wrong charges have to be claimed within about 30 days.</li>
+            <li>Without synced stock, multi-channel sellers oversell.<Cite n={1} /></li>
+            <li>Fashion returns run at 25–40% of orders.<Cite n={2} /></li>
+            <li>1–3% of GMV can leak through fee and return errors.<Cite n={3} /></li>
+            <li>Wrong charges have to be claimed within about 30 days.<Cite n={3} /></li>
           </ul>
         </div>
         <div>
@@ -281,16 +294,18 @@ function Problem() {
         </div>
       </div>
 
+      <Scope />
+
       <Statement />
     </Sec>
   );
 }
 
 const WORK = [
-  ["Update stock", "Each marketplace keeps its own count", "Counts drift, and an item sells after it's gone", "res", ["Base", "https://base.com/en-EN/blog/how-can-multi-channel-sellers-manage-orders-across-amazon-flipkart-myntra-and-more/"]],
-  ["Set and match prices", "Commission and fees differ, so the same price earns a different margin", "A price change breaks a margin or a marketplace's price rules", "res", ["Base", "https://base.com/en-EN/blog/how-can-multi-channel-sellers-manage-orders-across-amazon-flipkart-myntra-and-more/"]],
-  ["Answer returns", "Each has its own process and reply deadline", "Late replies and high return volumes eat into profit", "part", ["Shipmozo", "https://www.shipmozo.com/blog/ecommerce-returns-and-reverse-logistics"]],
-  ["Check payouts", "Every settlement lists fees differently", "Wrong commissions and RTO charges go unclaimed", "res", ["Mynd", "https://www.myndsolution.com/best-practices/handling-marketplace-reconciliation-for-online-sellers-in-india/"]],
+  ["Update stock", "Each marketplace keeps its own count", "Counts drift, and an item sells after it's gone", "res", 1],
+  ["Set and match prices", "Commission and fees differ, so the same price earns a different margin", "A price change breaks a margin or a marketplace's price rules", "res", 1],
+  ["Answer returns", "Each has its own process and reply deadline", "Late replies and high return volumes eat into profit", "part", 2],
+  ["Check payouts", "Every settlement lists fees differently", "Wrong commissions and RTO charges go unclaimed", "res", 3],
   ["Check every dashboard", "There's no single view of the business", "Problems are found late, or not at all", "asm", null],
 ];
 
@@ -337,10 +352,7 @@ function Statement() {
         <p className="cs-big">1 to 3%</p>
         <p className="cs-body">
           of gross sales can disappear this way, through wrong commission rates, RTO charges on orders that were actually
-          delivered, and returns that never get put back in stock. Most claims have to be raised within about 30 days.{" "}
-          <a href="https://www.myndsolution.com/best-practices/handling-marketplace-reconciliation-for-online-sellers-in-india/" target="_blank" rel="noreferrer">
-            Mynd Solution
-          </a>
+          delivered, and returns that never get put back in stock. Most claims have to be raised within about 30 days.<Cite n={3} />
         </p>
         <button type="button" className="cs-btn" onClick={() => setScan((s) => !s)} aria-pressed={scan}>
           {scan ? "Hide it again" : "Show me what's wrong"}
@@ -358,19 +370,19 @@ function Statement() {
 /* ───────────────────────── 02 research ───────────────────────── */
 
 const JOURNEY = [
-  ["7:30", "Morning check", "Logs in to 3 dashboards", 1, "35 min of tab switching", Coffee],
-  ["9:00", "Stock update", "Types counts in 3 places", -1, "Oversells a dupatta", Package],
-  ["11:00", "Packing", "37 orders out the door", 2, "The part she enjoys", Scissors],
-  ["15:00", "Returns", "Replies panel by panel", -2, "Misses a 2-day window", Undo2],
-  ["18:00", "Pricing", "Guesses at rival prices", -1, "No history to go on", Tag],
-  ["22:00", "Payouts", "Reconciles in Excel", -3, "Can't tell which fee is wrong", Receipt],
+  ["7:30", "Morning check", "Logs in to 3 dashboards", 1, "35 min of tab switching", Coffee, "Opens one screen: 3 things need her", 2, "Overwhelmed", "Focused"],
+  ["9:00", "Stock update", "Types counts in 3 places", -1, "Oversells a dupatta", Package, "Co syncs counts and flags a mismatch", 1, "Anxious", "Calm"],
+  ["11:00", "Packing", "37 orders out the door", 2, "The part she enjoys", Scissors, "Same job, with more time for it", 2, "Happy", "Happy"],
+  ["15:00", "Returns", "Replies panel by panel", -2, "Misses a 2-day window", Undo2, "Replies drafted, sorted by deadline", 1, "Rushed", "In control"],
+  ["18:00", "Pricing", "Guesses at rival prices", -1, "No history to go on", Tag, "Co recommends a price, with reasons", 1, "Guessing", "Confident"],
+  ["22:00", "Payouts", "Reconciles in Excel", -3, "Can't tell which fee is wrong", Receipt, "Wrong fees flagged, claim ready", 1, "Defeated", "Relieved"],
 ];
 
 const AFFINITY = [
-  ["Time goes to watching", "y", ["Same stock typed into 3 portals", "Diwali week: \"humanly impossible\"", "3 logins every morning"], "Sellers have dashboards. They lack time to watch them."],
-  ["Mistakes are silent", "p", ["Wrong commission slab", "RTO on a delivered order", "Returns never restocked"], "A tiny daily leak is big over a year."],
-  ["Late is expensive", "b", ["Claims close in ~30 days", "Return replies have deadlines", "25–40% fashion returns"], "Knowing in time beats knowing what to do."],
-  ["Control is scary", "g", ["Thin margins", "Different price rules", "Repricers feel like a black box"], "No one lets software touch prices without a why and an undo."],
+  ["Time goes to watching", "y", ["Same stock typed into 3 portals", "Diwali week: \"humanly impossible\"", "3 logins every morning"], "Sellers have dashboards. They lack time to watch them.", "One place that watches every shop, so she doesn't have to."],
+  ["Mistakes are silent", "p", ["Wrong commission slab", "RTO on a delivered order", "Returns never restocked"], "A tiny daily leak is big over a year.", "Check every fee and return automatically, and flag only what's wrong."],
+  ["Late is expensive", "b", ["Claims close in ~30 days", "Return replies have deadlines", "25–40% fashion returns"], "Knowing in time beats knowing what to do.", "Sort by deadline and money at risk, not by marketplace."],
+  ["Control is scary", "g", ["Thin margins", "Different price rules", "Repricers feel like a black box"], "No one lets software touch prices without a why and an undo.", "Ask before acting, show the reasons, and make every action undoable."],
 ];
 
 function Research() {
@@ -404,7 +416,7 @@ function Research() {
           <h3>40 observations, four patterns</h3>
         </header>
         <div className="aw__cols">
-          {AFFINITY.map(([title, c, notes, insight], ci) => (
+          {AFFINITY.map(([title, c, notes, insight, impl], ci) => (
             <div key={title} className={`aw__col aw-${c}`}>
               <p className="aw__title">
                 <span>{String(ci + 1).padStart(2, "0")}</span>
@@ -418,6 +430,7 @@ function Research() {
                 ))}
               </div>
               <p className="aw__insight">{insight}</p>
+              <p className="impl"><b>Design implication</b>{impl}</p>
             </div>
           ))}
         </div>
@@ -454,22 +467,19 @@ function Research() {
             <tr>
               <td>Overselling</td>
               <td>
-                Without synced stock, sellers are "guaranteed to oversell".{" "}
-                <a href="https://base.com/en-EN/blog/how-can-multi-channel-sellers-manage-orders-across-amazon-flipkart-myntra-and-more/" target="_blank" rel="noreferrer">Base</a>
+                Without synced stock, sellers are "guaranteed to oversell".<Cite n={1} />
               </td>
             </tr>
             <tr>
               <td>Returns and RTO</td>
               <td>
-                Fashion returns run at 25 to 40% of orders, and COD return-to-origin at 20 to 40%.{" "}
-                <a href="https://www.shipmozo.com/blog/ecommerce-returns-and-reverse-logistics" target="_blank" rel="noreferrer">Shipmozo</a>
+                Fashion returns run at 25 to 40% of orders, and COD return-to-origin at 20 to 40%.<Cite n={2} />
               </td>
             </tr>
             <tr>
               <td>Revenue leakage</td>
               <td>
-                Wrong commissions and missing returned stock cost 1 to 3% of GMV.{" "}
-                <a href="https://www.myndsolution.com/best-practices/handling-marketplace-reconciliation-for-online-sellers-in-india/" target="_blank" rel="noreferrer">Mynd</a>
+                Wrong commissions and missing returned stock cost 1 to 3% of GMV.<Cite n={3} />
               </td>
             </tr>
           </tbody>
@@ -520,7 +530,7 @@ function Swimlane() {
   const pos = (lane, stage) => [LW + 16 + stage * CW, TOP + lane * LH + (LH - BH) / 2];
   const W = LW + 16 + STAGES.length * CW;
   return (
-    <div className="cs-scroll">
+    <div className="cs-scroll" tabIndex={0} role="region" aria-label="Swimlane diagram, scroll sideways">
       <svg viewBox={`0 0 ${W} ${TOP + LANES.length * LH + 8}`} className="cs-swim" role="img" aria-label="Swimlane of a seller's day across marketplaces, buyers and a spreadsheet, with five breakpoints">
         <defs>
           <marker id="sw-ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto">
@@ -578,11 +588,13 @@ function Swimlane() {
 }
 
 function Journey() {
+  const [withCo, setWithCo] = useState(false);
+  const val = (j) => (withCo ? j[7] : j[3]);
   const face = (v) => (v >= 1 ? Smile : v >= -1 ? Meh : v >= -2 ? Frown : Angry);
   const W = 1000;
   const x = (i) => 80 + i * ((W - 160) / (JOURNEY.length - 1));
   const y = (v) => 120 - v * 26;
-  const pts = JOURNEY.map(([, , , v], i) => [x(i), y(v)]);
+  const pts = JOURNEY.map((j, i) => [x(i), y(val(j))]);
   const d = pts.reduce((acc, [px, py], i) => {
     if (!i) return `M${px},${py}`;
     const [qx, qy] = pts[i - 1];
@@ -592,14 +604,18 @@ function Journey() {
   return (
     <section className="jm" data-reveal>
       <header>
-        <p className="cs-mono">Journey map · a day today</p>
-        <h3>The day starts fine, and ends in a spreadsheet</h3>
+        <p className="cs-mono">Journey map · {withCo ? "the same day, with CoSell" : "a day today"}</p>
+        <h3>{withCo ? "The routine work moves to Co. The decisions stay with her." : "The day starts fine, and ends in a spreadsheet"}</h3>
+        <div className="qr__toggle jm__toggle" role="group" aria-label="Which day to show">
+          <button type="button" aria-pressed={!withCo} onClick={() => setWithCo(false)}>Today</button>
+          <button type="button" aria-pressed={withCo} onClick={() => setWithCo(true)}>With CoSell</button>
+        </div>
       </header>
-      <div className="cs-scroll">
+      <div className="cs-scroll" tabIndex={0} role="region" aria-label="Journey map, scroll sideways">
         <div className="jm__body">
           <svg viewBox={`0 0 ${W} 230`} className="jm__curve" aria-hidden="true">
             <defs>
-              <linearGradient id="jm-g" x1="0" x2="0" y1="0" y2="1">
+              <linearGradient id="jm-g" gradientUnits="userSpaceOnUse" x1="0" x2="0" y1={y(2)} y2={y(-3)}>
                 <stop offset="0" stopColor="#2FB67C" />
                 <stop offset="0.45" stopColor="#F5A524" />
                 <stop offset="1" stopColor="#EF5B6B" />
@@ -615,25 +631,27 @@ function Journey() {
             {pts.map(([px, py], i) => (
               <g key={i}>
                 <circle cx={px} cy={py} r="20" className="jm__halo" />
-                {(() => { const F = face(JOURNEY[i][3]); return <F x={px - 11} y={py - 11} size={22} strokeWidth={1.75} className="jm__face" color={JOURNEY[i][3] < 0 ? "#d6455d" : "#2fb67c"} />; })()}
+                {(() => { const v = val(JOURNEY[i]); const F = face(v); return <F x={px - 11} y={py - 11} size={22} strokeWidth={1.75} className="jm__face" color={v < 0 ? "#d6455d" : "#2fb67c"} />; })()}
               </g>
             ))}
           </svg>
           <ol className="jm__steps">
-            {JOURNEY.map(([t, stage, doing, v, pain, Icon]) => (
-              <li key={t} className={v < 0 ? "bad" : "ok"}>
+            {JOURNEY.map(([t, stage, doing, v, pain, Icon, withDoing, vw, from, to]) => (
+              <li key={t} className={(withCo ? vw : v) < 0 ? "bad" : "ok"}>
                 <span className="jm__icon"><Icon size={18} strokeWidth={1.75} /></span>
                 <p className="jm__time">{t}</p>
                 <h4>{stage}</h4>
-                <p className="jm__doing">{doing}</p>
-                <p className="jm__pain">{pain}</p>
+                <p className="jm__doing">{withCo ? withDoing : doing}</p>
+                <p className="jm__pain">{withCo ? <span className="jm__feel">{from} → <b>{to}</b></span> : pain}</p>
               </li>
             ))}
           </ol>
         </div>
       </div>
       <p className="jm__foot">
-        <b>Biggest drop:</b> payouts at 10 PM, the one job that decides whether she made money.
+        {withCo
+          ? <><b>Biggest change:</b> she still decides everything that matters. She just stops hunting for it.</>
+          : <><b>Biggest drop:</b> payouts at 10 PM, the one job that decides whether she made money.</>}
       </p>
     </section>
   );
@@ -647,35 +665,40 @@ const RIVALS = [
     domain: "amazon.in",
     took: "Asks permission before acting",
     gap: "Only sees Amazon",
-    src: ["aboutamazon.in", "https://www.aboutamazon.in/news/small-business/amazon-seller-assistant-ai-tool-india"],
+    opp: "Ask first, but across every marketplace",
+    cite: 4,
   },
   {
     name: "Flipkart Saarthi",
     domain: "flipkart.com",
     took: "Flags the problem, then recommends a fix",
     gap: "Ads only, Flipkart only",
-    src: ["The Wire", "https://m.thewire.in/article/ptiprnews/flipkart-ads-launches-saarthi-to-help-sellers-grow-with-ai-powered-tools-and-expert-advertising-support"],
+    opp: "Recommend fixes for stock, returns and fees, not only ads",
+    cite: 5,
   },
   {
     name: "Meesho voice agents",
     domain: "meesho.com",
     took: "Local-language voice",
     gap: "Support calls, not decisions",
-    src: ["Inc42", "https://inc42.com/features/amazon-flipkart-meeshos-ai-focus-shifts-to-seller-side-stacks/"],
+    opp: "Use voice and Hindi for decisions, not just support calls",
+    cite: 6,
   },
   {
     name: "Shopify Sidekick",
     domain: "shopify.com",
     took: "Shows the automation before it runs",
     gap: "One store only",
-    src: ["Retail Brew", "https://www.retailbrew.com/stories/2025/12/11/shopify-plugs-in-more-ai-power-to-merchant-assistant"],
+    opp: "Preview every action, for sellers on many marketplaces",
+    cite: 7,
   },
   {
     name: "Unicommerce",
     domain: "unicommerce.com",
     took: "Payout checks as a feature",
     gap: "Built for brands with ops teams",
-    src: ["The Week", "https://www.theweek.in/wire-updates/business/2025/06/19/dcm36-unicommerce.html"],
+    opp: "Payout checks sized for a one-person shop",
+    cite: 8,
   },
 ];
 
@@ -736,16 +759,13 @@ function Analysis() {
     >
       <article className="pc" data-reveal>
         <div className="pc__id">
-          <img src={MEERA} alt="" width="120" height="120" loading="lazy" />
+          <span className="pc__avatar" aria-hidden="true">M</span>
           <div>
             <p className="cs-mono">Primary persona · an archetype</p>
             <h3>Meera, 34</h3>
             <p className="pc__sub">Runs Meera Handloom from Jaipur, with one helper</p>
             <div className="pc__shops">
-              {["amazon.in", "flipkart.com", "meesho.com"].map((d) => (
-                <img key={d} src={`https://www.google.com/s2/favicons?domain=${d}&sz=64`} alt="" width="22" height="22" />
-              ))}
-              <span>3 marketplaces · 356 listings</span>
+              <span>3 marketplaces · about 350 listings</span>
             </div>
           </div>
           <blockquote>"I don't need more data. I need someone to tell me what to fix today."</blockquote>
@@ -763,6 +783,7 @@ function Analysis() {
             </div>
           ))}
         </div>
+        <p className="cs-note pc__est">These numbers are estimates drawn from the research, not measurements of a real seller.</p>
         <div className="pc__grid">
           <div className="g">
             <p>Wants</p>
@@ -793,19 +814,26 @@ function Analysis() {
         <h3 className="cs-h3">Every marketplace now has its own AI. Each one only sees its own shop.</h3>
         <div className="cmp">
           <Positioning />
-          <ul className="cmp__list">
-            {RIVALS.map((r) => (
-              <li key={r.name}>
-                <img src={`https://www.google.com/s2/favicons?domain=${r.domain}&sz=64`} alt="" width="32" height="32" loading="lazy" />
-                <div>
-                  <p className="nm">{r.name}</p>
-                  <p className="ok">+ {r.took}</p>
-                  <p className="miss">− {r.gap}</p>
-                </div>
-                <a href={r.src[1]} target="_blank" rel="noreferrer" aria-label={`Source for ${r.name}`}>↗</a>
-              </li>
-            ))}
-          </ul>
+          <div className="cs-scroll" tabIndex={0} role="region" aria-label="Competitor scan table">
+            <table className="rivals">
+              <thead>
+                <tr><th scope="col">Tool</th><th scope="col">What it does well</th><th scope="col">Where it falls short</th><th scope="col">Opportunity for CoSell</th></tr>
+              </thead>
+              <tbody>
+                {RIVALS.map((r) => (
+                  <tr key={r.name}>
+                    <th scope="row">
+                      <img src={`https://www.google.com/s2/favicons?domain=${r.domain}&sz=64`} alt="" width="20" height="20" loading="lazy" />
+                      {r.name}<Cite n={r.cite} />
+                    </th>
+                    <td>{r.took}</td>
+                    <td>{r.gap}</td>
+                    <td className="opp">{r.opp}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </Sec>
@@ -822,7 +850,7 @@ function Ecosystem() {
     [720, 280, "Excel", "Payout checks"],
   ];
   return (
-    <div className="cs-scroll">
+    <div className="cs-scroll" tabIndex={0} role="region" aria-label="Seller ecosystem diagram, scroll sideways">
       <svg viewBox="0 0 840 340" className="cs-eco" role="img" aria-label="Meera in the centre, connected to three marketplaces, couriers, buyers and an Excel sheet">
         {nodes.map(([x, y]) => (
           <line key={`${x}${y}`} x1={x < 400 ? x + 90 : x - 90} y1={y} x2={x < 400 ? 330 : 510} y2="170" className="edge" />
@@ -852,20 +880,21 @@ function Define() {
         <span className="cs-mono">How might we</span>
         let a solo seller hand the repetitive marketplace work to an AI, <em>and still feel like it's her shop?</em>
       </blockquote>
-      <div className="cs-rules" data-reveal>
+      <div className="cs-rules" id="principles" data-reveal>
         <p className="hand cs-rules__title">Design principles</p>
         <div className="cs-rules__grid">
           {[
-            ["y", -2, "Nothing changes without a yes.", "Unless Meera has written a rule that says Co can go ahead."],
-            ["p", 1.5, "Always show the working.", "What Co wants, why, what happens next, and how sure it is."],
-            ["b", -1, "Undo is always there.", "One click to take it back, and a log of everything Co did."],
-            ["g", 2, "Quiet unless it matters.", "One screen to look at, sorted by what needs her right now."],
-          ].map(([c, r, t, d], i) => (
+            ["y", -2, "Nothing changes without a yes.", "Unless Meera has written a rule that says Co can go ahead.", "Recommendation · Co settings"],
+            ["p", 1.5, "Always show the working.", "What Co wants, why, what happens next, and how sure it is.", "Recommendation · Inventory"],
+            ["b", -1, "Undo is always there.", "One click to take it back, and a log of everything Co did.", "Home · When Co gets it wrong"],
+            ["g", 2, "Quiet unless it matters.", "One screen to look at, sorted by what needs her right now.", "Home · Returns · Mobile"],
+          ].map(([c, r, t, d, seen], i) => (
             <Sticky key={t} c={c} r={r}>
               <span className="pin" aria-hidden="true" />
               <p className="cs-mono">Rule {i + 1}</p>
               <h3 className="hand">{t}</h3>
               <p>{d}</p>
+              <p className="seen"><a href="#solution">Seen in: {seen}</a></p>
             </Sticky>
           ))}
         </div>
@@ -915,7 +944,7 @@ function Flows() {
 
 function Loop() {
   return (
-    <div className="cs-scroll">
+    <div className="cs-scroll" tabIndex={0} role="region" aria-label="Decision loop diagram, scroll sideways">
       <svg viewBox="0 0 900 310" className="cs-flow" role="img" aria-label="Flowchart: Co notices something and checks it against Meera's limits. If she allowed Co to act alone, it acts and can be undone. Otherwise Meera reviews it; a no teaches Co.">
         <defs>
           <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
@@ -1290,6 +1319,7 @@ const TRADEOFFS = [
 function Tradeoffs() {
   return (
     <Part title="Trade-offs: design decisions and reasoning">
+      <ConsideredChosen />
       <div className="cs-trade" data-reveal>
         <div className="cs-trade__row head" aria-hidden="true">
           <span>Decision</span>
@@ -1333,6 +1363,8 @@ function Tradeoffs() {
 const SCREENS = [
   {
     img: "home",
+    principles: ["Quiet unless it matters", "Undo is always there"],
+    finding: "Time goes to watching",
     dec: { problem: "Sellers open the app to find out what needs them, and a dashboard makes them hunt for it.", alts: ["Charts-first analytics dashboard", "Notifications in a bell menu"], why: "A queue sorted by urgency answers \"what do I do now?\" in one glance. The numbers stay, but shrink to three." },
     short: "Home",
     t: "Home, a to-do list rather than a dashboard",
@@ -1346,6 +1378,8 @@ const SCREENS = [
   },
   {
     img: "approval",
+    principles: ["Always show the working", "Nothing changes without a yes"],
+    finding: "Control is scary",
     dec: { problem: "A seller won't approve a price change she can't check.", alts: ["A one-line card with Approve / Reject", "A confidence score like 87%"], why: "Showing the change, her margin after it, her own limits and the reason lets her judge it in seconds. High / Medium / Low with reasons is easier to trust than a number." },
     short: "Recommendation",
     t: "A recommendation, with all its working shown",
@@ -1359,6 +1393,8 @@ const SCREENS = [
   },
   {
     img: "inventory",
+    principles: ["Always show the working"],
+    finding: "Mistakes are silent",
     dec: { problem: "Stock counts drift between marketplaces and cause overselling.", alts: ["Auto-correct every mismatch silently", "Only flag them in a report"], why: "Flag each mismatch with a one-click fix. Fixing silently would hide errors from her; a report alone would be read too late." },
     short: "Inventory",
     t: "One stock count across every shop",
@@ -1371,6 +1407,8 @@ const SCREENS = [
   },
   {
     img: "returns",
+    principles: ["Quiet unless it matters"],
+    finding: "Late is expensive",
     dec: { problem: "Each marketplace has its own reply deadline, and missing it means losing the case.", alts: ["Let Co send replies automatically", "A plain list of open returns"], why: "Sort by deadline and draft the reply, but let her send it. A reply speaks for her shop, so it stays her call by default." },
     short: "Returns",
     t: "Returns, with the replies already drafted",
@@ -1382,6 +1420,8 @@ const SCREENS = [
   },
   {
     img: "settings",
+    principles: ["Nothing changes without a yes"],
+    finding: "Control is scary",
     dec: { problem: "Sellers trust some automation (restock alerts) long before others (pricing).", alts: ["One global AI on/off switch", "Fixed rules set during onboarding"], why: "A freedom level per task, plus hard limits Co can never cross. Trust can grow one task at a time." },
     short: "Co settings",
     t: "How much Co is allowed to do",
@@ -1440,6 +1480,12 @@ function Screen({ s }) {
       <header>
         <h3>{s.t}</h3>
         <p>{s.d}</p>
+        {s.principles && (
+          <ul className="ptags" aria-label="What this screen demonstrates">
+            {s.principles.map((p) => <li key={p}><a href="#principles">{p}</a></li>)}
+            <li className="ptags__f"><a href="#research">From finding: {s.finding}</a></li>
+          </ul>
+        )}
       </header>
       <div className="cs-screen__frame">
         <img src={`${A}${s.img}.webp`} alt={s.t} width="2880" height="1800" loading="lazy" />
@@ -1453,7 +1499,7 @@ function Screen({ s }) {
             onMouseLeave={() => setOn(null)}
             onFocus={() => setOn(i)}
             onBlur={() => setOn(null)}
-            aria-label={`Note ${i + 1}`}
+            aria-label={`Note ${i + 1}: ${s.pins[i][2]}`}
           >
             {i + 1}
           </button>
@@ -1527,7 +1573,7 @@ function Solution() {
         <div className="cs-wrong__ui" aria-label="Mock-up of the undo and feedback flow">
           <div className="w-card">
             <p className="w-k">Done by Co · 7:40 AM</p>
-            <p className="w-t">Matched Block-print dupatta to ₹649 on Amazon</p>
+            <p className="w-t">Matched Block-print dupatta to ₹649 on Marketplace A</p>
             <div className="w-undo">
               <span>₹649 → ₹699, back to before</span>
               <b>Undone</b>
@@ -1587,6 +1633,8 @@ function Solution() {
 
 
 
+      <AskCo />
+      <SeverityLegend />
       <DesignSystem />
     </Sec>
   );
@@ -1627,7 +1675,7 @@ function MiniCard({ money, photo }) {
     <div className="mc">
       {photo && <img src={`${A}pop/bottle.webp`} alt="" />}
       <div>
-        {money ? <p className="mc__big">+₹7,641 a week</p> : <p className="mc__k">Pricing · Flipkart</p>}
+        {money ? <p className="mc__big">+₹7,641 a week</p> : <p className="mc__k">Pricing · Marketplace B</p>}
         <p className="mc__t">{money ? "Drop Copper bottle to ₹849" : "Lower price of Copper water bottle"}</p>
         <span className={`mc__btn ${money ? "dark" : ""}`}>{money ? "Approve" : "Review"}</span>
       </div>
@@ -1637,7 +1685,8 @@ function MiniCard({ money, photo }) {
 
 function Iterations() {
   return (
-    <Part title="Three things I changed after the first version">
+    <Part title="What changed after feedback and testing my own work">
+      <PriceIteration />
       <Evo
         n="01"
         title="Mobile: from a mini dashboard to one decision at a time"
@@ -1684,7 +1733,7 @@ function Iterations() {
 
 function Reflection() {
   return (
-    <Sec id="reflection" n="07" kicker="Reflection" title="Reflection and next steps">
+    <Sec id="reflection" n="09" kicker="Reflection" title="Reflection and next steps">
       <div className="cs-valid" data-reveal>
         <span className="tag">Not tested yet</span>
         <h3>I haven't tested CoSell with sellers.</h3>

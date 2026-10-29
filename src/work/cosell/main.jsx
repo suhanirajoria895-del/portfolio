@@ -6,6 +6,7 @@ import "@fontsource/poppins/400.css";
 import "@fontsource/poppins/500.css";
 import CaseStudy from "./CaseStudy.jsx";
 import "./cs.css";
+import "./story.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

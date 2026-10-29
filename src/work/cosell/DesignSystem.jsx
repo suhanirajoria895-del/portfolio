@@ -293,11 +293,11 @@ export default function DesignSystem() {
             </div>
           ))}
         </div>
-        <div className="cs-scroll">
+        <div className="cs-scroll" tabIndex={0} role="region" aria-label="Button states table">
           <table className="dsx-states">
             <thead>
               <tr>
-                <th />
+                <th scope="col"><span className="sr">Component</span></th>
                 {["Default", "Hover", "Pressed", "Disabled"].map((s) => (
                   <th key={s}>{s}</th>
                 ))}
@@ -329,7 +329,7 @@ export default function DesignSystem() {
         <Panel title="Pills and badges" className="grow">
           <div className="dsx-wrap">
             {[
-              ["neutral", "Amazon"],
+              ["neutral", "Marketplace A"],
               ["primary", "3 of 3 passed"],
               ["success", "● High"],
               ["warning", "● Medium"],
@@ -424,7 +424,7 @@ export default function DesignSystem() {
             <span>↗ +12% vs yesterday</span>
           </div>
           <div className="dsx-banner">
-            <AlertTriangle size={16} /> Meesho sync is 20 minutes behind.
+            <AlertTriangle size={16} /> Marketplace C sync is 20 minutes behind.
           </div>
         </Panel>
       </div>
