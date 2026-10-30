@@ -61,7 +61,7 @@ export default function DeskHero() {
       </div>
 
       <a href="/work/cosell/" className="dh-feat">
-        <img src="/work/cosell/m-morning.webp" alt="" loading="lazy" />
+        <img src="/work/cosell/ios/m-today.webp" alt="" loading="lazy" />
         <span className="dh-feat-txt">
           <small>Featured project</small>
           <b>CoSell</b>

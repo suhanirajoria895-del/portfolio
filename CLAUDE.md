@@ -17,7 +17,7 @@ Applying for the **Demandbase UX Intern** role (agentic "pipeline AI" B2B platfo
 - `src/App.jsx` → `DeskHero` + `Sections` + `RoadFooter` (the homepage).
 - `src/components/DeskHero.jsx` + `src/desk-hero.css` — landing hero: full-bleed desk photo, "Ideas, interfaces and a little curiosity." (Instrument Serif), nav, "Open to 2027 roles" pill, Explore my work, frosted Featured project (CoSell) and "A peek into my world" cards. Photo is a stand-in (`public/assets/hero-desk-mock.webp`, made from Suhani's mock with the text blurred out); swap in the clean photo when she sends it. `GridHero.jsx` (old dark hero + carousel) is unused.
 - `src/components/RoadFooter.jsx` + `src/road-footer.css` — footer (`id="contact"`): twilight indigo panel ("Let's talk about what comes next.", email / LinkedIn / Behance with coloured ↗ rings) over a playable parallax drive through Hyderabad (assets in `public/footer/`). F1 start-light gantry starts the drive (or click the road); steering-wheel cursor; mouse up/down, ↑/↓ or taps switch lanes; cones only; a speech bubble with a random line from `OOPS` pops on a crash (Hyderabadi slang, F1 radio, designer jokes — no "laws"/heuristics, no lines implying a passenger). Base bar: © line + "Driver: me. Pit crew: Claude. Pit stops: too many to count." Image prompts for the assets are in `design-assets/footer-game-prompts.md`.
-- `src/components/Sections.jsx` + `src/sections.css` — homepage sections: (01) What I do (Sangria panel, bold "Good design removes everything that doesn't help.", three principles), Case studies (stacking cards, layouts split/poster/banner), Experience (Wysbrx, ABDA only — no education card), Skillset (periodic table of skills; "Dh Dev handoff", no "vibe coding"), About (bento: photo `public/assets/about-suhani.webp`, story, Currently, Off-screen), (old Contact section removed; the footer is the contact block).
+- `src/components/Sections.jsx` + `src/sections.css` — homepage sections (the "What I do" panel was removed): Case studies (stacking cards, layouts split/poster/banner), Experience (Wysbrx, ABDA only — no education card), Skillset (periodic table of skills; "Dh Dev handoff", no "vibe coding"), About (bento: photo `public/assets/about-suhani.webp`, story, Currently, Off-screen), (old Contact section removed; the footer is the contact block).
 - `src/portfolio/content.js` — site text/data (work list with `cover` keys, experience, contact, skills). `src/portfolio/Site.jsx`, `NameHero.jsx`, `Collage.jsx` etc. are old unused versions.
 - `src/components/covers/` — project cover art used in the hero carousel and homepage cards:
   - `CosellCover.jsx` — HTML/CSS editorial cover (laptop with real `approval.webp`, phone with real `m-morning.webp`), scales via container units.
@@ -25,9 +25,10 @@ Applying for the **Demandbase UX Intern** role (agentic "pipeline AI" B2B platfo
   - `SteadyTrackCover.jsx` — sage editorial cover using the glove flat-lay render (`public/work/steadytrack/renders/flatlay.jpg`) with the live `SessionScreen` mapped onto the phone.
 - Case studies: `src/work/cosell/`, `src/work/paywise/`, `src/work/steadytrack/` (each has its own CSS; CoSell also `Story.jsx`, `Chapters.jsx`, `story.css`, `DesignSystem.jsx`).
 
-## CoSell prototype (separate project, NOT in git yet)
+## CoSell prototype (separate repo)
 
-- Source: `C:\Users\suhan\OneDrive\Desktop\cosell` (React 19 + TypeScript + Vite + Tailwind). Not a git repo — needs one, plus a GitHub link on the case study.
+- Source: `C:\Users\suhan\OneDrive\Desktop\cosell` (React 19 + TypeScript + Vite + Tailwind), public at https://github.com/suhanirajoria895-del/cosell-prototype and linked from the case study. Indigo palette (`--c-primary: 79 70 229`), purple sidebar layout with frosted-glass cards, marketplaces named Marketplace A/B/C.
+- After UI changes, re-capture screens with headless Edge at 2x: desktop to `public/work/cosell/*.webp`, phone screens (cropped out of the frame) to `public/work/cosell/ios/*.webp`.
 - Its build is copied into `public/work/cosell/demo/`. Rebuild with hash routing and an absolute base, and disable Git Bash path mangling:
   ```
   cd ../cosell
@@ -70,7 +71,6 @@ Brief file: `C:\Users\suhan\Downloads\CoSell_case_study_brief.md` (copy into `do
 ## Open TODOs (need Suhani's input)
 
 - CoSell timeline (duration · month year).
-- GitHub repo link for the CoSell prototype.
 - Confirm the industry-designer feedback wording, and the "40 observations" count.
 - Accessibility audit of the prototype itself.
 - Real LinkedIn URL in `content.js` (currently linkedin.com). `public/resume.pdf` is live (Suhani approved publishing it with her phone number); hero nav links to it.

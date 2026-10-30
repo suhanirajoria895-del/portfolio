@@ -5,7 +5,7 @@ import { AlertTriangle, AlertOctagon, Info, Eye, ArrowDown, Check, Undo2, Sparkl
 import { CoMark } from "./CoMark.jsx";
 
 const DEMO = "/work/cosell/demo/index.html#/login";
-const REPO = null; // [TODO: GitHub repo link] — set to the URL once the repo exists
+const REPO = "https://github.com/suhanirajoria895-del/cosell-prototype";
 
 /* ───────── Considered vs chosen ───────── */
 
@@ -53,7 +53,7 @@ export function ConsideredChosen() {
 export const SEVERITY = [
   { k: "info", name: "Info", Icon: Info, rule: "A small change inside her normal range.", treat: "Muted. Can be grouped into one line." },
   { k: "watch", name: "Watch", Icon: Eye, rule: "A change past one of her thresholds.", treat: "Amber. Stays in place, marked for later." },
-  { k: "urgent", name: "Urgent", Icon: AlertTriangle, rule: "Costs money or rank right now.", treat: "Red-orange. Moves to the top of the list." },
+  { k: "urgent", name: "Urgent", Icon: AlertTriangle, rule: "Losing money or ranking now, and getting worse.", treat: "Red-orange. Moves to the top of the list." },
   { k: "critical", name: "Critical", Icon: AlertOctagon, rule: "A listing out of stock or suppressed.", treat: "Strongest treatment, plus a push to her phone." },
 ];
 
@@ -166,10 +166,10 @@ export function PriceIteration() {
         </blockquote>
         <p className="cs-body">They were right. A big number doesn't say anything. The signal was the change and what it costs, and both were hiding in a small chip.</p>
         <ol className="iter__list">
-          <li><b>Severity first.</b> A label and icon from the severity system, not colour alone.</li>
-          <li><b>The change is the headline.</b> The drop, its direction and its timeframe are the largest text.</li>
-          <li><b>A consequence line.</b> What the change means for her, in one sentence.</li>
-          <li><b>Context, then Co's recommendation,</b> with its reason and confidence, then the actions, with undo.</li>
+          <li><b>Severity label first,</b> with an icon.</li>
+          <li><b>The change is the headline.</b></li>
+          <li><b>One line on what it means for her.</b></li>
+          <li><b>Then Co's recommendation</b> and the actions, with undo.</li>
         </ol>
       </div>
       <div className="iter__stage">
@@ -297,15 +297,15 @@ export function DesignToCode() {
   return (
     <section id="code" className="cs-sec">
       <header className="cs-sec__head" data-reveal>
-        <p className="cs-kicker"><span>08</span> Design to code</p>
+        <p className="cs-kicker"><span>07</span> Figma to code</p>
         <h2>From Figma to a working prototype</h2>
-        <p className="cs-lede">I designed CoSell in Figma, then built the prototype myself in React and TypeScript, so the interactions could be tried, not just looked at.</p>
+        <p className="cs-lede">I designed CoSell in Figma, then built the prototype myself, so every decision could be clicked, not just looked at.</p>
       </header>
       <div className="d2c" data-reveal>
         <div className="d2c__tokens">
           <p className="cs-mono">Tokens, shared by Figma and code</p>
           <ul>
-            {[["--brand", "#5543E8", "Co's colour, used for actions"], ["--ink", "#14142B", "Text"], ["--sev-urgent", "#C2410C", "Urgent, never decoration"], ["--sev-watch", "#B45309", "Watch"], ["--radius-card", "24px", "Cards"], ["--space", "8pt grid", "All spacing"]].map(([t, v, d]) => (
+            {[["--brand", "#4338CA", "Co's colour, used for actions"], ["--ink", "#14142B", "Text"], ["--sev-urgent", "#C2410C", "Urgent, never decoration"], ["--sev-watch", "#B45309", "Watch"], ["--radius-card", "24px", "Cards"], ["--space", "8pt grid", "All spacing"]].map(([t, v, d]) => (
               <li key={t}><code>{t}</code><span className="sw" style={{ background: v.startsWith("#") ? v : "transparent" }} aria-hidden="true" /><span>{v}</span><span className="d">{d}</span></li>
             ))}
           </ul>
@@ -319,16 +319,6 @@ export function DesignToCode() {
   onEdit={openEditor}
   onDismiss={askWhy}    // "What went wrong?" chips
 />`}</code></pre>
-      </div>
-      <div className="d2c__how" data-reveal>
-        <div>
-          <h3 className="cs-h3">Tech</h3>
-          <p className="cs-body">React, TypeScript, Vite and Tailwind for the prototype. React for this portfolio. Both deploy on Vercel.</p>
-        </div>
-        <div>
-          <h3 className="cs-h3">How AI tools helped</h3>
-          <p className="cs-body">I used Claude Code to speed up building: scaffolding screens from my Figma layouts, wiring sample data, and fixing bugs. The design decisions, copy and flows are mine, and I reviewed every screen against the Figma file.</p>
-        </div>
       </div>
       <div className="d2c__links" data-reveal>
         <a href={DEMO} target="_blank" rel="noreferrer"><ExternalLink size={16} aria-hidden="true" /> Live prototype<span className="sr"> (opens in a new tab)</span></a>

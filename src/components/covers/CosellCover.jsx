@@ -37,7 +37,7 @@ export default function CosellCover() {
           <div className="cv-base" />
         </div>
 
-        <img className="cv-phone" src={`${A}m-morning.webp`} alt="" width="556" height="1174" />
+        <div className="cv-phone"><img src={`${A}ios/m-today.webp`} alt="" width="776" height="1664" /></div>
 
         <div className="cv-chip c-approve"><span className="ok"><Check size={14} weight="bold" /></span>Approve</div>
         <div className="cv-chip c-conf"><Sparkle size={18} weight="fill" />High confidence</div>
@@ -45,7 +45,7 @@ export default function CosellCover() {
       </div>
 
       <p className="cv-meta">
-        <b>Role</b> UX research, UI design <span>·</span> <b>Tools</b> Figma, Claude Code <span>·</span> 2025
+        <b>Role</b> UX research, UI design <span>·</span> <b>Tools</b> Figma <span>·</span> 2026
       </p>
     </div>
     </div>

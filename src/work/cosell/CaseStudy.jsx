@@ -2,25 +2,23 @@ import { useMemo, useState } from "react";
 import { CoMark } from "./CoMark.jsx";
 import { Coffee, Package, Scissors, Undo2, Tag, Receipt, UserRound, ShoppingCart, Truck, Sheet, Smile, Meh, Frown, Angry, Handshake, Target, Languages, Check, ArrowRight, Mail } from "lucide-react";
 import DesignSystem from "./DesignSystem.jsx";
-import { Cite, QuickRead, Scope, Sources } from "./Story.jsx";
-import { ConsideredChosen, SeverityLegend, PriceIteration, ActsOrAsks, AskCo, Accessibility, DesignToCode } from "./Chapters.jsx";
+
+import { AiKinds, CanWont, CoStates, SaidNo, EdgeScreens, Phones, IPhone, NextProject } from "./Extras.jsx";
+import { ConsideredChosen, SeverityLegend, PriceIteration, ActsOrAsks, AskCo, DesignToCode } from "./Chapters.jsx";
 import { useActiveId, useAmbientMotion, useRevealAll } from "./hooks.js";
 
 const A = "/work/cosell/"; // asset base
 const DEMO = "/work/cosell/demo/index.html#/login";
-const FIGJAM = "https://www.figma.com/board/thUniTYGliBINd10bU6FLS";
 
 const SECTIONS = [
   ["problem", "Problem"],
   ["research", "Research"],
   ["analysis", "Analysis"],
-  ["synthesis", "Synthesis"],
+  ["synthesis", "How Co works"],
   ["design", "Design"],
   ["solution", "Solution"],
-  ["accessibility", "Accessibility"],
-  ["code", "Design to code"],
+  ["code", "Figma to code"],
   ["reflection", "Reflection"],
-  ["sources", "Sources"],
 ]
 
 export default function CaseStudy() {
@@ -42,13 +40,14 @@ export default function CaseStudy() {
         <Sec
           id="synthesis"
           n="04"
-          kicker="Synthesis"
-          title="Defining what to build"
+          kicker="How Co works"
+          title="What Co does, and what it never does"
         >
           <Define />
+          <AiKinds />
+          <CanWont />
           <Flows />
-          <ActsOrAsks />
-          <Tradeoffs />
+          <SaidNo />
         </Sec>
         <Sec
           id="design"
@@ -60,11 +59,9 @@ export default function CaseStudy() {
           <Iterations />
         </Sec>
         <Solution />
-        <Accessibility />
         <DesignToCode />
         <Reflection />
-        <Sources />
-        <Footer />
+        <NextProject />
       </main>
     </div>
   );
@@ -150,28 +147,15 @@ function Header() {
   return (
     <header className="cs-head" data-reveal>
       <div className="cs-head__copy">
-        <p className="cs-mono">Case study 01 · CoSell · Personal project</p>
-        <h1>An AI copilot that takes routine marketplace work off a small seller's plate, and asks before it acts</h1>
+        <p className="cs-mono">Case study 01 · CoSell · Agentic AI</p>
+        <h1>CoSell: an AI agent that turns a small seller's three dashboards into <span className="hl">one list of decisions</span></h1>
         <p className="cs-lede">
-          CoSell watches every marketplace a seller is on, catches the small errors that cost money, and leaves her a
-          short list of decisions instead of three dashboards.
+          Co watches every shop, fixes the routine work and brings the seller a short list of decisions.
         </p>
+        <a className="cs-try" href={DEMO} target="_blank" rel="noreferrer">Try the live prototype ↗<span className="sr"> (opens in a new tab)</span></a>
         <ul className="cs-tags" aria-label="Tags">
           {["B2B", "Agentic AI", "Dashboard", "Design system"].map((t) => <li key={t}>{t}</li>)}
         </ul>
-        <dl className="cs-facts">
-          {[
-            ["Role", "UX research, UI design, front-end prototype"],
-            ["Team", "Individual"],
-            ["Timeline", "[TODO: duration · month year]"],
-            ["Type", "Personal project"],
-            ["Platform", "Desktop web, mobile companion"],
-            ["Tools", "Figma, FigJam, React + TypeScript, Claude Code"],
-          ].map(([k, v]) => (
-            <div key={k}><dt>{k}</dt><dd>{v}</dd></div>
-          ))}
-        </dl>
-        <QuickRead demo={DEMO} />
       </div>
 
       <div className="cs-hero" aria-hidden="true">
@@ -183,7 +167,7 @@ function Header() {
           </div>
           <img src={`${A}home.webp`} alt="" width="2880" height="1800" />
         </div>
-        <img className="cs-hero__phone" src={`${A}m-morning.webp`} alt="" width="556" height="1174" />
+        <IPhone className="cs-hero__ip" src={`${A}ios/m-today.webp`} alt="" />
         <div className="cs-hero__chip">
           <CoMark state="needsYou" size={22} />
           <span>
@@ -193,18 +177,26 @@ function Header() {
         </div>
       </div>
 
+      <dl className="cs-facts cs-facts--row">
+        {[
+          ["Role", "Product designer"],
+          ["Timeline", "June 2026"],
+          ["Type", "Personal project"],
+          ["Platform", "Web app and iOS app"],
+          ["Tools", "Figma"],
+        ].map(([k, v]) => (
+          <div key={k}><dt>{k}</dt><dd>{v}</dd></div>
+        ))}
+      </dl>
+
       <ul className="cs-glance">
         <li>
-          <b>1–3%<Cite n={3} /></b>
-          <span>of sales lost to fee and return errors nobody catches</span>
+          <b>1–3%</b>
+          <span>of sales lost to fee and return errors</span>
         </li>
         <li className="mid">
           <CoMark state="needsYou" size={40} />
-          <span>Co watches every shop and brings back only what needs a yes</span>
-        </li>
-        <li>
-          <b>Trust</b>
-          <span>the real design problem: letting software touch her prices</span>
+          <span><b>The hard part:</b> getting a seller to let software decide for her</span>
         </li>
       </ul>
     </header>
@@ -219,14 +211,14 @@ function Problem() {
       id="problem"
       n="01"
       kicker="Problem"
-      title="Sellers on multiple marketplaces manage everything by hand"
-      lede="Each one has its own dashboard, its own label format, its own returns rules and its own way of charging fees. So the day goes to switching tabs. And the mistakes are small enough that nobody spots them, but they keep happening."
+      title="Three marketplaces, every job done three times"
+      lede="Every marketplace has its own dashboard, fees and return rules. Small, costly mistakes slip through."
     >
       <ol className="cs-chain" data-reveal>
         {[
-          ["What's fixed", "Three different rule books", "Labels, return windows and fee slabs all change from one marketplace to the next."],
-          ["What's missing", "No one looks at all three together", "The seller opens each panel by hand, maybe once a day if she's lucky."],
-          ["What it costs", "Money slips out quietly", "A wrong fee here, a missed claim there. By the time she notices, the window's closed."],
+          ["What's different", "Three rule books", "Labels, return windows and fees change from one marketplace to the next."],
+          ["What's missing", "No single view", "She opens each panel by hand, often once a day."],
+          ["What it costs", "Missed deadlines", "Fee claims and return replies have time limits, and she finds out too late."],
         ].map(([k, t, d], i) => (
           <li key={k} className={i === 2 ? "bad" : ""}>
             <p className="cs-mono">{k}</p>
@@ -235,67 +227,6 @@ function Problem() {
           </li>
         ))}
       </ol>
-      <div className="cs-work" data-reveal>
-        <h3 className="cs-h3">The same five jobs, repeated on every marketplace</h3>
-        <p className="cs-body">
-          Take a seller on three marketplaces. Each panel has its own stock count, fee rules and returns process, so
-          every routine job is done three times, by hand.
-        </p>
-        <div className="cs-scroll" tabIndex={0} role="region" aria-label="The five repeated jobs, scroll sideways">
-          <table className="cs-worktable">
-            <thead>
-              <tr>
-                <th>The job</th>
-                <th>Why it repeats</th>
-                <th>What goes wrong</th>
-                <th>Evidence</th>
-              </tr>
-            </thead>
-            <tbody>
-              {WORK.map(([job, why, wrong, kind, src]) => (
-                <tr key={job}>
-                  <th scope="row">{job}</th>
-                  <td>{why}</td>
-                  <td>{wrong}</td>
-                  <td>
-                    {src ? (
-                      <span className={`ev ${kind}`}>
-                        {kind === "res" ? "Researched" : "Partly researched"} <Cite n={src} />
-                      </span>
-                    ) : (
-                      <span className="ev asm">Assumption</span>
-                    )}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div className="cs-known" data-reveal>
-        <div>
-          <p className="cs-mono">What the research supports</p>
-          <ul>
-            <li>Without synced stock, multi-channel sellers oversell.<Cite n={1} /></li>
-            <li>Fashion returns run at 25–40% of orders.<Cite n={2} /></li>
-            <li>1–3% of GMV can leak through fee and return errors.<Cite n={3} /></li>
-            <li>Wrong charges have to be claimed within about 30 days.<Cite n={3} /></li>
-          </ul>
-        </div>
-        <div>
-          <p className="cs-mono">What I assumed, and haven't tested</p>
-          <ul>
-            <li>How long the daily dashboard routine takes (the times on the journey map are estimates).</li>
-            <li>That sellers would trust an AI that asks first more than one that acts alone.</li>
-            <li>That Hindi and voice matter enough to build in from the start.</li>
-            <li>Meera herself: an archetype, not a person I spoke to.</li>
-          </ul>
-        </div>
-      </div>
-
-      <Scope />
-
       <Statement />
     </Sec>
   );
@@ -351,9 +282,9 @@ function Statement() {
       <div>
         <p className="cs-big">1 to 3%</p>
         <p className="cs-body">
-          of gross sales can disappear this way, through wrong commission rates, RTO charges on orders that were actually
-          delivered, and returns that never get put back in stock. Most claims have to be raised within about 30 days.<Cite n={3} />
+          of sales lost to wrong fees and missed return claims. Most claims close in about 30 days.
         </p>
+        <p className="cs-note">Source: Mynd Solution, marketplace reconciliation guide.</p>
         <button type="button" className="cs-btn" onClick={() => setScan((s) => !s)} aria-pressed={scan}>
           {scan ? "Hide it again" : "Show me what's wrong"}
         </button>
@@ -379,10 +310,10 @@ const JOURNEY = [
 ];
 
 const AFFINITY = [
-  ["Time goes to watching", "y", ["Same stock typed into 3 portals", "Diwali week: \"humanly impossible\"", "3 logins every morning"], "Sellers have dashboards. They lack time to watch them.", "One place that watches every shop, so she doesn't have to."],
-  ["Mistakes are silent", "p", ["Wrong commission slab", "RTO on a delivered order", "Returns never restocked"], "A tiny daily leak is big over a year.", "Check every fee and return automatically, and flag only what's wrong."],
-  ["Late is expensive", "b", ["Claims close in ~30 days", "Return replies have deadlines", "25–40% fashion returns"], "Knowing in time beats knowing what to do.", "Sort by deadline and money at risk, not by marketplace."],
-  ["Control is scary", "g", ["Thin margins", "Different price rules", "Repricers feel like a black box"], "No one lets software touch prices without a why and an undo.", "Ask before acting, show the reasons, and make every action undoable."],
+  ["Time goes to watching", "y", ["Same stock typed into 3 portals", "Festival weeks are unmanageable by hand", "3 logins every morning"], "Sellers have dashboards. They lack time to watch them.", "One place that watches every shop, so she doesn't have to."],
+  ["Mistakes are silent", "p", ["Wrong commission slab", "RTO on a delivered order", "Returns never restocked"], "Small daily losses add up over a year.", "Check every fee and return automatically, and flag only what's wrong."],
+  ["Late is expensive", "b", ["Claims close in ~30 days", "Return replies have deadlines", "25–40% fashion returns (Shipmozo)"], "Most losses come from acting too late, not from not knowing what to do.", "Sort by deadline and money at risk, not by marketplace."],
+  ["Control is scary", "g", ["Thin margins", "Different price rules", "Repricers feel like a black box"], "Sellers won't let software change prices unless they can see why and undo it.", "Ask before acting, show the reasons, and make every action undoable."],
 ];
 
 function Research() {
@@ -392,28 +323,12 @@ function Research() {
       n="02"
       kicker="Research"
       title="Where sellers lose time and money"
-      lede="This was desk research, not interviews (more on that at the end). I read seller guides, reconciliation write-ups, logistics reports and a lot of forum threads, and put every observation on a sticky note in FigJam."
+      lede="Desk research only, no interviews: seller guides, fee documents and seller forums."
     >
-      <ol className="cs-process" data-reveal>
-        {[
-          ["Read", "Guides, fee docs, forum threads"],
-          ["Map", "One seller's day, hour by hour"],
-          ["Cluster", "Sticky notes into themes"],
-          ["Decide", "A brief and four rules"],
-          ["Make", "Flows, wireframes, UI, prototype"],
-        ].map(([t, d], i) => (
-          <li key={t}>
-            <span className="cs-mono">0{i + 1}</span>
-            <h3>{t}</h3>
-            <p>{d}</p>
-          </li>
-        ))}
-      </ol>
-
       <section className="aw" data-reveal>
         <header>
           <p className="cs-mono">Affinity mapping</p>
-          <h3>40 observations, four patterns</h3>
+          <h3>10–15 observations, four patterns</h3>
         </header>
         <div className="aw__cols">
           {AFFINITY.map(([title, c, notes, insight, impl], ci) => (
@@ -438,53 +353,8 @@ function Research() {
 
       <Journey />
 
-      <figure className="cs-fig" data-reveal>
-        <figcaption>
-          <span className="cs-mono">Swimlane</span> Who does what across a day, and where the hand-offs break
-        </figcaption>
-        <Swimlane />
-        <div className="cs-breaks">
-          {BREAKS.map(([t, items]) => (
-            <div key={t}>
-              <h4>{t}</h4>
-              <ul>
-                {items.map(([n, d]) => (
-                  <li key={n}>
-                    <b>{n}</b>
-                    {d}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </figure>
 
-      <details className="cs-more" data-reveal>
-        <summary>Where the numbers come from</summary>
-        <table>
-          <tbody>
-            <tr>
-              <td>Overselling</td>
-              <td>
-                Without synced stock, sellers are "guaranteed to oversell".<Cite n={1} />
-              </td>
-            </tr>
-            <tr>
-              <td>Returns and RTO</td>
-              <td>
-                Fashion returns run at 25 to 40% of orders, and COD return-to-origin at 20 to 40%.<Cite n={2} />
-              </td>
-            </tr>
-            <tr>
-              <td>Revenue leakage</td>
-              <td>
-                Wrong commissions and missing returned stock cost 1 to 3% of GMV.<Cite n={3} />
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </details>
+
     </Sec>
   );
 }
@@ -514,7 +384,7 @@ const BREAKS = [
 ];
 
 const LANE_STYLE = [
-  ["#6B5CFF", UserRound],
+  ["#4F46E5", UserRound],
   ["#F5A524", ShoppingCart],
   ["#2FB67C", Truck],
   ["#8A8FA8", Sheet],
@@ -621,8 +491,8 @@ function Journey() {
                 <stop offset="1" stopColor="#EF5B6B" />
               </linearGradient>
               <linearGradient id="jm-fill" x1="0" x2="0" y1="0" y2="1">
-                <stop offset="0" stopColor="#6B5CFF" stopOpacity="0.16" />
-                <stop offset="1" stopColor="#6B5CFF" stopOpacity="0" />
+                <stop offset="0" stopColor="#4F46E5" stopOpacity="0.16" />
+                <stop offset="1" stopColor="#4F46E5" stopOpacity="0" />
               </linearGradient>
             </defs>
             <line x1="40" x2={W - 40} y1={y(0)} y2={y(0)} className="jm__base" />
@@ -754,28 +624,27 @@ function Analysis() {
       id="analysis"
       n="03"
       kicker="Analysis"
-      title="Who I designed for, and what already exists"
-      lede="One seller, built from the research, and the AI tools she already has."
+      title="Who it's for, and what's already out there"
     >
       <article className="pc" data-reveal>
         <div className="pc__id">
-          <span className="pc__avatar" aria-hidden="true">M</span>
+          <img className="pc__avatar pc__avatar--img" src={`${A}people/meera.webp`} alt="" width="96" height="96" />
           <div>
             <p className="cs-mono">Primary persona · an archetype</p>
-            <h3>Meera, 34</h3>
+            <h3>Meera, 27</h3>
             <p className="pc__sub">Runs Meera Handloom from Jaipur, with one helper</p>
             <div className="pc__shops">
               <span>3 marketplaces · about 350 listings</span>
             </div>
           </div>
-          <blockquote>"I don't need more data. I need someone to tell me what to fix today."</blockquote>
+          <blockquote><span className="cs-mono">Her need, in one line</span> Tell me what to fix today.</blockquote>
         </div>
         <div className="pc__nums">
           {[
             ["3", "dashboards every morning"],
             ["35 min", "just checking them"],
             ["10 PM", "when payouts get reconciled"],
-            ["0", "time to check every fee"],
+            ["No time", "to check every fee"],
           ].map(([n, l]) => (
             <div key={l}>
               <b>{n}</b>
@@ -814,26 +683,15 @@ function Analysis() {
         <h3 className="cs-h3">Every marketplace now has its own AI. Each one only sees its own shop.</h3>
         <div className="cmp">
           <Positioning />
-          <div className="cs-scroll" tabIndex={0} role="region" aria-label="Competitor scan table">
-            <table className="rivals">
-              <thead>
-                <tr><th scope="col">Tool</th><th scope="col">What it does well</th><th scope="col">Where it falls short</th><th scope="col">Opportunity for CoSell</th></tr>
-              </thead>
-              <tbody>
-                {RIVALS.map((r) => (
-                  <tr key={r.name}>
-                    <th scope="row">
-                      <img src={`https://www.google.com/s2/favicons?domain=${r.domain}&sz=64`} alt="" width="20" height="20" loading="lazy" />
-                      {r.name}<Cite n={r.cite} />
-                    </th>
-                    <td>{r.took}</td>
-                    <td>{r.gap}</td>
-                    <td className="opp">{r.opp}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+          <aside className="cmp__gap">
+            <p className="cs-mono">The gap</p>
+            <p className="cmp__big">No tool acts across every marketplace, and asks first.</p>
+            <ul>
+              <li>Marketplace AIs act, but see one shop</li>
+              <li>Multichannel tools see all, but only inform</li>
+              <li>CoSell sees every shop and acts with a yes</li>
+            </ul>
+          </aside>
         </div>
       </div>
     </Sec>
@@ -875,7 +733,7 @@ function Ecosystem() {
 
 function Define() {
   return (
-    <Part title="Problem statement and principles">
+    <Part title="The brief">
       <blockquote className="cs-hmw" data-reveal>
         <span className="cs-mono">How might we</span>
         let a solo seller hand the repetitive marketplace work to an AI, <em>and still feel like it's her shop?</em>
@@ -887,7 +745,7 @@ function Define() {
             ["y", -2, "Nothing changes without a yes.", "Unless Meera has written a rule that says Co can go ahead.", "Recommendation · Co settings"],
             ["p", 1.5, "Always show the working.", "What Co wants, why, what happens next, and how sure it is.", "Recommendation · Inventory"],
             ["b", -1, "Undo is always there.", "One click to take it back, and a log of everything Co did.", "Home · When Co gets it wrong"],
-            ["g", 2, "Quiet unless it matters.", "One screen to look at, sorted by what needs her right now.", "Home · Returns · Mobile"],
+            ["g", 2, "Only interrupt for what's urgent.", "One screen to look at, sorted by what needs her right now.", "Home · Returns · Mobile"],
           ].map(([c, r, t, d, seen], i) => (
             <Sticky key={t} c={c} r={r}>
               <span className="pin" aria-hidden="true" />
@@ -907,33 +765,10 @@ function Define() {
 
 function Flows() {
   return (
-    <Part title="Who does what">
-      <div className="cs-roles" data-reveal>
-        <div>
-          <p className="who">
-            <CoMark state="thinking" size={22} /> Co's job
-          </p>
-          <ul>
-            <li>Keeps an eye on listings, orders and payouts, overnight too</li>
-            <li>Sees a stockout coming before the sale spike</li>
-            <li>Drafts price changes and return replies, with the evidence attached</li>
-            <li>Spots wrong fees while there's still time to claim</li>
-          </ul>
-        </div>
-        <div>
-          <p className="who">Meera's job</p>
-          <ul>
-            <li>Says yes, tweaks it, or says no</li>
-            <li>Sets the limits Co can never go past</li>
-            <li>Decides how much freedom each kind of task gets</li>
-            <li>Can undo anything, whenever she likes</li>
-          </ul>
-        </div>
-      </div>
-
+    <Part title="The loop: from noticing to changing anything">
       <figure className="cs-fig" data-reveal>
         <figcaption>
-          <span className="cs-mono">Core loop</span> What happens between Co noticing something and anything actually changing
+          <span className="cs-mono">Core loop</span>
         </figcaption>
         <Loop />
       </figure>
@@ -1254,116 +1089,18 @@ function Wireframes() {
     <Part title="From wireframe to screen">
       <WireToFinal />
 
-      <div className="lofi" data-reveal>
-        <figure className="lofi__wide">
-          <div className="lofi-win">
-            <span className="dots"><i /><i /><i /></span>
-            <WireScreen which="home" />
-            <span className="lofi-note" style={{ left: "16%", top: "62%" }}>1</span>
-            <span className="lofi-note" style={{ left: "84%", top: "36%" }}>2</span>
-          </div>
-          <figcaption>
-            <b>Home</b>
-            <span>① Approval queue leads ② Co's overnight log on the side</span>
-          </figcaption>
-        </figure>
-        <figure className="lofi__wide">
-          <div className="lofi-win">
-            <span className="dots"><i /><i /><i /></span>
-            <WireScreen which="approval" />
-            <span className="lofi-note" style={{ left: "26%", top: "36%" }}>1</span>
-            <span className="lofi-note" style={{ left: "88%", top: "70%" }}>2</span>
-          </div>
-          <figcaption>
-            <b>Recommendation</b>
-            <span>① The change in big numbers ② One clear decision</span>
-          </figcaption>
-        </figure>
-        <figure className="lofi__phone">
-          <PhoneWire />
-          <figcaption>
-            <b>Phone</b>
-            <span>One card, swipe to decide</span>
-          </figcaption>
-        </figure>
-      </div>
-
-      <div className="lofi-options" data-reveal>
-        <figure>
-          <WireScreen which="dash" />
-          <figcaption>
-            <span className="tag no">Option A</span> Charts first. Decisions sat below the fold.
-          </figcaption>
-        </figure>
-        <figure className="picked">
-          <WireScreen which="home" />
-          <figcaption>
-            <span className="tag yes">Option B, picked</span> The queue first. Decisions are the job.
-          </figcaption>
-        </figure>
-      </div>
     </Part>
   );
 }
 
 /* ───────────────────────── 07 trade-offs ───────────────────────── */
 
-const TRADEOFFS = [
-  ["Home screen", "The approval list is the home", "A rich analytics dashboard", "Deciding is the actual work. The charts can live one click away."],
-  ["How sure Co is", "High, Medium or Low, with reasons", "A precise score like 87%", "A number looks more exact than it is. Reasons let her judge for herself."],
-  ["Freedom", "Three levels, set per task", "One on/off switch for the AI", "People trust a restock alert long before they trust automatic pricing."],
-  ["Safety net", "An undo toast and a full log", "\"Are you sure?\" on every approval", "If saying yes is cheap, she'll say it more. Pop-ups just slow her down."],
-  ["Language", "Full Hindi, and voice", "English only, which ships faster", "At 10 PM, after a long day, a lot of sellers would rather think in Hindi."],
-];
-
-function Tradeoffs() {
-  return (
-    <Part title="Trade-offs: design decisions and reasoning">
-      <ConsideredChosen />
-      <div className="cs-trade" data-reveal>
-        <div className="cs-trade__row head" aria-hidden="true">
-          <span>Decision</span>
-          <span>Went with</span>
-          <span>Trade-off</span>
-          <span>Reasoning</span>
-        </div>
-        {TRADEOFFS.map(([k, chose, gave, why]) => (
-          <div key={k} className="cs-trade__row">
-            <span className="k">{k}</span>
-            <span className="chose">{chose}</span>
-            <span className="gave">{gave}</span>
-            <span className="why">{why}</span>
-          </div>
-        ))}
-      </div>
-
-      <div className="cs-killed" data-reveal>
-        <p className="hand cs-killed__title">Ideas I rejected</p>
-        <div className="cs-killed__row">
-          {[
-            ["Let Co run fully on autopilot", "Exactly the fear the research kept surfacing. Nobody would switch it on."],
-            ["Make the whole app a chat", "Fine for questions, terrible for working through 12 approvals in a row."],
-            ["A daily email instead of an app", "By the time she reads it, the claim window or the sale has passed."],
-          ].map(([t, d], i) => (
-            <Sticky key={t} c="w" r={[-3, 2, -1][i]} className="crossed">
-              <h3 className="hand">{t}</h3>
-              <p>{d}</p>
-            </Sticky>
-          ))}
-        </div>
-      </div>
-
-    </Part>
-  );
-}
-
-
 /* ───────────────────────── 08 solution ───────────────────────── */
 
 const SCREENS = [
   {
     img: "home",
-    principles: ["Quiet unless it matters", "Undo is always there"],
+    principles: ["Only interrupt for what's urgent", "Undo is always there"],
     finding: "Time goes to watching",
     dec: { problem: "Sellers open the app to find out what needs them, and a dashboard makes them hunt for it.", alts: ["Charts-first analytics dashboard", "Notifications in a bell menu"], why: "A queue sorted by urgency answers \"what do I do now?\" in one glance. The numbers stay, but shrink to three." },
     short: "Home",
@@ -1407,7 +1144,7 @@ const SCREENS = [
   },
   {
     img: "returns",
-    principles: ["Quiet unless it matters"],
+    principles: ["Only interrupt for what's urgent"],
     finding: "Late is expensive",
     dec: { problem: "Each marketplace has its own reply deadline, and missing it means losing the case.", alts: ["Let Co send replies automatically", "A plain list of open returns"], why: "Sort by deadline and draft the reply, but let her send it. A reply speaks for her shop, so it stays her call by default." },
     short: "Returns",
@@ -1542,99 +1279,10 @@ function Solution() {
     <Sec id="solution" n="06" kicker="Solution" title="Final designs">
       <ScreenViewer />
 
-      <div className="cs-control" data-reveal>
-        <h3 className="cs-h3">The seller stays in control</h3>
-        <p className="cs-body">Five controls hold up CoSell's promise. Every one is in the real interface, not just the story.</p>
-        <div className="cs-control__grid">
-          {CONTROLS.map(([t, d, img]) => (
-            <figure key={t}>
-              <div className="shot">
-                <img src={`${A}pop/${img}.webp`} alt={`${t} in the CoSell interface`} loading="lazy" />
-              </div>
-              <figcaption>
-                <b>{t}</b>
-                {d}
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </div>
+      <EdgeScreens />
 
-      <article className="cs-wrong" data-reveal>
-        <div className="cs-feat__copy">
-          <p className="cs-mono">Error recovery</p>
-          <h3>When Co gets it wrong</h3>
-          <p>
-            It will, sometimes. So I designed this before the happy path. One click puts things back exactly as they were,
-            and then Co asks why, with the answers it most needs as buttons, not a text box nobody fills in.
-          </p>
-          <p className="cs-note">The next recommendation like this one shows "Last time you said: price was fine" right on the card.</p>
-        </div>
-        <div className="cs-wrong__ui" aria-label="Mock-up of the undo and feedback flow">
-          <div className="w-card">
-            <p className="w-k">Done by Co · 7:40 AM</p>
-            <p className="w-t">Matched Block-print dupatta to ₹649 on Marketplace A</p>
-            <div className="w-undo">
-              <span>₹649 → ₹699, back to before</span>
-              <b>Undone</b>
-            </div>
-          </div>
-          <div className="w-card">
-            <p className="w-t">What went wrong? It helps Co next time.</p>
-            <div className="w-chips">
-              <span className="on">My price was fine</span>
-              <span>Wrong competitor</span>
-              <span>Never discount this one</span>
-              <span>Just not today</span>
-            </div>
-            <p className="w-learn">
-              <CoMark state="done" size={18} /> Got it. Co won't match prices on this dupatta again without asking.
-            </p>
-          </div>
-        </div>
-      </article>
+      <Phones />
 
-      <div className="cs-edges" data-reveal>
-                <h3>Edge cases</h3>
-        <div className="cs-edges__grid">
-          {[
-            ["A marketplace stops syncing", "Numbers from that shop are marked stale with the time of the last sync. Never hidden, never guessed."],
-            ["Two recommendations clash", "A price cut and an ad pause on the same product become one decision, so she isn't asked twice."],
-            ["Co isn't sure", "Below a confidence floor, Co asks a question instead of proposing an action."],
-            ["She's away for a week", "Nothing waits forever. Anything past its deadline falls back to her safest setting and shows up in the recap."],
-          ].map(([t, d]) => (
-            <div key={t}>
-              <h4>{t}</h4>
-              <p>{d}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="cs-phones" data-reveal>
-        <div className="cs-phones__copy">
-          <p className="cs-mono">Mobile</p>
-          <h3>Mobile app</h3>
-          <p>She can approve straight from the lock screen, ask Co something in Hindi out loud, and get a short recap of the day at night.</p>
-          <a className="cs-phones__try" href="/work/cosell/demo/index.html#/app" target="_blank" rel="noreferrer">
-            Try the phone app ↗
-          </a>
-        </div>
-        <div className="cs-phones__stage">
-          {[
-            ["m-lock", "Approving from the lock screen"],
-            ["m-morning", "Morning swipe stack"],
-            ["m-voice", "Asking Co in Hindi"],
-          ].map(([img, alt], i) => (
-            <img key={img} src={`${A}${img}.webp`} alt={alt} width="556" height="1174" loading="lazy" style={{ "--i": i }} />
-          ))}
-        </div>
-      </div>
-
-
-
-      <AskCo />
-      <SeverityLegend />
       <DesignSystem />
     </Sec>
   );
@@ -1685,44 +1333,16 @@ function MiniCard({ money, photo }) {
 
 function Iterations() {
   return (
-    <Part title="What changed after feedback and testing my own work">
+    <Part title="What changed after feedback">
       <PriceIteration />
+      <SeverityLegend />
       <Evo
         n="01"
         title="Mobile: from a mini dashboard to one decision at a time"
         steps={[
           { v: "V1", cap: "A list of cards, labels and a Review button", art: <img className="evo__phone" src={`${A}iter-v1-phone.webp`} alt="First mobile version: a list of cards" />, why: "Too many clicks between packing orders" },
           { v: "V2", cap: "A daily brief with numbers first", art: <img className="evo__phone" src={`${A}iter-v1-brief.webp`} alt="Second mobile version: a daily brief" />, why: "Still reading, not deciding" },
-          { v: "Final", cap: "A swipe stack: yes or no, one at a time", art: <img className="evo__phone" src={`${A}m-morning.webp`} alt="Final mobile version: a swipe stack of decisions" /> },
-        ]}
-      />
-      <Evo
-        n="02"
-        title="Recommendation cards: lead with the money"
-        steps={[
-          { v: "V1", cap: "Describes the action", art: <MiniCard />, why: "She decides on money, not actions" },
-          { v: "V2", cap: "The gain leads", art: <MiniCard money />, why: "Needed to know which product at a glance" },
-          { v: "Final", cap: "Photo + gain + one button", art: <MiniCard money photo /> },
-        ]}
-      />
-      <Evo
-        n="03"
-        title="Co's icon: from decoration to status"
-        steps={[
-          { v: "V1", cap: "A glowing orb: just says \"AI\"", art: <span className="orb" />, why: "Looked like every AI product" },
-          { v: "V2", cap: "Two circles that change shape", art: <span className="circles"><i /><i /></span>, why: "Hard to read at 16px, no brand tie-in" },
-          {
-            v: "Final",
-            cap: "The logo, with a badge for state",
-            art: (
-              <span className="evo__marks">
-                <CoMark state="idle" size={34} />
-                <CoMark state="needsYou" size={34} />
-                <CoMark state="done" size={34} />
-                <CoMark state="paused" size={34} />
-              </span>
-            ),
-          },
+          { v: "Final", cap: "One decision at a time. Swipe, or use the buttons.", art: <IPhone className="evo__ip" src={`${A}ios/m-today.webp`} alt="Final mobile version: one decision at a time" /> },
         ]}
       />
     </Part>
@@ -1733,7 +1353,7 @@ function Iterations() {
 
 function Reflection() {
   return (
-    <Sec id="reflection" n="09" kicker="Reflection" title="Reflection and next steps">
+    <Sec id="reflection" n="08" kicker="Reflection" title="What I learned, and what's next">
       <div className="cs-valid" data-reveal>
         <span className="tag">Not tested yet</span>
         <h3>I haven't tested CoSell with sellers.</h3>
@@ -1760,31 +1380,14 @@ function Reflection() {
         </dl>
       </div>
 
-      <div className="cs-goals" data-reveal>
-        <p className="cs-mono">How I'd know it works · targets, not results</p>
-        <div className="cs-goals__row">
-          {[
-            ["15 min", "a day across all dashboards"],
-            ["7 / 10", "high-confidence recommendations approved without edits"],
-            ["< 1 / 20", "actions undone. Zero would worry me too: it may mean she's stopped checking"],
-            ["0", "fee errors found after the claim window has closed"],
-          ].map(([n, d]) => (
-            <div key={n}>
-              <p className="n">{n}</p>
-              <p>{d}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
       <div className="rf" data-reveal>
         <p className="cs-mono">What I learned</p>
         <div className="rf__cards">
           {[
-            [Handshake, "Trust is the product", "The AI was the easy part. Every screen had to earn a seller's yes."],
+            [Handshake, "Trust had to be designed, not assumed", "Every screen needed a reason, a limit or an undo before I'd expect a seller to say yes."],
             [Undo2, "Design the failure first", "Planning for \"Co got it wrong\" shaped the whole approval flow."],
-            [Target, "Less, but sharper", "Cutting the dashboard to one queue made the product feel calm, not empty."],
-            [Languages, "Language is access", "Hindi and voice turned a power-user tool into one any seller can use."],
+            [Target, "One queue beat many charts", "Cutting home to a ranked list was the biggest simplification."],
+            [Languages, "Hindi and voice are bets to test", "I think they matter for tired sellers at night. Testing will tell."],
           ].map(([Icon, t, d], i) => (
             <div key={t} style={{ "--r": `${[-2, 1.5, -1, 2][i]}deg` }}>
               <span className="ic"><Icon size={22} strokeWidth={1.75} /></span>
@@ -1795,56 +1398,6 @@ function Reflection() {
         </div>
       </div>
 
-      <div className="road" data-reveal>
-        {[
-          ["Now", "Put the prototype in front of sellers who run 2+ shops", "users"],
-          ["Next", "Measure if one small win, a restock alert, unlocks more trust", "trust"],
-          ["Later", "Recover real money: fee checks on live settlement files", "money"],
-        ].map(([k, d], i) => (
-          <div key={k} className="road__stop">
-            <span className="road__dot">{i + 1}</span>
-            <p className="cs-mono">{k}</p>
-            <p>{d}</p>
-          </div>
-        ))}
-      </div>
     </Sec>
-  );
-}
-
-function Footer() {
-  const [state, setState] = useState("pending"); // pending | yes | no
-  return (
-    <footer className={`end ${state}`}>
-      <div className="end__panel">
-        <p className="end__k">
-          <CoMark state={state === "yes" ? "done" : "needsYou"} size={22} />
-          {state === "yes" ? "Approved" : state === "no" ? "Not now" : "Needs your call"}
-        </p>
-        <h2>
-          {state === "yes" ? "Great. Let's talk." : state === "no" ? "Fair. There's more work to see." : <>Hire Suhani as your next product designer?</>}
-        </h2>
-        <div className="end__btns">
-          {state === "pending" && (
-            <>
-              <button type="button" className="yes" onClick={() => setState("yes")}><Check size={18} strokeWidth={2.5} /> Approve</button>
-              <button type="button" className="no" onClick={() => setState("no")}>Not now</button>
-            </>
-          )}
-          {state === "yes" && (
-            <>
-              <a href="/#contact" className="yes"><Mail size={18} strokeWidth={2} /> Get in touch</a>
-              <a href="/#projects" className="no">More work <ArrowRight size={16} /></a>
-            </>
-          )}
-          {state === "no" && (
-            <>
-              <a href="/#projects" className="yes">More work <ArrowRight size={16} /></a>
-              <button type="button" className="no" onClick={() => setState("pending")}><Undo2 size={16} /> Undo</button>
-            </>
-          )}
-        </div>
-      </div>
-    </footer>
   );
 }

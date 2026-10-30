@@ -54,51 +54,6 @@ function Count({ value, suffix = "" }) {
   return <span ref={ref}>{String(n).padStart(2, "0")}{suffix}</span>;
 }
 
-/* (01) — what I do: a Sangria panel where interface clutter clears away on scroll */
-const PRINCIPLES = [
-  ["Clarity over cleverness", "If it needs explaining, it needs redesigning."],
-  ["Evidence over opinion", "Research settles debates that taste can't."],
-  ["Systems over screens", "Design the rules, and the screens follow."],
-];
-
-function Intro() {
-  const ref = useRef(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (reduced()) return el.style.setProperty("--p", 1);
-    const tick = () => {
-      const r = el.getBoundingClientRect();
-      const p = (innerHeight * 0.75 - r.top) / (r.height * 0.9);
-      el.style.setProperty("--p", Math.min(1, Math.max(0, p)).toFixed(3));
-    };
-    tick();
-    addEventListener("scroll", tick, { passive: true });
-    return () => removeEventListener("scroll", tick);
-  }, []);
-  return (
-    <section className="sx-impact-wrap" id="intro">
-      <div className="sx-impact" ref={ref}>
-        <div className="sx-impact-top">
-          <span>(01)</span><span>What I do</span>
-        </div>
-        <h2 className="sx-impact-title">
-          Good design removes everything that <span>doesn't help.</span>
-        </h2>
-        <p className="sx-impact-note">My job, mostly, is deciding what to leave out.</p>
-        <ol className="sx-impact-principles">
-          {PRINCIPLES.map(([t, d], i) => (
-            <li key={t}>
-              <span>0{i + 1}</span>
-              <b>{t}</b>
-              <p>{d}</p>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </section>
-  );
-}
-
 /* (02) — work: stacking cards, each with its own layout (split, poster, banner) */
 const TONES = ["dark", "butter", "pine"]; // cornflower, latte, sangria
 const LAYOUTS = ["split", "poster", "banner"];
@@ -108,7 +63,7 @@ function Work() {
     <section className="sx" id="projects">
       <header className="sx-work-head" data-rv>
         <div className="sx-rule">
-          <span>(02)</span><span>Selected work</span><i aria-hidden="true" /><i aria-hidden="true" />
+          <span>(01)</span><span>Selected work</span><i aria-hidden="true" /><i aria-hidden="true" />
         </div>
         <div className="sx-work-title">
           <h2 className="sx-title">Case <em>studies.</em></h2>
@@ -156,7 +111,7 @@ function Work() {
 function Experience() {
   return (
     <section className="sx" id="experience">
-      <Head n={3} label="Experience" title={<>Where I've been <em>learning</em> out loud.</>} />
+      <Head n={2} label="Experience" title={<>Where I've been <em>learning</em> out loud.</>} />
       <ol className="sx-xp">
         {experience.map((x, i) => (
           <li key={x.role} className="sx-xp-row" data-rv style={{ "--d": `${i * 90}ms` }}>
@@ -205,7 +160,7 @@ function Skills() {
   const el = ELEMENTS[active];
   return (
     <section className="sx" id="skills">
-      <Head n={4} label="Skillset" title={<>The elements I <em>design with.</em></>} />
+      <Head n={3} label="Skillset" title={<>The elements I <em>design with.</em></>} />
       <div className="sx-table">
         <div className="sx-tiles">
           {ELEMENTS.map((e, i) => (
@@ -249,7 +204,7 @@ function About() {
   const [src, setSrc] = useState(aboutPhoto);
   return (
     <section className="sx" id="about">
-      <Head n={5} label="About me" title={<>Hi again. Here's the <em>longer</em> version.</>} />
+      <Head n={4} label="About me" title={<>Hi again. Here's the <em>longer</em> version.</>} />
       <div className="sx-about">
         <figure className="sx-photo" data-rv>
           <img src={src} onError={() => src !== hero.fallback && setSrc(hero.fallback)} alt="Suhani Rajoria" loading="lazy" />
@@ -292,7 +247,6 @@ export default function Sections() {
   return (
     <div className="sx-page">
       <main>
-        <Intro />
         <Work />
         <Experience />
         <Skills />

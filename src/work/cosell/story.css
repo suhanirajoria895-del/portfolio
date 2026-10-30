@@ -58,7 +58,7 @@
 .rivals tr:last-child th, .rivals tr:last-child td { border-bottom: 0; }
 
 /* persona avatar */
-.pc__avatar { flex: none; display: grid; place-items: center; width: 96px; height: 96px; border-radius: 28px; background: linear-gradient(140deg, #6b5cff, #9b8cff); color: #fff; font-size: 40px; font-weight: 600; }
+.pc__avatar { flex: none; display: grid; place-items: center; width: 96px; height: 96px; border-radius: 28px; background: linear-gradient(140deg, #4f46e5, #818cf8); color: #fff; font-size: 40px; font-weight: 600; }
 .pc__est { margin-top: 10px; }
 
 /* journey toggle */
@@ -119,7 +119,7 @@
 .pcard__k { font-size: 13px; color: #5c6079; }
 .pcard--before .pcard__big { margin-top: 12px; font-size: 44px; font-weight: 700; letter-spacing: -0.03em; }
 .pcard--before .pcard__big span { color: #9aa0b8; font-weight: 400; }
-.pcard__chip { display: inline-block; margin-top: 8px; padding: 3px 8px; border-radius: 8px; background: #eeecff; color: #4a3bd6; font-size: 12px; font-weight: 600; }
+.pcard__chip { display: inline-block; margin-top: 8px; padding: 3px 8px; border-radius: 8px; background: #eef0ff; color: #3730a3; font-size: 12px; font-weight: 600; }
 .pcard__s { margin-top: 10px; font-size: 12.5px; color: #5c6079; }
 .pcard__top { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
 .pcard__delta { display: flex; align-items: flex-start; gap: 6px; margin-top: 14px; font-size: 22px; font-weight: 600; line-height: 1.25; letter-spacing: -0.02em; }
@@ -128,8 +128,8 @@
 .pcard__why { margin-top: 8px; font-size: 15px; color: #3c3f55; }
 .pcard__ctx { display: flex; align-items: center; gap: 16px; margin-top: 16px; padding: 12px 14px; border-radius: 16px; background: #f6f7fb; }
 .pcard__spark { width: 150px; height: 46px; flex: none; }
-.pcard__spark .ln { fill: none; stroke: #5543e8; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
-.pcard__spark .pt { fill: #5543e8; }
+.pcard__spark .ln { fill: none; stroke: #4338ca; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.pcard__spark .pt { fill: #4338ca; }
 .pcard__spark .thr { stroke: #8a8fa8; stroke-width: 1.2; stroke-dasharray: 4 4; }
 .pcard__ctx dl { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 0; }
 .pcard__ctx dt { font-size: 12px; color: #5c6079; }
@@ -143,7 +143,7 @@
 .pcard__actions button.b:disabled { opacity: 0.6; cursor: default; }
 .pcard__actions button.b.p:disabled { opacity: 1; background: #17663f; border-color: #17663f; }
 .pcard__toast { min-height: 22px; margin-top: 10px; font-size: 14px; color: #3c3f55; }
-.pcard__toast .undo { display: inline-flex; align-items: center; gap: 4px; margin-left: 6px; padding: 0; border: 0; background: none; color: #4a3bd6; font-weight: 600; text-decoration: underline; }
+.pcard__toast .undo { display: inline-flex; align-items: center; gap: 4px; margin-left: 6px; padding: 0; border: 0; background: none; color: #3730a3; font-weight: 600; text-decoration: underline; }
 
 /* acts or asks */
 .aoa { margin: 0; padding: 28px; border-radius: 28px; background: var(--surface); border: 1px solid var(--line); }
