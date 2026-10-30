@@ -208,7 +208,6 @@ function About() {
       <div className="sx-about">
         <figure className="sx-photo" data-rv>
           <img src={src} onError={() => src !== hero.fallback && setSrc(hero.fallback)} alt="Suhani Rajoria" loading="lazy" />
-          <figcaption>Hyderabad, India</figcaption>
         </figure>
 
         <div className="sx-story is-butter" data-rv>
