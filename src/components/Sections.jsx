@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, MapPin } from "@phosphor-icons/react";
+import { ArrowUpRight, MapPin } from "@phosphor-icons/react";
 import { work, experience, aboutPhoto, hero } from "../portfolio/content.js";
 import CosellCover from "./covers/CosellCover.jsx";
 import PaywiseCover from "./covers/PaywiseCover.jsx";
@@ -54,40 +54,55 @@ function Count({ value, suffix = "" }) {
   return <span ref={ref}>{String(n).padStart(2, "0")}{suffix}</span>;
 }
 
-/* (02) — work: one project per row; eyebrow, big cover, then the outcome and a link */
-const COVERS = { cosell: CosellCover, paywise: PaywiseCover, steadytrack: SteadyTrackCover };
+/* (02) — work: stacking cards, each with its own layout (split, poster, banner) */
+const TONES = ["dark", "butter", "pine"]; // cornflower, latte, sangria
+const LAYOUTS = ["split", "poster", "banner"];
 
 function Work() {
   return (
-    <section className="sx sx-work" id="projects">
+    <section className="sx" id="projects">
       <header className="sx-work-head" data-rv>
-        <p className="sx-eyebrow is-accent">Selected work</p>
-        <h2 className="sx-work-h">Three projects, start to finish: the research, the decisions and the design.</h2>
+        <div className="sx-rule">
+          <span>(01)</span><span>Selected work</span><i aria-hidden="true" /><i aria-hidden="true" />
+        </div>
+        <div className="sx-work-title">
+          <h2 className="sx-title">Case <em>studies.</em></h2>
+          <p>Three projects, start to finish: the research, the decisions and the design.</p>
+        </div>
       </header>
-      <ol className="sx-cases">
-        {work.map((p, i) => {
-          const Cover = COVERS[p.cover];
-          return (
-            <li key={p.name} className="sx-case">
-              <p className="sx-eyebrow" data-rv>
-                Case study {String(i + 1).padStart(2, "0")} · {p.name} · {p.kicker}
-              </p>
-              <a href={p.href} className="sx-case-media" tabIndex={-1} aria-hidden="true" data-rv>
-                {Cover ? <Cover /> : <img src={p.image} alt="" loading="lazy" />}
-              </a>
-              <div className="sx-case-body" data-rv>
-                <h3>{p.title}</h3>
-                <p className="sx-case-sum">{p.summary}</p>
-                <ul className="sx-chips" aria-label="Scope">{p.tags.map((t) => <li key={t}>{t}</li>)}</ul>
-                <a href={p.href} className="sx-cta">
-                  Read the case study<span className="sr-only">: {p.name}</span>
-                  <ArrowRight size={16} weight="bold" aria-hidden="true" />
-                </a>
+      <div className="sx-stack">
+        {work.map((p, i) => (
+          <a key={p.name} href={p.href} className={`sx-card is-${TONES[i % 3]} is-l-${LAYOUTS[i % 3]}`} style={{ "--i": i }}>
+            <div className="sx-card-text">
+              <div className="sx-card-meta">
+                <span>{String(i + 1).padStart(2, "0")} / {String(work.length).padStart(2, "0")}</span>
+                <span>{p.label} · {p.year}</span>
               </div>
-            </li>
-          );
-        })}
-      </ol>
+              <h3>{p.name}</h3>
+              <p className="sx-card-q">{p.question}</p>
+              <ul className="sx-tags">{p.tags.map((t) => <li key={t}>{t}</li>)}</ul>
+              <span className="sx-pill">
+                Read the case study <span className="sx-pill-dot"><ArrowUpRight size={16} weight="bold" aria-hidden="true" /></span>
+              </span>
+            </div>
+            <div className={`sx-card-img${p.cover ? " has-cover" : ""}`}>
+              {p.cover === "cosell" ? (
+                <CosellCover />
+              ) : p.cover === "paywise" ? (
+                <PaywiseCover />
+              ) : p.cover === "steadytrack" ? (
+                <SteadyTrackCover />
+              ) : (
+                <>
+                  <img src={p.image} alt={`${p.name} preview`} loading="lazy" />
+                  <span className="sx-card-sticker">“{p.pull}”</span>
+                </>
+              )}
+            </div>
+            <span className="sx-card-ghost" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+          </a>
+        ))}
+      </div>
     </section>
   );
 }

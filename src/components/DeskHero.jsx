@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, ArrowUpRight, SteeringWheel } from "@phosphor-icons/react";
+import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react";
 import "../desk-hero.css";
 
 const NAV = [
@@ -46,7 +46,7 @@ export default function DeskHero() {
           {NAV.map(([label, href], n) => (
             href === "#play" ? (
               <a key={label} href={href} className="dh-nav-play" onClick={play}>
-                <SteeringWheel size={16} weight="bold" aria-hidden="true" />{label}
+                {label}
                 <span className="sr-only">: race through Hyderabad in the footer</span>
               </a>
             ) : (

@@ -38,8 +38,8 @@ Applying for the **Demandbase UX Intern** role (agentic "pipeline AI" B2B platfo
 
 ## Style and wording rules (from Suhani)
 
-- Homepage palette now follows the footer's twilight drive (asked for by Suhani): cream `#fbf3ea`, indigo night `#221c3d` (ink, dark blocks, buttons), sunset peach `#ffb46b` / coral `#ff6b5a` / pink `#ff8fb8` (highlights, gradients), rust `#b8402c` for accent text (AA on cream), light peach `#ffd9b8` blocks. Tokens live in the palette block of `src/sections.css` and at the top of `src/desk-hero.css`. Keep things minimal, not over-colourful.
-- Hero nav is a frosted pill bar: Home, Projects, About, Play (sunset pill; scrolls to the footer and starts the race via a `rf:play` window event), Resume. No Contact link and no "Open to 2027 roles" pill.
+- Homepage is a twilight theme matching the footer (asked for by Suhani): night-sky page (`#221c3d` → `#1b1633` with sunset glows and a star field), cream text `#fff4e8`, peach `#ffb46b` accents, coral `#ff6b5a` / pink `#ff8fb8` in gradients. Block tones: `is-dark` = sunset gradient (night text), `is-butter` = frosted glass, `is-pine` = dusk `#342a5e`, `is-ink` = deep night. The theme is the last block of `src/sections.css`; the hero adds a dusk wash and fades to night at the bottom. Project cards are the original stacking cards (Suhani wants them kept). Keep things minimal, not over-colourful.
+- Hero nav is a frosted pill bar: Home, Projects, About, Play (a plain pill like the others, no icon or colour; scrolls to the footer and starts the race via a `rf:play` window event), Resume. No Contact link and no "Open to 2027 roles" pill.
 - Suhani doesn't drink chai — don't mention it. She dislikes cursive/italic display type in the footer, cliché lines ("big dreams"), and copy that names UX laws or heuristics.
 - CoSell: say **recommendation**, never "suggestion". Use **click(s)**, not tap(s), in CoSell, Paywise and SteadyTrack copy ("Finger taps" in SteadyTrack is an exercise name — leave it).
 - Case study facts cards: same light-grey two-column card on all three; no "Achievement"; Team for CoSell and Paywise = **Individual**.

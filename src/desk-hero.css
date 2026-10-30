@@ -78,18 +78,6 @@
 }
 .dh-nav a:hover { background: rgba(255, 255, 255, 0.7); }
 .dh-nav a[aria-current] { background: var(--night); color: #fff4e8; }
-/* Play: a sunset pill inside the bar */
-.dh-nav .dh-nav-play {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: linear-gradient(110deg, #ffb46b, #ff6b5a 55%, #ff8fb8);
-  color: var(--night);
-  font-weight: 600;
-}
-.dh-nav .dh-nav-play:hover { background: linear-gradient(110deg, #ffb46b, #ff6b5a 55%, #ff8fb8); filter: brightness(1.06); }
-.dh-nav-play svg { transition: transform 500ms var(--out); }
-.dh-nav-play:hover svg { transform: rotate(-90deg); }
 .dh .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .dh-burger {
   display: none;
@@ -346,4 +334,16 @@
   }
   .dh-feat img { width: 84px; height: 96px; }
   .dh-feat b { font-size: 28px; }
+}
+
+/* Twilight: a soft dusk wash over the photo, and a fade into the night sky below */
+.dh::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, transparent 86%, #221c3d 100%),
+    linear-gradient(180deg, rgba(255, 143, 184, 0.10), rgba(255, 140, 90, 0.12) 70%);
 }

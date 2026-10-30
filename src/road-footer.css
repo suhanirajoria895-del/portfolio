@@ -10,7 +10,7 @@
   isolation: isolate;
   overflow: hidden;
   margin-top: clamp(64px, 8vw, 128px);
-  background: var(--cream);
+  background: #2a2048;
   color: var(--ink);
   font-family: "DM Sans Variable", "DM Sans", system-ui, sans-serif;
 }
