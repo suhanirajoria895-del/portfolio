@@ -56,7 +56,7 @@ function Count({ value, suffix = "" }) {
 
 /* (02) — work: stacking cards, each with its own layout (split, poster, banner) */
 const TONES = ["dark", "butter", "pine"]; // cornflower, latte, sangria
-const LAYOUTS = ["split", "poster", "banner"];
+const LAYOUTS = ["split", "split", "banner"];
 
 function Work() {
   return (
@@ -85,11 +85,11 @@ function Work() {
                 Read the case study <span className="sx-pill-dot"><ArrowUpRight size={16} weight="bold" aria-hidden="true" /></span>
               </span>
             </div>
-            <div className={`sx-card-img${p.cover ? " has-cover" : ""}`}>
+            <div className={`sx-card-img${p.cover ? ` has-cover is-${p.cover}` : ""}`}>
               {p.cover === "cosell" ? (
                 <CosellCover />
               ) : p.cover === "paywise" ? (
-                <PaywiseCover />
+                <PaywiseCover focus={540} />
               ) : p.cover === "steadytrack" ? (
                 <SteadyTrackCover />
               ) : (

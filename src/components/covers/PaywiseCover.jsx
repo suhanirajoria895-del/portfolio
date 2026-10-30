@@ -18,9 +18,10 @@ const M = quadMatrix(SW, SH, QUAD);
 const CLIP = `polygon(${THUMB.map(([x, y]) => `${x}px ${y}px`).join(",")})`;
 
 /* Paywise cover: the art-directed photo with the real pause screen mapped onto the phone.
-   The 1672×941 stage is scaled to cover whatever box it sits in. */
-export default function PaywiseCover() {
-  const [ref, stageStyle] = useStageFit(IW, IH);
+   The 1672×941 stage is scaled to cover whatever box it sits in.
+   Pass focus (a stage x) to crop towards the phone, e.g. to keep the baked-in title out of a narrow box. */
+export default function PaywiseCover({ focus }) {
+  const [ref, stageStyle] = useStageFit(IW, IH, focus);
 
   return (
     <div className="pc" ref={ref} aria-hidden="true">

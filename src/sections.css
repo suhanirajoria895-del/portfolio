@@ -545,3 +545,8 @@ body { background: #1b1633; }
 @media (max-width: 1100px) {
   .sx-page .sx-card.is-l-poster .sx-card-text { background: none; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
 }
+/* Paywise: its cover photo carries its own title, so crop to the phone and keep the box near-square */
+.sx-card-img.has-cover.is-paywise .pc { transform: scale(1.14); transform-origin: 0 50%; }
+@media (max-width: 1100px) {
+  .sx-card-img.has-cover.is-paywise { aspect-ratio: 1 / 1; }
+}
