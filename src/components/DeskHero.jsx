@@ -7,6 +7,7 @@ const NAV = [
   ["Projects", "#projects"],
   ["About", "#about"],
   ["Contact", "#contact"],
+  ["Resume", "/resume.pdf"],
 ];
 
 // Swap for the clean desk photo (no text or cards baked in) once it's ready.
@@ -37,7 +38,7 @@ export default function DeskHero() {
         <a href="#home" className="dh-logo">Suhani Rajoria<i aria-hidden="true" /></a>
         <nav className="dh-nav" aria-label="Main">
           {NAV.map(([label, href], n) => (
-            <a key={label} href={href} aria-current={n === 0 ? "page" : undefined}>{label}</a>
+            <a key={label} href={href} aria-current={n === 0 ? "page" : undefined} {...(href.endsWith(".pdf") ? { target: "_blank", rel: "noreferrer" } : {})}>{label}</a>
           ))}
         </nav>
         <a href="#contact" className="dh-status">
@@ -78,7 +79,7 @@ export default function DeskHero() {
       <div className={`dh-menu${menu ? " is-open" : ""}`} role="dialog" aria-modal="true" aria-label="Menu" aria-hidden={!menu}>
         <button type="button" className="dh-close" onClick={() => setMenu(false)} tabIndex={menu ? 0 : -1}>Close</button>
         <nav>
-          {[...NAV, ["Resume", "/resume.pdf"]].map(([label, href]) => (
+          {NAV.map(([label, href]) => (
             <a key={label} href={href} onClick={() => setMenu(false)} tabIndex={menu ? 0 : -1}>{label}</a>
           ))}
         </nav>

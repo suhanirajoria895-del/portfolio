@@ -39,7 +39,6 @@ const OOPS = [
   "Let's call it an unexpected user flow.",
   "That's going in the case study.",
   "Cone 1, me 0. Back to wireframes.",
-  "Moving fast, breaking cones.",
   "That cone is a dark pattern.",
   "Affordance unclear. It looked drivable.",
 ];

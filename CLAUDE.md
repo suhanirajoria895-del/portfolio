@@ -73,7 +73,7 @@ Brief file: `C:\Users\suhan\Downloads\CoSell_case_study_brief.md` (copy into `do
 - GitHub repo link for the CoSell prototype.
 - Confirm the industry-designer feedback wording, and the "40 observations" count.
 - Accessibility audit of the prototype itself.
-- Real LinkedIn URL in `content.js` (currently linkedin.com). `/resume.pdf` doesn't exist (resume contains a phone number — ask before publishing).
+- Real LinkedIn URL in `content.js` (currently linkedin.com). `public/resume.pdf` is live (Suhani approved publishing it with her phone number); hero nav links to it.
 - SteadyTrack year: cover says 2025, homepage card says 2024.
 - CoSell screenshots still show "Suggested by Co" and real marketplace names; need re-export.
 
