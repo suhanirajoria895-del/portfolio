@@ -275,7 +275,7 @@ export default function RoadFooter() {
       <div className="rf-sky" ref={(n) => (layers.current.sky = n)} aria-hidden="true" />
 
       <div className="rf-panel">
-        <h2 className="rf-wall">Let's build the next one <em>together.</em></h2>
+        <h2 className="rf-wall">Let's talk about <em>what comes next.</em></h2>
         <p className="rf-sub">Got a brief, a question or a wild idea? Send it my way.</p>
 
         <ul className="rf-links">
