@@ -1,14 +1,20 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, ArrowUpRight } from "@phosphor-icons/react";
+import { ArrowRight, ArrowUpRight, SteeringWheel } from "@phosphor-icons/react";
 import "../desk-hero.css";
 
 const NAV = [
   ["Home", "#home"],
   ["Projects", "#projects"],
   ["About", "#about"],
-  ["Contact", "#contact"],
+  ["Play", "#play"],
   ["Resume", "/resume.pdf"],
 ];
+
+// Jump to the footer and start the drive (RoadFooter listens for this).
+const play = (e) => {
+  e.preventDefault();
+  window.dispatchEvent(new Event("rf:play"));
+};
 
 // Swap for the clean desk photo (no text or cards baked in) once it's ready.
 const PHOTO = "/assets/hero-desk-mock.webp";
@@ -38,12 +44,16 @@ export default function DeskHero() {
         <a href="#home" className="dh-logo">Suhani Rajoria<i aria-hidden="true" /></a>
         <nav className="dh-nav" aria-label="Main">
           {NAV.map(([label, href], n) => (
-            <a key={label} href={href} aria-current={n === 0 ? "page" : undefined} {...(href.endsWith(".pdf") ? { target: "_blank", rel: "noreferrer" } : {})}>{label}</a>
+            href === "#play" ? (
+              <a key={label} href={href} className="dh-nav-play" onClick={play}>
+                <SteeringWheel size={16} weight="bold" aria-hidden="true" />{label}
+                <span className="sr-only">: race through Hyderabad in the footer</span>
+              </a>
+            ) : (
+              <a key={label} href={href} aria-current={n === 0 ? "page" : undefined} {...(href.endsWith(".pdf") ? { target: "_blank", rel: "noreferrer" } : {})}>{label}</a>
+            )
           ))}
         </nav>
-        <a href="#contact" className="dh-status">
-          <i aria-hidden="true" />Open to 2027 roles<ArrowRight size={16} aria-hidden="true" />
-        </a>
         <button type="button" className="dh-burger" aria-label="Open menu" aria-expanded={menu} onClick={() => setMenu(true)}>
           <span /><span />
         </button>
@@ -80,7 +90,7 @@ export default function DeskHero() {
         <button type="button" className="dh-close" onClick={() => setMenu(false)} tabIndex={menu ? 0 : -1}>Close</button>
         <nav>
           {NAV.map(([label, href]) => (
-            <a key={label} href={href} onClick={() => setMenu(false)} tabIndex={menu ? 0 : -1}>{label}</a>
+            <a key={label} href={href} onClick={(e) => { setMenu(false); if (href === "#play") play(e); }} tabIndex={menu ? 0 : -1}>{label}</a>
           ))}
         </nav>
       </div>
