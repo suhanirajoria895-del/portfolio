@@ -9,6 +9,7 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  margin-top: clamp(40px, 5vw, 80px);
   background: var(--cream);
   color: var(--ink);
   font-family: "DM Sans Variable", "DM Sans", system-ui, sans-serif;
@@ -26,7 +27,7 @@
 /* Sky fills the footer and fades into cream at the top so the text sits on calm colour */
 .rf-sky {
   position: absolute;
-  inset: 0;
+  inset: 28px 0 0;
   z-index: -1;
   background: url("/footer/sky.webp") repeat-x left bottom / auto 100%;
 }
@@ -43,7 +44,7 @@
   padding: 56px clamp(20px, 6vw, 96px) 0;
   background: var(--night);
   color: #fff4e8;
-  border-radius: 0 0 28px 28px;
+  border-radius: 28px;
 }
 .rf-panel::before,
 .rf-panel::after {
