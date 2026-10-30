@@ -122,6 +122,12 @@ export default function TwilightHero() {
             <img className="th-pic" src="/hero/suhani.webp" alt="Suhani Rajoria, smiling" width="720" height="900" fetchPriority="high" />
           </figure>
         </article>
+
+        {/* The card sits in an open airmail envelope: flap behind it, pocket in front */}
+        <div className="th-env" aria-hidden="true">
+          <img className="th-env-flap" src="/hero/envelope-flap.webp" alt="" width="1300" height="468" />
+          <img className="th-env-pocket" src="/hero/envelope.webp" alt="" width="1300" height="646" />
+        </div>
       </div>
 
       <div className={`th-menu${menu ? " is-open" : ""}`} role="dialog" aria-modal="true" aria-label="Menu" aria-hidden={!menu}>

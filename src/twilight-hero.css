@@ -79,11 +79,14 @@
 
 /* Stage: card in the middle of the sky, sparkles around it */
 .th-stage {
+  --env: min(1180px, calc(100% + 40px));   /* envelope width, a little wider than the card */
   position: relative;
   flex: 1;
-  display: grid;
-  place-items: center;
-  padding: clamp(40px, 7vh, 88px) 0 clamp(72px, 12vh, 140px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: clamp(40px, 7vh, 88px);
 }
 .th-spark {
   position: absolute;
@@ -112,12 +115,26 @@
   border-image: url("/hero/paper.webp") 90 fill / 40px stretch;
   color: var(--ink);
   filter: drop-shadow(0 30px 40px rgba(18, 12, 40, 0.45));
-  animation: th-rise 1100ms var(--out) 150ms both;
+  animation: th-rise 1400ms var(--out) 250ms both;
 }
+/* The card slides up out of the envelope */
 @keyframes th-rise {
-  from { opacity: 0; transform: translateY(40px) rotate(-1.2deg); }
-  to { opacity: 1; transform: none; }
+  from { transform: translateY(min(170px, 30vw)); }
+  to { transform: none; }
 }
+
+/* Envelope: flap behind the card, pocket in front; its lower part runs off the bottom of the hero */
+.th-env {
+  position: relative;
+  width: var(--env);
+  aspect-ratio: 1300 / 646;
+  margin-top: calc(var(--env) * -0.12);
+  margin-bottom: calc(var(--env) * -0.2);
+  pointer-events: none;
+}
+.th-env img { position: absolute; left: 0; width: 100%; height: auto; }
+.th-env-flap { bottom: 100%; z-index: 0; }
+.th-env-pocket { top: 0; z-index: 2; filter: drop-shadow(0 -6px 18px rgba(18, 12, 40, 0.35)); }
 .th-title {
   margin: 0;
   font-size: clamp(32px, 3.6vw, 50px);
