@@ -9,7 +9,7 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  margin-top: clamp(40px, 5vw, 80px);
+  margin-top: clamp(96px, 11vw, 176px);
   background: var(--cream);
   color: var(--ink);
   font-family: "DM Sans Variable", "DM Sans", system-ui, sans-serif;
