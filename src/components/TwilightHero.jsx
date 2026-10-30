@@ -5,7 +5,7 @@ import "../twilight-hero.css";
 
 const NAV = [
   ["Home", "#home"],
-  ["Projects", "#projects"],
+  ["Work", "#projects"],
   ["About", "#about"],
   ["Play", "#play"],
   ["Resume", "/resume.pdf"],
