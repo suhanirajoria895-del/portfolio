@@ -9,7 +9,7 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  margin-top: clamp(96px, 11vw, 176px);
+  margin-top: clamp(64px, 8vw, 128px);
   background: var(--cream);
   color: var(--ink);
   font-family: "DM Sans Variable", "DM Sans", system-ui, sans-serif;
@@ -602,4 +602,25 @@
 @media (max-width: 560px) {
   .rf-base { flex-direction: column; align-items: flex-start; }
   .rf-base span:last-child { text-align: left; }
+}
+
+/* On wide screens the whole footer fits in one viewport, so the panel is never cut off
+   when you scroll to the bottom; the road scene takes whatever height is left. */
+@media (min-width: 901px) {
+  .rf {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    height: 100svh;
+    min-height: 640px;
+    padding-top: 24px;
+  }
+  .rf-sky {
+    top: 52px;
+  }
+  .rf-stage {
+    flex: 1 1 auto;
+    height: auto;
+    min-height: 280px;
+  }
 }
