@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, MapPin, Copy, Check } from "@phosphor-icons/react";
-import { work, experience, contact, aboutPhoto, hero } from "../portfolio/content.js";
+import { ArrowUpRight, MapPin } from "@phosphor-icons/react";
+import { work, experience, aboutPhoto, hero } from "../portfolio/content.js";
 import CosellCover from "./covers/CosellCover.jsx";
 import PaywiseCover from "./covers/PaywiseCover.jsx";
 import SteadyTrackCover from "./covers/SteadyTrackCover.jsx";
@@ -52,19 +52,6 @@ function Count({ value, suffix = "" }) {
     return () => io.disconnect();
   }, [value]);
   return <span ref={ref}>{String(n).padStart(2, "0")}{suffix}</span>;
-}
-
-function Marquee({ items, tone = "peri", reverse }) {
-  const row = [...items, ...items];
-  return (
-    <div className={`sx-marquee is-${tone}${reverse ? " is-rev" : ""}`} aria-hidden="true">
-      <div className="sx-marquee-track">
-        {row.map((t, i) => (
-          <span key={i}>{t}<b>✦</b></span>
-        ))}
-      </div>
-    </div>
-  );
 }
 
 /* (01) — what I do: a Sangria panel where interface clutter clears away on scroll */
@@ -292,66 +279,11 @@ function About() {
           <ul>
             <li>Sketchbooks</li>
             <li>New playlists</li>
-            <li>One more chai</li>
+            <li>Race weekends</li>
           </ul>
         </div>
       </div>
     </section>
-  );
-}
-
-/* (06) — contact: marquee band + big dark card */
-function Contact() {
-  const [copied, setCopied] = useState(false);
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(contact.email);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1800);
-    } catch {
-      window.location.href = `mailto:${contact.email}`;
-    }
-  };
-  return (
-    <footer id="contact" className="sx-contact-wrap">
-      <Marquee items={["Let's talk", "Say hello", "Open to work from 2027", "Got a messy problem?"]} />
-      <div className="sx-contact">
-        <div className="sx-rule is-dark">
-          <span>(06)</span><span>Get in touch</span><i aria-hidden="true" /><i aria-hidden="true" />
-        </div>
-        <div className="sx-contact-grid">
-          <div>
-            <h2 className="sx-contact-title">Got a problem that needs to <em>make sense?</em></h2>
-            <p className="sx-contact-body">
-              Internships, full-time roles, a research chat or just a hello.
-            </p>
-          </div>
-          <div className="sx-contact-card">
-            <span className="sx-badge is-live"><i /> Available from 2027</span>
-            <a className="sx-mail" href={`mailto:${contact.email}`}>{contact.email}</a>
-            <div className="sx-contact-actions">
-              <a className="sx-pill" href={`mailto:${contact.email}`}>
-                Write to me <span className="sx-pill-dot"><ArrowUpRight size={16} weight="bold" aria-hidden="true" /></span>
-              </a>
-              <button type="button" className="sx-copy" onClick={copy}>
-                {copied ? <Check size={16} weight="bold" /> : <Copy size={16} />} {copied ? "Copied" : "Copy email"}
-              </button>
-            </div>
-            <div className="sx-links">
-              {contact.links.map(([l, h]) => (
-                <a key={l} href={h} target="_blank" rel="noreferrer">{l} <ArrowUpRight size={14} aria-hidden="true" /></a>
-              ))}
-            </div>
-          </div>
-        </div>
-        <p className="sx-bigname" aria-hidden="true">Suhani Rajoria</p>
-        <div className="sx-credits">
-          <span>© {new Date().getFullYear()} Suhani Rajoria</span>
-          <span>Designed in Figma, built with React, fuelled by chai.</span>
-          <a href="#home">Back to top ↑</a>
-        </div>
-      </div>
-    </footer>
   );
 }
 
@@ -366,7 +298,6 @@ export default function Sections() {
         <Skills />
         <About />
       </main>
-      <Contact />
     </div>
   );
 }

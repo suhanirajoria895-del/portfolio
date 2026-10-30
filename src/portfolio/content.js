@@ -117,6 +117,9 @@ export const contact = {
     ["LinkedIn", "https://www.linkedin.com/"],
     ["Behance", "https://www.behance.net/suhanirajoria19"],
   ],
+  // Add your profile URLs to show these icons in the footer.
+  instagram: "",
+  spotify: "",
 };
 
 export const skills = [

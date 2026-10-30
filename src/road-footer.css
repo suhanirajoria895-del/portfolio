@@ -1,0 +1,604 @@
+/* ── Road footer: sunset drive through Hyderabad, playable ── */
+.rf {
+  --ink: #1d1a17;
+  --ink-2: #4d463f;
+  --accent: #d9542f;
+  --cream: #fbf3ea;
+  --asphalt: #2a2d38;
+  --out: cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: "DM Sans Variable", "DM Sans", system-ui, sans-serif;
+}
+
+.rf .sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Sky fills the footer and fades into cream at the top so the text sits on calm colour */
+.rf-sky {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: url("/footer/sky.webp") repeat-x left bottom / auto 100%;
+}
+
+/* Panel: twilight sheet over the sunset, with a few twinkling stars */
+.rf-panel {
+  --night: #221c3d;
+  --peach: #ffb46b;
+  --coral: #ff6b5a;
+  --pink: #ff8fb8;
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  padding: 56px clamp(20px, 6vw, 96px) 0;
+  background: var(--night);
+  color: #fff4e8;
+  border-radius: 0 0 28px 28px;
+}
+.rf-panel::before,
+.rf-panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(1.5px 1.5px at 8% 22%, #fff 99%, transparent),
+    radial-gradient(1px 1px at 19% 68%, #fff 99%, transparent),
+    radial-gradient(2px 2px at 34% 14%, #ffe3c2 99%, transparent),
+    radial-gradient(1px 1px at 47% 52%, #fff 99%, transparent),
+    radial-gradient(1.5px 1.5px at 61% 26%, #fff 99%, transparent),
+    radial-gradient(1px 1px at 72% 74%, #ffe3c2 99%, transparent),
+    radial-gradient(2px 2px at 84% 18%, #fff 99%, transparent),
+    radial-gradient(1px 1px at 93% 58%, #fff 99%, transparent);
+  opacity: 0.55;
+}
+.rf-panel::after {
+  background-image:
+    radial-gradient(1px 1px at 13% 44%, #fff 99%, transparent),
+    radial-gradient(1.5px 1.5px at 27% 82%, #ffe3c2 99%, transparent),
+    radial-gradient(1px 1px at 41% 30%, #fff 99%, transparent),
+    radial-gradient(1.5px 1.5px at 56% 86%, #fff 99%, transparent),
+    radial-gradient(1px 1px at 67% 10%, #fff 99%, transparent),
+    radial-gradient(2px 2px at 78% 46%, #ffe3c2 99%, transparent),
+    radial-gradient(1px 1px at 89% 84%, #fff 99%, transparent);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .rf-panel::after {
+    animation: rf-twinkle 3.2s ease-in-out infinite alternate;
+  }
+}
+@keyframes rf-twinkle {
+  from { opacity: 0.15; }
+  to { opacity: 0.8; }
+}
+.rf-panel > * {
+  position: relative;
+  z-index: 1;
+}
+.rf-wall {
+  max-width: 30ch;
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(30px, 3.4vw, 50px);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: #fff4e8;
+}
+.rf-wall em {
+  font-style: normal;
+  background: linear-gradient(90deg, var(--peach), var(--coral) 55%, var(--pink));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.rf-sub {
+  margin: 12px 0 0;
+  font-size: clamp(15px, 1.2vw, 18px);
+  color: rgba(255, 244, 232, 0.72);
+}
+.rf-links {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  justify-content: space-between;
+  gap: 24px;
+  margin: 32px 0 0;
+  padding: 24px 0 32px;
+  border-top: 1px solid rgba(255, 244, 232, 0.16);
+}
+.rf-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(17px, 1.5vw, 21px);
+  letter-spacing: -0.03em;
+  color: #fff4e8;
+  text-decoration: none;
+}
+.rf-ring {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  flex: none;
+  background: var(--ring, var(--peach));
+  color: var(--night);
+  transition: transform 0.45s var(--out), box-shadow 0.3s;
+}
+.rf-links li:nth-child(2) { --ring: var(--coral); }
+.rf-links li:nth-child(3) { --ring: var(--pink); }
+.rf-links a:hover .rf-ring {
+  transform: rotate(45deg) scale(1.12);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--ring, var(--peach)) 25%, transparent);
+}
+.rf-links a:hover {
+  color: var(--ring, var(--peach));
+}
+.rf-panel a:focus-visible {
+  outline-color: var(--peach);
+}
+
+/* Stage: parallax layers, all anchored to the road */
+.rf-stage {
+  position: relative;
+  margin-top: -36px;
+  height: clamp(320px, 36vw, 580px);
+  touch-action: manipulation;
+}
+.rf-layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  background-position: 0 bottom;
+}
+.rf-skyline {
+  bottom: 36%;
+  height: 50%;
+  background-image: url("/footer/skyline.webp");
+}
+.rf-lamps {
+  bottom: 34%;
+  height: 68%;
+}
+.rf-lamps img {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 100%;
+  width: auto;
+  will-change: transform;
+}
+.rf-trees {
+  bottom: 34.5%;
+  height: 24%;
+  background-image: url("/footer/trees.webp");
+}
+.rf-road {
+  bottom: 0;
+  height: 38%;
+  background-image: url("/footer/road.webp");
+  background-position-y: top;
+  background-color: var(--asphalt);
+}
+
+/* Car */
+.rf-car {
+  position: absolute;
+  top: calc(var(--lane) * 100%);
+  height: 58%;
+  aspect-ratio: 900 / 264;
+  transform: translateY(-96%);
+  transition: top 0.28s var(--out);
+  filter: drop-shadow(0 6px 6px rgba(10, 10, 20, 0.45));
+  z-index: 3;
+}
+.rf-car img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.rf-car .f2,
+.rf-car.is-f2 .f1 {
+  opacity: 0;
+}
+.rf-car.is-f2 .f2 {
+  opacity: 1;
+}
+
+/* HUD */
+.rf-hud {
+  position: absolute;
+  right: clamp(16px, 4vw, 64px);
+  bottom: calc(38% + 18px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 4;
+}
+.rf-drive svg {
+  color: var(--accent);
+}
+.rf-drive small {
+  margin-left: 4px;
+  padding-left: 10px;
+  border-left: 1px solid rgba(29, 26, 23, 0.2);
+  color: #6b625a;
+  font-size: 12px;
+}
+.rf-pad {
+  display: flex;
+  gap: 6px;
+}
+.rf-pad button {
+  padding: 10px;
+}
+.rf-pad button[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.rf-stage.is-play {
+  cursor: pointer;
+}
+
+/* Base bar */
+
+.rf a:focus-visible,
+.rf button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .rf-panel {
+    padding-top: 44px;
+  }
+  .rf-links {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 8px 0 32px;
+  }
+  .rf-links li + li {
+    border-top: 1px solid rgba(255, 244, 232, 0.16);
+  }
+  .rf-links a {
+    width: 100%;
+    justify-content: space-between;
+    padding: 14px 0;
+  }
+  .rf-ring {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 560px) {
+  .rf-stage { height: 320px; }
+  .rf-road { height: 42%; }
+  .rf-trees { bottom: 38.5%; height: 18%; }
+  .rf-lamps { bottom: 38%; height: 56%; }
+  .rf-skyline { bottom: 40%; height: 36%; }
+  .rf-car { height: 52%; }
+  .rf-hud { bottom: auto; top: 52px; right: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rf-car { transition: none; }
+}
+.rf-drive:hover,
+.rf-quit:hover {
+  background: #fff;
+  transform: translateY(-2px);
+}
+
+.rf-drive,
+.rf-quit,
+.rf-pad button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 99px;
+  background: rgba(251, 243, 234, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: var(--ink);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.3s var(--out);
+}
+.rf-pad button {
+  padding: 10px;
+}
+.rf-pad button[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* Obstacles */
+.rf-obs {
+  position: absolute;
+  left: 0;
+  z-index: 2;
+  will-change: transform;
+}
+.rf-obs[hidden] {
+  display: none;
+}
+.rf-obs i {
+  position: absolute;
+  inset: 0;
+}
+.rf-cone {
+  top: calc(var(--lane) * 100% - 34%);
+  height: 34%;
+  aspect-ratio: 0.8;
+}
+.rf-cone i {
+  background: linear-gradient(to bottom, #ff7a2f 0 36%, #f7f2e8 36% 52%, #ff7a2f 52% 88%, #2b2a30 88%);
+  clip-path: polygon(40% 0, 60% 0, 90% 88%, 100% 88%, 100% 100%, 0 100%, 0 88%, 10% 88%);
+  filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.4));
+}
+.rf-obs.is-hit i {
+  animation: rf-fly 0.6s ease-out forwards;
+}
+@keyframes rf-fly {
+  to { transform: translate(70%, -150%) rotate(80deg); opacity: 0; }
+}
+.rf-car.is-bump {
+  animation: rf-bump 0.45s ease-out;
+}
+@keyframes rf-bump {
+  25% { transform: translateY(-96%) rotate(-3deg) translateX(-6px); }
+  55% { transform: translateY(-96%) rotate(2deg); }
+}
+
+/* Speech bubble when the car clips a cone */
+.rf-bubble {
+  position: absolute;
+  left: 34%;
+  bottom: 100%;
+  margin-bottom: 6px;
+  padding: 9px 14px;
+  border-radius: 14px 14px 14px 4px;
+  background: #fff8ef;
+  color: #221c3d;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", system-ui, sans-serif;
+  font-size: clamp(13px, 1.1vw, 16px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  box-shadow: 0 8px 20px -6px rgba(20, 10, 30, 0.45);
+  transform-origin: 0 100%;
+  animation: rf-pop 1.9s var(--out) forwards;
+  z-index: 5;
+}
+.rf-bubble::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 100%;
+  border: 7px solid transparent;
+  border-top-color: #fff8ef;
+  border-left-color: #fff8ef;
+}
+@keyframes rf-pop {
+  0% { opacity: 0; transform: scale(0.4) translateY(8px); }
+  12% { opacity: 1; transform: scale(1.06); }
+  20% { transform: scale(1); }
+  85% { opacity: 1; transform: none; }
+  100% { opacity: 0; transform: translateY(-8px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rf-bubble { animation: none; }
+}
+
+/* Steering-wheel cursor (mouse only) */
+@media (hover: hover) and (pointer: fine) {
+  .rf-stage {
+    cursor: none;
+  }
+  .rf-stage button {
+    cursor: pointer;
+  }
+}
+.rf-wheel {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 6;
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(34, 28, 61, 0.78);
+  color: #ffb46b;
+  box-shadow: 0 6px 16px -4px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+@media (hover: none), (pointer: coarse) {
+  .rf-wheel { display: none; }
+}
+
+/* Idle hint next to the car */
+.rf-hint {
+  position: absolute;
+  left: calc(10% + 30%);
+  bottom: calc(38% * 0.14 + 4px);
+  margin: 0;
+  padding: 8px 14px;
+  border-radius: 99px;
+  background: rgba(34, 28, 61, 0.82);
+  color: #fff4e8;
+  font-size: 14px;
+  font-weight: 500;
+  pointer-events: none;
+  z-index: 4;
+  white-space: nowrap;
+}
+.rf-hint::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 10px;
+  border-radius: 50%;
+  background: #ffb46b;
+  vertical-align: 1px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .rf-hint {
+    animation: rf-nudge 1.6s ease-in-out infinite;
+  }
+  .rf-hint::before {
+    animation: rf-blink 1.6s ease-in-out infinite;
+  }
+}
+@keyframes rf-nudge {
+  50% { transform: translateX(6px); }
+}
+@keyframes rf-blink {
+  50% { opacity: 0.25; }
+}
+.rf-hint-touch { display: none; }
+@media (hover: none), (pointer: coarse) {
+  .rf-hint-mouse { display: none; }
+  .rf-hint-touch { display: inline; }
+}
+@media (max-width: 560px) {
+  .rf-hint { left: auto; right: 16px; bottom: 8px; }
+}
+
+/* Start-light gantry */
+.rf-gantry {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 10px 14px 9px;
+  border: 0;
+  border-radius: 14px;
+  background: #15121f;
+  box-shadow: 0 10px 24px -8px rgba(0, 0, 0, 0.6), inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  color: #fff4e8;
+  font: inherit;
+  cursor: pointer;
+  transition: transform 0.3s var(--out);
+}
+.rf-gantry:hover {
+  transform: translateY(-2px);
+}
+.rf-lights {
+  display: flex;
+  gap: 7px;
+}
+.rf-lights i {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #3a1416;
+  box-shadow: inset 0 2px 3px rgba(0, 0, 0, 0.6);
+  transition: background 0.08s, box-shadow 0.08s;
+}
+.rf-lights i.is-on {
+  background: #ff2d2d;
+  box-shadow: 0 0 10px 2px rgba(255, 45, 45, 0.85), inset 0 -2px 3px rgba(120, 0, 0, 0.5);
+}
+.rf-gantry:not(.is-counting):hover .rf-lights i:first-child {
+  background: #ff2d2d;
+  box-shadow: 0 0 8px rgba(255, 45, 45, 0.7);
+}
+.rf-gantry-label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.rf-gantry.is-counting {
+  cursor: default;
+}
+
+/* Engine revving on the grid */
+.rf-car.is-rev {
+  animation: rf-rev 0.09s linear infinite;
+}
+@keyframes rf-rev {
+  50% { transform: translateY(-96%) translate(0.6px, -0.8px); }
+}
+
+/* "Lights out!" flash */
+.rf-go {
+  position: absolute;
+  left: 50%;
+  top: 30%;
+  margin: 0;
+  font-family: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(32px, 5vw, 72px);
+  letter-spacing: -0.04em;
+  color: #fff4e8;
+  text-shadow: 0 4px 24px rgba(255, 90, 60, 0.7);
+  pointer-events: none;
+  z-index: 5;
+  animation: rf-go 1.3s var(--out) forwards;
+}
+@keyframes rf-go {
+  0% { opacity: 0; transform: translateX(-50%) scale(0.6); }
+  15% { opacity: 1; transform: translateX(-50%) scale(1.08); }
+  30% { transform: translateX(-50%) scale(1); }
+  75% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(-50%) scale(1.15); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rf-car.is-rev { animation: none; }
+  .rf-go { animation: none; transform: translateX(-50%); }
+}
+
+/* Base bar under the road */
+.rf-base {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px 24px;
+  padding: 18px clamp(20px, 4vw, 64px) 22px;
+  background: var(--asphalt);
+  color: #f1e6da;
+  font-size: 14px;
+  line-height: 1.4;
+}
+.rf-base span:last-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-align: right;
+}
+.rf-base svg {
+  color: #ffb46b;
+  flex: none;
+}
+@media (max-width: 560px) {
+  .rf-base { flex-direction: column; align-items: flex-start; }
+  .rf-base span:last-child { text-align: left; }
+}

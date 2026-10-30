@@ -1,11 +1,13 @@
-import GridHero from "./components/GridHero.jsx";
+import DeskHero from "./components/DeskHero.jsx";
 import Sections from "./components/Sections.jsx";
+import RoadFooter from "./components/RoadFooter.jsx";
 
 export default function App() {
   return (
     <>
-      <GridHero />
+      <DeskHero />
       <Sections />
+      <RoadFooter />
     </>
   );
 }
