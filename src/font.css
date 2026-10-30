@@ -1,0 +1,9 @@
+/* One typeface across the whole site. Loaded once per page; code samples keep a monospace face. */
+:root {
+  --site-font: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+html,
+body,
+body *:not(code):not(pre):not(kbd):not(samp) {
+  font-family: var(--site-font) !important;
+}

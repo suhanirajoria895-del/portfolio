@@ -22,6 +22,7 @@ import "@fontsource/inter-tight/600.css";
 import "@fontsource/dancing-script/700.css";
 import "@fontsource/inter-tight/500.css";
 import App from "./App.jsx";
+import "./font.css";
 
 
 createRoot(document.getElementById("root")).render(

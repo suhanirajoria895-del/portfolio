@@ -185,7 +185,7 @@ html { scroll-behavior: smooth; }
 .sx-story { padding: 40px 44px; border-radius: 24px; font-size: 17px; line-height: 1.65; }
 .sx-story p { margin: 0 0 16px; max-width: 58ch; color: rgba(26, 23, 20, 0.82); }
 .sx-story .sx-story-lead { font: 600 clamp(30px, 2.8vw, 42px)/1.1 var(--serif); color: var(--fg); margin-bottom: 22px; }
-.sx-sign { font: 600 56px/1 var(--serif) !important; color: var(--peri) !important; margin: 18px 0 0 !important; }
+.sx-sign { font-size: 56px !important; font-weight: 600 !important; line-height: 1 !important; color: var(--peri) !important; margin: 18px 0 0 !important; }
 .sx-about > .sx-now, .sx-about > .sx-off { padding: 28px 30px; border-radius: 24px; }
 .sx-about { grid-template-areas: "photo story story" "photo now off"; grid-template-columns: 0.85fr 0.6fr 0.55fr; }
 .sx-photo { grid-area: photo; }

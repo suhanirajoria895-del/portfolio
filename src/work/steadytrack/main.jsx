@@ -6,6 +6,8 @@ import "@fontsource/poppins/600.css";
 import CaseStudy from "./CaseStudy.jsx";
 import "./st.css";
 import "./apps.css";
+import "@fontsource-variable/plus-jakarta-sans/index.css";
+import "../../font.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

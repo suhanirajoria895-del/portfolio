@@ -8,6 +8,8 @@ import CaseStudy from "./CaseStudy.jsx";
 import "./cs.css";
 import "./story.css";
 import "./extras.css";
+import "@fontsource-variable/plus-jakarta-sans/index.css";
+import "../../font.css";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
