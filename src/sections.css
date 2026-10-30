@@ -275,14 +275,19 @@ html { scroll-behavior: smooth; }
 .sx-page .sx-contact-card { background: rgba(255, 255, 255, 0.55); }
 .sx-page .sx-copy { color: var(--ink); }
 
-/* ── Palette: Cosmic Latte #FFF8E7, Sangria #930500, Cornflower #95BBEA ── */
-body { background: #fff8e7; }
+/* ── Palette: the footer's twilight drive. Indigo night, sunset peach, coral and pink ── */
+body { background: #fbf3ea; }
 .sx-page {
-  --cream: #fff8e7;
-  --ink: #241a17;
-  --muted: #6d625a;
-  --sangria: #930500;
-  --corn: #95bbea;
+  --cream: #fbf3ea;
+  --ink: #221c3d;
+  --muted: #5a5372;
+  --night: #221c3d;
+  --peach: #ffb46b;
+  --coral: #ff6b5a;
+  --pink: #ff8fb8;
+  --sunset: linear-gradient(100deg, var(--peach), var(--coral) 55%, var(--pink));
+  --sangria: #b8402c;
+  --corn: #ffd9b8;
   --terra: var(--sangria);
   --terra-ink: var(--sangria);
   --peri: var(--corn);
@@ -438,3 +443,110 @@ body { background: #fff8e7; }
 .sx-card-img.has-cover .cv-copy { top: 24%; width: 40%; }
 .sx-card-img.has-cover .cv-meta { bottom: 9%; }
 .sx-card.is-l-banner .sx-card-img.has-cover { aspect-ratio: 16 / 9; min-height: 0; }
+
+/* ══ Twilight theme: the whole page sits in the footer's evening sky ══ */
+body { background: #1b1633; }
+.sx-page {
+  --cream: #fff4e8;
+  --ink: #fff4e8;
+  --fg: #fff4e8;
+  --muted: rgba(255, 244, 232, 0.72);
+  --night: #221c3d;
+  --dusk: #342a5e;
+  --sangria: #ffb46b;
+  --terra: var(--coral);
+  --terra-ink: var(--peach);
+  --line: rgba(255, 244, 232, 0.16);
+  --line-d: rgba(255, 244, 232, 0.22);
+  position: relative;
+  isolation: isolate;
+  color: var(--ink);
+  background:
+    radial-gradient(60% 40% at 85% 8%, rgba(255, 143, 184, 0.12), transparent 70%),
+    radial-gradient(70% 45% at 10% 55%, rgba(120, 100, 220, 0.14), transparent 70%),
+    radial-gradient(90% 35% at 50% 100%, rgba(255, 140, 90, 0.22), transparent 70%),
+    linear-gradient(180deg, #221c3d 0%, #1b1633 45%, #2a2048 100%);
+}
+/* A sparse field of stars behind everything */
+.sx-page::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; opacity: 0.7;
+  background-image:
+    radial-gradient(1.5px 1.5px at 6% 4%, #fff 99%, transparent),
+    radial-gradient(1px 1px at 22% 11%, #fff 99%, transparent),
+    radial-gradient(1.5px 1.5px at 71% 6%, #ffe3c2 99%, transparent),
+    radial-gradient(1px 1px at 88% 17%, #fff 99%, transparent),
+    radial-gradient(1px 1px at 41% 23%, #fff 99%, transparent),
+    radial-gradient(2px 2px at 94% 31%, #ffe3c2 99%, transparent),
+    radial-gradient(1px 1px at 13% 38%, #fff 99%, transparent),
+    radial-gradient(1.5px 1.5px at 58% 44%, #fff 99%, transparent),
+    radial-gradient(1px 1px at 79% 52%, #fff 99%, transparent),
+    radial-gradient(1px 1px at 4% 63%, #fff 99%, transparent),
+    radial-gradient(1.5px 1.5px at 33% 71%, #ffe3c2 99%, transparent),
+    radial-gradient(1px 1px at 66% 79%, #fff 99%, transparent),
+    radial-gradient(1px 1px at 91% 88%, #fff 99%, transparent),
+    radial-gradient(1.5px 1.5px at 18% 93%, #fff 99%, transparent);
+  background-size: 100% 1400px;
+}
+
+/* Accents: warm sunset on the night sky */
+.sx-page .sx-title em, .sx-page .sx-sign { color: var(--peach) !important; }
+.sx-page .sx-rule span:first-child, .sx-page .sx-rule.is-dark span:first-child { color: var(--peach); }
+.sx-page .sx-rule i { background: var(--peach); }
+.sx-page .sx-xp-date { color: var(--peach); }
+.sx-page .sx-xp-main li::marker { color: var(--coral); }
+
+/* Block tones: sunset (warm), glass (quiet), dusk (deep) */
+.sx-page .is-dark, .sx-page .is-sky, .sx-page .is-ember, .sx-page .is-peach {
+  background: linear-gradient(140deg, #ffc58a 0%, #ff8a6b 55%, #ff9cc0 100%); color: var(--night);
+}
+.sx-page .is-butter, .sx-page .is-peri, .sx-page .is-mint {
+  background: rgba(255, 244, 232, 0.06); color: var(--ink);
+  box-shadow: inset 0 0 0 1px rgba(255, 244, 232, 0.14);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+.sx-page .is-pine { background: var(--dusk); color: var(--ink); box-shadow: inset 0 0 0 1px rgba(255, 244, 232, 0.1); }
+.sx-page .is-ink { background: #120e24; color: var(--ink); box-shadow: inset 0 0 0 1px rgba(255, 244, 232, 0.1); }
+
+/* Buttons: cream pills on the night, night pills on the sunset */
+.sx-page .sx-pill { background: #fff4e8; color: var(--night) !important; }
+.sx-page .sx-pill-dot { background: var(--night); color: #fff4e8; }
+.sx-page .is-dark .sx-pill, .sx-page .is-sky .sx-pill, .sx-page .is-ember .sx-pill, .sx-page .is-peach .sx-pill { background: var(--night); color: #fff4e8 !important; }
+.sx-page .is-dark .sx-pill-dot, .sx-page .is-sky .sx-pill-dot, .sx-page .is-ember .sx-pill-dot, .sx-page .is-peach .sx-pill-dot { background: var(--peach); color: var(--night); }
+.sx-page .is-pine .sx-pill, .sx-page .is-ink .sx-pill { background: #fff4e8; color: var(--night) !important; }
+.sx-page .is-pine .sx-pill-dot, .sx-page .is-ink .sx-pill-dot { background: var(--coral); color: var(--night); }
+.sx-page .sx-pill:hover .sx-pill-dot, .sx-page .sx-card:hover .sx-pill-dot { background: var(--coral); color: var(--night); }
+
+/* Project cards */
+.sx-page .sx-card { box-shadow: 0 -20px 60px -30px rgba(0, 0, 0, 0.6); }
+.sx-page .sx-card-img.has-cover { background: #2a2350; }
+.sx-page .sx-card-sticker { background: #fff4e8; color: var(--night); }
+
+/* Experience rows: glass that warms up on hover */
+.sx-page .sx-xp-row { background: rgba(255, 244, 232, 0.05); border-color: var(--line); }
+.sx-page .sx-xp-main p, .sx-page .sx-xp-main ul, .sx-page .sx-xp-place { color: var(--muted); }
+.sx-page .sx-xp-row:hover { background: linear-gradient(120deg, #ffc58a, #ff8a6b 60%, #ff9cc0); color: var(--night); }
+.sx-page .sx-xp-row:hover .sx-xp-date, .sx-page .sx-xp-row:hover .sx-xp-main p,
+.sx-page .sx-xp-row:hover .sx-xp-main ul, .sx-page .sx-xp-row:hover .sx-xp-place,
+.sx-page .sx-xp-row:hover .sx-xp-main li::marker { color: var(--night); }
+
+/* About */
+.sx-page .sx-story p { color: var(--muted); }
+.sx-page .sx-story .sx-story-lead { color: var(--ink); }
+.sx-page .sx-photo figcaption { background: #fff4e8; color: var(--night); }
+.sx-page .sx-badge.is-live { color: #9be8b4; background: rgba(155, 232, 180, 0.12); }
+.sx-page .sx-legend i { box-shadow: 0 0 0 1px var(--line); }
+.sx-page :focus-visible { outline-color: var(--peach); }
+/* Poster card: the floating panel becomes frosted night glass */
+.sx-page .sx-card.is-l-poster .sx-card-text {
+  background: rgba(27, 22, 51, 0.72);
+  box-shadow: inset 0 0 0 1px rgba(255, 244, 232, 0.14), 0 30px 60px -30px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+}
+@media (max-width: 1100px) {
+  .sx-page .sx-card.is-l-poster .sx-card-text { background: none; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+/* Paywise: its cover photo carries its own title, so crop to the phone and keep the box near-square */
+.sx-card-img.has-cover.is-paywise .pc { transform: scale(1.14); transform-origin: 0 50%; }
+@media (max-width: 1100px) {
+  .sx-card-img.has-cover.is-paywise { aspect-ratio: 1 / 1; }
+}
