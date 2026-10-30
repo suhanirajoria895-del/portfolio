@@ -70,7 +70,7 @@ html { scroll-behavior: smooth; }
   font-size: 16px; font-weight: 500; text-decoration: none;
 }
 .sx-pill-dot { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: var(--fg); transition: background 200ms, transform 300ms var(--out); }
-.sx-pill:hover .sx-pill-dot, .sx-card:hover .sx-pill-dot { background: var(--terra); transform: rotate(45deg); }
+.sx-pill:hover .sx-pill-dot { background: var(--terra); transform: rotate(45deg); }
 .sx-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 12px; border-radius: 999px; background: rgba(26, 23, 20, 0.1); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
 .sx-badge i { width: 8px; height: 8px; border-radius: 50%; background: currentColor; animation: sx-pulse 1.8s ease-in-out infinite; }
 .sx-badge.is-live { background: rgba(242, 211, 138, 0.14); color: var(--peri); }
@@ -106,34 +106,6 @@ html { scroll-behavior: smooth; }
 }
 .sx-ticket::before { left: -9px; } .sx-ticket::after { right: -9px; }
 .sx-ticket-num { font: 600 clamp(64px, 6vw, 92px)/0.85 var(--serif); font-variant-numeric: tabular-nums; min-width: 1.6em; }
-
-/* (02) Work: sticky stacking cards */
-.sx-stack { display: grid; gap: 28px; }
-.sx-card {
-  position: sticky; top: calc(40px + var(--i) * 24px);
-  display: grid; grid-template-columns: 0.95fr 1.05fr;
-  min-height: min(620px, 78vh);
-  border-radius: 28px; text-decoration: none; overflow: hidden;
-  box-shadow: 0 -20px 50px -30px rgba(18, 13, 11, 0.45);
-}
-.sx-card-text { display: flex; flex-direction: column; gap: 18px; padding: 52px 48px; }
-.sx-card-meta { display: flex; justify-content: space-between; gap: 12px; padding-bottom: 14px; border-bottom: 1px solid currentColor; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; opacity: 0.78; }
-.sx-card h3 { margin: 6px 0 0; font: 600 clamp(72px, 8vw, 136px)/0.88 var(--serif); letter-spacing: -0.045em; }
-.sx-card-q { margin: 0; max-width: 24ch; font-size: clamp(20px, 1.9vw, 28px); line-height: 1.25; letter-spacing: -0.015em; }
-.sx-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
-.sx-tags li { padding: 5px 12px; border: 1px solid currentColor; border-radius: 999px; font-size: 13px; opacity: 0.85; }
-.sx-card .sx-pill { margin-top: auto; }
-.sx-card-img { position: relative; margin: 16px 16px 16px 0; border-radius: 18px; overflow: hidden; }
-.sx-card-img > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; transition: transform 1200ms var(--out); }
-.sx-card:hover .sx-card-img > img { transform: scale(1.05); }
-.sx-card-sticker {
-  position: absolute; left: 18px; bottom: 18px; max-width: 70%;
-  padding: 10px 16px; border-radius: 14px;
-  background: var(--fg); color: var(--ink); font-size: 14px; line-height: 1.35;
-  rotate: -2deg; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
-  transition: rotate 400ms var(--spring);
-}
-.sx-card:hover .sx-card-sticker { rotate: 1deg; }
 
 /* (03) Experience */
 .sx-xp { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
@@ -225,9 +197,6 @@ html { scroll-behavior: smooth; }
   .sx-marquee, .sx-contact-wrap .sx-marquee { margin-inline: -24px; }
   .sx-intro-grid { grid-template-columns: 1fr; gap: 56px; }
   .sx-tickets { max-width: 560px; }
-  .sx-card { grid-template-columns: 1fr; min-height: 0; }
-  .sx-card-img { order: -1; margin: 14px 14px 0; aspect-ratio: 16 / 10; }
-  .sx-card-text { padding: 32px 30px 36px; }
   .sx-xp-row { grid-template-columns: 140px 1fr; }
   .sx-xp-place { grid-column: 2; justify-content: flex-start; }
   .sx-about { grid-template-areas: "photo story" "now off"; grid-template-columns: 1fr 1fr; }
@@ -241,9 +210,6 @@ html { scroll-behavior: smooth; }
   .sx-marquee, .sx-contact-wrap .sx-marquee { margin-inline: -12px; }
   .sx { padding-top: 90px; }
   .sx-ticket:nth-child(n) { margin-left: 0; }
-  .sx-card { position: relative; top: auto; }
-  .sx-card-text { padding: 26px 22px 30px; }
-  .sx-card-sticker { display: none; }
   .sx-xp-row { grid-template-columns: 1fr; gap: 10px; padding: 24px 22px; }
   .sx-xp-place { grid-column: auto; }
   .sx-tiles { grid-template-columns: repeat(3, 1fr); }
@@ -257,21 +223,19 @@ html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) {
   [data-rv] { opacity: 1; transform: none; transition: none; }
   .sx-marquee-track, .sx-badge i { animation: none; }
-  .sx-card { position: relative; top: auto; }
-  .sx-ticket, .sx-kit, .sx-xp-row, .sx-card-img img, .sx-photo img { transition: none; }
+  .sx-ticket, .sx-kit, .sx-xp-row, .sx-photo img { transition: none; }
 }
 
 /* Soft palette overrides: ink buttons on light blocks, readable accents */
 .sx-page .sx-pill { background: var(--ink); color: #fffaf2 !important; }
 .sx-page .sx-pill-dot { background: #fffaf2; color: var(--ink); }
-.sx-page .sx-pill:hover .sx-pill-dot, .sx-page .sx-card:hover .sx-pill-dot { background: var(--terra); color: #fff; }
-.sx-page .sx-card-sticker, .sx-page .sx-photo figcaption { background: #fff; color: var(--ink); }
+.sx-page .sx-pill:hover .sx-pill-dot { background: var(--terra); color: #fff; }
+.sx-page .sx-photo figcaption { background: #fff; color: var(--ink); }
 .sx-page .sx-sign, .sx-page .sx-contact-title em { color: var(--terra-ink) !important; }
 .sx-page .sx-rule.is-dark span:first-child { color: var(--terra-ink); }
 .sx-page .sx-badge.is-live { color: #3c6a45; background: rgba(60, 106, 69, 0.12); }
 .sx-page .sx-story p { color: var(--muted); }
 .sx-page .sx-story .sx-story-lead { color: var(--ink); }
-.sx-page .sx-card { box-shadow: 0 -20px 50px -34px rgba(26, 23, 20, 0.28); }
 .sx-page .sx-contact-card { background: rgba(255, 255, 255, 0.55); }
 .sx-page .sx-copy { color: var(--ink); }
 
@@ -301,7 +265,7 @@ body { background: #fff8e7; }
 .sx-page .sx-legend i { box-shadow: 0 0 0 1px var(--line); }
 
 /* Softer type: lighter weights, gentler tracking */
-.sx-page .sx-title, .sx-page .sx-card h3, .sx-page .sx-contact-title, .sx-page .sx-readout h3,
+.sx-page .sx-title, .sx-page .sx-contact-title, .sx-page .sx-readout h3,
 .sx-page .sx-readout-sym, .sx-page .sx-tile-sym, .sx-page .sx-xp-date, .sx-page .sx-story-lead,
 .sx-page .sx-sign, .sx-page .sx-marquee span, .sx-page .sx-mail, .sx-page .sx-off ul { font-weight: 500; letter-spacing: -0.03em; }
 .sx-page .sx-title { font-size: clamp(44px, 5.6vw, 88px); line-height: 1; }
@@ -336,49 +300,6 @@ body { background: #fff8e7; }
   .sx-process-line { display: none; }
 }
 
-/* ── Work card layouts: each project gets its own composition ── */
-.sx-card-ghost { position: absolute; right: 28px; bottom: -0.18em; font: 500 clamp(160px, 18vw, 280px)/1 var(--display); letter-spacing: -0.06em; opacity: 0.12; pointer-events: none; }
-.sx-card-sticker { font-weight: 500; }
-
-/* 1. split (default): text left, framed image right */
-
-/* 2. poster: image fills the card, text sits in a floating panel */
-.sx-card.is-l-poster { display: block; min-height: min(640px, 80vh); }
-.sx-card.is-l-poster .sx-card-img { position: absolute; inset: 0; margin: 0; border-radius: 0; }
-.sx-card.is-l-poster .sx-card-text {
-  position: relative; z-index: 1;
-  width: min(480px, 92%); margin: 32px; padding: 32px 34px;
-  background: #fffdf7; border-radius: 22px; box-shadow: 0 30px 60px -30px rgba(36, 26, 23, 0.45);
-  min-height: calc(min(640px, 80vh) - 64px);
-}
-.sx-card.is-l-poster .sx-card-sticker { left: auto; right: 24px; bottom: 24px; rotate: 3deg; }
-.sx-card.is-l-poster .sx-card-ghost { display: none; }
-
-/* 3. banner: giant name across the top, image strip below, question beside it */
-.sx-card.is-l-banner { grid-template-columns: 1fr; grid-template-rows: auto 1fr; }
-.sx-card.is-l-banner .sx-card-text { display: grid; grid-template-columns: 1.2fr 1fr; grid-template-areas: "meta meta" "name name" "q tags" "q pill"; gap: 18px 48px; padding-bottom: 28px; }
-.sx-card.is-l-banner .sx-card-meta { grid-area: meta; }
-.sx-card.is-l-banner h3 { grid-area: name; font-size: clamp(96px, 15vw, 230px); line-height: 0.8; }
-.sx-card.is-l-banner .sx-card-q { grid-area: q; }
-.sx-card.is-l-banner .sx-tags { grid-area: tags; align-self: end; justify-content: flex-end; }
-.sx-card.is-l-banner .sx-pill { grid-area: pill; justify-self: end; margin-top: 0; }
-.sx-card.is-l-banner .sx-card-img { margin: 0 16px 16px; min-height: 280px; }
-.sx-card.is-l-banner .sx-card-ghost { display: none; }
-
-@media (max-width: 1100px) {
-  .sx-card.is-l-poster .sx-card-img { position: relative; inset: auto; margin: 14px 14px 0; border-radius: 18px; aspect-ratio: 16 / 10; }
-  .sx-card.is-l-poster .sx-card-text { width: auto; margin: 0; min-height: 0; background: none; box-shadow: none; padding: 32px 30px 36px; }
-  .sx-card.is-l-banner .sx-card-text { grid-template-columns: 1fr; grid-template-areas: "meta" "name" "q" "tags" "pill"; }
-  .sx-card.is-l-banner .sx-tags { justify-content: flex-start; }
-  .sx-card.is-l-banner .sx-pill { justify-self: start; }
-  .sx-card.is-l-banner .sx-card-img { order: 0; }
-  .sx-card-ghost { display: none; }
-}
-
-.sx-work-head { margin-bottom: 56px; }
-.sx-work-title { display: flex; justify-content: space-between; align-items: flex-end; gap: 32px; flex-wrap: wrap; }
-.sx-work-title .sx-title { font-size: clamp(64px, 9vw, 150px) !important; font-weight: 700 !important; letter-spacing: -0.055em !important; line-height: 0.9; }
-.sx-work-title p { margin: 0 0 12px; max-width: 30ch; font-size: 18px; color: var(--muted); }
 .sx-page .sx-rule.is-dark { background: none; }
 
 /* ── (01) Impact panel ── */
@@ -429,12 +350,45 @@ body { background: #fff8e7; }
   .sx-impact-principles li { padding: 18px 0; border-left: 0; border-bottom: 1px solid rgba(255, 248, 231, 0.25); }
 }
 
-/* Card with designed cover art instead of a screenshot */
-.sx-card-img.has-cover { display: grid; place-items: center; background: #f3ece1; }
-.sx-card-img.has-cover .cv-frame { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; }
-.sx-card:has(.has-cover) .sx-card-ghost { display: none; }
-/* The card's image box is taller than 16:9, so give the devices more room */
-.sx-card-img.has-cover .cv-stage { top: 20%; right: -2%; width: 64%; }
-.sx-card-img.has-cover .cv-copy { top: 24%; width: 40%; }
-.sx-card-img.has-cover .cv-meta { bottom: 9%; }
-.sx-card.is-l-banner .sx-card-img.has-cover { aspect-ratio: 16 / 9; min-height: 0; }
+/* (02) Work: one project per row */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.sx-work { max-width: 1120px; }
+.sx-eyebrow { margin: 0; font-size: 13px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); }
+.sx-eyebrow.is-accent { color: var(--sangria); }
+.sx-work-head { margin-bottom: 120px; }
+.sx-work-h { max-width: 20ch; margin: 18px 0 0; font: 500 clamp(36px, 4.4vw, 60px)/1.08 var(--display); letter-spacing: -0.03em; }
+.sx-cases { display: grid; gap: 140px; margin: 0; padding: 0; list-style: none; }
+.sx-case > .sx-eyebrow { margin-bottom: 24px; }
+.sx-case-media {
+  position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden;
+  border-radius: 20px; background: #f3ece1; box-shadow: 0 30px 60px -40px rgba(26, 23, 20, 0.35);
+}
+.sx-case-media > * { transition: transform 1200ms var(--out); }
+.sx-case-media .cv-frame { position: absolute; inset: 0; height: 100%; aspect-ratio: auto; }
+.sx-case-media > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.sx-case:hover .sx-case-media > * { transform: scale(1.02); }
+.sx-case-body { display: grid; justify-items: start; gap: 16px; margin-top: 40px; max-width: 860px; }
+.sx-case-body h3 { margin: 0; font: 500 clamp(30px, 3.4vw, 46px)/1.12 var(--display); letter-spacing: -0.03em; }
+.sx-case-sum { margin: 0; max-width: 60ch; font-size: clamp(17px, 1.4vw, 20px); line-height: 1.5; color: var(--muted); }
+.sx-chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 6px 0 0; padding: 0; list-style: none; }
+.sx-chips li { padding: 7px 14px; border: 1px solid var(--line); border-radius: 999px; background: #fffdf7; font-size: 13px; }
+.sx-page .sx-cta {
+  display: inline-flex; align-items: center; gap: 10px; margin-top: 14px; padding: 16px 26px;
+  border-radius: 999px; background: var(--ink); color: #fff8e7; text-decoration: none;
+  font-size: 14px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+  transition: background 250ms, transform 300ms var(--out);
+}
+.sx-cta svg { transition: transform 300ms var(--out); }
+.sx-page .sx-cta:hover { background: var(--sangria); }
+.sx-cta:hover svg { transform: translateX(4px); }
+@media (max-width: 640px) {
+  .sx-work-head { margin-bottom: 72px; }
+  .sx-cases { gap: 96px; }
+  .sx-case-media { border-radius: 14px; }
+  .sx-case-body { margin-top: 28px; }
+  .sx-cta { padding: 14px 22px; font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sx-case-media > *, .sx-cta, .sx-cta svg { transition: none; }
+  .sx-case:hover .sx-case-media > * { transform: none; }
+}
