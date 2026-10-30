@@ -145,7 +145,8 @@
 }
 .th-role { margin: 18px 0 0; text-wrap: balance; font-size: clamp(19px, 1.8vw, 24px); line-height: 1.35; letter-spacing: -0.02em; }
 .th-role b { font-weight: 600; color: var(--rust); }
-.th-lede { margin: 22px 0 0; max-width: 44ch; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.55; color: var(--ink-2); }
+.th-title span { color: var(--rust); }
+.th-lede { margin: 22px 0 0; max-width: 46ch; font-size: clamp(17px, 1.45vw, 20px); line-height: 1.55; color: var(--ink-2); }
 .th-tools { display: flex; flex-wrap: wrap; margin: 26px 0 0; padding: 0; list-style: none; }
 .th-tools li {
   display: grid;

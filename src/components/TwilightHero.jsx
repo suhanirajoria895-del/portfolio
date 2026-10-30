@@ -84,11 +84,11 @@ export default function TwilightHero() {
 
         <article className="th-card">
           <div className="th-copy">
-            <h1 className="th-title">I design the moment before you click.</h1>
-            <p className="th-role">
-              <b>AI that knows when to ask,</b> payments that pause before money leaves, and therapy that keeps time.
+            <h1 className="th-title">Curiosity, <span>with a purpose.</span></h1>
+            <p className="th-lede">
+              I explore problems, question assumptions and turn ideas into thoughtful digital experiences. My approach brings
+              together research, systems thinking and visual design, with an eye for the details that make a difference.
             </p>
-            <p className="th-lede">From messy research to the final pixel, and the code behind it. Looking for my next team in Hyderabad.</p>
             <ul className="th-tools" aria-label="Tools I use">
               {TOOLS.map(([name, icon]) => (
                 <li key={name} title={name}>
