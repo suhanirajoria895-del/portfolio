@@ -550,3 +550,5 @@ body { background: #1b1633; }
 @media (max-width: 1100px) {
   .sx-card-img.has-cover.is-paywise { aspect-ratio: 1 / 1; }
 }
+/* SteadyTrack: the banner card already shows the name large, so hide the cover's own title */
+.sx-card-img.is-steadytrack .stc-title { visibility: hidden; }

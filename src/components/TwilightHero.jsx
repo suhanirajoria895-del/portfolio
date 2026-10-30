@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { siClaude, siFigma, siFramer, siGithub, siMiro, siNotion, siReact, siTailwindcss, siTypescript } from "simple-icons";
+import { siClaude, siFigma, siFramer, siGithub, siMiro, siNotion, siReact } from "simple-icons";
 import "@fontsource/patrick-hand/400.css";
 import "../twilight-hero.css";
 
@@ -20,8 +20,6 @@ const TOOLS = [
   ["Miro", siMiro],
   ["Notion", siNotion],
   ["React", siReact],
-  ["TypeScript", siTypescript],
-  ["Tailwind CSS", siTailwindcss],
   ["GitHub", siGithub],
   ["Claude", siClaude],
 ];
