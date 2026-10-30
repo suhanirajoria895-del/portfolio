@@ -371,7 +371,7 @@ export default function RoadFooter() {
 
       <div className="rf-base">
         <span>© {new Date().getFullYear()} Suhani Rajoria</span>
-        <span>Driver: me. Pit crew: Claude. Pit stops: too many to count. <Sparkle size={16} weight="fill" aria-hidden="true" /></span>
+        <span>Driver: me. Pit crew: AI. Pit stops: too many to count. <Sparkle size={16} weight="fill" aria-hidden="true" /></span>
       </div>
     </footer>
   );
