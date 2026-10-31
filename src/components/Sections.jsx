@@ -140,7 +140,7 @@ const ELEMENTS = [
   { sym: "Ui", name: "User interviews", g: "research", used: "Ran 15 interviews for SteadyTrack to learn how hand therapy for Parkinson's really goes at home." },
   { sym: "Ca", name: "Competitor analysis", g: "research", used: "Compared existing therapies for SteadyTrack: nothing was both engaging and measurable. That gap became the brief." },
   { sym: "Jm", name: "Journey mapping", g: "research", used: "Mapped a solo seller's day across three marketplaces to find where CoSell should step in." },
-  { sym: "Bd", name: "Brand discovery", g: "research", used: "Gave CoSell its own logo mark, and an indigo kept for Co's actions." },
+  { sym: "Bd", name: "Brand discovery", g: "research", used: "Shaped CoSell's identity: its name, its logo mark, and Co, the assistant who explains every recommendation in plain words." },
   { sym: "Ia", name: "Information architecture", g: "structure", used: "Restructured UGAO's admin and field apps so field teams find things fast." },
   { sym: "Uf", name: "User flows", g: "structure", used: "Designed CoSell's approval flows and adjustable automation levels." },
   { sym: "Wf", name: "Wireframing", g: "structure", used: "Wireframed CoSell before any pixels; the case study lets you drag from wireframe to final screen." },
