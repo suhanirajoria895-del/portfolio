@@ -56,7 +56,7 @@ function Count({ value, suffix = "" }) {
 
 /* (02) — work: stacking cards, each with its own layout (split, poster, banner) */
 const TONES = ["dark", "butter", "pine"]; // cornflower, latte, sangria
-const LAYOUTS = ["split", "split", "banner"];
+const LAYOUTS = ["split", "split", "split"];
 
 function Work() {
   return (
@@ -91,7 +91,7 @@ function Work() {
               ) : p.cover === "paywise" ? (
                 <PaywiseCover focus={540} />
               ) : p.cover === "steadytrack" ? (
-                <SteadyTrackCover />
+                <SteadyTrackCover focus={1200} />
               ) : (
                 <>
                   <img src={p.image} alt={`${p.name} preview`} loading="lazy" />
