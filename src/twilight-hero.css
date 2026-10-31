@@ -133,7 +133,7 @@
   pointer-events: none;
 }
 .th-env img { position: absolute; left: 0; width: 100%; height: auto; }
-.th-env-flap { bottom: 100%; z-index: 0; }
+.th-env-flap { bottom: 100%; z-index: 0; transform: translateY(9%); }  /* tuck the flap base behind the pocket so no sky shows at the sides */
 .th-env-pocket { top: 0; z-index: 2; filter: drop-shadow(0 -6px 18px rgba(18, 12, 40, 0.35)); }
 .th-title {
   margin: 0;
