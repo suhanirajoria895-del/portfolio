@@ -67,7 +67,6 @@ function Work() {
         </div>
         <div className="sx-work-title">
           <h2 className="sx-title">Case <em>studies.</em></h2>
-          <p>Three projects, start to finish: the research, the decisions and the design.</p>
         </div>
       </header>
       <div className="sx-stack">
@@ -76,7 +75,7 @@ function Work() {
             <div className="sx-card-text">
               <div className="sx-card-meta">
                 <span>{String(i + 1).padStart(2, "0")} / {String(work.length).padStart(2, "0")}</span>
-                <span>{p.label} · {p.year}</span>
+                <span>{p.label}</span>
               </div>
               <h3>{p.name}</h3>
               <p className="sx-card-q">{p.question}</p>
