@@ -137,13 +137,13 @@ const GROUPS = {
   build: { name: "Build", tone: "ink" },
 };
 const ELEMENTS = [
-  { sym: "Ui", name: "User interviews", g: "research", used: "Ran interviews at ABDA Studio and turned the insights into a clear design direction." },
-  { sym: "Ca", name: "Competitor analysis", g: "research", used: "Audited leading hotel websites for strengths and usability gaps at ABDA Studio." },
+  { sym: "Ui", name: "User interviews", g: "research", used: "Ran 15 interviews for SteadyTrack to learn how hand therapy for Parkinson's really goes at home." },
+  { sym: "Ca", name: "Competitor analysis", g: "research", used: "Compared existing therapies for SteadyTrack: nothing was both engaging and measurable. That gap became the brief." },
   { sym: "Jm", name: "Journey mapping", g: "research", used: "Mapped a solo seller's day across three marketplaces to find where CoSell should step in." },
-  { sym: "Bd", name: "Brand discovery", g: "research", used: "Led brand discovery for a boutique business hotel website." },
+  { sym: "Bd", name: "Brand discovery", g: "research", used: "Gave CoSell its own logo mark, and an indigo kept for Co's actions." },
   { sym: "Ia", name: "Information architecture", g: "structure", used: "Restructured UGAO's admin and field apps so field teams find things fast." },
   { sym: "Uf", name: "User flows", g: "structure", used: "Designed CoSell's approval flows and adjustable automation levels." },
-  { sym: "Wf", name: "Wireframing", g: "structure", used: "Wireframes and early visual explorations for the ABDA hotel website." },
+  { sym: "Wf", name: "Wireframing", g: "structure", used: "Wireframed CoSell before any pixels; the case study lets you drag from wireframe to final screen." },
   { sym: "Pt", name: "Prototyping", g: "structure", used: "Clickable prototypes for every case study, tested before polishing." },
   { sym: "Ds", name: "Design systems", g: "craft", used: "Built UGAO's shared design system and Rove's system, with developers in the loop." },
   { sym: "Ax", name: "Accessibility", g: "craft", used: "Bilingual UI, clear hierarchy and guided forms for UGAO users with varied digital literacy." },
