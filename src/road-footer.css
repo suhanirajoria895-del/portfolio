@@ -9,7 +9,7 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  margin-top: clamp(64px, 8vw, 128px);
+  margin-top: 0;
   background: #2a2048;
   color: var(--ink);
   font-family: "DM Sans Variable", "DM Sans", system-ui, sans-serif;
@@ -613,10 +613,9 @@
     height: 100vh;
     height: 100svh;
     min-height: 640px;
-    padding-top: 24px;
   }
   .rf-sky {
-    top: 52px;
+    top: 28px;
   }
   .rf-stage {
     flex: 1 1 auto;

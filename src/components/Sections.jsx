@@ -56,7 +56,7 @@ function Count({ value, suffix = "" }) {
 
 /* (02) — work: stacking cards, each with its own layout (split, poster, banner) */
 const TONES = ["dark", "butter", "pine"]; // cornflower, latte, sangria
-const LAYOUTS = ["split", "split", "banner"];
+const LAYOUTS = ["split", "split", "split"];
 
 function Work() {
   return (
@@ -91,7 +91,7 @@ function Work() {
               ) : p.cover === "paywise" ? (
                 <PaywiseCover focus={540} />
               ) : p.cover === "steadytrack" ? (
-                <SteadyTrackCover />
+                <SteadyTrackCover focus={1200} />
               ) : (
                 <>
                   <img src={p.image} alt={`${p.name} preview`} loading="lazy" />
@@ -137,22 +137,22 @@ const GROUPS = {
   build: { name: "Build", tone: "ink" },
 };
 const ELEMENTS = [
-  { sym: "Ui", name: "User interviews", g: "research", used: "Ran interviews at ABDA Studio and turned the insights into a clear design direction." },
-  { sym: "Ca", name: "Competitor analysis", g: "research", used: "Audited leading hotel websites for strengths and usability gaps at ABDA Studio." },
-  { sym: "Jm", name: "Journey mapping", g: "research", used: "Mapped a solo seller's day across three marketplaces to find where CoSell should step in." },
-  { sym: "Bd", name: "Brand discovery", g: "research", used: "Led brand discovery for a boutique business hotel website." },
-  { sym: "Ia", name: "Information architecture", g: "structure", used: "Restructured UGAO's admin and field apps so field teams find things fast." },
-  { sym: "Uf", name: "User flows", g: "structure", used: "Designed CoSell's approval flows and adjustable automation levels." },
-  { sym: "Wf", name: "Wireframing", g: "structure", used: "Wireframes and early visual explorations for the ABDA hotel website." },
-  { sym: "Pt", name: "Prototyping", g: "structure", used: "Clickable prototypes for every case study, tested before polishing." },
-  { sym: "Ds", name: "Design systems", g: "craft", used: "Built UGAO's shared design system and Rove's system, with developers in the loop." },
-  { sym: "Ax", name: "Accessibility", g: "craft", used: "Bilingual UI, clear hierarchy and guided forms for UGAO users with varied digital literacy." },
-  { sym: "Vd", name: "Visual design", g: "craft", used: "70+ high-fidelity screens for UGAO, plus every case study on this site." },
-  { sym: "Br", name: "Branding", g: "craft", used: "Created Rove's brand identity, a music festival companion app." },
-  { sym: "Ty", name: "Typography", g: "craft", used: "Minor in Graphic Design; type is where most of my screens start." },
-  { sym: "Fg", name: "Figma", g: "build", used: "Home base: components, variables, auto layout and prototyping." },
-  { sym: "Re", name: "React", g: "build", used: "Built this portfolio in React, so I know what my handoffs ask of developers." },
-  { sym: "Dh", name: "Dev handoff", g: "build", used: "Specs, states and shared components that developers can build from, as on UGAO at Wysbrx." },
+  { sym: "Ui", name: "User interviews", g: "research", used: "Ran 15 interviews for SteadyTrack to learn why hand exercises are hard to keep up at home." },
+  { sym: "Ca", name: "Competitor analysis", g: "research", used: "Looked at what already exists for Parkinson's hand therapy. Nothing was both engaging and measurable, so SteadyTrack aimed for both." },
+  { sym: "Jm", name: "Journey mapping", g: "research", used: "Followed a solo seller's day across three marketplaces to find the moments CoSell should step in." },
+  { sym: "Bd", name: "Brand discovery", g: "research", used: "Gave CoSell a name, a mark and a voice, so Co feels like a teammate, not a dashboard." },
+  { sym: "Ia", name: "Information architecture", g: "structure", used: "Rebuilt the structure of UGAO's admin and field apps so field teams find things fast." },
+  { sym: "Uf", name: "User flows", g: "structure", used: "Mapped how CoSell asks before it acts: approvals, and automation the seller can turn up or down." },
+  { sym: "Wf", name: "Wireframing", g: "structure", used: "Structure first. Style later." },
+  { sym: "Pt", name: "Prototyping", g: "structure", used: "CoSell and Paywise have working demos on this site that you can click through." },
+  { sym: "Ds", name: "Design systems", g: "craft", used: "Built UGAO's shared design system with the developers, and a smaller one for Rove." },
+  { sym: "Ax", name: "Accessibility", g: "craft", used: "Bilingual screens, clear hierarchy and guided forms, so UGAO works for people with very different digital skills." },
+  { sym: "Vd", name: "Visual design", g: "craft", used: "70+ high-fidelity screens for UGAO, and every screen on this site." },
+  { sym: "Br", name: "Branding", g: "craft", used: "Created the brand for Rove, a companion app for music festivals." },
+  { sym: "Ty", name: "Typography", g: "craft", used: "A good type scale does half the work on a screen. Hierarchy first, colour later." },
+  { sym: "Fg", name: "Figma", g: "build", used: "Where most of my work lives: components, variables, auto layout and prototypes." },
+  { sym: "Re", name: "React", g: "build", used: "I coded this portfolio in React, so I know what my handoffs ask of developers." },
+  { sym: "Dh", name: "Dev handoff", g: "build", used: "Specs, states and shared components that UGAO's developers could build from at Wysbrx." },
 ];
 
 function Skills() {
@@ -211,7 +211,7 @@ function About() {
         </figure>
 
         <div className="sx-story is-butter" data-rv>
-          <p className="sx-story-lead">I'm Suhani Rajoria, a UX designer with a graphic designer's eye.</p>
+          <p className="sx-story-lead">I'm Suhani Rajoria, a product designer with a visual designer's eye and a human-centred approach.</p>
           <p>
             I'm completing my B.Des in User Experience Design at MIT ADT University, with a minor in Graphic Design.
             My work sits where research meets visual craft: I start with how people actually think and behave, then
