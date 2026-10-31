@@ -439,9 +439,9 @@ body { background: #fbf3ea; }
 .sx-card-img.has-cover .cv-frame { position: absolute; inset: 0; width: 100%; height: 100%; aspect-ratio: auto; }
 .sx-card:has(.has-cover) .sx-card-ghost { display: none; }
 /* The card's image box is taller than 16:9, so give the devices more room */
-.sx-card-img.has-cover .cv-stage { top: 20%; right: -2%; width: 64%; }
-.sx-card-img.has-cover .cv-copy { top: 24%; width: 40%; }
-.sx-card-img.has-cover .cv-meta { bottom: 9%; }
+/* Like the other cards, CoSell shows only the devices; the cover's own text is hidden and the laptop + phone are centred */
+.sx-card-img.has-cover .cv-stage { top: 11%; right: auto; left: 3%; width: 92%; }
+.sx-card-img.has-cover :is(.cv-copy, .cv-meta) { display: none; }
 .sx-card.is-l-banner .sx-card-img.has-cover { aspect-ratio: 16 / 9; min-height: 0; }
 
 /* ══ Twilight theme: the whole page sits in the footer's evening sky ══ */
@@ -553,10 +553,16 @@ body { background: #1b1633; }
 /* SteadyTrack: like Paywise, the card shows only the picture (glove and phone); the cover's own text is hidden */
 .sx-card-img.is-steadytrack :is(.stc-kicker, .stc-rule, .stc-title, .stc-tag, .stc-meta) { display: none; }
 @media (max-width: 1100px) {
-  .sx-card-img.has-cover.is-steadytrack { aspect-ratio: 1 / 1; }
+  .sx-card-img.has-cover.is-steadytrack, .sx-card-img.has-cover.is-cosell { aspect-ratio: 1 / 1; }
 }
 /* Long project names (SteadyTrack) must fit a phone-width card */
-.sx-card-text { min-width: 0; }
+/* Project cards: a smaller picture, and names that shrink to fit their column (SteadyTrack is the longest) */
+.sx-card { grid-template-columns: 1.1fr 0.9fr; }
+.sx-card-text { min-width: 0; container-type: inline-size; }
+.sx-page .sx-card h3 { font-size: min(clamp(72px, 8vw, 136px), 17cqi); }
+@media (max-width: 1100px) {
+  .sx-card { grid-template-columns: 1fr; }
+}
 @media (max-width: 640px) {
-  .sx-page .sx-card h3 { font-size: clamp(44px, 14vw, 72px); }
+  .sx-page .sx-card h3 { font-size: min(clamp(44px, 14vw, 72px), 17cqi); }
 }
