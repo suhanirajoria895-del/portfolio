@@ -143,7 +143,7 @@ const ELEMENTS = [
   { sym: "Bd", name: "Brand discovery", g: "research", used: "Gave CoSell a name, a mark and a voice, so Co feels like a teammate, not a dashboard." },
   { sym: "Ia", name: "Information architecture", g: "structure", used: "Rebuilt the structure of UGAO's admin and field apps so field teams find things fast." },
   { sym: "Uf", name: "User flows", g: "structure", used: "Mapped how CoSell asks before it acts: approvals, and automation the seller can turn up or down." },
-  { sym: "Wf", name: "Wireframing", g: "structure", used: "Sketched CoSell in grey boxes first. In the case study you can drag from wireframe to final screen." },
+  { sym: "Wf", name: "Wireframing", g: "structure", used: "Low-fi first, so CoSell's layout was settled before any colour or polish went in." },
   { sym: "Pt", name: "Prototyping", g: "structure", used: "CoSell and Paywise have working demos on this site that you can click through." },
   { sym: "Ds", name: "Design systems", g: "craft", used: "Built UGAO's shared design system with the developers, and a smaller one for Rove." },
   { sym: "Ax", name: "Accessibility", g: "craft", used: "Bilingual screens, clear hierarchy and guided forms, so UGAO works for people with very different digital skills." },
