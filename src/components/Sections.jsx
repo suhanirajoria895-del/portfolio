@@ -149,7 +149,7 @@ const ELEMENTS = [
   { sym: "Ax", name: "Accessibility", g: "craft", used: "Bilingual screens, clear hierarchy and guided forms, so UGAO works for people with very different digital skills." },
   { sym: "Vd", name: "Visual design", g: "craft", used: "70+ high-fidelity screens for UGAO, and every screen on this site." },
   { sym: "Br", name: "Branding", g: "craft", used: "Created the brand for Rove, a companion app for music festivals." },
-  { sym: "Ty", name: "Typography", g: "craft", used: "My minor is Graphic Design, so most of my screens start with the type." },
+  { sym: "Ty", name: "Typography", g: "craft", used: "A good type scale does half the work on a screen. Hierarchy first, colour later." },
   { sym: "Fg", name: "Figma", g: "build", used: "Where most of my work lives: components, variables, auto layout and prototypes." },
   { sym: "Re", name: "React", g: "build", used: "I coded this portfolio in React, so I know what my handoffs ask of developers." },
   { sym: "Dh", name: "Dev handoff", g: "build", used: "Specs, states and shared components that UGAO's developers could build from at Wysbrx." },
