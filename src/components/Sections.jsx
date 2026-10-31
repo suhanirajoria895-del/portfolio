@@ -211,7 +211,7 @@ function About() {
         </figure>
 
         <div className="sx-story is-butter" data-rv>
-          <p className="sx-story-lead">I'm Suhani. I think like a researcher and see like a graphic designer.</p>
+          <p className="sx-story-lead">I'm Suhani Rajoria, a product designer with a visual designer's eye and a human-centred approach.</p>
           <p>
             I'm completing my B.Des in User Experience Design at MIT ADT University, with a minor in Graphic Design.
             My work sits where research meets visual craft: I start with how people actually think and behave, then
