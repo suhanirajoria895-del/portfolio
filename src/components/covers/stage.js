@@ -29,7 +29,8 @@ export function quadMatrix(w, h, quad) {
 }
 
 /* Scales a fixed-size stage (sw×sh) to cover its parent box, centred. */
-export function useStageFit(sw, sh) {
+// focusX: the stage x to keep centred when the box crops the sides (defaults to the middle).
+export function useStageFit(sw, sh, focusX = sw / 2) {
   const ref = useRef(null);
   const [fit, setFit] = useState({ s: 0, x: 0, y: 0 });
   useEffect(() => {
@@ -37,10 +38,11 @@ export function useStageFit(sw, sh) {
     const ro = new ResizeObserver(() => {
       const { width: w, height: h } = el.getBoundingClientRect();
       const s = Math.max(w / sw, h / sh);
-      setFit({ s, x: (w - sw * s) / 2, y: (h - sh * s) / 2 });
+      const x = Math.min(0, Math.max(w - sw * s, w / 2 - focusX * s));
+      setFit({ s, x, y: (h - sh * s) / 2 });
     });
     ro.observe(el);
     return () => ro.disconnect();
-  }, [sw, sh]);
+  }, [sw, sh, focusX]);
   return [ref, { transform: `translate(${fit.x}px, ${fit.y}px) scale(${fit.s})`, opacity: fit.s ? 1 : 0 }];
 }

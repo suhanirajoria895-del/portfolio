@@ -19,9 +19,10 @@ const SH = 625;
 const M = quadMatrix(SW, SH, GLASS.map(([x, y]) => [PX + x * PS, PY + y * PS]));
 
 /* SteadyTrack cover: sage editorial panel, the real glove render on a round table,
-   and the real session screen mapped onto the phone beside it. */
-export default function SteadyTrackCover() {
-  const [ref, stageStyle] = useStageFit(W, H);
+   and the real session screen mapped onto the phone beside it.
+   Pass focus (a stage x) to crop towards the glove and phone in a narrow box. */
+export default function SteadyTrackCover({ focus }) {
+  const [ref, stageStyle] = useStageFit(W, H, focus);
   return (
     <div className="stc" ref={ref} aria-hidden="true">
       <div className="stc-stage" style={stageStyle}>

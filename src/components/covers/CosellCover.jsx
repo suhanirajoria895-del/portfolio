@@ -45,7 +45,7 @@ export default function CosellCover() {
       </div>
 
       <p className="cv-meta">
-        <b>Role</b> UX research, UI design <span>·</span> <b>Tools</b> Figma <span>·</span> 2026
+        <b>Role</b> UX research, UI design <span>·</span> <b>Tools</b> Figma
       </p>
     </div>
     </div>

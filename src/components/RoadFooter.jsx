@@ -102,6 +102,28 @@ export default function RoadFooter() {
   };
   useEffect(() => () => countTimers.current.forEach(clearTimeout), []);
 
+  // The hero's Play button: scroll down to the road, then run the start lights once it's in view.
+  const lightsRef = useRef(lightsOut);
+  lightsRef.current = lightsOut;
+  useEffect(() => {
+    let io;
+    const go = () => {
+      const el = stage.current;
+      if (!el) return;
+      const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      el.scrollIntoView({ behavior: still ? "auto" : "smooth", block: "end" });
+      io?.disconnect();
+      io = new IntersectionObserver(([e]) => {
+        if (!e.isIntersecting) return;
+        io.disconnect();
+        setTimeout(() => lightsRef.current(), 350);
+      }, { threshold: 0.6 });
+      io.observe(el);
+    };
+    window.addEventListener("rf:play", go);
+    return () => { window.removeEventListener("rf:play", go); io?.disconnect(); };
+  }, []);
+
   const start = () => {
     const s = sim.current;
     const W = stage.current.clientWidth;
@@ -292,6 +314,7 @@ export default function RoadFooter() {
       </div>
 
       <div
+        id="play"
         className={`rf-stage${driving ? " is-play" : ""}`}
         ref={stage}
         onPointerDown={tapSteer}
