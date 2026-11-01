@@ -150,7 +150,7 @@ function Header() {
         <p className="cs-mono">Case study 01 · CoSell · Agentic AI</p>
         <h1>CoSell: an AI agent that turns a small seller's three dashboards into <span className="hl">one list of decisions</span></h1>
         <p className="cs-lede">
-          Co watches every shop, fixes the routine work and brings the seller a short list of decisions.
+          Co monitors stock, prices, returns and payouts across marketplaces. It handles routine work within the seller's limits and brings the rest to her as a ranked list of decisions.
         </p>
         <a className="cs-try" href={DEMO} target="_blank" rel="noreferrer">Try the live prototype ↗<span className="sr"> (opens in a new tab)</span></a>
         <ul className="cs-tags" aria-label="Tags">
@@ -180,7 +180,6 @@ function Header() {
       <dl className="cs-facts cs-facts--row">
         {[
           ["Role", "Product designer"],
-          ["Timeline", "June 2026"],
           ["Type", "Personal project"],
           ["Platform", "Web app and iOS app"],
           ["Tools", "Figma"],
@@ -196,7 +195,7 @@ function Header() {
         </li>
         <li className="mid">
           <CoMark state="needsYou" size={40} />
-          <span><b>The hard part:</b> getting a seller to let software decide for her</span>
+          <span><b>The design challenge:</b> letting software act while the seller stays in control</span>
         </li>
       </ul>
     </header>
@@ -212,13 +211,13 @@ function Problem() {
       n="01"
       kicker="Problem"
       title="Three marketplaces, every job done three times"
-      lede="Every marketplace has its own dashboard, fees and return rules. Small, costly mistakes slip through."
+      lede="Each marketplace has its own dashboard, fees and return rules. Sellers repeat the same jobs on each one, and errors go unnoticed."
     >
       <ol className="cs-chain" data-reveal>
         {[
           ["What's different", "Three rule books", "Labels, return windows and fees change from one marketplace to the next."],
           ["What's missing", "No single view", "She opens each panel by hand, often once a day."],
-          ["What it costs", "Missed deadlines", "Fee claims and return replies have time limits, and she finds out too late."],
+          ["What it costs", "Missed deadlines", "Fee claims and return replies have time limits, and they can lapse unnoticed."],
         ].map(([k, t, d], i) => (
           <li key={k} className={i === 2 ? "bad" : ""}>
             <p className="cs-mono">{k}</p>
@@ -275,9 +274,6 @@ function Statement() {
             <span className="amt">{inr(total)}</span>
           </div>
         </div>
-        <p className="hand margin-note" aria-hidden="true">
-          looks fine, right? ↑
-        </p>
       </div>
       <div>
         <p className="cs-big">1 to 3%</p>
@@ -286,12 +282,12 @@ function Statement() {
         </p>
         <p className="cs-note">Source: Mynd Solution, marketplace reconciliation guide.</p>
         <button type="button" className="cs-btn" onClick={() => setScan((s) => !s)} aria-pressed={scan}>
-          {scan ? "Hide it again" : "Show me what's wrong"}
+          {scan ? "Hide the errors" : "Show the errors"}
         </button>
         <p className={`cs-found ${scan ? "on" : ""}`} aria-live="polite">
           {scan
-            ? "₹1,890 on one statement. That's 16.7% of this payout, gone."
-            : "This is a made-up statement, but every line on it is a real kind of error."}
+            ? "₹1,890 in errors on one statement, or 16.7% of this payout."
+            : "Sample statement. The flagged lines show real types of error."}
         </p>
       </div>
     </div>
@@ -301,19 +297,19 @@ function Statement() {
 /* ───────────────────────── 02 research ───────────────────────── */
 
 const JOURNEY = [
-  ["7:30", "Morning check", "Logs in to 3 dashboards", 1, "35 min of tab switching", Coffee, "Opens one screen: 3 things need her", 2, "Overwhelmed", "Focused"],
-  ["9:00", "Stock update", "Types counts in 3 places", -1, "Oversells a dupatta", Package, "Co syncs counts and flags a mismatch", 1, "Anxious", "Calm"],
-  ["11:00", "Packing", "37 orders out the door", 2, "The part she enjoys", Scissors, "Same job, with more time for it", 2, "Happy", "Happy"],
-  ["15:00", "Returns", "Replies panel by panel", -2, "Misses a 2-day window", Undo2, "Replies drafted, sorted by deadline", 1, "Rushed", "In control"],
-  ["18:00", "Pricing", "Guesses at rival prices", -1, "No history to go on", Tag, "Co recommends a price, with reasons", 1, "Guessing", "Confident"],
-  ["22:00", "Payouts", "Reconciles in Excel", -3, "Can't tell which fee is wrong", Receipt, "Wrong fees flagged, claim ready", 1, "Defeated", "Relieved"],
+  ["7:30", "Morning check", "Logs in to 3 dashboards", 1, "35 min of tab switching", Coffee, "Opens one screen: 3 things need her", 2, "3 dashboards", "1 screen"],
+  ["9:00", "Stock update", "Types counts in 3 places", -1, "Oversells a dupatta", Package, "Co syncs counts and flags a mismatch", 1, "3 manual updates", "1 sync"],
+  ["11:00", "Packing", "Packs 37 orders", 2, "Not a software problem", Scissors, "Packs 37 orders", 2, "No change", "No change"],
+  ["15:00", "Returns", "Replies panel by panel", -2, "Misses a 2-day window", Undo2, "Replies drafted, sorted by deadline", 1, "By panel", "By deadline"],
+  ["18:00", "Pricing", "Guesses at rival prices", -1, "No history to go on", Tag, "Co recommends a price, with reasons", 1, "Guesswork", "Stated reasons"],
+  ["22:00", "Payouts", "Reconciles in Excel", -3, "Can't tell which fee is wrong", Receipt, "Wrong fees flagged, claim ready", 1, "Manual check", "Flagged errors"],
 ];
 
 const AFFINITY = [
-  ["Time goes to watching", "y", ["Same stock typed into 3 portals", "Festival weeks are unmanageable by hand", "3 logins every morning"], "Sellers have dashboards. They lack time to watch them.", "One place that watches every shop, so she doesn't have to."],
-  ["Mistakes are silent", "p", ["Wrong commission slab", "RTO on a delivered order", "Returns never restocked"], "Small daily losses add up over a year.", "Check every fee and return automatically, and flag only what's wrong."],
-  ["Late is expensive", "b", ["Claims close in ~30 days", "Return replies have deadlines", "25–40% fashion returns (Shipmozo)"], "Most losses come from acting too late, not from not knowing what to do.", "Sort by deadline and money at risk, not by marketplace."],
-  ["Control is scary", "g", ["Thin margins", "Different price rules", "Repricers feel like a black box"], "Sellers won't let software change prices unless they can see why and undo it.", "Ask before acting, show the reasons, and make every action undoable."],
+  ["Monitoring takes the time", "y", ["Same stock typed into 3 portals", "Festival weeks are unmanageable by hand", "3 logins every morning"], "Sellers have dashboards. They lack time to watch them.", "One place that monitors every marketplace."],
+  ["Errors go unnoticed", "p", ["Wrong commission slab", "RTO on a delivered order", "Returns never restocked"], "Small daily losses add up over a year.", "Check every fee and return automatically, and flag only what's wrong."],
+  ["Late action costs money", "b", ["Claims close in ~30 days", "Return replies have deadlines", "25–40% fashion returns (Shipmozo)"], "Most losses come from acting too late, not from not knowing what to do.", "Sort by deadline and money at risk, not by marketplace."],
+  ["Sellers fear losing control", "g", ["Thin margins", "Different price rules", "Repricers feel like a black box"], "Sellers won't let software change prices unless they can see why and undo it.", "Ask before acting, show the reasons, and make every action undoable."],
 ];
 
 function Research() {
@@ -474,8 +470,8 @@ function Journey() {
   return (
     <section className="jm" data-reveal>
       <header>
-        <p className="cs-mono">Journey map · {withCo ? "the same day, with CoSell" : "a day today"}</p>
-        <h3>{withCo ? "The routine work moves to Co. The decisions stay with her." : "The day starts fine, and ends in a spreadsheet"}</h3>
+        <p className="cs-mono">Journey map · {withCo ? "the same day, with CoSell" : "an illustrative day, from desk research"}</p>
+        <h3>{withCo ? "The routine work moves to Co. The decisions stay with her." : "Most friction sits in returns, pricing and payouts"}</h3>
         <div className="qr__toggle jm__toggle" role="group" aria-label="Which day to show">
           <button type="button" aria-pressed={!withCo} onClick={() => setWithCo(false)}>Today</button>
           <button type="button" aria-pressed={withCo} onClick={() => setWithCo(true)}>With CoSell</button>
@@ -512,7 +508,7 @@ function Journey() {
                 <p className="jm__time">{t}</p>
                 <h4>{stage}</h4>
                 <p className="jm__doing">{withCo ? withDoing : doing}</p>
-                <p className="jm__pain">{withCo ? <span className="jm__feel">{from} → <b>{to}</b></span> : pain}</p>
+                <p className="jm__pain">{withCo ? <span className="jm__feel">{from === to ? from : <>{from} → <b>{to}</b></>}</span> : pain}</p>
               </li>
             ))}
           </ol>
@@ -520,8 +516,8 @@ function Journey() {
       </div>
       <p className="jm__foot">
         {withCo
-          ? <><b>Biggest change:</b> she still decides everything that matters. She just stops hunting for it.</>
-          : <><b>Biggest drop:</b> payouts at 10 PM, the one job that decides whether she made money.</>}
+          ? <><b>Main change:</b> she opens one screen instead of three dashboards, and approves or rejects from there.</>
+          : <><b>Lowest point:</b> reconciling payouts at 10 PM, without knowing which fee is wrong.</>}
       </p>
     </section>
   );
@@ -680,16 +676,16 @@ function Analysis() {
 
       <div className="cs-comp" data-reveal>
         <p className="cs-mono">Competitive landscape</p>
-        <h3 className="cs-h3">Every marketplace now has its own AI. Each one only sees its own shop.</h3>
+        <h3 className="cs-h3">Marketplace AI tools exist, but each covers only its own marketplace.</h3>
         <div className="cmp">
           <Positioning />
           <aside className="cmp__gap">
             <p className="cs-mono">The gap</p>
-            <p className="cmp__big">No tool acts across every marketplace, and asks first.</p>
+            <p className="cmp__big">I found no tool that acts across marketplaces and asks first.</p>
             <ul>
               <li>Marketplace AIs act, but see one shop</li>
               <li>Multichannel tools see all, but only inform</li>
-              <li>CoSell sees every shop and acts with a yes</li>
+              <li>CoSell sees every marketplace and acts only with approval</li>
             </ul>
           </aside>
         </div>
@@ -736,7 +732,7 @@ function Define() {
     <Part title="The brief">
       <blockquote className="cs-hmw" data-reveal>
         <span className="cs-mono">How might we</span>
-        let a solo seller hand the repetitive marketplace work to an AI, <em>and still feel like it's her shop?</em>
+        let a solo seller hand the repetitive marketplace work to an AI, <em>and stay in control of her shop?</em>
       </blockquote>
       <div className="cs-rules" id="principles" data-reveal>
         <p className="hand cs-rules__title">Design principles</p>
@@ -765,7 +761,7 @@ function Define() {
 
 function Flows() {
   return (
-    <Part title="The loop: from noticing to changing anything">
+    <Part title="The core loop: from detection to action">
       <figure className="cs-fig" data-reveal>
         <figcaption>
           <span className="cs-mono">Core loop</span>
@@ -1101,8 +1097,8 @@ const SCREENS = [
   {
     img: "home",
     principles: ["Only interrupt for what's urgent", "Undo is always there"],
-    finding: "Time goes to watching",
-    dec: { problem: "Sellers open the app to find out what needs them, and a dashboard makes them hunt for it.", alts: ["Charts-first analytics dashboard", "Notifications in a bell menu"], why: "A queue sorted by urgency answers \"what do I do now?\" in one glance. The numbers stay, but shrink to three." },
+    finding: "Monitoring takes the time",
+    dec: { problem: "Sellers open the app to find out what needs them, and a dashboard makes them search for it.", alts: ["Charts-first analytics dashboard", "Notifications in a bell menu"], why: "A queue sorted by urgency answers \"what do I do now?\" in one glance. The numbers stay, but shrink to three." },
     short: "Home",
     t: "Home, a to-do list rather than a dashboard",
     d: "The first thing Meera sees is what needs her, not a wall of charts.",
@@ -1116,7 +1112,7 @@ const SCREENS = [
   {
     img: "approval",
     principles: ["Always show the working", "Nothing changes without a yes"],
-    finding: "Control is scary",
+    finding: "Sellers fear losing control",
     dec: { problem: "A seller won't approve a price change she can't check.", alts: ["A one-line card with Approve / Reject", "A confidence score like 87%"], why: "Showing the change, her margin after it, her own limits and the reason lets her judge it in seconds. High / Medium / Low with reasons is easier to trust than a number." },
     short: "Recommendation",
     t: "A recommendation, with all its working shown",
@@ -1131,7 +1127,7 @@ const SCREENS = [
   {
     img: "inventory",
     principles: ["Always show the working"],
-    finding: "Mistakes are silent",
+    finding: "Errors go unnoticed",
     dec: { problem: "Stock counts drift between marketplaces and cause overselling.", alts: ["Auto-correct every mismatch silently", "Only flag them in a report"], why: "Flag each mismatch with a one-click fix. Fixing silently would hide errors from her; a report alone would be read too late." },
     short: "Inventory",
     t: "One stock count across every shop",
@@ -1145,7 +1141,7 @@ const SCREENS = [
   {
     img: "returns",
     principles: ["Only interrupt for what's urgent"],
-    finding: "Late is expensive",
+    finding: "Late action costs money",
     dec: { problem: "Each marketplace has its own reply deadline, and missing it means losing the case.", alts: ["Let Co send replies automatically", "A plain list of open returns"], why: "Sort by deadline and draft the reply, but let her send it. A reply speaks for her shop, so it stays her call by default." },
     short: "Returns",
     t: "Returns, with the replies already drafted",
@@ -1158,8 +1154,8 @@ const SCREENS = [
   {
     img: "settings",
     principles: ["Nothing changes without a yes"],
-    finding: "Control is scary",
-    dec: { problem: "Sellers trust some automation (restock alerts) long before others (pricing).", alts: ["One global AI on/off switch", "Fixed rules set during onboarding"], why: "A freedom level per task, plus hard limits Co can never cross. Trust can grow one task at a time." },
+    finding: "Sellers fear losing control",
+    dec: { problem: "Sellers trust some automation (restock alerts) long before others (pricing).", alts: ["One global AI on/off switch", "Fixed rules set during onboarding"], why: "A freedom level per task, plus hard limits Co can never cross. She can increase automation one task at a time." },
     short: "Co settings",
     t: "How much Co is allowed to do",
     d: "Freedom is set task by task, and some lines are never crossed.",
@@ -1375,7 +1371,7 @@ function Reflection() {
           </div>
           <div>
             <dt>What I'm checking</dt>
-            <dd>Whether the reasons on a recommendation are enough to decide, and whether undo makes approving feel safe.</dd>
+            <dd>Whether the reasons on a recommendation are enough to decide, and whether undo makes sellers more willing to approve.</dd>
           </div>
         </dl>
       </div>
@@ -1384,10 +1380,10 @@ function Reflection() {
         <p className="cs-mono">What I learned</p>
         <div className="rf__cards">
           {[
-            [Handshake, "Trust had to be designed, not assumed", "Every screen needed a reason, a limit or an undo before I'd expect a seller to say yes."],
-            [Undo2, "Design the failure first", "Planning for \"Co got it wrong\" shaped the whole approval flow."],
-            [Target, "One queue beat many charts", "Cutting home to a ranked list was the biggest simplification."],
-            [Languages, "Hindi and voice are bets to test", "I think they matter for tired sellers at night. Testing will tell."],
+            [Handshake, "Approval needs evidence", "A seller can only judge a change if the screen shows the reason, her limits and a way to undo."],
+            [Undo2, "Plan for wrong recommendations early", "Designing for \"Co got it wrong\" shaped the whole approval flow."],
+            [Target, "A ranked list replaced the charts", "Reducing home to a ranked list was the biggest simplification."],
+            [Languages, "Hindi and voice are untested", "I expect them to help sellers working late, but this needs testing."],
           ].map(([Icon, t, d], i) => (
             <div key={t} style={{ "--r": `${[-2, 1.5, -1, 2][i]}deg` }}>
               <span className="ic"><Icon size={22} strokeWidth={1.75} /></span>

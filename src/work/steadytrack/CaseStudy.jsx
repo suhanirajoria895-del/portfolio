@@ -115,7 +115,6 @@ const FACTS = [
   ["Team", "Group project"],
   ["Type", "Academic project"],
   ["Organisation", "MIT Institute of Design"],
-  ["Timeline", "2 weeks · April 2025"],
   ["Tools", "Figma, FigJam"],
 ];
 
@@ -721,7 +720,7 @@ function Decisions() {
 
 const CHALLENGES = [
   ["Sensor accuracy", "Motion and grip readings had to be good enough for a physio to act on."],
-  ["Comfort vs hardware", "Sensors, battery and motor had to fit a glove people would wear daily."],
+  ["Comfort vs components", "Sensors, battery and motor had to fit a glove people would wear daily."],
   ["Usable for older hands", "Simple and readable for people with low vision and tremor."],
   ["Safe health data", "Bluetooth transfer and records handled with care."],
   ["Every stage is different", "Therapy had to adapt as Parkinson's progresses."],

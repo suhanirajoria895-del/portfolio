@@ -27,7 +27,7 @@ export function IPhone({ src, alt, className = "", style }) {
 const KINDS = [
   [Bot, "Agentic", "Acts on her behalf, inside her limits.", "Syncs stock across all three marketplaces overnight."],
   [Radar, "Context-aware", "Knows her rules, sales and deadlines.", "Knows the floor price of every product."],
-  [Megaphone, "Proactive", "Speaks first, only when it matters.", "One alert when the copper bottle loses the top spot."],
+  [Megaphone, "Proactive", "Alerts her only for urgent issues.", "One alert when the copper bottle loses the top spot."],
   [Lightbulb, "Explainable", "Shows its working before asking.", "Lists what changed and which of her rules passed."],
   [MessagesSquare, "Conversational", "Answers in her words, in Hindi or English.", "“Am I owed any money?”, asked by voice."],
 ];
@@ -132,7 +132,7 @@ export function SaidNo() {
     <div className="sn">
       <header className="sn__head" data-reveal>
         <p className="cs-mono">Trade-offs: design decisions and reasoning</p>
-        <h3 className="cs-h3">What I said no to</h3>
+        <h3 className="cs-h3">The options I considered, and why I chose differently</h3>
       </header>
       <NoPair
         n="01"
@@ -140,7 +140,7 @@ export function SaidNo() {
         noUi={<div className="m-toast"><Check size={14} aria-hidden="true" /> Price changed to ₹849 <i>(you were never asked)</i></div>}
         yes="Ask, with the cost of waiting"
         yesUi={<div className="m-ask"><b>Match at ₹849?</b><span>Losing ₹1,090 a day</span><em><i className="y">Approve</i><i>Not now</i></em></div>}
-        why="Margins are thin. One wrong price costs real money, so a yes has to come from her."
+        why="Margins are thin and a wrong price costs money, so price changes need her approval."
       />
       <NoPair
         n="02"

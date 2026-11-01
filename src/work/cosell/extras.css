@@ -169,7 +169,7 @@
 .cs-head .cs-hero { padding: 6% 4% 8% 2%; }
 .cs-try { display: inline-flex; margin-top: 22px; padding: 12px 20px; border-radius: 999px; background: #17141f; color: #fff; font-weight: 500; text-decoration: none; }
 .cs-try:hover { background: #2c2938; }
-.cs-head .cs-facts--row { max-width: none; grid-column: 1 / -1; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin: 8px 0 0; padding: 20px 24px; border-radius: 22px; background: rgba(255, 255, 255, 0.7); border: 1px solid var(--line); }
+.cs-head .cs-facts--row { max-width: none; grid-column: 1 / -1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin: 8px 0 0; padding: 20px 24px; border-radius: 22px; background: rgba(255, 255, 255, 0.7); border: 1px solid var(--line); }
 .cs-facts--row div { border: 0; padding: 0; }
 .cs-facts--row dt { font: 500 11px/1.4 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .cs-facts--row dd { margin: 4px 0 0; font-weight: 500; }

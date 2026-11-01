@@ -6,7 +6,6 @@ import {
 } from "lucide-react";
 
 const S = 1.6; // Lucide stroke width
-const IMG = "/work/paywise/";
 
 export const SCREENS = [
   { group: "Inside your UPI app", items: [
@@ -46,7 +45,7 @@ export function PwMark({ size = 20, light }) {
   );
 }
 
-function StatusBar({ light }) {
+export function StatusBar({ light }) {
   return (
     <div className={`sb${light ? " sb--light" : ""}`}>
       <span>9:41</span>
@@ -56,7 +55,7 @@ function StatusBar({ light }) {
   );
 }
 
-function ProtectedTag() {
+export function ProtectedTag() {
   return <span className="ptag"><ShieldCheck size={14} strokeWidth={S} /> Protected by Paywise</span>;
 }
 
@@ -145,7 +144,7 @@ function RiskFlow({ go }) {
   if (state === "paid") return <HostSuccess amount="48,000" name="Vikram Rao" onDone={() => setState("idle")} />;
   return (
     <div className="host-wrap">
-      <div className={`host${sheet ? " is-dim" : ""}`}>
+      <div className={`host${sheet ? " is-dim" : ""}`} aria-hidden={sheet || undefined}>
         <StatusBar />
         <div className="h-call"><PhoneIncoming size={14} strokeWidth={2} /> On call · +91 87 4410 2290 · 06:12</div>
         <HostHeader title="Send money" onBack={() => {}} />
@@ -167,7 +166,7 @@ function RiskFlow({ go }) {
   );
 }
 
-function PauseSheet({ onCall, onCancel, onPay }) {
+function PauseSheet({ onCall, onCancel, onPay, reasons }) {
   const [left, setLeft] = useState(10);
   useEffect(() => {
     if (left <= 0) return;
@@ -190,11 +189,13 @@ function PauseSheet({ onCall, onCancel, onPay }) {
       </div>
       <h1 className="sheet__h">Let's take 10 seconds.</h1>
       <p className="sheet__sub">A few things about this payment look unusual.</p>
-      <ul className="rows">
-        <li><span className="tile tile--amber"><UserRound size={20} strokeWidth={S} /></span><div><b>You've never paid this person</b><small>vikram.verify77@ybl</small></div></li>
-        <li><span className="tile tile--amber"><PhoneIncoming size={20} strokeWidth={S} /></span><div><b>Unknown caller, 3 minutes ago</b><small>You're still on that call</small></div></li>
-        <li><span className="tile tile--teal"><Info size={20} strokeWidth={S} /></span><div><b>Police and banks never ask you to pay over a call</b></div></li>
-      </ul>
+      {reasons || (
+        <ul className="rows">
+          <li><span className="tile tile--amber"><UserRound size={20} strokeWidth={S} /></span><div><b>You've never paid this person</b><small>vikram.verify77@ybl</small></div></li>
+          <li><span className="tile tile--amber"><PhoneIncoming size={20} strokeWidth={S} /></span><div><b>Unknown caller, 3 minutes ago</b><small>You're still on that call</small></div></li>
+          <li><span className="tile tile--teal"><Info size={20} strokeWidth={S} /></span><div><b>Police and banks never ask you to pay over a call</b></div></li>
+        </ul>
+      )}
       <div className="sheet__actions">
         <button className="r-btn" onClick={onCall}><PhoneCall size={18} strokeWidth={S} /> Call Rohan first</button>
         <button className="r-btn r-btn--tint" onClick={onCancel}>Cancel payment</button>
@@ -206,13 +207,45 @@ function PauseSheet({ onCall, onCancel, onPay }) {
   );
 }
 
+/** The risky payment, driven from outside: below the threshold it stays a normal payment, above it the real pause sheet slides up with the reasons passed in. */
+export function SignalPhone({ reasons, pause, style }) {
+  return (
+    <div className="rk-app phone" style={style}>
+      <div className="phone__screen">
+        <div className="host-wrap">
+          <div className={`host${pause ? " is-dim" : ""}`} aria-hidden={pause || undefined}>
+            <StatusBar />
+            <HostHeader title="Send money" onBack={() => {}} />
+            <HostPayee initials="VR" name="Vikram Rao" upi="vikram.verify77@ybl" badge={<span className="checked"><i /> Checked by Paywise</span>} />
+            <div className="h-amount">₹48,000</div>
+            <div className="h-from"><Landmark size={18} strokeWidth={2} /><span>State Bank ••4021</span><small>Change</small></div>
+            <button className="h-btn">Pay ₹48,000</button>
+          </div>
+          {pause && (
+            <PauseSheet
+              onCall={() => {}} onCancel={() => {}} onPay={() => {}}
+              reasons={
+                <ul className="rows">
+                  {reasons.map(({ Icon, title, sub }) => (
+                    <li key={title}><span className="tile tile--amber"><Icon size={20} strokeWidth={S} /></span><div><b>{title}</b><small>{sub}</small></div></li>
+                  ))}
+                </ul>
+              }
+            />
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function CollectFlow({ go }) {
   const [sheet, setSheet] = useLater(900);
   const [state, setState] = useState("idle");
   if (state === "pin") return <HostPin onBack={() => setState("idle")} />;
   return (
     <div className="host-wrap">
-      <div className={`host${sheet ? " is-dim" : ""}`}>
+      <div className={`host${sheet ? " is-dim" : ""}`} aria-hidden={sheet || undefined}>
         <StatusBar />
         <HostHeader title="Requests" onBack={() => {}} />
         {state === "declined" ? (
@@ -335,7 +368,7 @@ function CompanionHome({ go }) {
       <div className="comp__scroll">
         <Top tall>
           <div className="top__hd">
-            <Avatar src={`${IMG}sunita.webp`} />
+            <Avatar letter="S" />
             <div className="top__hi"><small>Good evening</small><b>Sunita Deshpande</b></div>
             <button className="glass-ic" aria-label="Notifications"><Bell size={20} strokeWidth={S} /><i /></button>
           </div>
@@ -406,7 +439,7 @@ function RohanAlert() {
       <div className="comp__scroll">
         <Top>
           <div className="top__hd">
-            <Avatar src={`${IMG}rohan.webp`} />
+            <Avatar letter="R" />
             <div className="top__hi"><small>Paywise · trusted circle</small><b>Rohan</b></div>
             <button className="glass-ic" aria-label="Notifications"><Bell size={20} strokeWidth={S} /><i /></button>
           </div>

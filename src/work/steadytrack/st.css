@@ -422,3 +422,7 @@ a { color: inherit; }
 .cover__phone { width: 270px; right: -2%; bottom: -6%; transform-origin: 100% 100%; scale: 0.78; }
 .cover__phone { right: -8%; bottom: -12%; scale: 0.58; }
 .cover__glove { width: 82%; margin-right: 14%; }
+
+/* odd number of facts: last one runs full width */
+.facts div:last-child:nth-child(odd) { grid-column: span 2; }
+.facts div:nth-last-child(2):nth-child(even) { border-bottom: 1px solid var(--line); }

@@ -117,7 +117,7 @@ function BeforeCard() {
       <p className="pcard__k">Pricing · Copper water bottle 1L</p>
       <div className="pcard__big">₹899 <span aria-hidden="true">→</span> ₹849</div>
       <span className="pcard__chip">−₹50 · 5.6%</span>
-      <p className="pcard__s">Suggested by Co at 7:52 AM</p>
+      <p className="pcard__s">Recommended by Co at 7:52 AM</p>
       <div className="pcard__actions"><span className="b p">Approve</span><span className="b">Edit</span><span className="b">Reject</span></div>
     </div>
   );
@@ -159,12 +159,12 @@ export function PriceIteration() {
     <article className="iter" data-reveal>
       <div className="iter__copy">
         <p className="cs-mono">Feedback that changed the design</p>
-        <h3>The price was big. The problem wasn't.</h3>
+        <h3>The card showed the price, not the problem</h3>
         <blockquote className="iter__fb">
           <p>The price is the biggest thing on the card, but the drop doesn't feel urgent. Size isn't telling me what it means.</p>
           <footer>Feedback from an industry designer, paraphrased</footer>
         </blockquote>
-        <p className="cs-body">They were right. A big number doesn't say anything. The signal was the change and what it costs, and both were hiding in a small chip.</p>
+        <p className="cs-body">The largest element was the price, but the seller needs the change and what it costs. Both sat in a small chip.</p>
         <ol className="iter__list">
           <li><b>Severity label first,</b> with an icon.</li>
           <li><b>The change is the headline.</b></li>
@@ -299,7 +299,7 @@ export function DesignToCode() {
       <header className="cs-sec__head" data-reveal>
         <p className="cs-kicker"><span>07</span> Figma to code</p>
         <h2>From Figma to a working prototype</h2>
-        <p className="cs-lede">I designed CoSell in Figma, then built the prototype myself, so every decision could be clicked, not just looked at.</p>
+        <p className="cs-lede">I designed CoSell in Figma, then built the prototype myself, so each decision can be tried in a working interface.</p>
       </header>
       <div className="d2c" data-reveal>
         <div className="d2c__tokens">

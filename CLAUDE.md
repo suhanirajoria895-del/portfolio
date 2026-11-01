@@ -16,7 +16,7 @@ Applying for the **Demandbase UX Intern** role (agentic "pipeline AI" B2B platfo
 
 - `src/App.jsx` → `DeskHero` + `Sections` + `RoadFooter` (the homepage).
 - `src/components/DeskHero.jsx` + `src/desk-hero.css` — landing hero: full-bleed desk photo, "Ideas, interfaces and a little curiosity." (Instrument Serif), nav, "Open to 2027 roles" pill, Explore my work, frosted Featured project (CoSell) and "A peek into my world" cards. Photo is a stand-in (`public/assets/hero-desk-mock.webp`, made from Suhani's mock with the text blurred out); swap in the clean photo when she sends it. `GridHero.jsx` (old dark hero + carousel) is unused.
-- `src/components/RoadFooter.jsx` + `src/road-footer.css` — footer (`id="contact"`): twilight indigo panel ("Let's talk about what comes next.", email / LinkedIn / Behance with coloured ↗ rings) over a playable parallax drive through Hyderabad (assets in `public/footer/`). F1 start-light gantry starts the drive (or click the road); steering-wheel cursor; mouse up/down, ↑/↓ or taps switch lanes; cones only; a speech bubble with a random line from `OOPS` pops on a crash (Hyderabadi slang, F1 radio, designer jokes — no "laws"/heuristics, no lines implying a passenger). Base bar: © line + "Driver: me. Pit crew: Claude. Pit stops: too many to count." Image prompts for the assets are in `design-assets/footer-game-prompts.md`.
+- `src/components/RoadFooter.jsx` + `src/road-footer.css` — footer (`id="contact"`): twilight indigo panel ("Let's talk about what comes next.", email / LinkedIn / Behance with coloured ↗ rings) over a playable parallax drive through Hyderabad (assets in `public/footer/`). F1 start-light gantry starts the drive (or click the road); steering-wheel cursor; mouse up/down, ↑/↓ or taps switch lanes; cones only; a speech bubble with a random line from `OOPS` pops on a crash (Hyderabadi slang, F1 radio, designer jokes — no "laws"/heuristics, no lines implying a passenger). Base bar: © line + "Driver: me. Pit crew: AI. Pit stops: too many to count." Image prompts for the assets are in `design-assets/footer-game-prompts.md`.
 - `src/components/Sections.jsx` + `src/sections.css` — homepage sections (the "What I do" panel was removed): Case studies (stacking cards, layouts split/poster/banner), Experience (Wysbrx, ABDA only — no education card), Skillset (periodic table of skills; "Dh Dev handoff", no "vibe coding"), About (bento: photo `public/assets/about-suhani.webp`, story, Currently, Off-screen), (old Contact section removed; the footer is the contact block).
 - `src/portfolio/content.js` — site text/data (work list with `cover` keys, experience, contact, skills). `src/portfolio/Site.jsx`, `NameHero.jsx`, `Collage.jsx` etc. are old unused versions.
 - `src/components/covers/` — project cover art used in the hero carousel and homepage cards:
@@ -41,10 +41,13 @@ Applying for the **Demandbase UX Intern** role (agentic "pipeline AI" B2B platfo
 - Homepage palette: Cosmic Latte `#FFF8E7`, Sangria `#930500`, Cornflower `#95BBEA` for the sections. The new hero uses an orange accent (`#c8573a`) and the footer a twilight indigo + peach/coral/pink sunset palette — both approved by Suhani. Keep things minimal, not over-colourful.
 - Suhani doesn't drink chai — don't mention it. She dislikes cursive/italic display type in the footer, cliché lines ("big dreams"), and copy that names UX laws or heuristics.
 - CoSell: say **recommendation**, never "suggestion". Use **click(s)**, not tap(s), in CoSell, Paywise and SteadyTrack copy ("Finger taps" in SteadyTrack is an exercise name — leave it).
-- Case study facts cards: same light-grey two-column card on all three; no "Achievement"; Team for CoSell and Paywise = **Individual**.
+- Case study facts: no "Achievement" and no Timeline on any project; no Team row on CoSell and Paywise.
+- SteadyTrack: never say "hardware" (use "wearable").
 - Trade-off sections are titled "Trade-offs: design decisions and reasoning" (never "what I gave up").
 - Never invent facts, metrics, quotes or test results. Use visible `[TODO: …]` placeholders.
 - Don't name specific marketplaces in CoSell case-study copy (use "Marketplace A/B/C"); real competitor tools can be named with citations.
+- Case study writing is factual and sharp, like a senior product designer: no emotional scenes, composite stories, philosophical lines or dramatic one-liners. Interactive sections are welcome.
+- No "Figma to code" section on Paywise. Don't present code as the only way she prototypes.
 - Plain, short sentences. Avoid "leverage", "seamless", "robust", "empower", etc.
 - Don't reuse other people's illustrations or copy reference portfolios' text/visuals.
 - Push only when Suhani says so; she usually says "push it". Commit messages end with the Co-Authored-By line.
@@ -70,11 +73,12 @@ Brief file: `C:\Users\suhan\Downloads\CoSell_case_study_brief.md` (copy into `do
 
 ## Open TODOs (need Suhani's input)
 
-- CoSell timeline (duration · month year).
 - Confirm the industry-designer feedback wording, and the "40 observations" count.
 - Accessibility audit of the prototype itself.
 - Real LinkedIn URL in `content.js` (currently linkedin.com). `public/resume.pdf` is live (Suhani approved publishing it with her phone number); hero nav links to it.
 - SteadyTrack year: cover says 2025, homepage card says 2024.
+- Run the Paywise wording test (`design-assets/paywise-test-script.md`), then add a "What I heard, what I changed" section from the real results only.
+- Paywise persona illustrations for Sunita and Rohan (prompts in `design-assets/paywise-people-prompts.md`); the page and prototype use letter avatars until then.
 - CoSell screenshots still show "Suggested by Co" and real marketplace names; need re-export.
 
 ## graphify
