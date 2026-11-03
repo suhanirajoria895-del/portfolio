@@ -1,0 +1,308 @@
+{
+  ".impeccable/config.json": {
+    "mtime": 1793306007.4089634,
+    "seen": 1793306084.8749337,
+    "ast_hash": "5d9e6284a2e34eb3b4637db0b3468d9d",
+    "semantic_hash": ""
+  },
+  "package.json": {
+    "mtime": 1793306007.4129634,
+    "seen": 1793306084.8749416,
+    "ast_hash": "c08fb6c4fe247cc06bdfe056eae965b3",
+    "semantic_hash": ""
+  },
+  "src/App.jsx": {
+    "mtime": 1793306007.5129635,
+    "seen": 1793306084.8749444,
+    "ast_hash": "2df54fcb95e22b49b09133a2c98a11d1",
+    "semantic_hash": ""
+  },
+  "src/components/Collage.jsx": {
+    "mtime": 1793306007.5149045,
+    "seen": 1793306084.8749464,
+    "ast_hash": "0c07b42b8eeb536926d027415bdd1956",
+    "semantic_hash": ""
+  },
+  "src/components/Contact.jsx": {
+    "mtime": 1793306007.5149703,
+    "seen": 1793306084.8749478,
+    "ast_hash": "012e4b6f804dc78d573796472c90ce47",
+    "semantic_hash": ""
+  },
+  "src/components/Footer.jsx": {
+    "mtime": 1793306007.5149703,
+    "seen": 1793306084.8749492,
+    "ast_hash": "27b0ca5b8d150a126ef1567ad7d71208",
+    "semantic_hash": ""
+  },
+  "src/components/GridHero.jsx": {
+    "mtime": 1793306007.5149703,
+    "seen": 1793306084.8749506,
+    "ast_hash": "1082fc8f1998f688d4dadbdeb6323f7e",
+    "semantic_hash": ""
+  },
+  "src/components/Header.jsx": {
+    "mtime": 1793306007.5149703,
+    "seen": 1793306084.8749518,
+    "ast_hash": "b5b102d722f4c2237de2f076dcb44d8b",
+    "semantic_hash": ""
+  },
+  "src/components/Hero.jsx": {
+    "mtime": 1793306007.5149703,
+    "seen": 1793306084.8749533,
+    "ast_hash": "dd13b3adfe3929a58b1608b8ecfdcbed",
+    "semantic_hash": ""
+  },
+  "src/components/Marquee.jsx": {
+    "mtime": 1793306007.5149703,
+    "seen": 1793306084.8749545,
+    "ast_hash": "331476a4a165ef61fb3e566e68f9d760",
+    "semantic_hash": ""
+  },
+  "src/components/NameHero.jsx": {
+    "mtime": 1793306007.5149703,
+    "seen": 1793306084.8749554,
+    "ast_hash": "934b5eb47edda8873b89a03dda5805bd",
+    "semantic_hash": ""
+  },
+  "src/components/Projects.jsx": {
+    "mtime": 1793306007.5149703,
+    "seen": 1793306084.874957,
+    "ast_hash": "24b137b99eaa79f797978238dd041fec",
+    "semantic_hash": ""
+  },
+  "src/components/Sections.jsx": {
+    "mtime": 1793306007.5149703,
+    "seen": 1793306084.8749583,
+    "ast_hash": "031a09b46de736306ef222f017ee3c4e",
+    "semantic_hash": ""
+  },
+  "src/components/Statement.jsx": {
+    "mtime": 1793306007.5149703,
+    "seen": 1793306084.8749597,
+    "ast_hash": "38ad14c2b26a2f670af6a588e503dd04",
+    "semantic_hash": ""
+  },
+  "src/components/Tools.jsx": {
+    "mtime": 1793306007.5149703,
+    "seen": 1793306084.8749611,
+    "ast_hash": "d1029e8d776bca5bc71c81e18622a847",
+    "semantic_hash": ""
+  },
+  "src/components/Work.jsx": {
+    "mtime": 1793306007.5149703,
+    "seen": 1793306084.874962,
+    "ast_hash": "4cca3abef0dc213bd47792b643b43f10",
+    "semantic_hash": ""
+  },
+  "src/components/covers/CosellCover.jsx": {
+    "mtime": 1793306007.5149703,
+    "seen": 1793306084.8749635,
+    "ast_hash": "459eeedf0efeb20a9a046d06cf499dde",
+    "semantic_hash": ""
+  },
+  "src/components/covers/PaywiseCover.jsx": {
+    "mtime": 1793306007.5158167,
+    "seen": 1793306084.874965,
+    "ast_hash": "a62bfcb98382aa3a6ca77b6728877fd2",
+    "semantic_hash": ""
+  },
+  "src/components/covers/SteadyTrackCover.jsx": {
+    "mtime": 1793306007.5158167,
+    "seen": 1793306084.874966,
+    "ast_hash": "172190ac216e4be04a8f5db55eda816e",
+    "semantic_hash": ""
+  },
+  "src/components/covers/stage.js": {
+    "mtime": 1793306007.5158167,
+    "seen": 1793306084.8749673,
+    "ast_hash": "acb41fe3c369dc9fc50d024498acaba6",
+    "semantic_hash": ""
+  },
+  "src/data/collage.js": {
+    "mtime": 1793306007.5158167,
+    "seen": 1793306084.8749683,
+    "ast_hash": "06602714845f5725aa8359f638af1428",
+    "semantic_hash": ""
+  },
+  "src/data/projects.js": {
+    "mtime": 1793306007.5160651,
+    "seen": 1793306084.8749695,
+    "ast_hash": "4007a5676094a4de54ee8f6865a74d11",
+    "semantic_hash": ""
+  },
+  "src/hooks/useReveal.js": {
+    "mtime": 1793306007.5160651,
+    "seen": 1793306084.874971,
+    "ast_hash": "87a0465d57d9dedbfa94417586e8684e",
+    "semantic_hash": ""
+  },
+  "src/main.jsx": {
+    "mtime": 1793306007.5160651,
+    "seen": 1793306084.874972,
+    "ast_hash": "3caad7220529475ed1ef34f2795cd98a",
+    "semantic_hash": ""
+  },
+  "src/portfolio/Doodles.jsx": {
+    "mtime": 1793306007.5160651,
+    "seen": 1793306084.8749733,
+    "ast_hash": "d1e3cc45b1ba0de067b06439c55cb0f3",
+    "semantic_hash": ""
+  },
+  "src/portfolio/Site.jsx": {
+    "mtime": 1793306007.5166998,
+    "seen": 1793306084.8749743,
+    "ast_hash": "e3e8c877dd5a5ec21c7e9159e336c6d5",
+    "semantic_hash": ""
+  },
+  "src/portfolio/content.js": {
+    "mtime": 1793306007.5166998,
+    "seen": 1793306084.8749757,
+    "ast_hash": "33e2ac7b2ee7d6b2dca804b085e74850",
+    "semantic_hash": ""
+  },
+  "src/work/cosell/CaseStudy.jsx": {
+    "mtime": 1793306007.5176945,
+    "seen": 1793306084.874977,
+    "ast_hash": "2f610bc8a468a8289c58c1270c56fa83",
+    "semantic_hash": ""
+  },
+  "src/work/cosell/Chapters.jsx": {
+    "mtime": 1793306007.5195594,
+    "seen": 1793306084.8749783,
+    "ast_hash": "c529cef907698b6dbe498a30707b23a8",
+    "semantic_hash": ""
+  },
+  "src/work/cosell/CoMark.jsx": {
+    "mtime": 1793306007.5195594,
+    "seen": 1793306084.8749795,
+    "ast_hash": "d22dac705f4f3d12f24bae0a5cf7feeb",
+    "semantic_hash": ""
+  },
+  "src/work/cosell/DesignSystem.jsx": {
+    "mtime": 1793306007.5195594,
+    "seen": 1793306084.874981,
+    "ast_hash": "675ca8eb63724552ae3463a79682ba77",
+    "semantic_hash": ""
+  },
+  "src/work/cosell/Story.jsx": {
+    "mtime": 1793306007.5195594,
+    "seen": 1793306084.8749819,
+    "ast_hash": "a1b608ccd2c0af91e0dba808d4c7731e",
+    "semantic_hash": ""
+  },
+  "src/work/cosell/hooks.js": {
+    "mtime": 1793306007.5195594,
+    "seen": 1793306084.8749828,
+    "ast_hash": "0ba1401db81cd9429fd1f00718c744ab",
+    "semantic_hash": ""
+  },
+  "src/work/cosell/main.jsx": {
+    "mtime": 1793306007.5195594,
+    "seen": 1793306084.874984,
+    "ast_hash": "f49eb16130184b50adcc1925f203272e",
+    "semantic_hash": ""
+  },
+  "src/work/paywise/CaseStudy.jsx": {
+    "mtime": 1793306007.5195594,
+    "seen": 1793306084.8749852,
+    "ast_hash": "bec72e8e8e4cfa1a50d247851c9f1f65",
+    "semantic_hash": ""
+  },
+  "src/work/paywise/demo/Demo.jsx": {
+    "mtime": 1793306007.5222323,
+    "seen": 1793306084.8749862,
+    "ast_hash": "9c7bed9bbb9871801f951ee184bbdce7",
+    "semantic_hash": ""
+  },
+  "src/work/paywise/demo/main.jsx": {
+    "mtime": 1793306007.5226507,
+    "seen": 1793306084.8749876,
+    "ast_hash": "d274b286a8d955db68cb56c80e964337",
+    "semantic_hash": ""
+  },
+  "src/work/paywise/demo/screens.jsx": {
+    "mtime": 1793306007.5226507,
+    "seen": 1793306084.8749886,
+    "ast_hash": "7fdda48b6f48492e5c42c373b4f60e95",
+    "semantic_hash": ""
+  },
+  "src/work/paywise/main.jsx": {
+    "mtime": 1793306007.5226507,
+    "seen": 1793306084.8749897,
+    "ast_hash": "e716c424502dcd865ce00c36e6262777",
+    "semantic_hash": ""
+  },
+  "src/work/steadytrack/AppScreens.jsx": {
+    "mtime": 1793306007.5226507,
+    "seen": 1793306084.8749917,
+    "ast_hash": "b514c48a57058ba56610db3e46ee535c",
+    "semantic_hash": ""
+  },
+  "src/work/steadytrack/CaseStudy.jsx": {
+    "mtime": 1793306007.5237222,
+    "seen": 1793306084.8749928,
+    "ast_hash": "a46250081b9904242a83d840b10ecd4d",
+    "semantic_hash": ""
+  },
+  "src/work/steadytrack/main.jsx": {
+    "mtime": 1793306007.5237222,
+    "seen": 1793306084.8749948,
+    "ast_hash": "2e1791d8f274ddc603c760304d09eabf",
+    "semantic_hash": ""
+  },
+  "vite.config.js": {
+    "mtime": 1793306007.5237222,
+    "seen": 1793306084.874996,
+    "ast_hash": "97ce4e012ab1db9014a0caff24e7fb65",
+    "semantic_hash": ""
+  },
+  "CLAUDE.md": {
+    "mtime": 1793306007.4089634,
+    "seen": 1793306084.8749983,
+    "ast_hash": "bff0fa2e533875c7df188309a7da8e29",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1793306007.4089634,
+    "seen": 1793306084.8750002,
+    "ast_hash": "0921c0654fbb42bf112df95a8a1cb9ce",
+    "semantic_hash": ""
+  },
+  "index.html": {
+    "mtime": 1793306007.4089634,
+    "seen": 1793306084.8750017,
+    "ast_hash": "425e168b8ece42c033805f780584c0ce",
+    "semantic_hash": ""
+  },
+  "work/cosell/index.html": {
+    "mtime": 1793306007.5248632,
+    "seen": 1793306084.8750029,
+    "ast_hash": "c231b3e39d3204ad0fe6f33cea208244",
+    "semantic_hash": ""
+  },
+  "work/paywise/demo/index.html": {
+    "mtime": 1793306007.5249407,
+    "seen": 1793306084.8750038,
+    "ast_hash": "85e806e49fda88e59577da606cb66e8a",
+    "semantic_hash": ""
+  },
+  "work/paywise/index.html": {
+    "mtime": 1793306007.5249407,
+    "seen": 1793306084.8750052,
+    "ast_hash": "51cc3f432c455858a8ba3891bdcfbb35",
+    "semantic_hash": ""
+  },
+  "work/steadytrack/index.html": {
+    "mtime": 1793306007.5249407,
+    "seen": 1793306084.8750064,
+    "ast_hash": "2726e3f61d7998d932c05984c752272f",
+    "semantic_hash": ""
+  },
+  "package-lock.json": {
+    "mtime": 1793306007.4129634,
+    "seen": 1793306084.8750074,
+    "ast_hash": "5dfc742bc2d077189305ad14ec4cb34f",
+    "semantic_hash": ""
+  }
+}
