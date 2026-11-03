@@ -192,8 +192,8 @@ function PauseSheet({ onCall, onCancel, onPay, reasons }) {
       {reasons || (
         <ul className="rows">
           <li><span className="tile tile--amber"><UserRound size={20} strokeWidth={S} /></span><div><b>You've never paid this person</b><small>vikram.verify77@ybl</small></div></li>
-          <li><span className="tile tile--amber"><PhoneIncoming size={20} strokeWidth={S} /></span><div><b>Unknown caller, 3 minutes ago</b><small>You're still on that call</small></div></li>
-          <li><span className="tile tile--teal"><Info size={20} strokeWidth={S} /></span><div><b>Police and banks never ask you to pay over a call</b></div></li>
+          <li><span className="tile tile--amber"><ArrowUpRight size={20} strokeWidth={S} /></span><div><b>Much more than you usually send</b><small>Usually under ₹5,000</small></div></li>
+          <li><span className="tile tile--teal"><Info size={20} strokeWidth={S} /></span><div><b>Is someone on a call asking you to pay?</b><small>Police and banks never ask you to pay over a call</small></div></li>
         </ul>
       )}
       <div className="sheet__actions">
@@ -338,6 +338,7 @@ function Welcome({ go }) {
     ["A pause before money leaves", "Paywise lives inside the UPI apps you already use. Most payments see nothing new."],
     ["Never decide alone", "When a payment looks unusual, call someone you trust in one click."],
     ["Calm help if it happens", "A first-hour guide that tells you exactly what to do next."],
+    ["Can we tell Rohan?", "If a payment is paused, Rohan sees the payee, amount and reasons. He sees nothing else, and he can't approve or stop a payment."],
   ];
   return (
     <div className="comp welcome">
@@ -348,7 +349,7 @@ function Welcome({ go }) {
           <div className="mini__row"><i /><span /><em /></div>
           <div className="mini__row"><i /><span /><em /></div>
         </div>
-        <div className="float float--a"><span className="tile tile--amber"><PauseCircle size={18} strokeWidth={S} /></span><div><b>Paused ₹48,000</b><small>New payee, during a call</small></div></div>
+        <div className="float float--a"><span className="tile tile--amber"><PauseCircle size={18} strokeWidth={S} /></span><div><b>Paused ₹48,000</b><small>New payee, large amount</small></div></div>
         <div className="float float--b"><span className="tile tile--teal"><Phone size={18} strokeWidth={S} /></span><div><b>Rohan called back</b><small>Payment cancelled</small></div></div>
       </div>
       <div className="welcome__copy" key={step}>
@@ -356,7 +357,8 @@ function Welcome({ go }) {
         <p>{slides[step][1]}</p>
       </div>
       <div className="dots">{slides.map((_, i) => <i key={i} className={i === step ? "on" : ""} />)}</div>
-      <button className="r-btn r-btn--wide" onClick={() => (step < 2 ? setStep(step + 1) : go("home"))}>{step < 2 ? "Next" : "Get started"}</button>
+      <button className="r-btn r-btn--wide" onClick={() => (step < 3 ? setStep(step + 1) : go("home"))}>{step < 3 ? "Next" : "Yes, tell Rohan"}</button>
+      {step === 3 && <button className="r-btn r-btn--tint r-btn--wide" onClick={() => go("home")}>Not now</button>}
     </div>
   );
 }
@@ -404,7 +406,7 @@ function CompanionHome({ go }) {
           </div>
           <p className="seg__hint">
             {level === "Light" && "Pause only when several strong signals stack up."}
-            {level === "Balanced" && "Pause new payees above ₹10,000, or any payment during an unknown call."}
+            {level === "Balanced" && "Pause new payees above ₹10,000."}
             {level === "Extra care" && "Pause every new payee, and tell Rohan each time."}
           </p>
 
@@ -459,26 +461,26 @@ function RohanAlert() {
               <h3 className="sec sec--in">Why Paywise paused it</h3>
               <ul className="rows rows--plain">
                 <li><span className="tile tile--amber"><UserRound size={18} strokeWidth={S} /></span><div><b>She has never paid this person</b></div></li>
-                <li><span className="tile tile--amber"><PhoneIncoming size={18} strokeWidth={S} /></span><div><b>Unknown caller, 3 minutes before</b></div></li>
+                <li><span className="tile tile--amber"><ArrowUpRight size={18} strokeWidth={S} /></span><div><b>Much more than she usually sends</b></div></li>
                 <li><span className="tile tile--amber"><MessageSquareText size={18} strokeWidth={S} /></span><div><b>Note: "Case verification deposit"</b></div></li>
               </ul>
               {reply === "calling" ? (
                 <div className="calling"><span className="calling__dot" /> Calling Mom…</div>
               ) : reply === "fine" ? (
-                <div className="calling calling--ok"><Check size={16} strokeWidth={2} /> Marked as fine. Mom can go ahead.</div>
+                <div className="calling calling--ok"><Check size={16} strokeWidth={2} /> Noted. The decision stays with Mom.</div>
               ) : (
                 <div className="alert__actions">
                   <button className="r-btn" onClick={() => setReply("calling")}><Phone size={18} strokeWidth={S} /> Call her now</button>
-                  <button className="r-btn r-btn--tint" onClick={() => setReply("fine")}>Looks fine</button>
+                  <button className="r-btn r-btn--tint" onClick={() => setReply("fine")}>We've already spoken</button>
                 </div>
               )}
-              <p className="alert__priv"><ShieldCheck size={14} strokeWidth={S} /> Paywise shared only this payment, with Mom's consent.</p>
+              <p className="alert__priv"><ShieldCheck size={14} strokeWidth={S} /> Paywise shared only this payment. Mom agreed to this during setup.</p>
             </div>
             <div className="card list">
               <div className="list__hd"><b>Past checks</b></div>
               <Row ic={<ArrowUpRight size={20} strokeWidth={1.8} />} t="Gas Agency" s="12 Mar · paid after the check" a="₹1,200" tone="ok" n="Fine" />
               <Row ic={<ScanSearch size={20} strokeWidth={1.8} />} t="Collect request" s="2 Mar · Mom declined" a="₹9,999" tone="teal" n="Stopped" />
-              <Row ic={<ArrowUpRight size={20} strokeWidth={1.8} />} t="Dr. Kulkarni" s="21 Feb · you said fine" a="₹3,500" tone="ok" n="Fine" />
+              <Row ic={<ArrowUpRight size={20} strokeWidth={1.8} />} t="Dr. Kulkarni" s="21 Feb · paid after the check" a="₹3,500" tone="ok" n="Fine" />
             </div>
           </div>
         )}

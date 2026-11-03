@@ -7,6 +7,80 @@ import {
 } from "lucide-react";
 import { ProtectedTag, StatusBar } from "./demo/screens.jsx";
 
+/* ───────── Scope ───────── */
+
+const P2P_CAP = "https://www.outlookmoney.com/banking/npci-changes-upi-transaction-limits-for-key-categories-from-september-15-2025-know-the-details";
+const FRI = "https://www.medianama.com/2025/05/223-dot-financial-fraud-risk-indicator-upi/";
+const CALL_LOG = "https://support.google.com/googleplay/android-developer/answer/10208820?hl=en";
+const COLLECT_END = "https://www.medianama.com/2025/08/223-npci-p2p-collect-payments-oct-1-what-it-means/";
+
+export function Scope() {
+  return (
+    <div className="pw-scope" data-reveal>
+      <div>
+        <p className="rk-mono">In scope</p>
+        <ul>
+          <li>Person-to-person UPI payments</li>
+          <li>Payments made under pressure from a caller, such as digital arrest scams</li>
+          <li>The moment before payment, and the first steps after a loss</li>
+        </ul>
+      </div>
+      <div>
+        <p className="rk-mono">Out of scope</p>
+        <ul>
+          <li>Bank transfers and branch payments, where the largest losses can move</li>
+          <li>Scams where someone else controls the phone</li>
+          <li>Real bank or NPCI integration. The prototype uses sample data</li>
+        </ul>
+      </div>
+      <p className="pw-scope__note">
+        This limits what Paywise can do. <a href={P2P_CAP} target="_blank" rel="noreferrer">Person-to-person UPI is capped at ₹1 lakh a day ↗</a>, and a caller can move someone to a bank transfer. I found no figure for how much digital arrest money moves over UPI.
+      </p>
+    </div>
+  );
+}
+
+/* ───────── Where each signal comes from ───────── */
+
+export function SignalSources() {
+  return (
+    <div className="pw-src" data-reveal tabIndex={0}>
+      <table>
+        <caption>Where each signal comes from</caption>
+        <thead>
+          <tr><th scope="col">Signal</th><th scope="col">Source</th><th scope="col">Can it be built?</th><th scope="col">If it isn't available</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">New payee, large amount</th>
+            <td>The UPI app's payment history</td>
+            <td>Likely, since the app holds this data. To confirm with a bank or app team.</td>
+            <td>Paywise can't run without these. The screen says the check didn't happen.</td>
+          </tr>
+          <tr>
+            <th scope="row">Unknown call</th>
+            <td>The phone's call log</td>
+            <td>Uncertain. <a href={CALL_LOG} target="_blank" rel="noreferrer">Google Play limits call log access ↗</a> to default phone and assistant apps. iPhone isn't confirmed, and video calls in messaging apps may not be visible.</td>
+            <td>The pause screen asks: "Is someone on a call asking you to pay?" The pause never depends on this signal.</td>
+          </tr>
+          <tr>
+            <th scope="row">Reported payee</th>
+            <td><a href={FRI} target="_blank" rel="noreferrer">The government's Financial Fraud Risk Indicator ↗</a>, plus user reports</td>
+            <td>The indicator is reported to reach UPI apps. User reports need review rules, because a false report can harm a real payee.</td>
+            <td>Use the indicator alone.</td>
+          </tr>
+          <tr>
+            <th scope="row">Collect request</th>
+            <td>The UPI request type</td>
+            <td><a href={COLLECT_END} target="_blank" rel="noreferrer">NPCI set person-to-person collect to end on 1 October 2025 ↗</a>, so this would apply to merchant requests only.</td>
+            <td>Not needed where the request type no longer exists.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 /* ───────── Can / won't ───────── */
 
 const CAN = [
@@ -18,9 +92,10 @@ const CAN = [
 ];
 const WONT = [
   "Block a payment on its own",
-  "Listen to or record a call. It only knows a call happened",
+  "Listen to or record a call. At most, it knows a call is active",
   "Tell her she is being scammed",
   "Share anything with Rohan without her consent",
+  "Let Rohan approve or stop a payment",
 ];
 
 export function CanWont() {
@@ -127,7 +202,7 @@ export function SaidNo() {
           no={"An “Are you sure?” pop-up"}
           noUi={<div className="m-dialog"><b>Are you sure?</b><em><i>Cancel</i><i>OK</i></em></div>}
           yes="A 10-second pause with reasons"
-          yesUi={<div className="m-pause"><b>7</b><span>Never paid this person</span><span>Unknown call, 3 min ago</span></div>}
+          yesUi={<div className="m-pause"><b>7</b><span>Never paid this person</span><span>Larger than usual</span></div>}
           why="People click through generic pop-ups."
         />
         <NoPair
@@ -168,7 +243,7 @@ const Actions = () => (
   <div className="ep-low"><span className="r-btn"><PhoneCall size={18} strokeWidth={1.6} /> Call Rohan first</span><span className="r-btn r-btn--tint">Cancel payment</span></div>
 );
 const Paid = ({ list }) => list.map((t) => <p key={t} className="ep-pay"><span>{t}</span><Check size={18} aria-hidden="true" /></p>);
-const TRANSFERS = ["₹30,000 · 10:02", "₹30,000 · 10:19", "₹30,000 · 10:47"];
+const TRANSFERS = ["₹20,000 · 10:02", "₹20,000 · 10:19", "₹20,000 · 10:47"];
 
 const EDGES = [
   {
@@ -196,7 +271,7 @@ const EDGES = [
     move: "The screen asks about it directly and gives her a way out.",
     why: "The scammer is often still on the call, so the screen has to account for them.",
     beats: [
-      <><p className="ep-call"><PhoneIncoming size={14} aria-hidden="true" /> On call · 06:12</p><Pause n="8"><Reason>Unknown caller, 3 minutes ago</Reason></Pause><Actions /></>,
+      <><p className="ep-call"><PhoneIncoming size={14} aria-hidden="true" /> On call · 06:12</p><Pause n="8"><Reason>Is someone on a call asking you to pay?</Reason></Pause><Actions /></>,
       <><p className="ep-call"><PhoneIncoming size={14} aria-hidden="true" /> On call · 06:20</p><p className="ep-said"><small>The caller</small>Madam, that is a system error. Ignore it and press pay.</p></>,
       <><p className="ep-call"><PhoneIncoming size={14} aria-hidden="true" /> On call · 06:24</p><p className="ep-h">Did someone tell you to ignore this screen?</p><p className="ep-p">Police and banks never ask you to pay over a call.</p><div className="ep-low"><span className="r-btn">Yes, they did</span><span className="r-btn r-btn--tint">Cancel payment</span></div></>,
     ],
@@ -214,12 +289,12 @@ const EDGES = [
   {
     t: "The money leaves in small pieces",
     move: "The pause counts the total to that payee, not just this payment.",
-    why: "One Mumbai senior's ₹58 crore went in 27 transfers. A check on one payment would miss that pattern.",
+    why: "Scams often use many transfers. A check on one payment at a time would miss that pattern.",
     beats: [
       <><p className="ep-p">Today, to Vikram Rao</p><Paid list={TRANSFERS.slice(0, 1)} /></>,
       <><p className="ep-p">Today, to Vikram Rao</p><Paid list={TRANSFERS.slice(0, 2)} /></>,
       <><p className="ep-p">Today, to Vikram Rao</p><Paid list={TRANSFERS} /></>,
-      <Pause n="9"><p className="ep-p">This is your 4th payment to this person today.</p><p className="ep-total"><span>Today so far</span><b>₹1,20,000</b></p><Actions /></Pause>,
+      <Pause n="9"><p className="ep-p">This is your 4th payment to this person today.</p><p className="ep-total"><span>Today, with this payment</span><b>₹80,000</b></p><Actions /></Pause>,
     ],
   },
   {

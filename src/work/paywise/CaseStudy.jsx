@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import { useActiveId, useRevealAll } from "../cosell/hooks.js";
 import { Device, PwMark, SignalPhone } from "./demo/screens.jsx";
-import { CanWont, EdgePlayer, SaidNo, TheBet } from "./Extras.jsx";
+import { CanWont, EdgePlayer, SaidNo, Scope, SignalSources, TheBet } from "./Extras.jsx";
 
 const P = "/work/paywise/";
 const DEMO = "/work/paywise/demo/";
@@ -14,6 +14,7 @@ const IANS_LOSS = "https://ianslive.in/indians-lose-over-rs-52976-crore-to-cyber
 const IANS_UPI = "https://ianslive.in/upi-frauds-worth-rs-805-crore-witnessed-this-fiscal-so-far-minister--20251215175703";
 const FOF = "https://frankonfraud.com/wp-content/uploads/2026/01/Digital-Arrest-Scams-Explained.pdf";
 const GOLDEN = "https://cscoe.itewb.gov.in/upload/advisory-n/Advisory%20_Golden%20Hour_V1.pdf";
+const FRI = "https://www.medianama.com/2025/05/223-dot-financial-fraud-risk-indicator-upi/";
 
 const SECTIONS = [
   ["problem", "Problem"],
@@ -236,7 +237,7 @@ function Header() {
       </dl>
 
       <ul className="rk-glance" data-reveal>
-        <li><b><CountUp to={19813} prefix="₹" /> cr</b><span>lost to cyber fraud in India in 2025</span></li>
+        <li><b><CountUp to={805} prefix="₹" /> cr</b><span>lost to UPI fraud in India, April to November 2025<a href={IANS_UPI} target="_blank" rel="noreferrer">Lok Sabha ↗</a></span></li>
         <li className="mid"><PwMark size={40} /><span>Most payments see no change. Risky ones get a 10-second pause and a trusted contact.</span></li>
         <li><b>1 hour</b><span>the “golden hour”, when reporting fast helps police act<a href={GOLDEN} target="_blank" rel="noreferrer">Advisory ↗</a></span></li>
       </ul>
@@ -249,11 +250,11 @@ function Header() {
 function Problem() {
   return (
     <Sec id="problem" n="01" kicker="Problem" title="Scams take hours. The payment takes seconds."
-      lede="Digital arrest scams keep people on calls for hours or days. The payment at the end looks like any other UPI payment and finishes in seconds. I found no safeguard that acts at that point, so that is where this project focuses.">
+      lede="Digital arrest scams keep people on calls for hours or days. The payment at the end finishes in seconds. Some UPI apps now warn about numbers flagged as risky, but that check rates the number, not the pressure on the person paying. That is where this project focuses.">
       <div className="rk-stats" data-reveal>
         <a href={IANS_LOSS} target="_blank" rel="noreferrer" className="rk-stat rk-stat--dark">
           <b><CountUp to={19813} prefix="₹" /><small> cr</small></b>
-          <span>lost to cyber fraud in India in 2025, across about 21.8 lakh complaints</span>
+          <span>lost to all cyber fraud in India in 2025, not only UPI, across about 21.8 lakh complaints</span>
           <em>I4C data via IANS ↗</em>
         </a>
         <a href={IANS_UPI} target="_blank" rel="noreferrer" className="rk-stat">
@@ -263,17 +264,19 @@ function Problem() {
         </a>
         <a href={IANS_LOSS} target="_blank" rel="noreferrer" className="rk-stat">
           <b><CountUp to={8} /><small>%</small></b>
-          <span>of 2025 losses came from "digital arrest" scams</span>
+          <span>of 2025 cyber fraud losses came from "digital arrest" scams, across all payment methods</span>
           <em>I4C data via IANS ↗</em>
           <div className="rk-stat__bar"><i /></div>
         </a>
       </div>
 
+      <Scope />
+
       <Race />
 
       <div className="rk-chain" data-reveal>
         {[
-          [Zap, "The payment", "Done in seconds", "A UPI payment has no built-in step that asks the person to stop and check."],
+          [Zap, "The payment", "Done in seconds", "A payment to a number that isn't flagged has no step that asks the person to stop and check."],
           [Siren, "The method", "Authority and urgency", "Callers pose as police, banks or couriers and demand action immediately."],
           [EyeOff, "The result", "Late reporting", "Many victims don't tell anyone at first. Delay makes the money harder to trace."],
         ].map(([Ic, k, t, d], i) => (
@@ -323,7 +326,7 @@ function Research() {
         <Transcript />
       </Part>
 
-      <Part title="Existing protections miss the moment of payment" lede="UPI has real protections. They either run inside the bank, where the person can't see them, or start after the money has gone.">
+      <Part title="Existing protections check the number, not the situation" lede="UPI has real protections. Most run inside the bank or start after the money has gone. The warnings at the moment of payment rate the payee's number.">
         <GapMap />
       </Part>
     </Sec>
@@ -402,7 +405,7 @@ function Transcript() {
           <li key={stage} data-i={i} className={i === step ? "on" : ""}><b>{stage}</b><span>{note}</span></li>
         ))}
         <li data-i={4} className={`rk-call__real${step === 4 ? " on" : ""}`}>
-          <span>One Mumbai senior sent <b>₹58 crore over 40 days</b>, in 27 transfers.</span>
+          <span>One Mumbai senior sent <b>₹58 crore over 40 days</b>, in 27 transfers. With UPI capped at ₹1 lakh a day, most of this moved outside UPI, where Paywise wouldn't reach it.</span>
           <a href={FOF} target="_blank" rel="noreferrer">Frank on Fraud ↗</a>
         </li>
       </ol>
@@ -413,7 +416,7 @@ function Transcript() {
 function GapMap() {
   const cols = [
     ["Before paying", ["Device binding", "UPI PIN", "Daily limits"]],
-    ["The moment of pressure", []],
+    ["The moment of pressure", ["Number risk warnings, in some apps"]],
     ["After the loss", ["1930 helpline", "cybercrime.gov.in", "Chakshu reporting"]],
   ];
   return (
@@ -424,11 +427,11 @@ function GapMap() {
           <div key={t} className={`rk-gap__col${i === 1 ? " hole" : ""}`}>
             <p className="rk-mono">{t}</p>
             {items.map((x) => <span key={x} className="rk-gap__pill"><Check size={14} /> {x}</span>)}
-            {i === 1 && <p className="rk-gap__hole"><b>The gap.</b> No protection here supports the person while they are being pressured to pay.</p>}
+            {i === 1 && <p className="rk-gap__hole"><b>The gap.</b> These warnings rate the payee's number. In the reports I read, none responds to the pressure on the person or brings in someone they trust. I haven't tested each app's flow.</p>}
           </div>
         ))}
       </div>
-      <p className="rk-note">Source: <a href={IANS_UPI} target="_blank" rel="noreferrer">Finance Ministry reply in the Lok Sabha, via IANS</a></p>
+      <p className="rk-note">Sources: <a href={IANS_UPI} target="_blank" rel="noreferrer">Finance Ministry reply in the Lok Sabha, via IANS</a>; <a href={FRI} target="_blank" rel="noreferrer">MediaNama on the Financial Fraud Risk Indicator, May 2025</a></p>
     </figure>
   );
 }
@@ -568,8 +571,9 @@ function Synthesis() {
         thousands of normal payments they make?
       </blockquote>
 
-      <Part title="Where AI fits" lede="AI does two things here: it detects signals and explains them. Turn signals on and off to see how the pause screen changes. One weak signal doesn't trigger a pause.">
+      <Part title="Where AI fits" lede="AI does two things here: it detects signals and explains them. Turn signals on and off to see how the pause screen changes. One weak signal doesn't trigger a pause. The weights and threshold are my starting assumptions, not tested values.">
         <SignalMeter />
+        <SignalSources />
         <CanWont />
       </Part>
 
@@ -587,13 +591,13 @@ function Synthesis() {
 const SIGNALS = [
   ["payee", UserPlus, "A payee you've never paid", 2, "You've never paid this person", "vikram.verify77@ybl"],
   ["amount", IndianRupee, "A large amount for you", 1, "Much more than you usually send", "Usually under ₹5,000"],
-  ["call", PhoneIncoming, "Paying soon after an unknown call", 2, "Unknown caller, 3 minutes ago", "You're still on that call"],
+  ["call", PhoneIncoming, "An unknown call, if the phone can detect it", 2, "Unknown caller, 3 minutes ago", "You're still on that call"],
   ["collect", ArrowDownLeft, 'A "collect" request', 2, "This request takes your money", "You will not receive anything"],
-  ["reported", Flag, "A payee others have reported", 3, "Other people reported this payee", "Reported to Paywise this month"],
+  ["reported", Flag, "A payee others have reported", 3, "This payee's number has been flagged", "Flagged in fraud reports"],
 ];
 
 function SignalMeter() {
-  const [on, setOn] = useState(["payee", "call"]);
+  const [on, setOn] = useState(["payee", "amount"]);
   const active = SIGNALS.filter(([id]) => on.includes(id));
   const score = active.reduce((s, x) => s + x[3], 0);
   const pause = score >= 3;
@@ -675,7 +679,7 @@ const MockBanner = () => (
   <div className="mk"><div className="mk__alarm"><TriangleAlert size={14} /> WARNING: POSSIBLE FRAUD</div><div className="mk__ln w70" /><div className="mk__ln w50" /><div className="mk__amt">₹48,000</div><div className="mk__btn grey">Pay</div></div>
 );
 const MockPause = () => (
-  <div className="mk mk--sheet"><div className="mk__ring">7</div><b className="mk__h">Let's take 10 seconds.</b><div className="mk__row"><i /> Never paid this person</div><div className="mk__row"><i /> Unknown call, 3 min ago</div><div className="mk__btn">Call Rohan first</div></div>
+  <div className="mk mk--sheet"><div className="mk__ring">7</div><b className="mk__h">Let's take 10 seconds.</b><div className="mk__row"><i /> Never paid this person</div><div className="mk__row"><i /> Larger than usual</div><div className="mk__btn">Call Rohan first</div></div>
 );
 const MockSettings = () => (
   <div className="mk"><b className="mk__h sm">Settings</b>{["Notifications", "Language", "Privacy", "Security", "Share with a contact"].map((x, i) => <div key={x} className={`mk__set${i === 4 ? " dim" : ""}`}>{x}<span>›</span></div>)}</div>
