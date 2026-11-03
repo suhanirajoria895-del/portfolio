@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { siClaude, siFigma, siFramer, siGithub, siMiro, siNotion, siReact } from "simple-icons";
 import "@fontsource/patrick-hand/400.css";
 import "../twilight-hero.css";
@@ -37,6 +37,10 @@ const SPARKLES = [
 // Homepage sections that have a nav link, top to bottom. The footer clears the highlight.
 const SPY = ["home", "projects", "about", "contact"];
 
+// Play the envelope opening only when the hero is what the visitor sees first.
+const shouldOpen = () =>
+  !window.matchMedia("(prefers-reduced-motion: reduce)").matches && !window.location.hash && window.scrollY < 40;
+
 // Jump to the footer and start the drive (RoadFooter listens for this).
 const play = (e) => {
   e.preventDefault();
@@ -48,6 +52,27 @@ export default function TwilightHero() {
   const [menu, setMenu] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("home");
+  const [opening] = useState(shouldOpen);
+  const [go, setGo] = useState(false);
+  const stage = useRef(null);
+
+  // Measure the closed envelope before first paint, then start once its images are ready.
+  useLayoutEffect(() => {
+    if (!opening) return;
+    const el = stage.current;
+    const card = el.querySelector(".th-card");
+    const env = el.querySelector(".th-env");
+    const w = env.offsetWidth;
+    const h = card.offsetHeight;
+    const top = el.getBoundingClientRect().top + env.offsetTop;
+    el.style.setProperty("--lift", `${-Math.max(0, top - Math.max(90, (window.innerHeight - env.offsetHeight) / 2))}px`);
+    el.style.setProperty("--tuck", `${h - w * 0.06}px`);
+    el.style.setProperty("--clip", `${Math.max(0, h - w * 0.39)}px`);
+    let live = true;
+    const ready = [...el.querySelectorAll(".th-env img, .th-pic")].map((img) => img.decode().catch(() => {}));
+    Promise.race([Promise.all(ready), new Promise((done) => setTimeout(done, 1500))]).then(() => live && setGo(true));
+    return () => { live = false; };
+  }, [opening]);
 
   useEffect(() => {
     document.body.style.overflow = menu ? "hidden" : "";
@@ -93,7 +118,7 @@ export default function TwilightHero() {
       </header>
 
       <section id="home" className="th">
-        <div className="th-stage">
+        <div ref={stage} className={`th-stage${opening ? " is-opening" : ""}${go ? " is-go" : ""}`}>
           {SPARKLES.map(([img, x, y, size, delay, phone]) => (
             <img
               key={`${x}-${y}`}
@@ -143,10 +168,11 @@ export default function TwilightHero() {
             </figure>
           </article>
 
-          {/* The card sits in an open airmail envelope: flap behind it, pocket in front */}
+          {/* The card sits in an airmail envelope: flap behind it once open, pocket in front, seal on top */}
           <div className="th-env" aria-hidden="true">
             <img className="th-env-flap" src="/hero/envelope-flap.webp" alt="" width="1300" height="468" />
             <img className="th-env-pocket" src="/hero/envelope.webp" alt="" width="1300" height="646" />
+            <img className="th-env-seal" src="/hero/seal.webp" alt="" width="224" height="224" />
           </div>
         </div>
       </section>
