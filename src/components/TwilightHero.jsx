@@ -34,6 +34,9 @@ const SPARKLES = [
   [4, 4, 48, 34, 2.6],
 ];
 
+// Homepage sections that have a nav link, top to bottom. The footer clears the highlight.
+const SPY = ["home", "projects", "about", "contact"];
+
 // Jump to the footer and start the drive (RoadFooter listens for this).
 const play = (e) => {
   e.preventDefault();
@@ -43,6 +46,8 @@ const play = (e) => {
 /* Landing hero: a paper card with a hello, floating in the twilight sky */
 export default function TwilightHero() {
   const [menu, setMenu] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState("home");
 
   useEffect(() => {
     document.body.style.overflow = menu ? "hidden" : "";
@@ -51,18 +56,34 @@ export default function TwilightHero() {
     return () => window.removeEventListener("keydown", esc);
   }, [menu]);
 
+  // The nav stays on screen, so it darkens past the sky and highlights the section in view.
+  useEffect(() => {
+    const on = () => {
+      setScrolled(window.scrollY > 40);
+      const line = window.innerHeight * 0.4;
+      setActive(SPY.filter((id) => document.getElementById(id)?.getBoundingClientRect().top <= line).pop() ?? "home");
+    };
+    on();
+    window.addEventListener("scroll", on, { passive: true });
+    window.addEventListener("resize", on);
+    return () => {
+      window.removeEventListener("scroll", on);
+      window.removeEventListener("resize", on);
+    };
+  }, []);
+
   return (
-    <section id="home" className="th">
-      <header className="th-head">
+    <>
+      <header className={`th-head${scrolled ? " is-scrolled" : ""}`}>
         <a href="#home" className="th-logo">Suhani Rajoria<i aria-hidden="true" /></a>
         <nav className="th-nav" aria-label="Main">
-          {NAV.map(([label, href], n) =>
+          {NAV.map(([label, href]) =>
             href === "#play" ? (
               <a key={label} href={href} onClick={play}>
                 {label}<span className="sr-only">: race through Hyderabad in the footer</span>
               </a>
             ) : (
-              <a key={label} href={href} aria-current={n === 0 ? "page" : undefined} {...(href.endsWith(".pdf") ? { target: "_blank", rel: "noreferrer" } : {})}>{label}</a>
+              <a key={label} href={href} aria-current={href === `#${active}` ? "true" : undefined} {...(href.endsWith(".pdf") ? { target: "_blank", rel: "noreferrer" } : {})}>{label}</a>
             )
           )}
         </nav>
@@ -71,62 +92,64 @@ export default function TwilightHero() {
         </button>
       </header>
 
-      <div className="th-stage">
-        {SPARKLES.map(([img, x, y, size, delay, phone]) => (
-          <img
-            key={`${x}-${y}`}
-            className={`th-spark${phone ? " is-phone" : ""}`}
-            src={`/hero/sparkle-${img}.webp`}
-            alt=""
-            style={{ left: `${x}%`, top: `${y}%`, width: size, animationDelay: `${delay}s` }}
-          />
-        ))}
+      <section id="home" className="th">
+        <div className="th-stage">
+          {SPARKLES.map(([img, x, y, size, delay, phone]) => (
+            <img
+              key={`${x}-${y}`}
+              className={`th-spark${phone ? " is-phone" : ""}`}
+              src={`/hero/sparkle-${img}.webp`}
+              alt=""
+              style={{ left: `${x}%`, top: `${y}%`, width: size, animationDelay: `${delay}s` }}
+            />
+          ))}
 
-        <article className="th-card">
-          <div className="th-copy">
-            <h1 className="th-title">Curiosity, <span>with a purpose.</span></h1>
-            <p className="th-lede">
-              I explore problems, question assumptions and turn ideas into thoughtful digital experiences. My approach brings
-              together research, systems thinking and visual design, with an eye for the details that make a difference.
-            </p>
-            <ul className="th-tools" aria-label="Tools I use">
-              {TOOLS.map(([name, icon]) => (
-                <li key={name} title={name}>
-                  {Array.isArray(icon) ? (
-                    <svg viewBox="0 0 24 24" role="img" aria-label={name}>
-                      <rect x="1" y="1" width="22" height="22" rx="5" fill={icon[1]} />
-                      <text x="12" y="16.2" textAnchor="middle" fontSize="11" fontWeight="700" fill={icon[2]}>{icon[0]}</text>
-                    </svg>
-                  ) : (
-                    <svg viewBox="0 0 24 24" role="img" aria-label={name}>
-                      <path d={icon.path} fill={`#${icon.hex}`} />
-                    </svg>
-                  )}
-                </li>
-              ))}
-            </ul>
+          <article className="th-card">
+            <div className="th-copy">
+              <h1 className="th-title">Curiosity, <span>with a purpose.</span></h1>
+              <p className="th-lede">
+                I explore problems, question assumptions and turn ideas into thoughtful digital experiences. My approach brings
+                together research, systems thinking and visual design, with an eye for the details that make a difference.
+              </p>
+              <ul className="th-tools" aria-label="Tools I use">
+                {TOOLS.map(([name, icon]) => (
+                  <li key={name} title={name}>
+                    {Array.isArray(icon) ? (
+                      <svg viewBox="0 0 24 24" role="img" aria-label={name}>
+                        <rect x="1" y="1" width="22" height="22" rx="5" fill={icon[1]} />
+                        <text x="12" y="16.2" textAnchor="middle" fontSize="11" fontWeight="700" fill={icon[2]}>{icon[0]}</text>
+                      </svg>
+                    ) : (
+                      <svg viewBox="0 0 24 24" role="img" aria-label={name}>
+                        <path d={icon.path} fill={`#${icon.hex}`} />
+                      </svg>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <figure className="th-photo">
+              <p className="th-hi" aria-hidden="true">
+                Hi, I'm Suhani
+                <svg className="th-arrow" viewBox="0 0 60 70" fill="none">
+                  <path d="M8 4c22 6 38 22 34 54" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" />
+                  <path d="M31 48l11 12 9-14" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </p>
+              <img className="th-tape t1" src="/hero/tape-1.webp" alt="" />
+              <img className="th-tape t2" src="/hero/tape-2.webp" alt="" />
+              <img className="th-pic" src="/hero/suhani.webp" alt="Suhani Rajoria, smiling" width="720" height="900" fetchPriority="high" />
+            </figure>
+          </article>
+
+          {/* The card sits in an open airmail envelope: flap behind it, pocket in front */}
+          <div className="th-env" aria-hidden="true">
+            <img className="th-env-flap" src="/hero/envelope-flap.webp" alt="" width="1300" height="468" />
+            <img className="th-env-pocket" src="/hero/envelope.webp" alt="" width="1300" height="646" />
           </div>
-
-          <figure className="th-photo">
-            <p className="th-hi" aria-hidden="true">
-              Hi, I'm Suhani
-              <svg className="th-arrow" viewBox="0 0 60 70" fill="none">
-                <path d="M8 4c22 6 38 22 34 54" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" />
-                <path d="M31 48l11 12 9-14" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-            </p>
-            <img className="th-tape t1" src="/hero/tape-1.webp" alt="" />
-            <img className="th-tape t2" src="/hero/tape-2.webp" alt="" />
-            <img className="th-pic" src="/hero/suhani.webp" alt="Suhani Rajoria, smiling" width="720" height="900" fetchPriority="high" />
-          </figure>
-        </article>
-
-        {/* The card sits in an open airmail envelope: flap behind it, pocket in front */}
-        <div className="th-env" aria-hidden="true">
-          <img className="th-env-flap" src="/hero/envelope-flap.webp" alt="" width="1300" height="468" />
-          <img className="th-env-pocket" src="/hero/envelope.webp" alt="" width="1300" height="646" />
         </div>
-      </div>
+      </section>
 
       <div className={`th-menu${menu ? " is-open" : ""}`} role="dialog" aria-modal="true" aria-label="Menu" aria-hidden={!menu}>
         <button type="button" className="th-close" onClick={() => setMenu(false)} tabIndex={menu ? 0 : -1}>Close</button>
@@ -136,6 +159,6 @@ export default function TwilightHero() {
           ))}
         </nav>
       </div>
-    </section>
+    </>
   );
 }

@@ -110,7 +110,7 @@ html { scroll-behavior: smooth; }
 /* (02) Work: sticky stacking cards */
 .sx-stack { display: grid; gap: 28px; }
 .sx-card {
-  position: sticky; top: calc(40px + var(--i) * 24px);
+  position: sticky; top: calc(84px + var(--i) * 24px);
   display: grid; grid-template-columns: 0.95fr 1.05fr;
   min-height: min(620px, 78vh);
   border-radius: 28px; text-decoration: none; overflow: hidden;
@@ -165,7 +165,7 @@ html { scroll-behavior: smooth; }
 .sx-tile-n { font-size: 11px; letter-spacing: 0.08em; opacity: 0.75; }
 .sx-tile-sym { font: 600 clamp(40px, 4.4vw, 64px)/0.9 var(--display); letter-spacing: -0.03em; }
 .sx-tile-name { font-size: 12px; line-height: 1.2; font-weight: 500; }
-.sx-readout { position: sticky; top: 24px; display: flex; flex-direction: column; padding: 28px; border-radius: 24px; min-height: 100%; transition: background 400ms, color 400ms; }
+.sx-readout { position: sticky; top: 84px; display: flex; flex-direction: column; padding: 28px; border-radius: 24px; min-height: 100%; transition: background 400ms, color 400ms; }
 .sx-readout-top { display: flex; justify-content: space-between; font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; padding-bottom: 12px; border-bottom: 1px solid currentColor; opacity: 0.85; }
 .sx-readout-sym { margin: 24px 0 0; font: 600 clamp(120px, 13vw, 200px)/0.8 var(--display); letter-spacing: -0.05em; animation: sx-pop 500ms var(--spring); }
 @keyframes sx-pop { from { opacity: 0; transform: translateY(16px) scale(0.92); } }
