@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, MapPin, Pause, Play } from "@phosphor-icons/react";
+import { ArrowUpRight, MapPin } from "@phosphor-icons/react";
 import { work, experience, aboutPhoto, hero } from "../portfolio/content.js";
 import "../sections.css";
 
@@ -54,40 +54,19 @@ function Count({ value, suffix = "" }) {
 /* (02) — work: stacking cards. A short edited film of the project on top, the facts below. */
 const TONES = ["dark", "butter", "pine"];
 
-/** Plays while on screen, pauses off screen. Never autoplays for reduced motion; the button always works. */
+/** Loops continuously and muted. It only pauses while off screen (to save battery) and never autoplays for reduced motion. */
 function CardFilm({ p }) {
   const ref = useRef(null);
-  const [playing, setPlaying] = useState(false);
-  const [userPaused, setUserPaused] = useState(false);
   useEffect(() => {
     const v = ref.current;
     if (!v || reduced()) return;
-    const io = new IntersectionObserver(([e]) => {
-      if (e.isIntersecting && !userPaused) v.play().catch(() => {});
-      else v.pause();
-    }, { threshold: 0.35 });
+    const io = new IntersectionObserver(([e]) => (e.isIntersecting ? v.play().catch(() => {}) : v.pause()), { threshold: 0.1 });
     io.observe(v);
     return () => io.disconnect();
-  }, [userPaused]);
-  const toggle = () => {
-    const v = ref.current;
-    if (v.paused) { setUserPaused(false); v.play().catch(() => {}); } else { setUserPaused(true); v.pause(); }
-  };
+  }, []);
   return (
     <div className="sx-film" style={{ "--ar": p.film.ratio }}>
-      <video
-        ref={ref} src={p.film.src} poster={p.film.poster} muted loop playsInline preload="none"
-        aria-label={p.film.alt} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)}
-      />
-      <button type="button" className="sx-film-btn" onClick={toggle} aria-label={playing ? `Pause the ${p.name} film` : `Play the ${p.name} film`}>
-        {playing ? <Pause size={16} weight="fill" aria-hidden="true" /> : <Play size={16} weight="fill" aria-hidden="true" />}
-      </button>
-      {p.demo && (
-        <a className="sx-film-demo" href={p.demo} target="_blank" rel="noreferrer">
-          <i aria-hidden="true" /> Live prototype <ArrowUpRight size={14} weight="bold" aria-hidden="true" />
-          <span className="sr-only"> (opens in a new tab)</span>
-        </a>
-      )}
+      <video ref={ref} src={p.film.src} poster={p.film.poster} muted loop playsInline preload="none" aria-label={p.film.alt} />
     </div>
   );
 }
@@ -119,9 +98,17 @@ function Work() {
                   <div><dt>Tools</dt><dd>{p.tools}</dd></div>
                   <div><dt>Year</dt><dd>{p.year}</dd></div>
                 </dl>
-                <span className="sx-pill" aria-hidden="true">
-                  Read the case study <span className="sx-pill-dot"><ArrowUpRight size={16} weight="bold" /></span>
-                </span>
+                <div className="sx-card-ctas">
+                  <span className="sx-pill" aria-hidden="true">
+                    Read the case study <span className="sx-pill-dot"><ArrowUpRight size={16} weight="bold" /></span>
+                  </span>
+                  {p.demo && (
+                    <a className="sx-card-demo" href={p.demo} target="_blank" rel="noreferrer">
+                      <i aria-hidden="true" /> Live prototype <ArrowUpRight size={14} weight="bold" aria-hidden="true" />
+                      <span className="sr-only"> (opens in a new tab)</span>
+                    </a>
+                  )}
+                </div>
               </div>
             </div>
           </article>

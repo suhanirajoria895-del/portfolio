@@ -41,7 +41,7 @@ export default function SteadyTrackCover({ focus }) {
         <p className="stc-title">SteadyTrack</p>
         <p className="stc-tag">Therapy that keeps time with you</p>
         <span className="stc-rule bottom" />
-        <p className="stc-meta">MIT Institute of Design · Group project · 2025</p>
+        <p className="stc-meta">MIT Institute of Design · Group project · 2026</p>
       </div>
     </div>
   );
