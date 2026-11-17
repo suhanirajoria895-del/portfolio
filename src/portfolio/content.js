@@ -104,7 +104,7 @@ export const experience = [
   },
   {
     from: "May '25",
-    to: "Jun '25",
+    to: "Jul '25",
     role: "Research Intern",
     org: "ABDA Studio · Boutique hotel website",
     place: "Hyderabad",

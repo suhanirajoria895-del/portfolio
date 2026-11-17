@@ -1,9 +1,13 @@
-/* One typeface across the whole site. Loaded once per page; code samples keep a monospace face. */
+/* One typeface across the whole site. Loaded once per page; code samples keep a monospace face.
+   The homepage (.hv) sets its own type: Poppins, plus a signature face and a handwritten face.
+   Its case-study cards (.sx-page) keep the site font. */
 :root {
   --site-font: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 html,
 body,
-body *:not(code):not(pre):not(kbd):not(samp) {
+body *:not(code):not(pre):not(kbd):not(samp):not(.hv):not(.hv *),
+.hv .sx-page,
+.hv .sx-page *:not(code) {
   font-family: var(--site-font) !important;
 }

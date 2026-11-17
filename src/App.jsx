@@ -1,12 +1,10 @@
-import TwilightHero from "./components/TwilightHero.jsx";
-import Sections from "./components/Sections.jsx";
+import Home from "./home/Home.jsx";
 import RoadFooter from "./components/RoadFooter.jsx";
 
 export default function App() {
   return (
     <>
-      <TwilightHero />
-      <Sections />
+      <Home />
       <RoadFooter />
     </>
   );

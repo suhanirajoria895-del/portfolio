@@ -7,6 +7,7 @@ import {
 import { useActiveId, useRevealAll } from "../cosell/hooks.js";
 import { Device, PwMark, SignalPhone } from "./demo/screens.jsx";
 import { CanWont, EdgePlayer, SaidNo, Scope, SignalSources, TheBet } from "./Extras.jsx";
+import { Methods, InfoArch, Skim, Deep } from "../shared/Research.jsx";
 
 const P = "/work/paywise/";
 const DEMO = "/work/paywise/demo/";
@@ -38,6 +39,12 @@ export default function CaseStudy() {
       <Chips active={active} />
       <main className="rk">
         <Header />
+        <div className="rk-skim"><Skim items={[
+          ["Problem", "A scam builds over hours. The payment at the end takes seconds.", "#problem"],
+          ["Insight", "Isolation is part of the scam, so the design needs two users.", "#analysis"],
+          ["Key decision", "Pause, don't block. Add friction only to risky payments.", "#synthesis"],
+          ["Result", "A 10-second pause with reasons and a trusted contact. Not yet tested.", "#solution"],
+        ]} /></div>
         <Problem />
         <Research />
         <Analysis />
@@ -210,11 +217,10 @@ function Header() {
     <header className="rk-head">
       <div className="rk-head__copy" data-reveal>
         <p className="rk-mono">Case study 02 · Product design · Self-initiated</p>
-        <h1>Paywise: a <em>10-second pause</em> inside UPI apps, for payments that look like scams</h1>
+        <h1>Paywise: a <em>10-second pause</em> for UPI payments that look like scams</h1>
         <p className="rk-lede">
-          Paywise is a safety layer for existing UPI apps. Normal payments don't change. When signals point to a scam, it pauses
-          the payment for 10 seconds, explains why, and offers a call to a trusted person. If the money has already gone, it
-          guides the person through reporting.
+          A safety layer for existing UPI apps. Normal payments don't change. When signals point to a scam, Paywise pauses the
+          payment for 10 seconds, shows why, and offers a call to a trusted person. If money has already gone, it guides reporting.
         </p>
         <a className="rk-btn" href={DEMO} target="_blank" rel="noreferrer">Try the prototype <ArrowRight size={16} /></a>
       </div>
@@ -231,14 +237,14 @@ function Header() {
         {[
           ["Role", "Product designer"],
           ["Type", "Personal project"],
-          ["Platform", "A layer inside existing UPI apps, plus a small companion app"],
+          ["Platform", "Layer inside UPI apps, plus a companion app"],
           ["Tools", "Figma (design), React (prototype)"],
         ].map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
       </dl>
 
       <ul className="rk-glance" data-reveal>
         <li><b><CountUp to={805} prefix="₹" /> cr</b><span>lost to UPI fraud in India, April to November 2025<a href={IANS_UPI} target="_blank" rel="noreferrer">Lok Sabha ↗</a></span></li>
-        <li className="mid"><PwMark size={40} /><span>Most payments see no change. Risky ones get a 10-second pause and a trusted contact.</span></li>
+        <li className="mid"><PwMark size={40} /><span>Normal payments see no change. Risky ones get a 10-second pause.</span></li>
         <li><b>1 hour</b><span>the “golden hour”, when reporting fast helps police act<a href={GOLDEN} target="_blank" rel="noreferrer">Advisory ↗</a></span></li>
       </ul>
     </header>
@@ -250,21 +256,21 @@ function Header() {
 function Problem() {
   return (
     <Sec id="problem" n="01" kicker="Problem" title="Scams take hours. The payment takes seconds."
-      lede="Digital arrest scams keep people on calls for hours or days. The payment at the end finishes in seconds. Some UPI apps now warn about numbers flagged as risky, but that check rates the number, not the pressure on the person paying. That is where this project focuses.">
+      lede="Digital arrest scams keep people on calls for hours. The payment at the end takes seconds. Some UPI apps warn about flagged numbers, but that rates the number, not the pressure on the person paying. That gap is the focus.">
       <div className="rk-stats" data-reveal>
         <a href={IANS_LOSS} target="_blank" rel="noreferrer" className="rk-stat rk-stat--dark">
           <b><CountUp to={19813} prefix="₹" /><small> cr</small></b>
-          <span>lost to all cyber fraud in India in 2025, not only UPI, across about 21.8 lakh complaints</span>
+          <span>lost to all cyber fraud in India in 2025, across about 21.8 lakh complaints</span>
           <em>I4C data via IANS ↗</em>
         </a>
         <a href={IANS_UPI} target="_blank" rel="noreferrer" className="rk-stat">
           <b><CountUp to={10.64} decimals={2} /><small> lakh</small></b>
-          <span>UPI fraud incidents worth ₹805 crore, April to November 2025 alone</span>
+          <span>UPI fraud incidents worth ₹805 crore, April to November 2025</span>
           <em>Finance Ministry, Lok Sabha ↗</em>
         </a>
         <a href={IANS_LOSS} target="_blank" rel="noreferrer" className="rk-stat">
           <b><CountUp to={8} /><small>%</small></b>
-          <span>of 2025 cyber fraud losses came from "digital arrest" scams, across all payment methods</span>
+          <span>of 2025 cyber fraud losses came from "digital arrest" scams</span>
           <em>I4C data via IANS ↗</em>
           <div className="rk-stat__bar"><i /></div>
         </a>
@@ -276,9 +282,9 @@ function Problem() {
 
       <div className="rk-chain" data-reveal>
         {[
-          [Zap, "The payment", "Done in seconds", "A payment to a number that isn't flagged has no step that asks the person to stop and check."],
-          [Siren, "The method", "Authority and urgency", "Callers pose as police, banks or couriers and demand action immediately."],
-          [EyeOff, "The result", "Late reporting", "Many victims don't tell anyone at first. Delay makes the money harder to trace."],
+          [Zap, "The payment", "Done in seconds", "Nothing asks the person to stop and check."],
+          [Siren, "The method", "Authority and urgency", "Callers pose as police or banks and demand action now."],
+          [EyeOff, "The result", "Late reporting", "Victims often tell no one at first. Delay makes money harder to trace."],
         ].map(([Ic, k, t, d], i) => (
           <div key={k} className="rk-chain__card" style={{ "--i": i }}>
             <span className="rk-chain__ic"><Ic size={22} strokeWidth={1.6} /></span>
@@ -319,7 +325,18 @@ function Race() {
 function Research() {
   return (
     <Sec id="research" n="02" kicker="Research" title="Digital arrest scams follow a repeatable script"
-      lede="This is desk research: government data given to Parliament, news reports, cybercrime advisories and victim accounts on forums. I haven't interviewed survivors, and that is the biggest gap in this project.">
+      lede="Desk research: government data given to Parliament, news reports, cybercrime advisories and victim accounts. No survivor interviews yet. That is the biggest gap.">
+      <Methods
+        title="How I studied it"
+        steps={[
+          ["Desk research", "Scale of the problem", "#research"],
+          ["Scam script reconstruction", "5-stage call timeline", "#research"],
+          ["Protection gap mapping", "The gap at the moment of pressure", "#research"],
+          ["Archetypes", "Two users, not one", "#analysis"],
+          ["Stress mapping", "Stress curve, 5 findings", "#analysis"],
+        ]}
+        next={["Survivor interviews", "Wording test", "UPI app flow audit"]}
+      />
       <Evidence />
 
       <Part title="How a digital arrest unfolds" tag="desk" lede="Based on a Frank on Fraud explainer and news reports. The lines are my reconstruction, not a recording. Scroll to step through the stages.">
@@ -574,8 +591,19 @@ function Synthesis() {
       <Part title="Where AI fits" lede="AI does two things here: it detects signals and explains them. Turn signals on and off to see how the pause screen changes. One weak signal doesn't trigger a pause. The weights and threshold are my starting assumptions, not tested values.">
         <SignalMeter />
         <SignalSources />
-        <CanWont />
+        <Deep title="What Paywise will never do" hint="Limits on data and control"><CanWont /></Deep>
       </Part>
+
+      <InfoArch
+        title="Three places, each with one job"
+        lede="Paywise lives in three places."
+        root="Paywise"
+        nodes={[
+          ["Inside the UPI app", "Where the money moves, so the pause happens here.", ["Normal payment", "Risk pause", "Collect request warning"]],
+          ["Companion app", "Set-up and recovery, away from the payment.", ["Welcome", "Home", "First-hour recovery"]],
+          ["Trusted person's phone", "The alert reaches someone outside the scam call.", ["Paused-payment alert"]],
+        ]}
+      />
 
       <Part title="Key decision: pause, don't block" lede="Paywise never blocks a payment. This is the most debatable decision in the project. Compare both options below. The outcomes are my reasoning, not test results.">
         <TheBet />
@@ -711,8 +739,8 @@ function Solution() {
       lede="A new app would ask people to change how they pay, so Paywise sits inside the UPI apps they already use. I designed it as a shared standard that NPCI could ask apps to adopt. On a normal day, it isn't visible.">
       <Stack />
       <Showcase />
-      <Filmstrip />
-      <EdgePlayer />
+      <Flow />
+      <Deep title="Edge cases" hint="Repeat transfers, false alarms, no trusted contact"><EdgePlayer /></Deep>
       <div className="rk-try" data-reveal>
         <div><h3>Click through it yourself</h3><p>Seven screens, all interactive. Start a risky payment, cancel it, call Rohan, or walk the first hour.</p></div>
         <a className="rk-btn rk-btn--light" href={DEMO} target="_blank" rel="noreferrer"><MousePointerClick size={16} /> Open the prototype</a>
@@ -768,13 +796,60 @@ function Showcase() {
   );
 }
 
-function Filmstrip() {
+/** One payment, several paths: the real screens laid out as the decision tree they belong to. */
+const FLOW = [
+  ["pay", "Normal payment", "Nothing changes. A small check mark."],
+  ["risk", "Risk pause", "Reasons first, then one big action."],
+  ["alert", "Rohan's alert", "One button: call her now."],
+  ["recover", "First-hour recovery", "If money already left: calm steps."],
+];
+const EDGES_F = [
+  ["start", "pay", "Signals low"],
+  ["start", "risk", "Signals stack up"],
+  ["risk", "alert", "Call Rohan first"],
+  ["risk", "recover", "Paid anyway, then doubt"],
+];
+
+function Flow() {
+  const box = useRef(null);
+  const [paths, setPaths] = useState([]);
+  const [ref, seen] = useInView(0.2);
+  useEffect(() => {
+    const draw = () => {
+      const b = box.current; if (!b) return;
+      const o = b.getBoundingClientRect();
+      const at = (id) => b.querySelector(`[data-node="${id}"]`).getBoundingClientRect();
+      setPaths(EDGES_F.map(([f, t, label]) => {
+        const a = at(f), z = at(t);
+        const x1 = a.right - o.left, y1 = a.top + a.height / 2 - o.top, x2 = z.left - o.left - 6, y2 = z.top + z.height / 2 - o.top;
+        const mx = (x1 + x2) / 2;
+        return { d: `M${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`, label, lx: mx, ly: (y1 + y2) / 2 };
+      }));
+    };
+    draw();
+    const ro = new ResizeObserver(draw); ro.observe(box.current);
+    return () => ro.disconnect();
+  }, []);
   return (
-    <div className="rk-film" data-reveal>
-      {["welcome", "home", "risk", "collect", "alert", "recover"].map((s, i) => (
-        <LivePhone key={s} screen={s} scale={0.42} className={`f${i}`} />
-      ))}
-    </div>
+    <figure ref={ref} className={`rk-flow${seen ? " go" : ""}`}>
+      <figcaption>
+        <p className="rk-mono">The screens as a decision tree</p>
+        <h3>One payment, four outcomes</h3>
+      </figcaption>
+      <div className="rk-flow__map" ref={box}>
+        <svg className="rk-flow__lines" aria-hidden="true">
+          {paths.map((p, i) => <path key={i} d={p.d} pathLength="1" style={{ "--i": i }} />)}
+        </svg>
+        {paths.map((p, i) => <span key={i} className="rk-flow__edge" style={{ left: p.lx, top: p.ly, "--i": i }}>{p.label}</span>)}
+        <div className="rk-flow__start" data-node="start"><span><IndianRupee size={18} /></span><b>Sunita taps Pay</b></div>
+        {FLOW.map(([id, t, d], i) => (
+          <div key={id} className={`rk-flow__node n-${id}`} data-node={id} style={{ "--i": i }}>
+            <LivePhone screen={id} scale={0.4} />
+            <p><b>{t}</b>{d}</p>
+          </div>
+        ))}
+      </div>
+    </figure>
   );
 }
 

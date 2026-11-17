@@ -17,7 +17,7 @@ import {
   Wallet,
   X,
 } from "lucide-react";
-import { CoMark, Logo } from "./CoMark.jsx";
+import { CoMark, LogoMark } from "./CoMark.jsx";
 
 const A = "/work/cosell/";
 
@@ -110,169 +110,163 @@ const MARKS = [
   ["paused", "Paused"],
 ];
 
-function Level({ n, name, desc }) {
+const TABS = ["Colour", "Type", "Space", "Components", "Icons", "Co mark"];
+const KINDS = [["Primary", "p", "Approve"], ["Secondary", "s", "Review"], ["Light", "l", "Edit price"], ["Ghost", "g", "Undo"], ["Destructive", "d", "Reject"]];
+const STATES = [["Default", ""], ["Hover", "hover"], ["Pressed", "press"], ["Disabled", "off"]];
+const SIZES = [["S", 32, 14], ["M", 40, 20], ["L", 48, 24]];
+
+/** A property row like a component panel: pick one value. */
+function Prop({ label, value, options, onChange }) {
   return (
-    <div className="dsx-level" data-reveal>
-      <span className="dsx-level__n">{n}</span>
-      <div>
-        <h4>{name}</h4>
-        <p>{desc}</p>
+    <div className="ds-prop">
+      <span>{label}</span>
+      <div role="group" aria-label={label}>
+        {options.map((o) => (
+          <button key={o} type="button" aria-pressed={value === o} onClick={() => onChange(o)}>{o}</button>
+        ))}
       </div>
     </div>
   );
 }
 
-function Panel({ title, note, children, className = "" }) {
-  return (
-    <div className={`dsx-panel ${className}`} data-reveal>
-      <h5>{title}</h5>
-      {note && <p className="dsx-note">{note}</p>}
-      {children}
-    </div>
-  );
-}
-
+/** The design system as one compact library file: pages on the left, one canvas, a properties panel for components. */
 export default function DesignSystem() {
-  const [mode, setMode] = useState("ask");
-  const [on, setOn] = useState(true);
+  const [tab, setTab] = useState("Colour");
+  const [kind, setKind] = useState("Primary");
+  const [state, setState] = useState("Default");
+  const [size, setSize] = useState("M");
+  const k = KINDS.find(([n]) => n === kind);
+  const st = STATES.find(([n]) => n === state)[1];
+  const sz = SIZES.find(([n]) => n === size);
 
   return (
-    <div className="cs-part dsx">
+    <div className="cs-part ds">
       <header className="cs-part__head" data-reveal>
         <h3>Design system</h3>
         <p className="cs-body">Tokens first, then components.</p>
       </header>
 
-      <Panel title="Colour" note="Indigo for Co and actions. Every other colour means a status, never decoration.">
-        {COLOR_GROUPS.map(([group, items]) => (
-          <div key={group} className="dsx-colgroup">
-            <p className="dsx-sub">{group}</p>
-            <div className={`dsx-swatches ${group === "Status" ? "status" : ""}`}>
-              {group === "Status"
-                ? items.map(([n, base, tint, ink]) => (
-                    <div key={n} className="dsx-status">
-                      <span style={{ background: base }} />
-                      <span style={{ background: tint }} />
-                      <span style={{ background: ink }} />
-                      <p>
-                        <b>{n}</b>
-                        {base} · tint · ink
-                      </p>
-                    </div>
-                  ))
-                : items.map(([n, hex]) => (
-                    <div key={n} className="dsx-swatch">
-                      <span style={{ background: hex }} />
-                      <b>{n}</b>
-                      <code>{hex}</code>
-                    </div>
-                  ))}
-            </div>
-          </div>
-        ))}
-      </Panel>
+      <ol className="ds-chain" data-reveal aria-label="How a value becomes a component">
+        <li><span className="ds-dot" style={{ background: "#14142B" }} /><code>#14142B</code><small>Value</small></li>
+        <li><code>bg/inverse</code><small>Token, named by role</small></li>
+        <li><span className="b-real b--p" style={{ height: 32, padding: "0 14px" }}>Approve</span><small>Component</small></li>
+      </ol>
 
-      <div className="dsx-row">
-        <Panel title="Typography" note="Plus Jakarta Sans, with Mukta for Hindi. Every number uses tabular figures." className="grow">
-          <table className="dsx-type">
-            <tbody>
-              {TYPE.map(([n, size, lh, w, sample]) => (
-                <tr key={n}>
-                  <th>{n}</th>
-                  <td style={{ fontSize: Math.min(size, 40), lineHeight: `${Math.min(lh, 44)}px`, fontWeight: w }}>{sample}</td>
-                  <td className="spec">
-                    {size}/{lh} · {w}
-                  </td>
-                </tr>
-              ))}
-              <tr>
-                <th>Hindi</th>
-                <td lang="hi" style={{ fontFamily: "Mukta, sans-serif", fontSize: 18, fontWeight: 600 }}>
-                  सुप्रभात, मीरा!
-                </td>
-                <td className="spec">Mukta · +1px</td>
-              </tr>
-            </tbody>
-          </table>
-        </Panel>
-        <Panel title="Pills and badges" className="grow">
-          <div className="dsx-wrap">
-            {[
-              ["neutral", "Marketplace A"],
-              ["primary", "3 of 3 passed"],
-              ["success", "● High"],
-              ["warning", "● Medium"],
-              ["danger", "● Low"],
-              ["navy", "3"],
-            ].map(([t, l]) => (
-              <span key={t} className={`pill pill--${t}`}>
-                {l}
-              </span>
+      <div className="ds-file" data-reveal>
+        <div className="ds-file__bar"><LogoMark size={20} /> <b>CoSell UI kit</b><span>{tab}</span></div>
+        <div className="ds-file__body">
+          <nav className="ds-pages" aria-label="Design system pages">
+            {TABS.map((t) => (
+              <button key={t} type="button" aria-pressed={tab === t} onClick={() => setTab(t)}>{t}</button>
             ))}
-          </div>
-          <p className="dsx-note">Marketplaces are always grey. Only status gets colour.</p>
-        </Panel>
-      </div>
+          </nav>
 
-      <Panel title="Buttons" note="Pill shaped. One primary button per card, so the next step is always obvious.">
-        <div className="dsx-anatomy">
-          {[
-            ["Small", 32, 14],
-            ["Medium", 40, 20],
-            ["Large", 48, 24],
-          ].map(([n, h, px]) => (
-            <div key={n}>
-              <span className="b-real b--p" style={{ height: h, padding: `0 ${px}px` }}>
-                Approve
-              </span>
-              <p>
-                {n} · {h}px high · {px}px sides
-              </p>
-            </div>
-          ))}
-        </div>
-        <div className="cs-scroll" tabIndex={0} role="region" aria-label="Button states table">
-          <table className="dsx-states">
-            <thead>
-              <tr>
-                <th scope="col"><span className="sr">Component</span></th>
-                {["Default", "Hover", "Pressed", "Disabled"].map((s) => (
-                  <th key={s}>{s}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {[
-                ["Primary", "p", "Approve"],
-                ["Secondary", "s", "Review"],
-                ["Light", "l", "Edit price"],
-                ["Ghost", "g", "Undo"],
-                ["Destructive", "d", "Reject"],
-              ].map(([n, k, label]) => (
-                <tr key={k}>
-                  <th>{n}</th>
-                  {["", "hover", "press", "off"].map((st) => (
-                    <td key={st}>
-                      <span className={`b-real b--${k} ${st}`}>{label}</span>
-                    </td>
+          <div className="ds-canvas" key={tab}>
+            {tab === "Colour" && (
+              <>
+                <div className="ds-cols">
+                  {COLOR_GROUPS.filter(([g]) => g !== "Status").map(([group, items]) => (
+                    <div key={group}>
+                      <p className="dsx-sub">{group}</p>
+                      {items.map(([n, hex]) => (
+                        <div key={n} className="ds-sw"><span style={{ background: hex }} /><b>{n}</b><code>{hex}</code></div>
+                      ))}
+                    </div>
                   ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </Panel>
+                  <div>
+                    <p className="dsx-sub">Status · base, tint, ink</p>
+                    {COLOR_GROUPS[2][1].map(([n, base, tint, ink]) => (
+                      <div key={n} className="ds-sw ds-sw--3"><span style={{ background: base }} /><span style={{ background: tint }} /><span style={{ background: ink }} /><b>{n}</b></div>
+                    ))}
+                  </div>
+                </div>
+                <p className="ds-rule">Indigo is for Co and actions. Every other colour means a status.</p>
+              </>
+            )}
 
-      <Panel title="Co, the mark" note="The logo doubles as Co. A badge carries the state, so it reads at small sizes and with motion off.">
-        <div className="dsx-marks">
-          {MARKS.map(([s, l]) => (
-            <div key={s}>
-              <CoMark state={s} size={48} />
-              <span>{l}</span>
-            </div>
-          ))}
+            {tab === "Type" && (
+              <>
+                <table className="dsx-type ds-type">
+                  <tbody>
+                    {TYPE.map(([n, sizePx, lh, w, sample]) => (
+                      <tr key={n}>
+                        <th>{n}</th>
+                        <td style={{ fontSize: Math.min(sizePx, 30), lineHeight: 1.25, fontWeight: w }}>{sample}</td>
+                        <td className="spec">{sizePx}/{lh} · {w}</td>
+                      </tr>
+                    ))}
+                    <tr>
+                      <th>Hindi</th>
+                      <td lang="hi" style={{ fontFamily: "Mukta, sans-serif", fontSize: 18, fontWeight: 600 }}>सुप्रभात, मीरा!</td>
+                      <td className="spec">Mukta · +1px</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <p className="ds-rule">Plus Jakarta Sans, Mukta for Hindi. Numbers use tabular figures.</p>
+              </>
+            )}
+
+            {tab === "Space" && (
+              <div className="ds-space">
+                <div>
+                  <p className="dsx-sub">Spacing · 4px base</p>
+                  <div className="ds-bars">
+                    {SPACING.map((v) => <div key={v}><i style={{ width: v }} /><code>{v}</code></div>)}
+                  </div>
+                </div>
+                <div>
+                  <p className="dsx-sub">Radius</p>
+                  <div className="ds-radii">
+                    {RADII.map(([n, r, use]) => (
+                      <div key={n}><i style={{ borderRadius: Math.min(r, 28) }} /><b>{n}</b><small>{use}</small></div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {tab === "Components" && (
+              <div className="ds-comp">
+                <div className="ds-stage">
+                  <span className={`b-real b--${k[1]} ${st}`} style={{ height: sz[1], padding: `0 ${sz[2]}px` }}>{k[2]}</span>
+                  <code>Button / {kind} / {state} / {size}</code>
+                </div>
+                <div className="ds-props">
+                  <p className="dsx-sub">Properties</p>
+                  <Prop label="Type" value={kind} options={KINDS.map(([n]) => n)} onChange={setKind} />
+                  <Prop label="State" value={state} options={STATES.map(([n]) => n)} onChange={setState} />
+                  <Prop label="Size" value={size} options={SIZES.map(([n]) => n)} onChange={setSize} />
+                  <p className="dsx-sub" style={{ marginTop: 18 }}>Pills</p>
+                  <div className="dsx-wrap">
+                    {[["neutral", "Marketplace A"], ["primary", "3 of 3 passed"], ["success", "● High"], ["warning", "● Medium"], ["danger", "● Low"]].map(([t, l]) => (
+                      <span key={t} className={`pill pill--${t}`}>{l}</span>
+                    ))}
+                  </div>
+                </div>
+                <p className="ds-rule">One primary button per card. Marketplaces are always grey; only status gets colour.</p>
+              </div>
+            )}
+
+            {tab === "Icons" && (
+              <>
+                <div className="ds-icons">
+                  {ICONS.map(([Ic, n]) => <div key={n}><Ic size={22} strokeWidth={1.75} aria-hidden="true" /><code>{n}</code></div>)}
+                </div>
+                <p className="ds-rule">One icon set, one stroke weight.</p>
+              </>
+            )}
+
+            {tab === "Co mark" && (
+              <>
+                <div className="dsx-marks ds-marks">
+                  {MARKS.map(([s, l]) => <div key={s}><CoMark state={s} size={56} /><span>{l}</span></div>)}
+                </div>
+                <p className="ds-rule">The logo doubles as Co. A badge carries the state, so it reads small and with motion off.</p>
+              </>
+            )}
+          </div>
         </div>
-      </Panel>
+      </div>
     </div>
   );
 }

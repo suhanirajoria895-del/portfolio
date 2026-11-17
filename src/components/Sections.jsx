@@ -71,6 +71,51 @@ function CardFilm({ p }) {
   );
 }
 
+/* The stacking cards on their own, used by the homepage's Work section */
+export function WorkCards() {
+  return (
+    <div className="sx-page hv-cards">
+      <div className="sx-stack">
+        {work.map((p, i) => <WorkCard key={p.name} p={p} i={i} />)}
+      </div>
+    </div>
+  );
+}
+
+/** One case-study card: the film on top, the facts below. Used by both homepages. */
+function WorkCard({ p, i }) {
+  return (
+    <article className={`sx-card sx-card--film is-${TONES[i % 3]}`} style={{ "--i": i }}>
+      <CardFilm p={p} />
+      <div className="sx-card-info">
+        <div className="sx-card-main">
+          <p className="sx-card-count">{String(i + 1).padStart(2, "0")} / {String(work.length).padStart(2, "0")} · {p.label}</p>
+          <h3><a className="sx-card-link" href={p.href}>{p.name}</a></h3>
+          <p className="sx-card-q">{p.question}</p>
+        </div>
+        <div className="sx-card-side">
+          <ul className="sx-tags">{p.tags.map((t) => <li key={t}>{t}</li>)}</ul>
+          <dl className="sx-card-facts">
+            <div><dt>Tools</dt><dd>{p.tools}</dd></div>
+            <div><dt>Year</dt><dd>{p.year}</dd></div>
+          </dl>
+          <div className="sx-card-ctas">
+            <span className="sx-pill" aria-hidden="true">
+              Read the case study <span className="sx-pill-dot"><ArrowUpRight size={16} weight="bold" /></span>
+            </span>
+            {p.demo && (
+              <a className="sx-card-demo" href={p.demo} target="_blank" rel="noreferrer">
+                <i aria-hidden="true" /> Live prototype <ArrowUpRight size={14} weight="bold" aria-hidden="true" />
+                <span className="sr-only"> (opens in a new tab)</span>
+              </a>
+            )}
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+}
+
 function Work() {
   return (
     <section className="sx" id="projects">
@@ -83,36 +128,7 @@ function Work() {
         </div>
       </header>
       <div className="sx-stack">
-        {work.map((p, i) => (
-          <article key={p.name} className={`sx-card sx-card--film is-${TONES[i % 3]}`} style={{ "--i": i }}>
-            <CardFilm p={p} />
-            <div className="sx-card-info">
-              <div className="sx-card-main">
-                <p className="sx-card-count">{String(i + 1).padStart(2, "0")} / {String(work.length).padStart(2, "0")} · {p.label}</p>
-                <h3><a className="sx-card-link" href={p.href}>{p.name}</a></h3>
-                <p className="sx-card-q">{p.question}</p>
-              </div>
-              <div className="sx-card-side">
-                <ul className="sx-tags">{p.tags.map((t) => <li key={t}>{t}</li>)}</ul>
-                <dl className="sx-card-facts">
-                  <div><dt>Tools</dt><dd>{p.tools}</dd></div>
-                  <div><dt>Year</dt><dd>{p.year}</dd></div>
-                </dl>
-                <div className="sx-card-ctas">
-                  <span className="sx-pill" aria-hidden="true">
-                    Read the case study <span className="sx-pill-dot"><ArrowUpRight size={16} weight="bold" /></span>
-                  </span>
-                  {p.demo && (
-                    <a className="sx-card-demo" href={p.demo} target="_blank" rel="noreferrer">
-                      <i aria-hidden="true" /> Live prototype <ArrowUpRight size={14} weight="bold" aria-hidden="true" />
-                      <span className="sr-only"> (opens in a new tab)</span>
-                    </a>
-                  )}
-                </div>
-              </div>
-            </div>
-          </article>
-        ))}
+        {work.map((p, i) => <WorkCard key={p.name} p={p} i={i} />)}
       </div>
     </section>
   );

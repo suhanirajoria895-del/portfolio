@@ -6,6 +6,7 @@ import DesignSystem from "./DesignSystem.jsx";
 import { AiKinds, CanWont, CoStates, SaidNo, EdgeScreens, Phones, IPhone, NextProject } from "./Extras.jsx";
 import { ConsideredChosen, SeverityLegend, PriceIteration, ActsOrAsks, AskCo, DesignToCode } from "./Chapters.jsx";
 import { useActiveId, useAmbientMotion, useRevealAll } from "./hooks.js";
+import { Methods, InfoArch, Skim, Deep } from "../shared/Research.jsx";
 
 const A = "/work/cosell/"; // asset base
 const DEMO = "/work/cosell/demo/index.html#/login";
@@ -34,6 +35,12 @@ export default function CaseStudy() {
       <Chips active={active} />
       <main className="cs">
         <Header />
+        <Skim items={[
+          ["Problem", "Sellers repeat the same jobs on every marketplace, and costly mistakes slip through.", "#problem"],
+          ["Insight", "They have the data. They lack time to watch it, and trust to let software touch prices.", "#research"],
+          ["Key decision", "Co asks before it acts, shows its reasons, and everything can be undone.", "#synthesis"],
+          ["Result", "A ranked list of decisions instead of three dashboards. Not yet tested with sellers.", "#solution"],
+        ]} />
         <Problem />
         <Research />
         <Analysis />
@@ -44,7 +51,7 @@ export default function CaseStudy() {
           title="What Co does, and what it never does"
         >
           <Define />
-          <AiKinds />
+          <Deep title="Three kinds of AI help" hint="What Co watches, drafts and decides"><AiKinds /></Deep>
           <CanWont />
           <Flows />
           <SaidNo />
@@ -148,9 +155,9 @@ function Header() {
     <header className="cs-head" data-reveal>
       <div className="cs-head__copy">
         <p className="cs-mono">Case study 01 · CoSell · Agentic AI</p>
-        <h1>CoSell: an AI agent that turns a small seller's three dashboards into <span className="hl">one list of decisions</span></h1>
+        <h1>CoSell: three dashboards, <span className="hl">one list of decisions</span></h1>
         <p className="cs-lede">
-          Co monitors stock, prices, returns and payouts across marketplaces. It handles routine work within the seller's limits and brings the rest to her as a ranked list of decisions.
+          An AI agent for small marketplace sellers. It handles the routine work and asks before anything that matters.
         </p>
         <a className="cs-try" href={DEMO} target="_blank" rel="noreferrer">Try the live prototype ↗<span className="sr"> (opens in a new tab)</span></a>
         <ul className="cs-tags" aria-label="Tags">
@@ -321,6 +328,16 @@ function Research() {
       title="Where sellers lose time and money"
       lede="Desk research only, no interviews: seller guides, fee documents and seller forums."
     >
+      <Methods
+        title="How I studied it"
+        steps={[
+          ["Desk research", "10–15 observations", "#research"],
+          ["Affinity mapping", "4 patterns", "#research"],
+          ["Journey mapping", "6 moments in a seller's day", "#research"],
+          ["Competitor review", "Capability table, positioning map", "#analysis"],
+        ]}
+        next={["Contextual inquiry", "Seller interviews", "Prototype sessions"]}
+      />
       <section className="aw" data-reveal>
         <header>
           <p className="cs-mono">Affinity mapping</p>
@@ -768,6 +785,22 @@ function Flows() {
         </figcaption>
         <Loop />
       </figure>
+      <InfoArch
+        title="One home, four work areas, one place for rules"
+        lede="Organised by the seller's jobs, not by marketplace."
+        entry={["Log in", "Onboarding", "First sync"]}
+        root="CoSell"
+        nodes={[
+          ["Home", "What needs her today, in one ranked list."],
+          ["Approvals", "Every recommendation waiting for a yes.", ["Approval detail"]],
+          ["Inventory", "Stock across all marketplaces in one table."],
+          ["Pricing", "Price changes carry the most risk, so they get their own area."],
+          ["Returns & payouts", "Money coming back: returns by deadline, payouts checked for wrong fees."],
+          ["Co settings", "How much Co may do on its own, set per task."],
+          ["Shop profile", "Shop details and connected marketplaces. Rarely visited."],
+        ]}
+        side={{ label: "Phone app, for urgent approvals", items: ["Today", "Why this?", "Voice", "Recap", "Profile"] }}
+      />
 
     </Part>
   );
@@ -1275,9 +1308,9 @@ function Solution() {
     <Sec id="solution" n="06" kicker="Solution" title="Final designs">
       <ScreenViewer />
 
-      <EdgeScreens />
-
       <Phones />
+
+      <Deep title="Edge cases" hint="When Co is wrong, offline or unsure"><EdgeScreens /></Deep>
 
       <DesignSystem />
     </Sec>
@@ -1332,6 +1365,7 @@ function Iterations() {
     <Part title="What changed after feedback">
       <PriceIteration />
       <SeverityLegend />
+      <Deep title="Mobile iterations" hint="V1 to final, and why each changed">
       <Evo
         n="01"
         title="Mobile: from a mini dashboard to one decision at a time"
@@ -1341,6 +1375,7 @@ function Iterations() {
           { v: "Final", cap: "One decision at a time. Swipe, or use the buttons.", art: <IPhone className="evo__ip" src={`${A}ios/m-today.webp`} alt="Final mobile version: one decision at a time" /> },
         ]}
       />
+      </Deep>
     </Part>
   );
 }

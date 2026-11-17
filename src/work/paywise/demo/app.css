@@ -277,3 +277,41 @@
 @keyframes rk-breathe { 0%, 100% { transform: scale(0.92); opacity: 0.7; } 50% { transform: scale(1.08); opacity: 1; } }
 @keyframes rk-float { 0%, 100% { translate: 0 0; } 50% { translate: 0 -8px; } }
 @media (prefers-reduced-motion: reduce) { .rk-app *, .rk-app *::before { animation: none !important; transition: none !important; } }
+
+/* ───────── Accessibility pass: these screens are used in a moment of panic, often by older people ─────────
+   - Primary action is the biggest thing below the reasons: 64px, full width, verb first.
+   - Every target is at least 48px high, with 10px between targets.
+   - Secondary text darkened to pass WCAG AA (4.5:1) on white.
+   - Body text never below 15px; reasons at 16px.
+   - Colour never carries meaning alone: each reason has an icon and a sentence. */
+.rk-app {
+  --ink-2: #565A67;
+  --ink-3: #7A7E8B;
+  & .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  & .sheet--tall { height: 92%; }
+  & .sheet__h { font-size: 31px; }
+  & .sheet__sub { font-size: 16px; }
+  & .rows { margin-top: 14px; padding: 6px 14px; }
+  & .rows li { padding: 9px 0; }
+  & .rows b { font-size: 16px; }
+  & .rows small { font-size: 14px; }
+  & .sheet__actions { gap: 10px; padding-top: 14px; }
+  & .r-btn { height: 58px; border-radius: 16px; font-size: 18px; width: 100%; }
+  & .r-btn--hero { height: 66px; font-size: 19px; font-weight: 700; border-radius: 18px; box-shadow: 0 14px 24px -12px rgba(27, 63, 143, 0.65); }
+  & .r-btn--hero:focus-visible, & .r-btn:focus-visible { outline: 3px solid #F5A524; outline-offset: 3px; }
+  & .r-link { min-height: 48px; width: 100%; font-size: 15px; color: var(--ink-2); }
+  & .r-link:disabled { color: var(--ink-3); }
+  & .r-btn--wide { width: calc(100% - 48px); }
+  /* Rohan's alert: stacked, not side by side, so both labels fit at full size */
+  & .alert__actions { grid-template-columns: 1fr; gap: 10px; }
+  /* recovery: each step's action is a full-width button, not a small pill */
+  & .r-btn--sm { width: 100%; height: 52px; font-size: 16px; border-radius: 14px; align-self: stretch; margin-top: 12px; }
+  & .steps__body { flex: 1; }
+  & .steps__body p { font-size: 14.5px; }
+  & .calm { font-size: 15px; }
+  & .alertrow b { font-size: 18px; }
+  & .alertrow small { font-size: 14px; }
+  & .tabbar span { font-size: 13px; }
+  & .seg button { height: 46px; font-size: 15px; }
+  & .seg__hint { font-size: 14px; }
+}

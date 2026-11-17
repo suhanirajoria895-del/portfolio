@@ -440,3 +440,39 @@ button { font: inherit; cursor: pointer; color: inherit; }
   .rk-race__track i, .rk-call__phone li, .rk-call__notes li, .rk-curve .pt, .rk-race__gap { opacity: 1 !important; transform: none !important; }
   .rk-curve .line { stroke-dashoffset: 0; }
 }
+
+/* Shared research artefacts take this page's palette */
+:root { --rs-accent: var(--jade); --rs-ink: var(--t1); --rs-muted: var(--t2); --rs-surface: var(--bg-2); --rs-line: var(--edge); --rs-tint: var(--tile); }
+
+/* ── Decision-tree flow of the real screens ── */
+.rk-flow { margin: 56px 0 0; }
+.rk-flow h3 { margin: 8px 0 0; font-size: clamp(1.3rem, 2.2vw, 1.7rem); font-weight: 600; letter-spacing: -0.01em; }
+.rk-flow__map { position: relative; display: grid; grid-template-columns: 150px repeat(2, minmax(0, 1fr)); grid-template-rows: auto auto; column-gap: clamp(60px, 9vw, 130px); row-gap: 28px; align-items: center; margin-top: 28px; padding: 28px 24px; border-radius: 28px; background: var(--glass); border: 1px solid var(--edge); overflow-x: auto; }
+.rk-flow__lines { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.rk-flow__lines path { fill: none; stroke: var(--jade); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: .55; }
+.rk-flow.go .rk-flow__lines path { stroke-dashoffset: 0; transition: stroke-dashoffset 0.9s var(--ease) calc(var(--i) * 0.25s + 0.2s); }
+.rk-flow__edge { position: absolute; z-index: 2; translate: -50% -50%; font-size: 12.5px; font-weight: 600; white-space: nowrap; padding: 5px 11px; border-radius: 99px; background: #fff; color: var(--jade); border: 1px solid var(--edge); box-shadow: 0 6px 14px -8px rgba(22, 23, 29, 0.25); opacity: 0; scale: .8; }
+.rk-flow.go .rk-flow__edge { opacity: 1; scale: 1; transition: opacity .4s calc(var(--i) * 0.25s + 0.8s), scale .5s var(--ease) calc(var(--i) * 0.25s + 0.8s); }
+.rk-flow__start { grid-column: 1; grid-row: 1 / span 2; justify-self: start; display: grid; justify-items: center; gap: 10px; padding: 18px 16px; border-radius: 20px; background: var(--tile); color: var(--jade); text-align: center; font-size: 14px; }
+.rk-flow__start span { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 14px; background: #fff; }
+.rk-flow__node { position: relative; z-index: 1; display: flex; align-items: center; gap: 16px; opacity: 0; translate: 0 16px; }
+.rk-flow.go .rk-flow__node { opacity: 1; translate: 0 0; transition: opacity .5s calc(var(--i) * 0.25s + 0.1s), translate .7s var(--ease) calc(var(--i) * 0.25s + 0.1s); }
+.rk-flow__node p { margin: 0; max-width: 170px; font-size: 13.5px; line-height: 1.45; color: var(--t2); }
+.rk-flow__node p b { display: block; margin-bottom: 4px; font-size: 15px; color: var(--t1); }
+.n-pay { grid-column: 2; grid-row: 1; }
+.n-risk { grid-column: 2; grid-row: 2; }
+.n-alert { grid-column: 3; grid-row: 1; }
+.n-recover { grid-column: 3; grid-row: 2; }
+@media (max-width: 1100px) {
+  .rk-flow__map { grid-template-columns: 1fr; row-gap: 22px; }
+  .rk-flow__start, .n-pay, .n-risk, .n-alert, .n-recover { grid-column: 1; grid-row: auto; }
+  .rk-flow__lines, .rk-flow__edge { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rk-flow__node, .rk-flow__edge { opacity: 1; translate: none; scale: 1; transition: none !important; }
+  .rk-flow__lines path { stroke-dashoffset: 0; transition: none !important; }
+}
+/* captions sit under each phone so the four columns stay readable */
+.rk-flow__map { column-gap: clamp(48px, 6vw, 96px); }
+.rk-flow__node { flex-direction: column; align-items: center; gap: 12px; text-align: center; }
+.rk-flow__node > p { max-width: 210px; }

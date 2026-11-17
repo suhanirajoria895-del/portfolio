@@ -3,6 +3,7 @@ import {
   ArrowLeft, ShieldCheck, UserRound, PhoneIncoming, PhoneCall, Phone, Check, Copy, Plus, Bell, Landmark, Globe,
   MessageSquareText, ChevronRight, ArrowUpRight, ArrowDownLeft, Info, Home, ListChecks, Users, Settings,
   TriangleAlert, Languages, SlidersHorizontal, PauseCircle, ScanSearch,
+  X,
 } from "lucide-react";
 
 const S = 1.6; // Lucide stroke width
@@ -184,7 +185,8 @@ function PauseSheet({ onCall, onCancel, onPay, reasons }) {
             <circle cx="36" cy="36" r="30" className="ring__track" />
             <circle cx="36" cy="36" r="30" className="ring__bar" strokeDasharray={C} strokeDashoffset={C * (left / 10)} />
           </svg>
-          <b>{left > 0 ? left : <Check size={24} strokeWidth={2.2} />}</b>
+          <b aria-hidden="true">{left > 0 ? left : <Check size={24} strokeWidth={2.2} />}</b>
+          <span className="sr" aria-live="polite">{left > 0 ? "" : "You can pay now if you are sure."}</span>
         </div>
       </div>
       <h1 className="sheet__h">Let's take 10 seconds.</h1>
@@ -197,8 +199,8 @@ function PauseSheet({ onCall, onCancel, onPay, reasons }) {
         </ul>
       )}
       <div className="sheet__actions">
-        <button className="r-btn" onClick={onCall}><PhoneCall size={18} strokeWidth={S} /> Call Rohan first</button>
-        <button className="r-btn r-btn--tint" onClick={onCancel}>Cancel payment</button>
+        <button className="r-btn r-btn--hero" onClick={onCall}><PhoneCall size={22} strokeWidth={2} /> Call Rohan first</button>
+        <button className="r-btn r-btn--tint" onClick={onCancel}><X size={20} strokeWidth={2} /> Cancel payment</button>
         <button className="r-link" disabled={left > 0} onClick={onPay}>
           {left > 0 ? `I know them, pay anyway (${left}s)` : "I know them, pay anyway"}
         </button>
@@ -470,7 +472,7 @@ function RohanAlert() {
                 <div className="calling calling--ok"><Check size={16} strokeWidth={2} /> Noted. The decision stays with Mom.</div>
               ) : (
                 <div className="alert__actions">
-                  <button className="r-btn" onClick={() => setReply("calling")}><Phone size={18} strokeWidth={S} /> Call her now</button>
+                  <button className="r-btn r-btn--hero" onClick={() => setReply("calling")}><Phone size={22} strokeWidth={2} /> Call Mom now</button>
                   <button className="r-btn r-btn--tint" onClick={() => setReply("fine")}>We've already spoken</button>
                 </div>
               )}
