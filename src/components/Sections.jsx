@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, MapPin } from "@phosphor-icons/react";
+import { ArrowUpRight, MapPin, Pause, Play } from "@phosphor-icons/react";
 import { work, experience, aboutPhoto, hero } from "../portfolio/content.js";
-import CosellCover from "./covers/CosellCover.jsx";
-import PaywiseCover from "./covers/PaywiseCover.jsx";
-import SteadyTrackCover from "./covers/SteadyTrackCover.jsx";
 import "../sections.css";
 
 const reduced = () => window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -54,9 +51,46 @@ function Count({ value, suffix = "" }) {
   return <span ref={ref}>{String(n).padStart(2, "0")}{suffix}</span>;
 }
 
-/* (02) — work: stacking cards, each with its own layout (split, poster, banner) */
-const TONES = ["dark", "butter", "pine"]; // cornflower, latte, sangria
-const LAYOUTS = ["split", "split", "split"];
+/* (02) — work: stacking cards. A short edited film of the project on top, the facts below. */
+const TONES = ["dark", "butter", "pine"];
+
+/** Plays while on screen, pauses off screen. Never autoplays for reduced motion; the button always works. */
+function CardFilm({ p }) {
+  const ref = useRef(null);
+  const [playing, setPlaying] = useState(false);
+  const [userPaused, setUserPaused] = useState(false);
+  useEffect(() => {
+    const v = ref.current;
+    if (!v || reduced()) return;
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !userPaused) v.play().catch(() => {});
+      else v.pause();
+    }, { threshold: 0.35 });
+    io.observe(v);
+    return () => io.disconnect();
+  }, [userPaused]);
+  const toggle = () => {
+    const v = ref.current;
+    if (v.paused) { setUserPaused(false); v.play().catch(() => {}); } else { setUserPaused(true); v.pause(); }
+  };
+  return (
+    <div className="sx-film" style={{ "--ar": p.film.ratio }}>
+      <video
+        ref={ref} src={p.film.src} poster={p.film.poster} muted loop playsInline preload="none"
+        aria-label={p.film.alt} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)}
+      />
+      <button type="button" className="sx-film-btn" onClick={toggle} aria-label={playing ? `Pause the ${p.name} film` : `Play the ${p.name} film`}>
+        {playing ? <Pause size={16} weight="fill" aria-hidden="true" /> : <Play size={16} weight="fill" aria-hidden="true" />}
+      </button>
+      {p.demo && (
+        <a className="sx-film-demo" href={p.demo} target="_blank" rel="noreferrer">
+          <i aria-hidden="true" /> Live prototype <ArrowUpRight size={14} weight="bold" aria-hidden="true" />
+          <span className="sr-only"> (opens in a new tab)</span>
+        </a>
+      )}
+    </div>
+  );
+}
 
 function Work() {
   return (
@@ -71,35 +105,24 @@ function Work() {
       </header>
       <div className="sx-stack">
         {work.map((p, i) => (
-          <a key={p.name} href={p.href} className={`sx-card is-${TONES[i % 3]} is-l-${LAYOUTS[i % 3]}`} style={{ "--i": i }}>
-            <div className="sx-card-text">
-              <div className="sx-card-meta">
-                <span>{String(i + 1).padStart(2, "0")} / {String(work.length).padStart(2, "0")}</span>
-                <span>{p.label}</span>
+          <article key={p.name} className={`sx-card sx-card--film is-${TONES[i % 3]}`} style={{ "--i": i }}>
+            <CardFilm p={p} />
+            <div className="sx-card-info">
+              <div className="sx-card-main">
+                <span className="sx-card-count">{String(i + 1).padStart(2, "0")} / {String(work.length).padStart(2, "0")}</span>
+                <h3><a className="sx-card-link" href={p.href}>{p.name}</a></h3>
+                <p className="sx-card-q">{p.question}</p>
               </div>
-              <h3>{p.name}</h3>
-              <p className="sx-card-q">{p.question}</p>
-              <ul className="sx-tags">{p.tags.map((t) => <li key={t}>{t}</li>)}</ul>
-              <span className="sx-pill">
-                Read the case study <span className="sx-pill-dot"><ArrowUpRight size={16} weight="bold" aria-hidden="true" /></span>
+              <dl className="sx-card-facts">
+                <div><dt>Category</dt><dd>{p.label}</dd></div>
+                <div><dt>Tools</dt><dd>{p.tools}</dd></div>
+                <div><dt>Year</dt><dd>{p.year}</dd></div>
+              </dl>
+              <span className="sx-pill" aria-hidden="true">
+                Read the case study <span className="sx-pill-dot"><ArrowUpRight size={16} weight="bold" /></span>
               </span>
             </div>
-            <div className={`sx-card-img${p.cover ? ` has-cover is-${p.cover}` : ""}`}>
-              {p.cover === "cosell" ? (
-                <CosellCover />
-              ) : p.cover === "paywise" ? (
-                <PaywiseCover focus={540} />
-              ) : p.cover === "steadytrack" ? (
-                <SteadyTrackCover focus={1200} />
-              ) : (
-                <>
-                  <img src={p.image} alt={`${p.name} preview`} loading="lazy" />
-                  <span className="sx-card-sticker">“{p.pull}”</span>
-                </>
-              )}
-            </div>
-            <span className="sx-card-ghost" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
-          </a>
+          </article>
         ))}
       </div>
     </section>

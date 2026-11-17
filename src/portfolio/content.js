@@ -36,6 +36,9 @@ export const work = [
     image: "/work/cosell/home.webp",
     cover: "cosell",
     href: "/work/cosell/",
+    demo: "/work/cosell/demo/index.html#/login",
+    tools: "Figma, React",
+    film: { src: "/work/cosell/card.mp4", poster: "/work/cosell/card-poster.webp", ratio: "2 / 1", alt: "Short film of the CoSell prototype: Co flags a price drop overnight, the seller approves the fix, and the web and iOS apps appear side by side." },
   },
   {
     title: "The right pause before money leaves",
@@ -54,6 +57,9 @@ export const work = [
     image: "/work/paywise/cover.webp",
     cover: "paywise",
     href: "/work/paywise/",
+    demo: "/work/paywise/demo/",
+    tools: "Figma, React",
+    film: { src: "/work/paywise/card.mp4", poster: "/work/paywise/card-poster.webp", ratio: "16 / 10", alt: "Short film of the Paywise prototype: a risky UPI payment gets a 10-second pause, and the trusted contact's phone shows the alert." },
   },
   {
     title: "Turning therapy into a rhythm you can keep",
@@ -72,6 +78,8 @@ export const work = [
     image: "/work/steadytrack/hero-glove-app.webp",
     cover: "steadytrack",
     href: "/work/steadytrack/",
+    tools: "Figma, FigJam",
+    film: { src: "/work/steadytrack/card.mp4", poster: "/work/steadytrack/card-poster.webp", ratio: "16 / 10", alt: "Short film of SteadyTrack: the app starts a session, the beat pulses on screen and on the glove, and the session ends with a summary for the physio." },
   },
 ];
 

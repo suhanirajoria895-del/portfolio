@@ -21,7 +21,7 @@ function Nav({ on }) {
   );
 }
 
-function HomeScreen() {
+export function HomeScreen() {
   return (
     <Phone>
       <header className="ap-head">
@@ -85,7 +85,7 @@ export function SessionScreen() {
 
 const WEEK = [38, 42, 40, 47, 51, 49, 55];
 
-function ProgressScreen() {
+export function ProgressScreen() {
   const [tab, setTab] = useState(1);
   const pts = WEEK.map((v, i) => `${(i / 6) * 100},${100 - v}`).join(" ");
   return (
@@ -118,7 +118,7 @@ function ProgressScreen() {
   );
 }
 
-function ShareScreen() {
+export function ShareScreen() {
   return (
     <Phone>
       <div className="ap-done">
