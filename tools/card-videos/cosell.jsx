@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Cursor, Lockup, Sc, Words, assetsReady, union, useAt, useTimeline } from "./lib.jsx";
 
-const W = 1440, H = 900, S0 = 0.8, L = 224, T = 44; // iframe size, its scale on the stage, and where it sits
+const W = 1440, H = 900, S0 = 0.72, L = 250, T = 76; // iframe size, its scale on the stage, and where it sits
 const CUES = [300, 1700, 3100, 4900, 7000, 9900, 11800, 13400];
 const END = 14000;
 
@@ -39,7 +39,7 @@ export default function Cosell() {
   // 4: push in on the urgent card on Home.
   useAt(s, 4, 0, () => {
     const box = toStage(union([...find(doc(), "Losing about"), ...find(doc(), "See Co"), ...find(doc(), "Urgent").slice(0, 1)].map((el) => el.getBoundingClientRect())), 36);
-    aim(box, Math.min(2, 1180 / box.w), 800, 500);
+    aim(box, Math.min(2, 1180 / box.w), 800, 470);
   });
 
   // 5: cut to the approval, frame the guardrails and the Approve button, then click it.
@@ -52,7 +52,7 @@ export default function Cosell() {
     const btn = find(doc(), "Approve").find((el) => el.closest("button"))?.closest("button");
     approve.current = btn;
     const box = toStage(union([...find(doc(), "Guardrails checked"), btn].map((el) => el.getBoundingClientRect())), 28);
-    const k = 640 / box.h;
+    const k = 500 / box.h;
     const c = aim(box, k, 1180, 400);
     const b = toStage(union([btn.getBoundingClientRect()]));
     setCur({ x: 1500, y: 880, show: true, click: false });
@@ -61,7 +61,7 @@ export default function Cosell() {
   useAt(s, 5, 2250, () => { setCur((c) => ({ ...c, click: true })); approve.current?.click(); });
 
   // 6: pull back, the web app moves left and the iOS app joins it.
-  useAt(s, 6, 0, () => { setCam({ k: 0.8, tx: 64 - 0.8 * L, ty: 112 - 0.8 * T }); setCur((c) => ({ ...c, show: false })); });
+  useAt(s, 6, 0, () => { setCam({ k: 0.82, tx: 64 - 0.82 * L, ty: 150 - 0.82 * T }); setCur((c) => ({ ...c, show: false })); });
 
   // 8: behind the closing card, send the prototype home again.
   useAt(s, 8, 0, () => { frame.current.contentWindow.location.hash = "#/"; });

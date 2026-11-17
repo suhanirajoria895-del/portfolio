@@ -19,7 +19,7 @@ export default function Paywise() {
   useAt(s, 4, 0, () => {
     const top = a.current.querySelector(".sheet__top");
     const box = union([top, top.nextElementSibling].filter(Boolean).map((el) => el.getBoundingClientRect()));
-    setCam(focus(box, 2.25, 640, 290));
+    setCam(focus(box, 2.1, 640, 330));
   });
   // 5: pull back and make room for the second phone and the line beside it.
   useAt(s, 5, 0, () => setCam("translate(64px, 0px) scale(1)"));
@@ -31,8 +31,8 @@ export default function Paywise() {
       <Sc s={s} from={2} to={2} className="kt"><p><Words>The payment takes *seconds.*</Words></p></Sc>
 
       <div className="cam" style={{ transform: cam }}>
-        <Sc s={s} from={3} to={5} className="pw-phone pw-phone--a"><div ref={a}>{s >= 3 && s <= 6 && <Device screen="risk" style={{ zoom: 0.72 }} />}</div></Sc>
-        <Sc s={s} from={5} to={5} className="pw-phone pw-phone--b">{s >= 5 && s <= 6 && <Device screen="alert" style={{ zoom: 0.72 }} />}</Sc>
+        <Sc s={s} from={3} to={5} className="pw-phone pw-phone--a"><div ref={a}>{s >= 3 && s <= 6 && <Device screen="risk" style={{ zoom: 0.58 }} />}</div></Sc>
+        <Sc s={s} from={5} to={5} className="pw-phone pw-phone--b">{s >= 5 && s <= 6 && <Device screen="alert" style={{ zoom: 0.58 }} />}</Sc>
       </div>
 
       <Sc s={s} from={4} to={4} className="pw-cap pw-cap--bottom"><p><Words>Only when it looks *wrong.*</Words></p></Sc>

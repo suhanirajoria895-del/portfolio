@@ -109,18 +109,20 @@ function Work() {
             <CardFilm p={p} />
             <div className="sx-card-info">
               <div className="sx-card-main">
-                <span className="sx-card-count">{String(i + 1).padStart(2, "0")} / {String(work.length).padStart(2, "0")}</span>
+                <p className="sx-card-count">{String(i + 1).padStart(2, "0")} / {String(work.length).padStart(2, "0")} · {p.label}</p>
                 <h3><a className="sx-card-link" href={p.href}>{p.name}</a></h3>
                 <p className="sx-card-q">{p.question}</p>
               </div>
-              <dl className="sx-card-facts">
-                <div><dt>Category</dt><dd>{p.label}</dd></div>
-                <div><dt>Tools</dt><dd>{p.tools}</dd></div>
-                <div><dt>Year</dt><dd>{p.year}</dd></div>
-              </dl>
-              <span className="sx-pill" aria-hidden="true">
-                Read the case study <span className="sx-pill-dot"><ArrowUpRight size={16} weight="bold" /></span>
-              </span>
+              <div className="sx-card-side">
+                <ul className="sx-tags">{p.tags.map((t) => <li key={t}>{t}</li>)}</ul>
+                <dl className="sx-card-facts">
+                  <div><dt>Tools</dt><dd>{p.tools}</dd></div>
+                  <div><dt>Year</dt><dd>{p.year}</dd></div>
+                </dl>
+                <span className="sx-pill" aria-hidden="true">
+                  Read the case study <span className="sx-pill-dot"><ArrowUpRight size={16} weight="bold" /></span>
+                </span>
+              </div>
             </div>
           </article>
         ))}
