@@ -92,6 +92,51 @@ function CardFilm({ p }) {
   );
 }
 
+/* The stacking cards on their own, used by the homepage's Work section */
+export function WorkCards() {
+  return (
+    <div className="sx-page hv-cards">
+      <div className="sx-stack">
+        {work.map((p, i) => <WorkCard key={p.name} p={p} i={i} />)}
+      </div>
+    </div>
+  );
+}
+
+function WorkCard({ p, i }) {
+  return (
+          <a href={p.href} className={`sx-card is-${TONES[i % 3]} is-l-${LAYOUTS[i % 3]}`} style={{ "--i": i }}>
+            <div className="sx-card-text">
+              <div className="sx-card-meta">
+                <span>{String(i + 1).padStart(2, "0")} / {String(work.length).padStart(2, "0")}</span>
+                <span>{p.label}</span>
+              </div>
+              <h3>{p.name}</h3>
+              <p className="sx-card-q">{p.question}</p>
+              <ul className="sx-tags">{p.tags.map((t) => <li key={t}>{t}</li>)}</ul>
+              <span className="sx-pill">
+                Read the case study <span className="sx-pill-dot"><ArrowUpRight size={16} weight="bold" aria-hidden="true" /></span>
+              </span>
+            </div>
+            <div className={`sx-card-img${p.cover ? ` has-cover is-${p.cover}` : ""}`}>
+              {p.cover === "cosell" ? (
+                <CosellCover />
+              ) : p.cover === "paywise" ? (
+                <PaywiseCover focus={540} />
+              ) : p.cover === "steadytrack" ? (
+                <SteadyTrackCover focus={1200} />
+              ) : (
+                <>
+                  <img src={p.image} alt={`${p.name} preview`} loading="lazy" />
+                  <span className="sx-card-sticker">“{p.pull}”</span>
+                </>
+              )}
+            </div>
+            <span className="sx-card-ghost" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+          </a>
+  );
+}
+
 function Work() {
   return (
     <section className="sx" id="projects">
