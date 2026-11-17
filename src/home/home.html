@@ -26,14 +26,19 @@
   <div id="stars" aria-label="Skills"></div>
   <div class="float" id="float">
     <div class="buddy" id="buddy"><div class="bubble hide" id="bubble"></div><div class="body"><img src="/mascot/wave-body.webp" alt="" /><img class="arm" src="/mascot/wave-arm.webp" alt="" /></div></div>
+    <div class="deck d1" aria-hidden="true"></div><div class="deck d2" aria-hidden="true"></div>
     <div class="card" id="card">
+      <div class="post" aria-hidden="true"><span class="pstamp"><img src="/hero/stamp-charminar.webp" alt="" /></span>
+        <svg class="pmark" viewBox="0 0 170 100"><circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="50" cy="50" r="31" fill="none" stroke="currentColor" stroke-width="1"/><path id="pmA" d="M22 50a28 28 0 1 1 56 0" fill="none"/><text class="pm-t"><textPath href="#pmA" startOffset="50%" text-anchor="middle">OPEN TO</textPath></text><text class="pm-y" x="50" y="58" text-anchor="middle">WORK</text><path d="M96 34c10-6 20 6 32 0s20 6 36 0M96 50c10-6 20 6 32 0s20 6 36 0M96 66c10-6 20 6 32 0s20 6 36 0" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></div>
       <div class="shine"></div><div class="spot"></div>
+
       <div class="inner">
-        <figure class="photo" id="photo"><span class="hi-note" aria-hidden="true">Hi, I'm Suhani<svg viewBox="0 0 60 50"><path d="M8 6c18 2 34 12 40 34m-9-5 9 6 4-10"/></svg></span><span class="blob"></span><span class="flipper" role="button" tabindex="0" aria-label="Flip the photo" data-cursor="Flip"><img class="pic" src="/hero/suhani-2.webp" alt="Suhani" /><span class="back"><span>the sketch version</span><img src="/mascot/wave-full.webp" alt="" /></span></span></figure>
+        <figure class="photo" id="photo"><img class="seal" src="/hero/seal.webp" alt="" aria-hidden="true" /><span class="frame"><span class="flipper" role="button" tabindex="0" aria-label="Flip the photo" data-cursor="Flip"><img class="pic" src="/hero/suhani-2.webp" alt="Suhani" /><span class="back"><span>the sketch version</span><img src="/mascot/wave-full.webp" alt="" /></span></span></span></figure>
         <div>
-          <h1 class="name" id="name" aria-label="Suhani Rajoria. Curious about people, picky about pixels.">Curious about people,<br /><span id="nameTxt">picky about pixels.</span></h1>
-          <div class="sel" aria-label="UX designer, visual designer, systems thinker"><span class="word" id="word">UX designer</span><span class="caret"></span><b></b><b></b><b></b><b></b></div>
-          <p class="lede">I design for messy, everyday problems: a seller running three marketplaces, a payment that should pause before the money leaves, therapy that needs to become a rhythm. <strong>Research first, then systems and the small visual details.</strong></p>
+          <p class="hello">Hi, I'm Suhani!</p>
+          <h1 class="name" id="name" aria-label="Suhani Rajoria. Curious about people, picky about pixels.">Curious about <span class="pill pp" aria-hidden="true"><img src="/hero/people-1.webp" alt="" /><img src="/hero/people-2.webp" alt="" /><img src="/hero/people-3.webp" alt="" /></span> people,<br /><span id="nameTxt">picky about pixels.</span></h1>
+          <div class="sel" aria-label="Research-led, systems thinker, visual designer"><span class="word" id="word">Research-led</span><span class="caret"></span><b></b><b></b><b></b><b></b></div>
+          <div class="tools"><div class="tools-row" id="heroTools"></div><span class="tools-l">Signed, sealed, designed with these</span></div>
         </div>
       </div>
     </div>
@@ -41,13 +46,13 @@
   <div class="skills-m" id="skillsM"></div>
 </header>
 
+<div class="dusk">
+<div class="dusk-sky" aria-hidden="true"></div>
 <section id="work" data-tone="#ffb46b"><div class="wrap">
   <div class="work-head"><div><div class="eyebrow">Selected work</div><h2>Problems I've been<br />designing for</h2></div></div>
   <div id="workCards"></div>
 </div></section>
 
-<div class="dusk">
-<div class="dusk-sky" aria-hidden="true"></div>
 <section id="experience" class="exp-sec" data-tone="#ffb46b"><div class="office" aria-hidden="true"></div><div class="wrap">
   <div class="eyebrow">Experience</div><h2>Where I've worked</h2>
   <p class="sub">Two internships so far. Click either one to see what I did.</p>
@@ -63,7 +68,7 @@
   <div class="carousel" id="carousel" data-cursor="Drag"><div class="track" id="track"></div></div>
 </section>
 
-<section id="about" data-tone="#ffb46b"><div class="wrap">
+<section id="about" data-tone="#ffb46b"><div class="about-sky" aria-hidden="true"></div><div class="wrap">
   <div class="eyebrow">About</div><h2>Behind the screen</h2>
   <p class="sub">Drag things around, peel off a note, or tidy it all up.</p>
   <div class="wall" id="wall">

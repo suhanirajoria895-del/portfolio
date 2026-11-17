@@ -17,7 +17,7 @@ export function initHome() {
     if (at || reduce || seen || location.hash) { intro.remove(); start(); }
     else {
 
-      const done = () => { if (!intro.isConnected || intro.classList.contains("out")) return; intro.classList.add("out"); start(); try { sessionStorage.setItem("intro-seen", "1"); } catch (e) {} setTimeout(() => intro.remove(), 1300); };
+      const done = () => { if (!intro.isConnected || intro.classList.contains("out")) return; intro.classList.add("out"); start(); try { sessionStorage.setItem("intro-seen", "1"); } catch (e) {} setTimeout(() => intro.remove(), 1500); };
       setTimeout(done, 3300); intro.addEventListener("click", done);
     }
 
@@ -39,6 +39,8 @@ export function initHome() {
 
     // ── Hero: name letters, card tilt, sparkles and shooting stars
     splitChars($("#nameTxt"), "ch");
+    { const ch = $$("#nameTxt .ch"), i = ch.map((e) => e.textContent).join("").indexOf("pixels");
+      ch[i].insertAdjacentHTML("beforebegin", `<span class="pill px" aria-hidden="true"><b>${"<s></s>".repeat(15)}</b></span> `); }
     const card = $("#card"), photo = $("#photo"), flipper = $(".flipper", photo);
     flipper.addEventListener("click", () => photo.classList.toggle("flip"));
     flipper.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); photo.classList.toggle("flip"); } });
@@ -53,7 +55,7 @@ export function initHome() {
     if (!reduce && !at) (function loop() { shoot(); setTimeout(loop, 2600 + Math.random() * 3200); })();
 
     // ── Typed role line. Phrases are about how she works, never hobbies.
-    const PHRASES = ["UX designer", "Visual designer", "Systems thinker", "Research-led", "Detail-obsessed", "Curious mind", "Problem framer", "Code-curious"];
+    const PHRASES = ["Research-led", "Systems thinker", "Visual designer", "Detail-obsessed", "Problem framer", "Design to code"];
     const twTxt = $("#twTxt");
     const word = $("#word"); let text = PHRASES[0], pi = 0, mode = "del";
     function step() {
@@ -65,22 +67,22 @@ export function initHome() {
       if (text.length) { text = text.slice(0, -1); word.textContent = text; if (twTxt) twTxt.textContent = text; return setTimeout(step, 45); }
       mode = "type"; pi = (pi + 1) % PHRASES.length; setTimeout(step, 380);
     }
-    if (!reduce && !at) setTimeout(step, 3400);
+    if (word && !reduce && !at) setTimeout(step, 3400);
 
     // ── Skills as a constellation: [name, x%, y%], joined in order around the card
     const STARS = [
-      ["User research", 5, 22, "Interviews, surveys and observation to learn how people really work."],
-      ["Journey mapping", 8, 34, "Mapping each step, feeling and pain point across a task."],
-      ["Information architecture", 4, 46, "Structuring content so people find things where they expect them."],
-      ["Wireframing", 8, 58, "Quick low-fidelity layouts to test structure before style."],
-      ["Interaction design", 4, 70, "States, feedback and flows that make a product feel responsive."],
-      ["Prototyping", 8, 84, "Clickable flows to test ideas before anything is built."],
-      ["Design systems", 4, 95, "Tokens, components and rules that keep screens consistent."],
-      ["Accessibility", 96, 94, "Contrast, focus, labels and plain language, checked against WCAG."],
-      ["Visual design", 92, 82, "Type, colour and layout with a clear hierarchy."],
-      ["Branding", 96, 68, "Identities, logos and the visual voice that ties them together."],
-      ["Typography", 92, 52, "Choosing and pairing type that reads well at every size."],
-      ["Dev handoff", 96, 36, "Specs, tokens and notes developers can build from."]];
+      ["User research", 7, 31, "Interviews, surveys and observation to learn how people really work."],
+      ["Journey mapping", 3, 43, "Mapping each step, feeling and pain point across a task."],
+      ["Information architecture", 9, 54, "Structuring content so people find things where they expect them."],
+      ["Wireframing", 4.5, 67, "Quick low-fidelity layouts to test structure before style."],
+      ["Interaction design", 8, 81, "States, feedback and flows that make a product feel responsive."],
+      ["Prototyping", 22, 95, "Clickable flows to test ideas before anything is built."],
+      ["Design systems", 74, 96, "Tokens, components and rules that keep screens consistent."],
+      ["Accessibility", 93, 85, "Contrast, focus, labels and plain language, checked against WCAG."],
+      ["Visual design", 96.5, 68, "Type, colour and layout with a clear hierarchy."],
+      ["Branding", 91.5, 52, "Identities, logos and the visual voice that ties them together."],
+      ["Typography", 95.5, 36, "Choosing and pairing type that reads well at every size."],
+      ["Dev handoff", 68, 15, "Specs, tokens and notes developers can build from."]];
     const STARPATH = "M8 0c.6 4.2 3.2 7 8 8-4.8 1-7.4 3.8-8 8-.6-4.2-3.2-7-8-8 4.8-1 7.4-3.8 8-8z";
     $("#stars").innerHTML = STARS.map(([n, x, y, d], k) => `<button class="star ${x < 30 ? "l" : x > 70 ? "r" : ""}" aria-label="${n}" style="left:${x}%;top:${y}%;--dl:${-k * .45}s;--k:${k}"><svg viewBox="0 0 16 16"><path d="${STARPATH}"/></svg><span class="tag" aria-hidden="true">${n}</span></button>`).join("");
     $("#conLines").innerHTML = `<polyline points="${STARS.map((s) => s[1] + "," + s[2]).join(" ")}"/>${STARS.slice(1).map((s, k) => `<line class="seg" pathLength="1" x1="${STARS[k][1]}" y1="${STARS[k][2]}" x2="${s[1]}" y2="${s[2]}"/>`).join("")}<line id="conCur"/>`;
@@ -110,36 +112,68 @@ export function initHome() {
     const lit = new Set(), segs = $$("#conLines .seg");
     const collect = (k) => {
       if (lit.has(k)) return;
-      lit.add(k); const s = starEls[k]; s.classList.add("lit", "pop-in"); setTimeout(() => s.classList.remove("pop-in"), 650);
+      lit.add(k); $("#starHint")?.classList.add("gone"); const s = starEls[k]; s.classList.add("lit", "pop-in"); setTimeout(() => s.classList.remove("pop-in"), 650);
       segs.forEach((g, i) => g.classList.toggle("on", lit.has(i) && lit.has(i + 1)));
       hop();
       if (lit.size === STARS.length) { heroEl.classList.add("all"); say("you found them all!", 3000); for (let n = 0; n < 5; n++) setTimeout(shoot, n * 180); }
       else if (lit.size === 1) say("nice! find all 12", 2400);
       else if (lit.size === 6) say("halfway there", 2000);
     };
+    if (!reduce && !at) setInterval(() => {
+      const left = starEls.filter((s, k) => !lit.has(k)); if (!left.length || document.hidden) return;
+      const s = left[Math.floor(Math.random() * left.length)]; s.classList.remove("glint"); void s.offsetWidth; s.classList.add("glint");
+    }, 900);
     starEls.forEach((s, k) => { s.addEventListener("pointerenter", () => collect(k)); s.addEventListener("focus", () => collect(k)); });
-    buddy.addEventListener("click", () => { hop(); say("hi! scroll down, I'll show you around", 2600); });
-    const HIS = ["hi!", "hello!", "hi there!"]; let hiN = 0;
-    if (!at && !reduce) setInterval(() => { if (scrollY < innerHeight * .6 && bubble.classList.contains("hide")) say(HIS[hiN++ % HIS.length], 1800); }, 5200);
+    buddy.addEventListener("click", () => { hop(); say("follow me! 🏃‍♀️", 1400); setTimeout(() => $("#work").scrollIntoView({ behavior: reduce ? "auto" : "smooth" }), 500); });
+    const NUDGES = ["psst… the good stuff is just below ↓", "click me, I'll give you the tour", "3 projects, zero lorem ipsum. promise.", "scroll! I'll jump along with you"];
+    let nudgeN = 0, idleT = Date.now();
+    addEventListener("scroll", () => (idleT = Date.now()), { passive: true });
+    if (!at && !reduce) setInterval(() => {
+      if (nudgeN >= NUDGES.length || scrollY > innerHeight * .5 || !bubble.classList.contains("hide") || Date.now() - idleT < 3500) return;
+      say(NUDGES[nudgeN++ % NUDGES.length], 2600); hop(); buddy.classList.add("nudge"); setTimeout(() => buddy.classList.remove("nudge"), 2600);
+    }, 6500);
     setTimeout(() => { if (!at) say("psst, can you find my 12 skills in the stars?", 4000); }, 4400);
 
     // ── Guide: hops into each section with a pose and a line
     const GUIDE = { work: ["laptop-floor", 150, "start here: my projects"], experience: ["point", 92, "where I've worked so far"], graphic: ["thumbs", 96, "posters and print, too"], about: ["sit", 118, "a few things about me"] };
     const guide = $("#guide"), gImg = $("#gImg"), gBub = $("#gBub"); let gAt = null, gT;
     const gSay = (m) => { gBub.textContent = m; gBub.classList.remove("hide"); clearTimeout(gT); gT = setTimeout(() => gBub.classList.add("hide"), 2600); };
+    let flying = false;
+    const flyTo = (toGuide) => {
+      if (reduce || flying) { buddy.classList.toggle("away", toGuide); return; }
+      const from = (toGuide ? $(".body img", buddy) : gImg).getBoundingClientRect();
+      buddy.classList.add("away"); guide.classList.add("landing");
+      const tgt = toGuide ? { left: innerWidth - 26 - parseFloat(getComputedStyle(guide).width), top: innerHeight - 14 - 150 } : buddy.getBoundingClientRect();
+      const ghost = document.createElement("img"); ghost.src = toGuide ? "/mascot/wave.webp" : gImg.src; ghost.className = "ghost";
+      Object.assign(ghost.style, { left: from.left + "px", top: from.top + "px", width: from.width + "px" }); document.body.appendChild(ghost);
+      const dx = tgt.left - from.left, dy = tgt.top - from.top; flying = true;
+      ghost.animate([
+        { transform: "translate(0,0) rotate(0) scale(1)" },
+        { transform: `translate(${dx * .3}px, ${dy * .3 - 160}px) rotate(${toGuide ? -200 : 200}deg) scale(1.15)`, offset: .45 },
+        { transform: `translate(${dx}px, ${dy}px) rotate(${toGuide ? -360 : 360}deg) scale(${toGuide ? 1.6 : 1})` },
+      ], { duration: 900, easing: "cubic-bezier(.45, 0, .3, 1)" }).finished.then(() => {
+        ghost.remove(); flying = false; guide.classList.remove("landing");
+        if (!toGuide) { buddy.classList.remove("away"); hop(); say("hi!", 1400); } else gSay(GUIDE[gAt || "work"][2]);
+      });
+    };
+    let guideOn = false;
     function guideTick() {
       const y = innerHeight * .55; let cur = null;
       Object.keys(GUIDE).forEach((id) => { const el = document.getElementById(id); if (!el || el.offsetParent === null) return; const b = el.getBoundingClientRect(); if (b.top <= y && b.bottom > y) cur = id; });
       const foot = $("#contact").getBoundingClientRect().top < innerHeight * .7;
-      guide.classList.toggle("on", !!cur && !foot);
+      const on = !!cur && !foot, inHero = $("#hero").getBoundingClientRect().bottom > innerHeight * .3;
+      guide.classList.toggle("on", on);
+      if (on !== guideOn) { if (on && cur === "work") flyTo(true); else if (!on && inHero) flyTo(false); else buddy.classList.toggle("away", on); guideOn = on; }
       if (!cur || cur === gAt) return;
       const was = gAt; gAt = cur; const [img, w, line] = GUIDE[cur];
-      if (!was) { gImg.src = `/mascot/${img}.webp`; guide.style.setProperty("--gw", w + "px"); gSay(line); return; }
+      if (!was) { gImg.src = `/mascot/${img}.webp`; guide.style.setProperty("--gw", w + "px"); if (cur !== "work") gSay(line); return; }
       guide.classList.remove("jump"); void guide.offsetWidth; guide.classList.add("jump");
       setTimeout(() => { gImg.src = `/mascot/${img}.webp`; guide.style.setProperty("--gw", w + "px"); }, 230);
       setTimeout(() => gSay(line), 450);
     }
     if (!at) { addEventListener("scroll", guideTick, { passive: true }); guideTick(); }
+    const NEXT = { work: ["experience", "next stop: where I've worked →"], experience: ["about", "now the fun part: me!"], graphic: ["about", "now the fun part: me!"], about: ["contact", "last stop: let's talk (and race)"] };
+    gImg.addEventListener("click", () => { const n = NEXT[gAt]; if (!n) return; gSay(n[1]); guide.classList.remove("jump"); void guide.offsetWidth; guide.classList.add("jump"); setTimeout(() => document.getElementById(n[0]).scrollIntoView({ behavior: reduce ? "auto" : "smooth" }), 450); });
 
     // ── Work cards: image tilts toward the cursor
     $$(".wcard").forEach((c) => {
@@ -218,17 +252,19 @@ export function initHome() {
       ? `<div class="tstk"><span style="background:${ic[1]};color:${ic[2]}">${ic[0]}</span></div>`
       : `<div class="tstk"><span><svg viewBox="0 0 24 24" fill="${c}"><path d="${ICONS[ic] || ""}"/></svg></span></div>`;
     const img = (f) => `<img src="/board/${f}.webp" alt="" draggable="false" />`;
+    // Hero card: tools I use, with the name shown on hover or focus
+    $("#heroTools").innerHTML = [0, 1, 3, 2, 5, 6, 8, 4, 7].map((n) => `<span class="tl" tabindex="0" role="img" aria-label="${TOOLS[n][0]}" data-tip="${TOOLS[n][0]}">${toolHTML(TOOLS[n])}</span>`).join("");
     const arrow = (d) => `<svg viewBox="0 0 54 34"><path d="${d}" /></svg>`;
     const ITEMS = [
       { id: "story", x: .02, y: 32, w: 370, r: -1.5, html: `<div class="paper"><p>I'm a product designer with a visual designer's eye and a human-centred approach.</p><p>I start with how people actually think and behave, then shape interfaces and systems that feel considered, accessible and quietly confident. I'm most drawn to complex products and AI interactions, where clarity and trust carry the most weight.</p></div>` },
-      { id: "me", x: .37, y: 8, w: 230, r: 4, html: `<figure class="pola"><img class="shot" src="/assets/about-suhani.webp" alt="Suhani" draggable="false" /><img class="frame" src="/board/polaroid.webp" alt="" draggable="false" /><img class="pin" src="/board/pin-red.webp" alt="" /><figcaption>daydreamer 24/7</figcaption></figure>` },
+      { id: "me", x: .37, y: 8, w: 230, r: 4, html: `<figure class="pola"><img class="shot" src="/assets/about-suhani.webp" alt="Suhani" draggable="false" /><img class="frame" src="/board/polaroid.webp" alt="" draggable="false" /><img class="pin" src="/board/pin-red.webp" alt="" /><figcaption>daydreaming 24/7</figcaption></figure>` },
       { id: "ds-cur", x: .6, y: 42, w: 132, r: -6, html: `<div class="dcur"><svg viewBox="0 0 24 24"><path d="M3 2l7.5 19 2.6-8 8-2.6z" fill="#ff6b5a" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg><span>Suhani</span></div>` },
       { id: "ds-aa", x: .715, y: 19, w: 108, r: 5, html: `<div class="dstk daa"><b>Aa</b><small>Poppins · 600</small></div>`, lbl: "Typography" },
       { id: "ds-al", x: .885, y: 171, w: 132, r: 7, html: `<div class="dal"><i>Hug</i>×<i>Fill</i></div>`, lbl: "Auto layout" },
       { id: "brownies", x: .6, y: 416, w: 126, r: -5, html: img("brownies"), lbl: "Baking" },
       { id: "hw-bake", x: .5, y: 531, w: 200, r: 4, hw: 1, html: `${arrow("M27 32 C 24 22, 26 12, 30 3 M24 8 L30 3 L35 9")}I make the best brownies. no debate.` },
       { id: "music", x: .745, y: 398, w: 104, r: 7, html: img("headphones"), lbl: "Music" },
-      { id: "hw-music", x: .725, y: 512, w: 150, r: -4, hw: 1, html: `${arrow("M27 32 C 24 22, 26 12, 30 3 M24 8 L30 3 L35 9")}headphones on, world off` },
+      { id: "hw-music", x: .695, y: 512, w: 150, r: -4, hw: 1, html: `${arrow("M27 32 C 24 22, 26 12, 30 3 M24 8 L30 3 L35 9")}headphones on, world off` },
       { id: "tools", x: .6, y: 214, w: 150, r: -2, html: `<div class="tag-strip">Tools I use</div>` },
       ...TOOLS.map((t, n) => ({ id: "t-" + t[1], x: .585 + (n % 5) * .058 + (n > 4 ? .028 : 0), y: 254 + (n > 4 ? 66 : 0) + (n % 2) * 6, w: 58, r: [-8, 5, -3, 7, -5, 4, -6, 3, 8][n], html: toolHTML(t), lbl: t[0] })),
       { id: "tablet", x: .9, y: 264, w: 104, r: 6, html: img("tablet"), lbl: "Digital sketches" },
@@ -244,7 +280,9 @@ export function initHome() {
       { id: "s-heart", x: .8, y: 150, w: 74, r: -8, html: img("chrome-heart") },
       { id: "s-swatch", x: .405, y: 488, w: 104, r: -6, html: img("swatches"), lbl: "Colour" },
     ];
-    const board = $("#board"), KEY = "suhani-board-v7";
+    // Bigger board: more height, items a little larger; the story and photo keep room so they don't overlap
+    ITEMS.forEach((it) => { it.y = Math.round(it.y * 1.22); if (it.id === "story") it.w = 380; else if (it.id === "me") { it.w = 240; it.x = .385; } else it.w = Math.round(it.w * 1.12); });
+    const board = $("#board"), KEY = "suhani-board-v8";
     let saved = {}; try { saved = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) {}
     let z = 10, tidy = false;
     const pos = {};

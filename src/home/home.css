@@ -603,3 +603,340 @@
 @media (max-width: 760px) { .hi-note { right: 0; top: -40px; font-size: 22px; } .fc { width: 100px; } }
 #nameTxt { white-space: nowrap; }
 .card .name { max-width: none; font-size: clamp(2rem, 3.4vw, 3.1rem); }
+
+/* ── Round 17 Nov: solid opening, wider and tighter sections, clearer headings ── */
+
+/* Opening: a solid sheet. Nothing behind it shows until the sheet pulls up and away. */
+.intro { -webkit-mask-image: none !important; mask-image: none !important; transition: transform 1.1s cubic-bezier(.75, 0, .2, 1) !important; }
+.intro .i-half.l { background-color: #f1eadc; }
+.intro::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 70px; pointer-events: none;
+  background: linear-gradient(180deg, rgb(20 8 40 / .45), transparent); }
+.intro.out { transform: translateY(-112%); }
+.intro.out .intro-in { opacity: 1 !important; scale: 1 !important; filter: none !important; }
+
+/* Hero card: arrow from the note down onto the photo */
+.hi-note { right: -46px; top: -64px; }
+.hi-note svg { left: -4px; right: auto; top: 22px; width: 46px; height: 40px; }
+
+/* Constellation cue */
+.star-hint { position: absolute; z-index: 2; left: 2.2%; top: 15%; margin: 0; font: 19px/1.15 "Patrick Hand", var(--hand), sans-serif; color: var(--cream); rotate: -4deg; pointer-events: none;
+  text-shadow: 0 2px 10px rgb(27 22 51 / .6); transition: opacity .6s, translate .6s; animation: hintBob 2.6s ease-in-out infinite; }
+.star-hint span { color: var(--peach); }
+.star-hint.gone { opacity: 0; translate: 0 -8px; }
+@keyframes hintBob { 50% { transform: translateY(4px); } }
+.star:not(.lit)::after { content: ""; position: absolute; left: 50%; top: 50%; width: 34px; height: 34px; margin: -17px 0 0 -17px; border-radius: 50%; pointer-events: none;
+  border: 1.5px solid rgb(255 214 160 / .7); opacity: 0; scale: .4; }
+.star.glint::after { animation: glintRing 1.3s var(--out); }
+.star.glint svg { animation: glintStar 1.3s var(--out) !important; }
+@keyframes glintRing { 0% { opacity: .9; scale: .4; } 100% { opacity: 0; scale: 1.9; } }
+@keyframes glintStar { 30% { scale: 1.9; rotate: 45deg; fill: var(--peach); } }
+@media (max-width: 1180px) { .star-hint { display: none; } }
+
+/* Headings: the small labels read as real headings */
+.hv .eyebrow { font-size: 15px; font-weight: 600; letter-spacing: .16em; }
+.hv h2 { font-size: clamp(2.3rem, 4.4vw, 3.6rem); }
+
+/* One width for every section: cards, experience and the board all use the 1136px column */
+.hv .sx-page.hv-cards .sx-stack { width: 100%; max-width: none; }
+.hv .sx-page.hv-cards .sx-card { width: 100%; max-width: none; margin-inline: 0; }
+
+/* Tighter rhythm: no dead bands between Work, Experience and About */
+.hv #work { padding-bottom: 24px; }
+.hv #experience { padding-top: 96px; padding-bottom: 40px; }
+.office { -webkit-mask-image: linear-gradient(transparent, #000 180px, #000 calc(100% - 160px), transparent); mask-image: linear-gradient(transparent, #000 180px, #000 calc(100% - 160px), transparent); }
+.journey { margin-top: 28px; }
+.stop:first-of-type { margin-top: 64px; }
+.hv #about { padding-top: 56px; padding-bottom: 72px; }
+.wall { margin-top: 22px; }
+.board { height: 760px; }
+
+/* Deeper dusk: richer colour, less washed out, and a long blend out of the night above */
+.dusk-sky { background: linear-gradient(180deg, var(--night) 0, #261d4a 160px, #3b2a6a 32%, #4b2f72 55%, #3a2765 78%, #2a2048); }
+.office { filter: brightness(.78) saturate(1.15) contrast(1.05); }
+
+/* ── One painted twilight from the hero to the footer ──
+   A muted dusk gradient (the footer's colours, not brighter) on one layer behind Work, Experience and About,
+   with her own sky paintings laid over it and faded at every edge, so there are no seams:
+   the hero's clouds continue under Work, the studio glass wall sits behind Experience,
+   and the footer's sunset clouds (sun kept out of frame) sit behind About. */
+.dusk-sky { background: linear-gradient(180deg, var(--night) 0, #261d48 280px, #33255a 32%, #432d66 52%, #55336d 68%, #5a3570 80%, #45306a 92%, #2a2048 100%); }
+.hv #work { position: relative; isolation: isolate; }
+.hv #work::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1300px; z-index: -1; pointer-events: none;
+  background: url(/hero/sky.webp) center top / cover; transform: scaleY(-1); filter: brightness(.6) saturate(1.05); opacity: .75;
+  -webkit-mask-image: linear-gradient(0deg, transparent, #000 35%, #000 60%, transparent); mask-image: linear-gradient(0deg, transparent, #000 35%, #000 60%, transparent); }
+.office { display: block; filter: brightness(.8) saturate(1.1);
+  -webkit-mask-image: linear-gradient(transparent, #000 220px, #000 calc(100% - 220px), transparent); mask-image: linear-gradient(transparent, #000 220px, #000 calc(100% - 220px), transparent); }
+#about { isolation: isolate; }
+.about-sky { position: absolute; inset: -80px 0 0; z-index: -1; pointer-events: none;
+  background: url(/footer/sky.webp) left center / cover; filter: brightness(.66) saturate(.95);
+  -webkit-mask-image: linear-gradient(transparent, #000 260px, #000 calc(100% - 200px), transparent); mask-image: linear-gradient(transparent, #000 260px, #000 calc(100% - 200px), transparent); }
+/* cream text on the dusk */
+#experience, #about { color: var(--cream); }
+#experience .eyebrow, #about .eyebrow { color: var(--peach); }
+#experience h2, #about h2 { color: var(--cream); text-shadow: 0 2px 18px rgb(27 22 51 / .45); }
+#experience .sub, #about .sub { color: rgb(255 244 232 / .85); }
+.jpath path { stroke: rgb(255 244 232 / .5); }
+#about .board-bar button { color: var(--cream); background: rgb(27 22 51 / .4); border-color: rgb(255 244 232 / .3); backdrop-filter: blur(6px); }
+#about .board-bar button:hover { background: rgb(27 22 51 / .6); }
+.wall { filter: drop-shadow(0 0 22px rgb(255 190 140 / .4)) drop-shadow(0 0 60px rgb(255 143 184 / .25)) drop-shadow(0 24px 30px rgb(20 8 40 / .45)); }
+
+/* Three cards, three looks: sunset (CoSell), frosted glass (Paywise), deep dusk (SteadyTrack) */
+.hv .sx-page .sx-card--film.is-butter { background: rgb(255 246 238 / .16); color: var(--cream);
+  backdrop-filter: blur(26px) saturate(1.4); -webkit-backdrop-filter: blur(26px) saturate(1.4);
+  box-shadow: inset 0 0 0 1px rgb(255 244 232 / .35), inset 0 1px 0 rgb(255 255 255 / .45), 0 30px 60px -30px rgb(10 4 30 / .6); }
+.hv .sx-page .sx-card--film.is-pine { background: linear-gradient(160deg, #1d1838 0%, #15112a 100%); box-shadow: inset 0 0 0 1px rgb(255 180 107 / .22), 0 30px 60px -30px rgb(10 4 30 / .7); }
+
+/* Work: not a sky. A dark design canvas: a quiet dot grid like a Figma file at night, so the
+   section reads as "the work" and is clearly different from the hero sky and the dusk below. */
+.hv #work::before { height: auto; inset: 0; transform: none; filter: none; opacity: 1;
+  background:
+    radial-gradient(rgb(255 244 232 / .16) 1px, transparent 1.6px) 0 0 / 26px 26px,
+    linear-gradient(180deg, #17122c, #1a1532 50%, #17122c);
+  -webkit-mask-image: linear-gradient(transparent, #000 160px, #000 calc(100% - 200px), transparent); mask-image: linear-gradient(transparent, #000 160px, #000 calc(100% - 200px), transparent); }
+
+/* ── Hero card: gallery print with a museum label, live words, an idea-to-interface loop, faint grid ── */
+.card::before { background-image:
+    linear-gradient(rgb(36 26 58 / .05) 1px, transparent 1px), linear-gradient(90deg, rgb(36 26 58 / .05) 1px, transparent 1px),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .5' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .46 0 0 0 0 .36 0 0 0 .18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"),
+    radial-gradient(130% 100% at 30% 15%, #fbf7ef, transparent 65%), radial-gradient(150% 130% at 50% 50%, transparent 55%, rgb(190 160 118 / .3));
+  background-size: 28px 28px, 28px 28px, 260px, auto, auto; background-position: 14px 14px, 14px 14px, 0 0, 0 0, 0 0; }
+.photo .blob { display: none; }
+.photo .flipper { padding: 14px; background: #fffdf8; box-shadow: 0 0 0 1px rgb(36 26 58 / .12), 0 26px 36px -18px rgb(40 20 50 / .55); aspect-ratio: auto; }
+.photo .pic { position: relative; inset: auto; height: auto; aspect-ratio: 4 / 5; border: 0; border-radius: 0; box-shadow: none; }
+.photo .back { inset: 0; border: 0; border-radius: 0; box-shadow: none; background: #fffdf8; }
+.photo:hover .flipper { translate: -3px -4px; rotate: -1deg; }
+.photo .label { position: absolute; z-index: 3; right: -48px; bottom: -28px; width: 206px; padding: 12px 14px; background: #fff; box-shadow: 0 12px 22px -12px rgb(40 20 50 / .45);
+  font: 400 12px/1.45 Poppins, sans-serif; color: rgb(36 26 58 / .72); rotate: 1.5deg; transition: rotate .4s var(--spring); }
+.photo:hover .label { rotate: -1deg; }
+.photo .label b { display: block; font-size: 13.5px; font-weight: 600; color: var(--ink); }
+.photo .label i { font-style: normal; display: block; margin-top: 4px; }
+.hi-note { right: -30px; top: -62px; }
+.card .lede { margin: 18px 0 0; max-width: 48ch; }
+
+.name .pill { display: inline-flex; align-items: center; justify-content: center; vertical-align: middle; height: .8em; padding: 0 .18em; margin: 0 .06em; border-radius: 99px; background: var(--ink); translate: 0 -.06em; overflow: hidden; }
+.name .pp i { display: block; width: .54em; height: .54em; border-radius: 50%; border: 2px solid var(--ink); margin-left: -.18em; animation: av 2.8s ease-in-out infinite; }
+.name .pp i:first-child { margin-left: 0; background: var(--peach); } .name .pp i:nth-child(2) { background: var(--pink); animation-delay: .2s; } .name .pp i:nth-child(3) { background: #8f7cf0; animation-delay: .4s; }
+@keyframes av { 50% { translate: 0 -.08em; } }
+.name .px { padding: 0 .2em; background: #fff; box-shadow: inset 0 0 0 2px var(--ink); }
+.name .px b { display: grid; grid-template-columns: repeat(5, .1em); gap: 1px; }
+.name .px s { width: .1em; height: .1em; background: #f3d6c4; }
+.name .px s:nth-child(7) { background: var(--coral); animation: pxNudge 2.4s steps(1) infinite; }
+@keyframes pxNudge { 50% { translate: calc(.1em + 1px) 0; } }
+
+.grow { display: flex; align-items: center; gap: 18px; margin-top: 24px; }
+.scr { position: relative; width: 150px; height: 104px; border-radius: 12px; background: #fff; box-shadow: 0 0 0 1px rgb(36 26 58 / .1), 0 14px 22px -12px rgb(36 26 58 / .4); overflow: hidden; flex: none; }
+.scr > div { position: absolute; inset: 0; padding: 10px; opacity: 0; animation: scrStep 7.5s infinite; }
+.scr .s2 { animation-delay: 2.5s; } .scr .s3 { animation-delay: 5s; }
+@keyframes scrStep { 0% { opacity: 0; } 4%, 30% { opacity: 1; } 34%, 100% { opacity: 0; } }
+.s1 svg { width: 100%; height: 100%; fill: none; stroke: #6b6478; stroke-width: 1.5; stroke-linecap: round; }
+.s2 i, .s3 i { display: block; border-radius: 5px; background: #e6e2ec; margin-bottom: 7px; height: 12px; }
+.s2 i.h, .s3 i.h { height: 20px; } .s2 i.w { width: 60%; } .s2 i.b, .s3 i.b { width: 50%; height: 16px; background: #c9c2d6; }
+.s3 i { background: #f6efe6; } .s3 i.h { background: linear-gradient(90deg, var(--coral), var(--pink)); } .s3 i.b { background: var(--ink); }
+.steps { margin: 0; font: 500 12px ui-monospace, Consolas, monospace; letter-spacing: .06em; text-transform: uppercase; color: rgb(36 26 58 / .5); }
+.steps b { display: block; margin-bottom: 4px; font: 600 15px Poppins, sans-serif; letter-spacing: 0; text-transform: none; color: var(--ink); }
+.steps span { display: inline-block; color: rgb(36 26 58 / .5); animation: stepLit 7.5s infinite; } .steps span:nth-of-type(2) { animation-delay: 2.5s; } .steps span:nth-of-type(3) { animation-delay: 5s; }
+@keyframes stepLit { 0%, 33% { color: #d6402f; } 34%, 100% { color: rgb(36 26 58 / .5); } }
+.shot .scr .s3 { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { .scr .s3 { opacity: 1; } }
+@media (max-width: 760px) { .photo .label { right: -10px; width: 170px; } }
+
+/* ── Mascot: nudges on the card, then jumps off it and becomes the scroll guide ── */
+.buddy { transition: opacity .2s, scale .3s var(--spring); }
+.buddy.away { opacity: 0; scale: .6; pointer-events: none; }
+.buddy.nudge .body { animation: nudge .5s ease-in-out 3; }
+@keyframes nudge { 50% { transform: translateY(-8px) rotate(-4deg); } }
+.buddy.nudge::after { content: "↓"; position: absolute; left: 50%; bottom: -34px; translate: -50% 0; font: 700 22px Poppins, sans-serif; color: var(--peach); animation: arrowBob .6s ease-in-out infinite alternate; text-shadow: 0 2px 8px rgb(27 22 51 / .6); }
+@keyframes arrowBob { to { transform: translateY(6px); } }
+.ghost { position: fixed; z-index: 70; pointer-events: none; filter: drop-shadow(0 18px 16px rgb(0 0 0 / .45)); transform-origin: 50% 60%; }
+.guide.landing img { opacity: 0; }
+.guide img { pointer-events: auto; cursor: pointer; transition: scale .3s var(--spring); }
+.guide img:hover { scale: 1.06; }
+.card .name { white-space: nowrap; font-size: clamp(1.9rem, 3vw, 2.7rem); }
+@media (max-width: 760px) { .card .name { white-space: normal; } }
+
+/* Gallery frame: a slim dark wood frame, a bevelled white mat, hung on a wire from a nail */
+.photo { padding-top: 34px; }
+.photo .frame { position: relative; display: block; padding: 10px; border-radius: 2px;
+  background: linear-gradient(135deg, #3a2f4a, #241b33 40%, #3a2f4a 60%, #1d1629);
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / .12), inset 0 2px 0 rgb(255 255 255 / .1), 0 2px 0 rgb(20 8 40 / .3), 0 30px 40px -20px rgb(30 12 50 / .65), 0 8px 14px -6px rgb(30 12 50 / .35); }
+.photo .flipper { padding: 22px; background: #fffdf8; box-shadow: inset 0 0 0 1px rgb(36 26 58 / .08), inset 2px 3px 6px rgb(36 26 58 / .12); }
+.photo .pic { box-shadow: 0 0 0 1px rgb(36 26 58 / .2), inset 0 0 0 1px rgb(0 0 0 / .1); }
+.photo:hover .flipper { translate: none; rotate: none; }
+.photo .frame { transform-origin: 50% -30px; transition: rotate .6s var(--spring); rotate: -.6deg; }
+.photo:hover .frame { rotate: .8deg; }
+.photo .wire { position: absolute; left: 50%; top: 0; width: 60%; height: 40px; translate: -50% 0; pointer-events: none;
+  background: linear-gradient(to bottom right, transparent calc(50% - 1px), rgb(36 26 58 / .45) 50%, transparent calc(50% + 1px)) left / 50% 100% no-repeat,
+              linear-gradient(to bottom left, transparent calc(50% - 1px), rgb(36 26 58 / .45) 50%, transparent calc(50% + 1px)) right / 50% 100% no-repeat; }
+.photo .wire::before { content: ""; position: absolute; left: 50%; top: -4px; width: 10px; height: 10px; margin-left: -5px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #d9c7a0, #8a7550); box-shadow: 0 2px 3px rgb(0 0 0 / .3); }
+.photo .label { bottom: -22px; right: -52px; }
+.photo .label b { font-size: 15px; }
+.card .sel { margin: 14px 0 18px -8px; }
+
+/* Hero card: three quick facts, big numerals, separated by thin rules */
+.nums { display: flex; margin: 26px 0 0; padding: 0; }
+.nums div { display: flex; flex-direction: column-reverse; gap: 2px; padding: 0 28px; border-left: 1px solid rgb(36 26 58 / .16); }
+.nums div:first-child { padding-left: 0; border-left: 0; }
+.nums dd { margin: 0; font: 600 44px/1 Poppins, sans-serif; letter-spacing: -.04em; color: var(--ink); font-variant-numeric: tabular-nums; }
+.nums dd sup { font-size: .5em; vertical-align: .7em; margin-left: 2px; color: var(--coral); }
+.nums dt { font: 500 12px/1.3 ui-monospace, Consolas, monospace; letter-spacing: .06em; text-transform: uppercase; color: rgb(36 26 58 / .6); max-width: 15ch; }
+.nums div { transition: translate .4s var(--spring); }
+.nums div:hover { translate: 0 -4px; }
+.nums div:hover dd { color: #d6402f; }
+.card .lede { margin-top: 0; }
+@media (max-width: 760px) { .nums div { padding: 0 14px; } .nums dd { font-size: 32px; } }
+.nums div { flex-direction: column; justify-content: flex-start; } .nums dt { order: 2; max-width: none; white-space: nowrap; } .nums dd { order: 1; }
+
+/* Photo: a round cut-out with a ring of words slowly turning around it */
+.photo { position: relative; width: 300px; aspect-ratio: 1; padding: 0; display: grid; place-items: center; }
+.photo .frame { width: 76%; padding: 0; background: none; box-shadow: none; rotate: none; border-radius: 50%; }
+.photo:hover .frame { rotate: none; }
+.photo .flipper { padding: 0; background: none; box-shadow: none; border-radius: 50%; aspect-ratio: 1; }
+.photo .pic { aspect-ratio: 1; border-radius: 50%; box-shadow: 0 0 0 7px #fffaf2, 0 24px 32px -16px rgb(40 20 50 / .55); }
+.photo .back { border-radius: 50%; box-shadow: 0 0 0 7px #fffaf2; }
+.photo .back span { top: 22%; font-size: 17px; }
+.photo .back img { width: 46%; translate: 0 14%; }
+.wring { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; animation: turn 26s linear infinite; pointer-events: none; }
+.wring text { font: 600 14px Poppins, sans-serif; letter-spacing: .18em; fill: var(--ink); }
+.photo:hover .wring { animation-duration: 9s; }
+.wdot { position: absolute; z-index: 3; right: 9%; bottom: 10%; width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--coral); color: #fff; font: 700 20px Poppins, sans-serif;
+  box-shadow: 0 0 0 5px #f1eadc, 0 12px 18px -8px rgb(36 26 58 / .45); animation: twk 3s ease-in-out infinite; pointer-events: none; }
+.photo .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 760px) { .photo { width: 230px; } .wring text { font-size: 15px; } }
+@media (prefers-reduced-motion: reduce) { .wring, .wdot { animation: none; } }
+
+/* ── Hero card as a postcard: two cards peeking out behind, a bordered photo with a "Powered by" tag,
+   a dashed divider, her sketch as the postage stamp and a Hyderabad postmark ── */
+.wring, .wdot { display: none; }
+.deck { position: absolute; inset: 0; border-radius: 6px; pointer-events: none; }
+.deck.d1 { background: linear-gradient(140deg, #ffc58a, #ff8a6b 60%, #ff9cc0); rotate: -2.6deg; translate: -16px 12px; box-shadow: 0 20px 30px -18px rgb(20 8 40 / .5); }
+.deck.d2 { background: #fffaf2; rotate: 1.6deg; translate: 12px -10px; box-shadow: 0 16px 24px -16px rgb(20 8 40 / .4); }
+.card .inner { grid-template-columns: 330px 1fr; gap: 0; }
+.card .inner > div { padding-left: 56px; margin-left: 52px; border-left: 1.5px dashed rgb(36 26 58 / .22); }
+.card::before { background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='f'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .5' numOctaves='2' seed='4'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .46 0 0 0 0 .36 0 0 0 .18 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23f)'/%3E%3C/svg%3E"),
+    radial-gradient(130% 100% at 30% 15%, #fbf7ef, transparent 65%), radial-gradient(150% 130% at 50% 50%, transparent 55%, rgb(190 160 118 / .3));
+  background-size: 260px, auto, auto; background-position: 0 0; }
+
+/* photo: a print with a white border, slightly tilted */
+.photo { width: 330px; aspect-ratio: auto; display: block; padding: 0; }
+.photo .frame { width: 100%; padding: 12px 12px 14px; background: #fffdf8; border-radius: 3px; rotate: -2deg; box-shadow: 0 0 0 1px rgb(36 26 58 / .08), 0 24px 34px -18px rgb(40 20 50 / .55); transition: rotate .5s var(--spring); }
+.photo:hover .frame { rotate: 0deg; }
+.photo .flipper, .photo .pic, .photo .back { border-radius: 2px; aspect-ratio: 4 / 5; }
+.photo .pic { box-shadow: none; }
+.photo .back { box-shadow: none; }
+.powered { position: absolute; z-index: 3; right: -40px; bottom: -34px; width: 230px; padding: 14px 16px 16px; border-radius: 22px 22px 22px 6px; background: #2b2148; color: var(--cream);
+  box-shadow: 0 18px 30px -14px rgb(20 8 40 / .6); rotate: 2deg; transition: rotate .4s var(--spring), translate .4s var(--spring); }
+.photo:hover .powered { rotate: -1deg; translate: 0 -4px; }
+.powered b { display: block; margin-bottom: 9px; font: 600 16px Poppins, sans-serif; letter-spacing: -.01em; }
+.powered span { display: inline-flex; align-items: center; gap: 6px; margin: 0 5px 6px 0; padding: 4px 10px; border-radius: 99px; background: rgb(255 244 232 / .1); border: 1px solid rgb(255 244 232 / .16); font: 500 12px Poppins, sans-serif; }
+.powered span i { width: 7px; height: 7px; border-radius: 50%; background: var(--c); }
+
+/* stamp + postmark, top right of the card */
+.post { position: absolute; z-index: 5; right: 46px; top: -22px; pointer-events: none; }
+.pstamp { position: relative; display: block; width: 96px; height: 116px; padding: 9px; background: #fffaf2; rotate: 6deg; filter: drop-shadow(0 10px 12px rgb(40 20 50 / .35));
+  -webkit-mask: radial-gradient(circle 5px at 50% 50%, transparent 96%, #000) -6px -6px / 12px 12px, linear-gradient(#000, #000) 6px 6px / calc(100% - 12px) calc(100% - 12px) no-repeat;
+  mask: radial-gradient(circle 5px at 50% 50%, transparent 96%, #000) -6px -6px / 12px 12px, linear-gradient(#000, #000) 6px 6px / calc(100% - 12px) calc(100% - 12px) no-repeat; }
+.pstamp img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 12%; background: #ffe2c8; }
+.pstamp b { position: absolute; left: 14px; bottom: 12px; font: 700 13px Poppins, sans-serif; color: var(--coral); }
+.pmark { position: absolute; right: 64px; top: 26px; width: 150px; color: rgb(214 64 47 / .78); rotate: -10deg; }
+.pm-t { font: 600 10px Poppins, sans-serif; letter-spacing: .18em; fill: currentColor; }
+.pm-y { font: 600 13px Poppins, sans-serif; letter-spacing: .06em; fill: currentColor; }
+
+/* the description on ruled postcard lines */
+.card .lede { line-height: 1.75; background: repeating-linear-gradient(transparent 0 calc(1.75em - 1px), rgb(36 26 58 / .14) calc(1.75em - 1px) 1.75em); }
+@media (max-width: 760px) { .card .inner > div { padding-left: 0; margin-left: 0; border-left: 0; } .post { right: 16px; top: -30px; scale: .75; } .powered { right: -10px; } .photo { width: 230px; } }
+.powered { width: 280px; right: -96px; bottom: -40px; } .pmark { width: 176px; right: 70px; top: 22px; } .pm-t { font-size: 11px; }
+.powered { right: -36px; bottom: -50px; width: 268px; }
+
+/* ── Postcard, simplified: arch photo, Charminar stamp with an OPEN TO WORK postmark,
+   and three things on the right: hello, headline, typing line ── */
+.powered { display: none; }
+.photo { width: 300px; }
+.photo .frame { padding: 0; background: none; box-shadow: none; rotate: none; border-radius: 999px 999px 8px 8px; }
+.photo:hover .frame { rotate: none; }
+.photo .frame::before { content: ""; position: absolute; inset: 0; translate: 16px 16px; border: 2px solid var(--coral); border-radius: 999px 999px 8px 8px; pointer-events: none; }
+.photo .flipper, .photo .pic, .photo .back { border-radius: 999px 999px 8px 8px; aspect-ratio: 4 / 5; }
+.photo .flipper { position: relative; z-index: 1; overflow: hidden; }
+.photo .pic { box-shadow: none; }
+.photo .flipper { box-shadow: 0 0 0 6px #fffaf2, 0 26px 36px -18px rgb(40 20 50 / .55); }
+.pstamp img { object-position: 50% 40%; background: none; }
+.pstamp b { color: #fff; text-shadow: 0 1px 4px rgb(36 26 58 / .6); }
+.card .inner { align-items: center; padding-top: 76px; padding-bottom: 80px; }
+.card .inner > div { display: flex; flex-direction: column; align-items: flex-start; }
+.hello { margin: 0 0 18px; font: 34px/1 "Patrick Hand", var(--hand), sans-serif; color: #d6402f; rotate: -2deg; }
+.card .name { margin: 0; font-size: clamp(2rem, 3.4vw, 3.1rem); }
+.card .sel { margin: 26px 0 0 -8px; }
+@media (max-width: 760px) { .photo { width: 220px; } .hello { font-size: 28px; } }
+.card .name { font-size: clamp(1.9rem, 3vw, 2.75rem); } .card .inner > div { padding-left: 52px; margin-left: 48px; }
+
+/* ── Hero card: bold hello, bigger type and photo, tools row with names on hover, one cursor sticker ── */
+.hello { margin: 0 0 14px; font: 700 clamp(1.3rem, 1.9vw, 1.7rem)/1.2 Poppins, sans-serif; letter-spacing: -.01em; color: #d6402f; rotate: none; }
+.card .name { font-size: clamp(2.1rem, 3.3vw, 3.05rem); }
+.card .inner { grid-template-columns: 340px 1fr; padding: 72px 70px 78px 76px; }
+.photo { width: 340px; }
+.card .sel { margin: 22px 0 0 -8px; font-size: clamp(1.6rem, 2.6vw, 2.2rem); }
+.tools { margin-top: 30px; }
+.tools-l { display: block; margin-bottom: 10px; font: 500 12px ui-monospace, Consolas, monospace; letter-spacing: .14em; text-transform: uppercase; color: rgb(36 26 58 / .55); }
+.tools-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.tl { position: relative; display: block; width: 46px; outline: none; transition: translate .3s var(--spring); }
+.tl .tstk { padding: 4px; border-radius: 14px; box-shadow: 0 0 0 1px rgb(36 26 58 / .08), 0 8px 14px -8px rgb(36 26 58 / .4); }
+.tl .tstk span { border-radius: 10px; font-size: 13px; }
+.tl:hover, .tl:focus-visible { translate: 0 -4px; }
+.tl:focus-visible .tstk { box-shadow: 0 0 0 2px var(--sel); }
+.tl::after { content: attr(data-tip); position: absolute; left: 50%; bottom: calc(100% + 8px); translate: -50% 4px; padding: 5px 10px; border-radius: 8px; background: var(--ink); color: var(--cream);
+  font: 600 12px/1 Poppins, sans-serif; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .2s, translate .25s var(--spring); }
+.tl::before { content: ""; position: absolute; left: 50%; bottom: calc(100% + 3px); width: 8px; height: 8px; translate: -50% 4px; rotate: 45deg; background: var(--ink); opacity: 0; transition: opacity .2s, translate .25s var(--spring); }
+.tl:hover::after, .tl:focus-visible::after, .tl:hover::before, .tl:focus-visible::before { opacity: 1; translate: -50% 0; }
+.cur-stk { position: absolute; z-index: 4; right: -34px; bottom: 54px; filter: drop-shadow(0 8px 8px rgb(36 26 58 / .3)); animation: curBob 4s ease-in-out infinite; pointer-events: none; }
+.cur-stk svg { display: block; width: 30px; }
+.cur-stk span { display: inline-block; margin: -6px 0 0 22px; padding: 4px 11px; border-radius: 3px 12px 12px 12px; background: var(--coral); color: #fff; font: 600 13px Poppins, sans-serif; }
+@keyframes curBob { 50% { translate: -6px -6px; } }
+@media (max-width: 760px) { .photo { width: 240px; } .card .inner { padding: 34px 26px; } .cur-stk { right: -10px; } }
+@media (prefers-reduced-motion: reduce) { .cur-stk { animation: none; } }
+.card .name { font-size: clamp(2rem, 3vw, 2.8rem); } .tl { width: 42px; } .tools-row { gap: 8px; } .hv .buddy { right: 1%; }
+
+/* ── Letter round: big hello, people in the pill, overlapping round tool icons, a wax seal ── */
+.hello { margin: 0 0 10px; font: 700 clamp(2.4rem, 3.9vw, 3.6rem)/1.05 Poppins, sans-serif; letter-spacing: -.035em; color: #d6402f; }
+.card .name { font-size: clamp(1.8rem, 2.7vw, 2.5rem); line-height: 1.12; }
+.name .pp { height: .9em; padding: 0 .16em; gap: 0; }
+.name .pp i { display: grid; place-items: center; width: .68em; height: .68em; margin-left: -.2em; border: 2px solid var(--ink); overflow: hidden; }
+.name .pp i:first-child { margin-left: 0; }
+.name .pp i:nth-child(1) { background: #e0915c; } .name .pp i:nth-child(2) { background: #c75d86; } .name .pp i:nth-child(3) { background: #7a63d6; }
+.name .pp svg { width: 100%; height: 100%; translate: 0 8%; }
+
+/* tools: round icons overlapping like a stack of avatars; they fan out on hover */
+.tools { display: flex; align-items: center; gap: 16px; margin-top: 28px; }
+.tools-row { display: flex; gap: 0; }
+.tl { width: 50px; margin-left: -12px; transition: margin .35s var(--spring), translate .3s var(--spring); }
+.tl:first-child { margin-left: 0; }
+.tools-row:hover .tl { margin-left: 4px; } .tools-row:hover .tl:first-child { margin-left: 0; }
+.tl .tstk { padding: 0; border-radius: 50%; background: #fff; box-shadow: 0 0 0 3px #f1eadc, 0 8px 14px -8px rgb(36 26 58 / .45); }
+.tl .tstk span { border-radius: 50%; background: #fff; }
+.tl .tstk svg { width: 50%; height: 50%; }
+.tl:hover { z-index: 2; }
+.tools-l { order: 2; font: 500 12px/1.3 ui-monospace, Consolas, monospace; letter-spacing: .06em; text-transform: uppercase; color: rgb(36 26 58 / .55); max-width: 18ch; margin: 0; }
+
+/* wax seal on the corner of the photo, like a sealed letter */
+.cur-stk { display: none; }
+.seal { position: absolute; z-index: 4; right: -30px; bottom: 26px; width: 96px; rotate: -12deg; filter: drop-shadow(0 10px 10px rgb(90 20 30 / .35)); transition: rotate .5s var(--spring), scale .4s var(--spring); }
+.photo:hover .seal { rotate: 8deg; scale: 1.06; }
+@media (max-width: 760px) { .seal { width: 72px; right: -14px; } .tools { flex-wrap: wrap; } }
+
+/* spacing pass: even rhythm down the right side; mascot sits lower so nothing crowds her */
+.hv .buddy { bottom: -46px; }
+.card .inner { padding-top: 64px; padding-bottom: 70px; }
+.hello { margin-bottom: 22px; }
+.card .sel { margin-top: 30px; }
+.tools { margin-top: 36px; }
+
+/* people pill: three illustrated portraits, overlapping */
+.name .pp { height: 1em; padding: 0 .12em; background: #fffaf2; box-shadow: inset 0 0 0 2px var(--ink); }
+.name .pp img { display: block; width: .78em; height: .78em; border-radius: 50%; margin-left: -.22em; box-shadow: 0 0 0 2px #fffaf2; transition: translate .35s var(--spring); }
+.name .pp img:first-child { margin-left: 0; }
+.name .pp img:nth-child(2) { animation: av 2.8s .2s ease-in-out infinite; } .name .pp img:nth-child(1) { animation: av 2.8s ease-in-out infinite; } .name .pp img:nth-child(3) { animation: av 2.8s .4s ease-in-out infinite; }
+.name .pp:hover img { translate: 0 -2px; }
+
+/* About board polaroid: brighter print, vivid photo, a bolder coral caption */
+.board.live .pola .shot { filter: saturate(1.3) contrast(1.08) brightness(1.06); }
+.pola .frame { filter: brightness(1.12) drop-shadow(0 18px 18px rgb(0 0 0 / .4)); }
+.pola figcaption { font: 600 23px/1 "Patrick Hand", var(--hand), sans-serif; color: #d6402f; letter-spacing: .01em; }
