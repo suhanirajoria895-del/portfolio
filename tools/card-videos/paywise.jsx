@@ -31,8 +31,8 @@ export default function Paywise() {
       <Sc s={s} from={2} to={2} className="kt"><p><Words>The payment takes *seconds.*</Words></p></Sc>
 
       <div className="cam" style={{ transform: cam }}>
-        <Sc s={s} from={3} to={5} className="pw-phone pw-phone--a"><div ref={a}>{s >= 3 && s <= 6 && <Device screen="risk" style={{ zoom: 0.8 }} />}</div></Sc>
-        <Sc s={s} from={5} to={5} className="pw-phone pw-phone--b">{s >= 5 && s <= 6 && <Device screen="alert" style={{ zoom: 0.8 }} />}</Sc>
+        <Sc s={s} from={3} to={5} className="pw-phone pw-phone--a"><div ref={a}>{s >= 3 && s <= 6 && <Device screen="risk" style={{ zoom: 0.72 }} />}</div></Sc>
+        <Sc s={s} from={5} to={5} className="pw-phone pw-phone--b">{s >= 5 && s <= 6 && <Device screen="alert" style={{ zoom: 0.72 }} />}</Sc>
       </div>
 
       <Sc s={s} from={4} to={4} className="pw-cap pw-cap--bottom"><p><Words>Only when it looks *wrong.*</Words></p></Sc>

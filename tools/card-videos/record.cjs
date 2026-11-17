@@ -15,10 +15,11 @@ const BASE = process.env.STAGE_URL || "http://127.0.0.1:5173";
 const OUT = process.env.OUT_DIR || path.resolve(__dirname, "../../public/work");
 const FPS = 30;
 const DPR = Number(process.env.DPR || 1.5); // shoot larger than the output, then scale down for clean edges
+// Every film is 2:1. Stages drawn at 16:10 keep their key content in the middle band and are cropped.
 const STAGES = {
   cosell: { w: 1600, h: 800, out: [1920, 960], poster: 10.9 },
-  paywise: { w: 1280, h: 800, out: [1280, 800], poster: 9.2 },
-  steadytrack: { w: 1280, h: 800, out: [1280, 800], poster: 6.4 },
+  paywise: { w: 1280, h: 800, out: [1280, 640], crop: true, poster: 9.2 },
+  steadytrack: { w: 1280, h: 800, out: [1280, 640], crop: true, poster: 6.4 },
 };
 
 /**
@@ -85,7 +86,7 @@ async function film(name, browser) {
   const mp4 = path.join(OUT, name, "card.mp4");
   const ff = spawn("ffmpeg", [
     "-y", "-loglevel", "error", "-f", "image2pipe", "-framerate", String(FPS), "-c:v", "mjpeg", "-i", "-",
-    "-vf", `scale=${st.out[0]}:${st.out[1]}:flags=lanczos`, "-c:v", "libx264", "-preset", "slow", "-crf", process.env.CRF || "25",
+    "-vf", `${st.crop ? "crop=iw:ih*0.8," : ""}scale=${st.out[0]}:${st.out[1]}:flags=lanczos`, "-c:v", "libx264", "-preset", "slow", "-crf", process.env.CRF || "25",
     "-pix_fmt", "yuv420p", "-movflags", "+faststart", "-an", mp4,
   ], { stdio: ["pipe", "inherit", "inherit"] });
   const closed = new Promise((res, rej) => ff.on("close", (code) => (code ? rej(new Error(`ffmpeg exited ${code}`)) : res())));

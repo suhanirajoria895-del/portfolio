@@ -59,7 +59,7 @@ export const work = [
     href: "/work/paywise/",
     demo: "/work/paywise/demo/",
     tools: "Figma, React",
-    film: { src: "/work/paywise/card.mp4", poster: "/work/paywise/card-poster.webp", ratio: "16 / 10", alt: "Short film of the Paywise prototype: a risky UPI payment gets a 10-second pause, and the trusted contact's phone shows the alert." },
+    film: { src: "/work/paywise/card.mp4", poster: "/work/paywise/card-poster.webp", ratio: "2 / 1", alt: "Short film of the Paywise prototype: a risky UPI payment gets a 10-second pause, and the trusted contact's phone shows the alert." },
   },
   {
     title: "Turning therapy into a rhythm you can keep",
@@ -79,7 +79,7 @@ export const work = [
     cover: "steadytrack",
     href: "/work/steadytrack/",
     tools: "Figma, FigJam",
-    film: { src: "/work/steadytrack/card.mp4", poster: "/work/steadytrack/card-poster.webp", ratio: "16 / 10", alt: "Short film of SteadyTrack: the app starts a session, the beat pulses on screen and on the glove, and the session ends with a summary for the physio." },
+    film: { src: "/work/steadytrack/card.mp4", poster: "/work/steadytrack/card-poster.webp", ratio: "2 / 1", alt: "Short film of SteadyTrack: the app starts a session, the beat pulses on screen and on the glove, and the session ends with a summary for the physio." },
   },
 ];
 
