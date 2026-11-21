@@ -30,6 +30,7 @@ export function initHome() {
       nav.classList.toggle("is-merged", scrollY > 80 || (!!at && at !== "hero"));
       let cur = "hero";
       $$("[data-spy]").forEach((a) => { const s = document.getElementById(a.dataset.spy); if (s && s.offsetParent !== null && s.getBoundingClientRect().top < innerHeight * .4) cur = a.dataset.spy; });
+      { const ft = $("#contact"); if (ft && ft.getBoundingClientRect().top < innerHeight * .6) cur = ""; } // at the footer, no link is underlined
       $$("[data-spy]").forEach((a) => a.classList.toggle("on", a.dataset.spy === cur));
       movePill();
       $("#prog").style.transform = `scaleX(${Math.min(1, scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight))})`;
@@ -332,11 +333,16 @@ export function initHome() {
     // Tidy up: justified rows that fill the whole board, not one side
     function layoutTidy() {
       const els = $$(".pi:not(.hw)", board), bw = board.clientWidth, gap = 26, rows = [];
+      els.forEach((el) => {
+        const w0 = +el.dataset.w0 || parseFloat(el.style.getPropertyValue("--w")) || el.offsetWidth; el.dataset.w0 = w0;
+        const k = bw < 600 && el.dataset.id !== "story" ? .66 : 1;
+        el.style.setProperty("--w", Math.min(w0 * k, bw - 8) + "px");
+      });
       let row = [], w = 0;
       els.forEach((el) => { const ew = el.offsetWidth; if (row.length && w + ew + gap * row.length > bw) { rows.push(row); row = []; w = 0; } row.push(el); w += ew; });
       if (row.length) rows.push(row);
       const rowH = rows.map((r) => Math.max(...r.map((el) => el.offsetHeight)));
-      const H = Math.max(620, rowH.reduce((a, b) => a + b, 0) + 40 * (rows.length + 1));
+      const H = Math.max(bw < 600 ? 0 : 620, rowH.reduce((a, b) => a + b, 0) + (bw < 600 ? 22 : 40) * (rows.length + 1));
       const vgap = (H - rowH.reduce((a, b) => a + b, 0)) / (rows.length + 1);
       let y = vgap;
       rows.forEach((r, ri) => {
@@ -350,7 +356,7 @@ export function initHome() {
     function layoutLoose() { board.style.height = ""; board.classList.remove("tidy"); $$(".pi", board).forEach((el) => { const p = pos[el.dataset.id]; place(el, p.x, p.y, p.r); }); }
     $("#tidy").addEventListener("click", (e) => { tidy = !tidy; e.currentTarget.textContent = tidy ? "Scatter" : "Tidy up"; tidy ? layoutTidy() : layoutLoose(); });
     $("#resetB")?.addEventListener("click", () => { saved = {}; persist(); $$(".pi[data-note]", board).forEach((n) => n.remove()); $$(".pi", board).forEach((el) => { const p = pos[el.dataset.id]; p.x = p.home.x * board.clientWidth; p.y = p.home.y; p.r = p.home.r; }); tidy = false; $("#tidy").textContent = "Tidy up"; layoutLoose(); });
-    if (innerWidth < 900 || new URLSearchParams(location.search).has("tidy")) { tidy = true; $("#tidy").textContent = "Scatter"; const go = () => tidy && layoutTidy(); document.readyState === "complete" ? go() : addEventListener("load", go); }
+    if (innerWidth < 900 || new URLSearchParams(location.search).has("tidy")) { tidy = true; $("#tidy").textContent = "Scatter"; const go = () => tidy && Promise.all($$("img", board).map((i) => i.complete ? 0 : new Promise((r) => { i.addEventListener("load", r, { once: true }); i.addEventListener("error", r, { once: true }); }))).then(() => tidy && layoutTidy()); document.readyState === "complete" ? go() : addEventListener("load", go); }
     addEventListener("resize", () => tidy && layoutTidy());
 
     // Shuffle throws everything to a new spot; items also lean away from the cursor
