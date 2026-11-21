@@ -125,14 +125,13 @@ export function initHome() {
     }, 900);
     starEls.forEach((s, k) => { s.addEventListener("pointerenter", () => collect(k)); s.addEventListener("focus", () => collect(k)); });
     buddy.addEventListener("click", () => { hop(); say("follow me! 🏃‍♀️", 1400); setTimeout(() => $("#work").scrollIntoView({ behavior: reduce ? "auto" : "smooth" }), 500); });
-    const NUDGES = ["psst… the good stuff is just below ↓", "click me, I'll give you the tour", "3 projects, zero lorem ipsum. promise.", "scroll! I'll jump along with you"];
+    const NUDGES = ["psst… the good stuff is just below ↓", "click me, I'll give you the tour", "3 projects, zero lorem ipsum. promise.", "scroll! I'll come along with you"];
     let nudgeN = 0, idleT = Date.now();
     addEventListener("scroll", () => (idleT = Date.now()), { passive: true });
     if (!at && !reduce) setInterval(() => {
       if (nudgeN >= NUDGES.length || scrollY > innerHeight * .5 || !bubble.classList.contains("hide") || Date.now() - idleT < 3500) return;
       say(NUDGES[nudgeN++ % NUDGES.length], 2600); hop(); buddy.classList.add("nudge"); setTimeout(() => buddy.classList.remove("nudge"), 2600);
     }, 6500);
-    setTimeout(() => { if (!at) say("psst, can you find my 12 skills in the stars?", 4000); }, 4400);
 
     // ── Guide: hops into each section with a pose and a line
     const GUIDE = { work: ["laptop-floor", 150, "start here: my projects"], experience: ["point", 92, "where I've worked so far"], graphic: ["thumbs", 96, "posters and print, too"], about: ["sit", 118, "a few things about me"] };
