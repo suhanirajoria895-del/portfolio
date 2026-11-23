@@ -219,8 +219,7 @@ function Header() {
         <p className="rk-mono">Case study 02 · Product design · Self-initiated</p>
         <h1>Paywise: a <em>10-second pause</em> for UPI payments that look like scams</h1>
         <p className="rk-lede">
-          A safety layer for existing UPI apps. Normal payments don't change. When signals point to a scam, Paywise pauses the
-          payment for 10 seconds, shows why, and offers a call to a trusted person. If money has already gone, it guides reporting.
+          Normal payments don't change. Risky ones pause, show why, and offer a call to someone you trust.
         </p>
         <a className="rk-btn" href={DEMO} target="_blank" rel="noreferrer">Try the prototype <ArrowRight size={16} /></a>
       </div>
@@ -739,7 +738,7 @@ function Solution() {
       lede="A new app would ask people to change how they pay, so Paywise sits inside the UPI apps they already use. I designed it as a shared standard that NPCI could ask apps to adopt. On a normal day, it isn't visible.">
       <Stack />
       <Showcase />
-      <Flow />
+      <Walkthrough />
       <Deep title="Edge cases" hint="Repeat transfers, false alarms, no trusted contact"><EdgePlayer /></Deep>
       <div className="rk-try" data-reveal>
         <div><h3>Click through it yourself</h3><p>Seven screens, all interactive. Start a risky payment, cancel it, call Rohan, or walk the first hour.</p></div>
@@ -796,58 +795,48 @@ function Showcase() {
   );
 }
 
-/** One payment, several paths: the real screens laid out as the decision tree they belong to. */
-const FLOW = [
-  ["pay", "Normal payment", "Nothing changes. A small check mark."],
-  ["risk", "Risk pause", "Reasons first, then one big action."],
-  ["alert", "Rohan's alert", "One button: call her now."],
-  ["recover", "First-hour recovery", "If money already left: calm steps."],
-];
-const EDGES_F = [
-  ["start", "pay", "Signals low"],
-  ["start", "risk", "Signals stack up"],
-  ["risk", "alert", "Call Rohan first"],
-  ["risk", "recover", "Paid anyway, then doubt"],
+/** Scroll walkthrough: the phone stays pinned and changes screen as each moment scrolls past. */
+const WALK = [
+  ["pay", "A normal day", "Normal payments don't change", "Signals stay low, so the payment goes through. A small mark shows Paywise checked it."],
+  ["risk", "Signals stack up", "It pauses, for 10 seconds", "A new payee, a large amount and a call in progress. The reasons come first, then one big action: call someone you trust."],
+  ["collect", "A collect request", "A plain warning", "Approving a collect request sends money out. Paywise says that in one line, before the PIN."],
+  ["alert", "Rohan's phone", "Someone outside the call", "If Sunita chooses to call, Rohan sees the paused payment and one button: call her now."],
+  ["recover", "If money already left", "The first hour, in order", "Calm steps: call 1930, block the UPI ID, report on the portal. Each one is a single big button."],
 ];
 
-function Flow() {
-  const box = useRef(null);
-  const [paths, setPaths] = useState([]);
-  const [ref, seen] = useInView(0.2);
+function Walkthrough() {
+  const [at, setAt] = useState(0);
+  const refs = useRef([]);
   useEffect(() => {
-    const draw = () => {
-      const b = box.current; if (!b) return;
-      const o = b.getBoundingClientRect();
-      const at = (id) => b.querySelector(`[data-node="${id}"]`).getBoundingClientRect();
-      setPaths(EDGES_F.map(([f, t, label]) => {
-        const a = at(f), z = at(t);
-        const x1 = a.right - o.left, y1 = a.top + a.height / 2 - o.top, x2 = z.left - o.left - 6, y2 = z.top + z.height / 2 - o.top;
-        const mx = (x1 + x2) / 2;
-        return { d: `M${x1} ${y1} C ${mx} ${y1}, ${mx} ${y2}, ${x2} ${y2}`, label, lx: mx, ly: (y1 + y2) / 2 };
-      }));
-    };
-    draw();
-    const ro = new ResizeObserver(draw); ro.observe(box.current);
-    return () => ro.disconnect();
+    if (!("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) setAt(+e.target.dataset.k); }), { rootMargin: "-45% 0px -45% 0px" });
+    refs.current.forEach((el) => el && io.observe(el));
+    return () => io.disconnect();
   }, []);
   return (
-    <figure ref={ref} className={`rk-flow${seen ? " go" : ""}`}>
-      <figcaption>
-        <p className="rk-mono">The screens as a decision tree</p>
-        <h3>One payment, four outcomes</h3>
+    <figure className="rk-walk">
+      <figcaption className="rk-walk__head">
+        <p className="rk-mono">Walk through it</p>
+        <h3>One payment, five moments</h3>
       </figcaption>
-      <div className="rk-flow__map" ref={box}>
-        <svg className="rk-flow__lines" aria-hidden="true">
-          {paths.map((p, i) => <path key={i} d={p.d} pathLength="1" style={{ "--i": i }} />)}
-        </svg>
-        {paths.map((p, i) => <span key={i} className="rk-flow__edge" style={{ left: p.lx, top: p.ly, "--i": i }}>{p.label}</span>)}
-        <div className="rk-flow__start" data-node="start"><span><IndianRupee size={18} /></span><b>Sunita taps Pay</b></div>
-        {FLOW.map(([id, t, d], i) => (
-          <div key={id} className={`rk-flow__node n-${id}`} data-node={id} style={{ "--i": i }}>
-            <LivePhone screen={id} scale={0.4} />
-            <p><b>{t}</b>{d}</p>
+      <div className="rk-walk__body">
+        <ol className="rk-walk__steps">
+          {WALK.map(([id, k, t, d], i) => (
+            <li key={id} ref={(el) => (refs.current[i] = el)} data-k={i} className={i === at ? "on" : ""}>
+              <span className="rk-walk__n">{String(i + 1).padStart(2, "0")}</span>
+              <p className="rk-mono">{k}</p>
+              <h4>{t}</h4>
+              <p>{d}</p>
+              <div className="rk-walk__inline"><LivePhone screen={id} scale={0.5} /></div>
+            </li>
+          ))}
+        </ol>
+        <div className="rk-walk__stage" aria-hidden="true">
+          <div className="rk-walk__phone">
+            <div key={WALK[at][0]} className="rk-walk__swap"><Device screen={WALK[at][0]} style={{ zoom: 0.62 }} /></div>
           </div>
-        ))}
+          <div className="rk-walk__dots">{WALK.map((w, i) => <i key={w[0]} className={i === at ? "on" : ""} />)}</div>
+        </div>
       </div>
     </figure>
   );

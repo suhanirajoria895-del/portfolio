@@ -126,7 +126,7 @@ export function initHome() {
     }, 900);
     starEls.forEach((s, k) => { s.addEventListener("pointerenter", () => collect(k)); s.addEventListener("focus", () => collect(k)); });
     buddy.addEventListener("click", () => { hop(); say("follow me! 🏃‍♀️", 1400); setTimeout(() => $("#work").scrollIntoView({ behavior: reduce ? "auto" : "smooth" }), 500); });
-    const NUDGES = ["psst… the good stuff is just below ↓", "click me, I'll give you the tour", "3 projects, zero lorem ipsum. promise.", "scroll! I'll come along with you"];
+    const NUDGES = ["psst… the good stuff is just below ↓", "click me, I'll give you the tour","scroll! I'll come along with you"];
     let nudgeN = 0, idleT = Date.now();
     addEventListener("scroll", () => (idleT = Date.now()), { passive: true });
     if (!at && !reduce) setInterval(() => {
