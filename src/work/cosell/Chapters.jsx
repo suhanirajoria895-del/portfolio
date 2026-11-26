@@ -285,7 +285,7 @@ export function Accessibility() {
             </tbody>
           </table>
         </div>
-        <p className="cs-note">Result after the fixes: 0 violations on this page. [TODO: run the same audit on the prototype itself and add its results here.]</p>
+        <p className="cs-note">Result after the fixes: 0 violations on this page. The prototype has not been audited yet; that is next.</p>
       </div>
     </section>
   );
@@ -322,11 +322,7 @@ export function DesignToCode() {
       </div>
       <div className="d2c__links" data-reveal>
         <a href={DEMO} target="_blank" rel="noreferrer"><ExternalLink size={16} aria-hidden="true" /> Live prototype<span className="sr"> (opens in a new tab)</span></a>
-        {REPO ? (
-          <a href={REPO} target="_blank" rel="noreferrer"><Github size={16} aria-hidden="true" /> Code on GitHub<span className="sr"> (opens in a new tab)</span></a>
-        ) : (
-          <span className="todo"><Github size={16} aria-hidden="true" /> [TODO: GitHub repo link]</span>
-        )}
+        <a href={REPO} target="_blank" rel="noreferrer"><Github size={16} aria-hidden="true" /> Code on GitHub<span className="sr"> (opens in a new tab)</span></a>
       </div>
     </section>
   );
