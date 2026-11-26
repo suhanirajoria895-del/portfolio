@@ -303,9 +303,9 @@ export default function RoadFooter() {
         <ul className="rf-links">
           {LINKS.map(([label, href, ext]) => (
             <li key={label}>
-              <a href={href} {...(ext ? { target: "_blank", rel: "noreferrer" } : {})}>
+              <a href={href || undefined} style={href ? undefined : { cursor: "default" }} {...(ext && href ? { target: "_blank", rel: "noreferrer" } : {})}>
                 {label}
-                {ext && <span className="sr"> (opens in a new tab)</span>}
+                {ext && href && <span className="sr"> (opens in a new tab)</span>}
                 <span className="rf-ring" aria-hidden="true"><ArrowUpRight size={16} /></span>
               </a>
             </li>

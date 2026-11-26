@@ -185,7 +185,7 @@ export function initHome() {
     // ── Experience: small badges that swing with the mouse and flip on click
     const EXP = [
       { org: "Wysbrx Technologies", for: "UGAO for Industree Foundation", role: "UI/UX Designer Intern", when: "Jun – Jul 2026 · Remote", c1: "#ff6b5a", c2: "#ffd2c4",
-        link: "", desc: "I designed 150+ high-fidelity screens for UGAO, a bamboo cultivation platform with an admin web portal and a field app. I turned long field workflows into bilingual, step-by-step forms for people with varied digital literacy, and built a shared design system for web and mobile that the developers worked from." },
+        link: "", desc: "I was the lead UX designer on UGAO, a bamboo cultivation platform with an admin web portal and a field app, and designed 150+ high-fidelity screens. I turned long field workflows into bilingual, step-by-step forms for people with varied digital literacy, and built a shared design system for web and mobile that the developers worked from." },
       { org: "ABDA Studio", for: "Boutique hotel website", role: "Research Intern", when: "May – Jul 2025 · Hyderabad", c1: "#8f7cf0", c2: "#e2dcff",
         desc: "I set the design direction for a boutique business hotel's website. I audited 30+ well-known competitor hotel sites, ran user interviews, and turned the findings into a brand reference board, wireframes and early visual explorations." },
     ];

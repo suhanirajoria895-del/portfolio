@@ -122,7 +122,7 @@ export const recommendations = [];
 export const contact = {
   email: "suhanirajoria19@gmail.com",
   links: [
-    ["LinkedIn", "https://www.linkedin.com/"],
+    ["LinkedIn", ""],
     ["Behance", "https://www.behance.net/suhanirajoria19"],
   ],
   // Add your profile URLs to show these icons in the footer.
