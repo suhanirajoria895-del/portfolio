@@ -982,3 +982,9 @@
   .nav .links a::after { left: 7px; right: 7px; bottom: -2px; }
   .nav .links .cta { margin-left: 6px; padding: 9px 14px; font-size: 13.5px; }
 }
+
+/* Experience: one short description per role, optional case study link */
+.did-p { margin: 10px 0 0; }
+.did-link { display: inline-block; margin-top: 10px; font-weight: 600; color: #d6402f; text-decoration: none; }
+.did-link:hover { text-decoration: underline; }
+.did { padding-left: 0; }

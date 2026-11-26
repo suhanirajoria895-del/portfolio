@@ -185,9 +185,9 @@ export function initHome() {
     // ── Experience: small badges that swing with the mouse and flip on click
     const EXP = [
       { org: "Wysbrx Technologies", for: "UGAO for Industree Foundation", role: "UI/UX Designer Intern", when: "Jun – Jul 2026 · Remote", c1: "#ff6b5a", c2: "#ffd2c4",
-        pts: ["Redesigned admin and field app screens and designed new flows, delivering 70+ high-fidelity screens.", "Designed for accessibility: bilingual support, clear hierarchy and simple guided forms.", "Built a shared design system and worked closely with developers."] },
+        link: "", desc: "I designed 150+ high-fidelity screens for UGAO, a bamboo cultivation platform with an admin web portal and a field app. I turned long field workflows into bilingual, step-by-step forms for people with varied digital literacy, and built a shared design system for web and mobile that the developers worked from." },
       { org: "ABDA Studio", for: "Boutique hotel website", role: "Research Intern", when: "May – Jul 2025 · Hyderabad", c1: "#8f7cf0", c2: "#e2dcff",
-        pts: ["Led brand discovery and a competitor analysis of leading hotel sites.", "Ran user interviews and turned the insights into a clear design direction.", "Designed wireframes and early visual explorations."] },
+        desc: "I set the design direction for a boutique business hotel's website. I audited 30+ well-known competitor hotel sites, ran user interviews, and turned the findings into a brand reference board, wireframes and early visual explorations." },
     ];
     const ART = {
       "ABDA Studio": `<div class="note-r n1">User interviews</div><div class="note-r n2">Competitor analysis</div><div class="note-r n3">Wireframes</div>
@@ -197,14 +197,14 @@ export function initHome() {
         <text x="46" y="112" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="20" fill="#fff">ABDA</text>
         <text x="46" y="130" text-anchor="middle" font-family="Poppins" font-weight="500" font-size="9" letter-spacing="2" fill="#e2dcff">STUDIO</text></svg></div>`,
       "Wysbrx Technologies": `<div class="phone p1"><i class="h"></i><i></i><i class="l"></i><i></i><i class="b"></i></div><div class="phone p2"><i class="h"></i><i class="l"></i><i></i><i></i><i class="b"></i></div>
-        <div class="phone p3"><i class="h"></i><i></i><i></i><i class="l"></i><i class="b"></i></div><span class="chip k1">70+ screens</span><span class="chip k2">Design system</span>`,
+        <div class="phone p3"><i class="h"></i><i></i><i></i><i class="l"></i><i class="b"></i></div><span class="chip k1">150+ screens</span><span class="chip k2">Design system</span>`,
     };
     const jr = $("#journey");
     [...EXP].reverse().forEach((x) => {
       const st = document.createElement("article"); st.className = "stop reveal";
       st.innerHTML = `<div class="art" aria-hidden="true">${ART[x.org] || ""}</div><div class="stxt"><span class="yr">${x.when.split(" · ")[0].split(" ").pop()}</span>
         <h3>${x.org}</h3><p class="meta">${x.role} · ${x.for}</p><p class="meta2">${x.when}</p>
-        <button class="more" aria-expanded="false">What I did <i>+</i></button><ul class="did"><div>${x.pts.map((p) => `<li>${p}</li>`).join("")}</div></ul></div>`;
+        <button class="more" aria-expanded="false">What I did <i>+</i></button><div class="did"><div><p class="did-p">${x.desc}</p>${x.link ? `<a class="did-link" href="${x.link}" target="_blank" rel="noopener">See the case study ↗</a>` : ""}</div></div></div>`;
       const btn = $(".more", st), tog = () => { const o = st.classList.toggle("open"); btn.setAttribute("aria-expanded", o); };
       btn.addEventListener("click", tog); $(".art", st).addEventListener("click", tog);
       jr.appendChild(st);
